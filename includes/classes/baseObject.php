@@ -14,7 +14,7 @@ class BaseObject {
 
   public function __construct( string | null $strObjectId = null ) {
     $strClassName    = get_class( $this );
-    $objAllFields    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'fields/fields' . $strClassName . '.json' );
+    $objAllFields    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'fields/' . $strClassName . '.json' );
     $this->className = $strClassName;
     $this->config    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'config.json' );
     $this->id        = isset( $strObjectId ) ? $strObjectId : $this->newId( $this->className );
@@ -205,7 +205,7 @@ class BaseObject {
 
     foreach ( $objProperties as $strKey => $strValue ) {
       if( ! property_exists( $this->fields, $strKey ) ) continue;
-      if( $this->fields->$strKey->skipSave ) continue;
+      if( isset( $this->fields->$strKey->skipSave ) && $this->fields->$strKey->skipSave === true ) continue;
       if( ! isset( $strValue ) ) continue;
 
       $objStdObject->$strKey = $strValue;

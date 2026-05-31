@@ -1,0 +1,100 @@
+<script type="text/javascript">
+  window[ appAlias ].gamesWithCurrentPlayer = {{gamesWithCurrentPlayer}};
+</script>
+<form>
+  <input type="hidden" name="resetForm" value="1" />
+  <div class="content-container first-child" >
+    <h1 class="align-left float-left">Mein Account</h1>
+    <div class="align-right">
+      <button type="button" class="warning w-140 event-link" data-link="index.php?view=dashboard" />Zurück</button>
+    </div>  
+  </div>
+  <div class="content-container" >
+    <h2 class="align-left mb-15">Avatar</h2>
+    <table>
+      <tr>
+        <td class="align-top pr-10">
+          <div class="align-left" ><span class="bold">WICHTIG:</span> Felder mit einem Sternchen (*) sind Pflichtfelder und müssen ausgefüllt werden, um das Formular abzuschicken. Optionale Felder sind nicht mit einem Sternchen gekennzeichnet.</div>
+          <button type="button" class="primary c-mt-120 w-140 event-change-player-avatar" id="event-change-player-avatar">Avatar ändern</button>
+        </td>
+        <td class="align-top">
+          <img id="avatar" src="files/player/{{Player::email}}/avatar.png?v={{default::timestamp}}" class="c-edit-player-image">
+          <input id="avatar-upload" type="file" name="pictures[]" />
+        </td>
+      </tr>    
+    </table>
+  </div>  
+  <div class="content-container" >
+    <h2 class="align-left mb-15">Benutzerdaten</h2>
+    <table>
+      <tr>
+        <td class="w-200"><label class="mw-200">E-Mail Adresse*</label></td>
+        <td><input disabled="disabled" class="mb-5 mt-5 w-240" type="text" name="email" id="email" placeholder="Eingabe E-Mail Adresse" value="{{Player::email}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="mw-200">Passwort*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="password" name="password-temp" id="password-temp" placeholder="Eingabe Passwort" /></td>
+      </tr>
+      <tr>
+        <td><label class="mw-200">Passwort Wiederholung*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="password" name="password2-temp" id="password2-temp" placeholder="Eingabe Passwort Wiederholung" /></td>
+      </tr>
+    </table>
+    <div class="align-left mt-15"><span class="bold">WICHTIG:</span> Das Passwort muss aus mindestens 8 Zeichen, welche aus Groß- und Kleinbuchstaben sowie aus Zahlen und Sonderzeichen bestehen.</div>
+    <div class="align-left">
+      <button type="button" class="w-140 primary mt-10 event-change-player-password" id="event-change-player-password">Passwort ändern</button>
+    </div>
+  </div> 
+  <div class="content-container" >
+    <h2 class="align-left mb-15">Persönliche Daten</h2>
+    <table>
+      <tr>
+        <td class="w-200"><label class="mw-200">Geschlecht*</label></td>
+        <td>
+          <select class="mb-5 mt-5 c-w-265" name="gender" id="gender">
+            <option value="{{Player::gender}}">{{Translate::Player::gender}}</option>
+            <option value="girl">Weiblich</option>
+            <option value="boy">Männlich</option>
+          </select>
+        </td>
+      </tr> 
+      <tr>
+        <td><label class="mw-200">Benutzername*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="text" name="name" id="name" placeholder="Eingabe Benutzername" value="{{Player::name}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="mw-200">Orientierung*</label></td>
+        <td>
+          <select class="mb-5 mt-5 c-w-265" name="orientation" id="orientation">
+            <option value="{{Player::orientation}}">{{Translate::Player::orientation}}</option>
+            <option value="hetero">Heterosexuell</option>
+            <option value="bi-interested">Bisexuell interessiert</option>
+            <option value="bi">Bisexuell</option>
+            <option value="homo">Homosexuell</option>
+          </select>
+        </td>
+      </tr>      
+      <tr>
+        <td><label class="mw-200">Charakter*</label></td>
+        <td>
+          <select class="mb-5 mt-5 c-w-265" name="character" id="character">
+            <option value="{{Player::character}}">{{Translate::Player::character}}</option>
+            <option value="more-devot">eher Devot</option>
+            <option value="devot">Devot</option>
+            <option value="more-dominant">eher Dominant</option>
+            <option value="dominant">Dominant</option> 
+            <option value="switcher">Switcher</option>         
+          </select>
+        </td>
+      </tr> 
+    </table>
+    <div class="align-left">
+      <button type="button" disabled="disabled" class="primary submit event-save-object w-140" id="event-save-object" />Speichern</button>
+    </div>
+  </div>
+  <div class="content-container" >
+    <div class="align-left">
+      <button type="button" class="primary danger event-save-object w-140" id="event-delete-player" />Spieler Löschen</button>
+    </div>
+  </div>  
+</form>       

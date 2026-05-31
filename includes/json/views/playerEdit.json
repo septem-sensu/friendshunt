@@ -1,12 +1,13 @@
 {
   "alias": "playerEdit",
   "class": "Player",
-  "roles": [ "player" ],
+  "roles": [ "player", "administrator" ],
   "templates": [
     "header.tmpl",
     "player-edit.tmpl",
     "footer.tmpl"
   ],
   "actions": [
+    "Player::checkLogin"
   ]
 }

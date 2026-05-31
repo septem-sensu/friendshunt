@@ -7,6 +7,12 @@ include_once ( __DIR__ . '/../classes/presentation.php' );
 
 class Player extends BaseObject {
 
+  protected string $name;
+  protected string $password;
+  protected string $role;
+  protected string $email;
+  protected string $image;
+
   public static function checkLogin( object | null $objController = null ) : bool {
     $objConfig                   = BaseObject::getConfig();
     $strCookieName               = $objConfig->cookieName;
@@ -25,7 +31,7 @@ class Player extends BaseObject {
     if( ! isset( $objAllPlayer->$strPlayerIdFromCookie->password ) || $strPasswordFromCookie != $objAllPlayer->$strPlayerIdFromCookie->password ) return false;
 
     if( isset( $objController ) ) {
-      $objController->setRole( 'player' );
+      $objController->setRole( $objAllPlayer->$strPlayerIdFromCookie->role );
       $objController->setObject( new Player( $strPlayerIdFromCookie ) );
     }
 
@@ -45,10 +51,7 @@ class Player extends BaseObject {
   }
 
   public static function login( object $objLoginObject ) : object {
-    $objConfig                   = BaseObject::getConfig();
-    $strCookieName               = $objConfig->cookie_name;
     $objLoginObject->formErrors  = [];
-    $objResult                   = new stdClass();
     $objPlayer                   = null;
     $objAllPlayer                = BaseObject::getObjects( 'Player' );
     $strRedirect                 = 'index.php?view=dashboard';

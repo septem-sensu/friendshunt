@@ -44,5 +44,19 @@
     "mandatory": false,
     "unit": "",
     "position": 500
+  },
+  "role": {
+    "nameDe": "Rolle",
+    "element": "select",
+    "type": "text",
+    "options": [
+      { "value": "guest", "nameDe": "Gast" },
+      { "value": "player", "nameDe": "Spieler" },
+      { "value": "administrator", "nameDe": "Administrator" }
+    ],
+    "readOnly": true,
+    "mandatory": true,
+    "unit": "",
+    "position": 600
   }
 }
