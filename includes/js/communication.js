@@ -69,7 +69,7 @@ window[ appAlias ].methods._request = function( objRequest ) {
 
   for( var strProperty in objGetParams ) {
     strUrl += strUrl.indexOf( '?' ) == -1 ? '?' : '&';
-    strUrl += strProperty + '=' + encodeURIComponent( objGetParams[ strProperty ] ); 
+    strUrl += strProperty + '=' + encodeURIComponent( objGetParams[ strProperty ] );
   }
 
   objXhr.open( strMethodeAjax, strUrl, true );
@@ -97,7 +97,7 @@ window[ appAlias ].methods._request = function( objRequest ) {
 
           window[ appAlias ].requestErrors.push( objRequestError );
           window[ appAlias ].requestOnTheWay = {};
-          window[ appAlias ].methods.manageRequestQueue();      
+          window[ appAlias ].methods.manageRequestQueue();
         } else {
           window[ appAlias ].requestOnTheWay.requestCount = window[ appAlias ].requestOnTheWay.requestCount + 1;
           window[ appAlias ].methods._request( window[ appAlias ].requestOnTheWay );
@@ -113,31 +113,28 @@ window[ appAlias ].methods._request = function( objRequest ) {
   } else {
     objXhr.send( JSON.stringify( objRequest.postParams ) );
   }
-  
+
   return;
 };
 
 window[ appAlias ].methods.proccessResponse = function( objResponse ) {
   var i = 0;
 
-  if( typeof objResponse.result != 'object' || objResponse.result == null ) return;
-  if( typeof objResponse.result.errors == 'object' && objResponse.result.errors != null && objResponse.result.errors.length > 0 ) {
-    for ( i = 0; i < objResponse.result.errors; i++ ) {
-      if( typeof objResponse.result.errors[ i ].redirect == 'string' && objResponse.result.errors[ i ].redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.result.errors[ i ].redirect );
+  if( typeof objResponse.errors == 'object' && objResponse.errors != null && objResponse.errors.length > 0 ) {
+    for ( i = 0; i < objResponse.errors; i++ ) {
+      if( typeof objResponse.errors[ i ].redirect == 'string' && objResponse.errors[ i ].redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.errors[ i ].redirect );
     }
   }
 
-  if( typeof objResponse.result.methods == 'object' && objResponse.result.methods != null ) {
-    for ( i = 0; i < objResponse.result.methods.length; i++ ) {
-      if( typeof objResponse.result.methods[ i ].formErrors == 'object' && objResponse.result.methods[ i ].formErrors != null ) window[ appAlias ].methods.manageFormErrors( objResponse.result.methods[ i ].formErrors );
-      if( typeof objResponse.result.methods[ i ].redirect == 'string' && objResponse.result.methods[ i ].redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.result.methods[ i ].redirect ); 
-      window[ appAlias ].methods.setFields( objResponse.result.methods[ i ] );
-    }
+  if( typeof objResponse.result == 'object' && objResponse.result != null ) {
+      if( typeof objResponse.result.formErrors == 'object' && objResponse.result.formErrors != null ) window[ appAlias ].methods.manageFormErrors( objResponse.result.formErrors );
+      if( typeof objResponse.result.redirect == 'string' && objResponse.result.redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.result.redirect );
+      window[ appAlias ].methods.setFields( objResponse.result );
   }
 
-  if( typeof objResponse.result.object == 'object' && objResponse.result.object != null ) {
-    window[ appAlias ].methods.setFields( objResponse.result.object );
-  }  
+  if( typeof objResponse.object == 'object' && objResponse.object != null ) {
+    window[ appAlias ].methods.setFields( objResponse.object );
+  }
 
   return;
 };
@@ -184,4 +181,4 @@ window.addEventListener( 'load', function() {
 window.addEventListener( 'pageshow', function() {
 
   return;
-} );  
+} );

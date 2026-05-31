@@ -36,7 +36,7 @@ class Player extends BaseObject {
     }
 
     if( $strResultType == 'content' && isset( $objViewObject ) && isset( $objViewObject->alias ) && $objViewObject->alias == 'login' ) {
-      header( 'Location: index.php?view=dashboard' );
+      header( 'Location: index.php?view=' . $objConfig->defaultLoginView  );
       exit;
     }
 
@@ -53,8 +53,9 @@ class Player extends BaseObject {
   public static function login( object $objLoginObject ) : object {
     $objLoginObject->formErrors  = [];
     $objPlayer                   = null;
+    $objConfig                   = BaseObject::getConfig();
     $objAllPlayer                = BaseObject::getObjects( 'Player' );
-    $strRedirect                 = 'index.php?view=dashboard';
+    $strRedirect                 = 'index.php?view=' . $objConfig->defaultLoginView;
 
     if( Player::checkLogin( null ) ) {
       $objLoginObject->redirect = $strRedirect;

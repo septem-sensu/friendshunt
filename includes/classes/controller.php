@@ -82,22 +82,27 @@ class Controller {
     return $this->view();
   }
 
-  public function view() : string {
-    $this->executeActions();
-
-    //echo $this->role; exit;
-
-    if( ! in_array( $this->role, $this->viewObject->roles ) ) {
-      header( 'Location: index.php?view=' . $this->config->defaultView );
-
-      return '';
+  private function checkRole() : void {
+    if( ! in_array( $this->config->defaultRole, $this->viewObject->roles ) ) {
+      $strSetRole =$this->config->setRole;
+      $strSetRole( $this );
     }
+
+    return;
+  }
+
+  public function view() : string {
+    $this->checkRole();
+
+    if( ! in_array( $this->role, $this->viewObject->roles ) )  header( 'Location: index.php?view=' . $this->config->defaultView );
+
+    $this->executeActions();
 
     return $this->renderView();
   }
 
   public function json() : string {
-    $this->executeActions();
+    $this->checkRole();
 
     if( ! in_array( $this->role, $this->viewObject->roles )   ) {
         $objError           = new stdClass();
@@ -109,6 +114,7 @@ class Controller {
         return json_encode( $this->response );
     }
 
+    $this->executeActions();
     $this->response->object = $this->savePostData();
     $this->responseData();
     $this->presentationObject->getJsonHeader();

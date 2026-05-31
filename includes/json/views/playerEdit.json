@@ -8,6 +8,5 @@
     "footer.tmpl"
   ],
   "actions": [
-    "Player::checkLogin"
   ]
 }

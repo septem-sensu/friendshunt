@@ -4,8 +4,10 @@
   "appName": "Friendshunt",
   "cookieName": "Friendshunt",
   "defaultView": "login",
+  "defaultLoginView": "playerEdit",
   "defaultRole": "guest",
   "userClass": "Player",
+  "setRole": "Player::checkLogin",
   "passwordRules": {
     "passwordHasNumbers": true,
     "passwordHasSpecialCharacters": true,
