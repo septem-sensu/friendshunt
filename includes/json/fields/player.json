@@ -1,0 +1,48 @@
+{
+  "id": {
+    "nameDe": "ID",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 100
+  },
+  "email": {
+    "nameDe": "E-Mail",
+    "element": "input",
+    "type": "text",
+    "mail": true,
+    "unit": "",
+    "mandatory": true,
+    "readOnly": true,
+    "position": 200
+  },
+  "name": {
+    "nameDe": "Spielername",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 300
+  },
+  "password": {
+    "nameDe": "Passwort",
+    "element": "input",
+    "type": "password",
+    "mandatory": true,
+    "crypt": true,
+    "unit": "",
+    "minLength": 5,
+    "position": 400
+  },
+  "image": {
+    "nameDe": "Profilbild",
+    "element": "input",
+    "type": "file",
+    "mandatory": false,
+    "unit": "",
+    "position": 500
+  }
+}

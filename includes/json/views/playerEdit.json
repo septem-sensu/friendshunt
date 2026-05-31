@@ -1,0 +1,12 @@
+{
+  "alias": "playerEdit",
+  "class": "Player",
+  "roles": [ "player" ],
+  "templates": [
+    "header.tmpl",
+    "player-edit.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+  ]
+}

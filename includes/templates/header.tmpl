@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{default::appName}}</title>
+  <link rel="stylesheet" href="css/themes/default.css?v={{version}}">
+  <link rel="stylesheet" href="css/core.css?v={{version}}">
+  <link rel="stylesheet" href="css/spacer.css?v={{version}}">
+  <link rel="stylesheet" href="css/classes.css?v={{version}}">
+  <link rel="stylesheet" href="css/style.css?v={{version}}">
+  <link rel="stylesheet" href="css/custom.css?v={{version}}">
+  <link rel="stylesheet" href="css/game-button-panel.css?v={{version}}">
+  <link rel="stylesheet" href="css/game.css?v={{version}}">
+  <link rel="stylesheet" href="css/items.css?v={{version}}">
+  <link rel="stylesheet" href="css/audio.css?v={{version}}">
+  <script type="text/javascript">
+    var appAlias                     = '{{default::appAlias}}';
+    window[ appAlias ]               = window[ appAlias ] || {};
+    window[ appAlias ].id            = '{{default::id}}';
+    window[ appAlias ].class         = '{{default::class}}';
+    window[ appAlias ].view          = {{default::view}};
+    window[ appAlias ].fields        = {{default::fields}};
+    window[ appAlias ].passwordRules = {{default::passwordRules}};
+  </script>
+  <script type="text/javascript" src="js/communication.js?v={{version}}"></script>
+  <script type="text/javascript" src="js/validation.js?v={{version}}"></script>
+  <script type="text/javascript" src="js/listener.js?v={{version}}"></script>
+  <script type="text/javascript" src="js/custom.js?v={{version}}"></script>
+  <script type="text/javascript" src="js/game.js?v={{version}}"></script>
+  <script type="text/javascript" src="js/audio.js?v={{version}}"></script>
+  <script type="text/javascript" src="js/items.js?v={{version}}"></script>
+</head>
+<body>
+  <div class="content pb-10 pl-10 pr-10">

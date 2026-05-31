@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "appAlias": "Friendshunt",
+  "appName": "Friendshunt",
+  "cookieName": "Friendshunt",
+  "defaultView": "login",
+  "defaultRole": "guest",
+  "userClass": "Player",
+  "passwordRules": {
+    "passwordHasNumbers": true,
+    "passwordHasSpecialCharacters": true,
+    "passwordHasCapitalLetters": true,
+    "passwordHasLowercaseLetters": true
+  }
+}
