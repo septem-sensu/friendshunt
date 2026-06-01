@@ -1,0 +1,128 @@
+@keyframes pulseColorMagenta {
+  0% { box-shadow:0 0 4px rgba(255,61,129,0.2); }
+  50% { box-shadow:0 0 12px rgba(255,61,129,0.6); }
+  100% { box-shadow:0 0 4px rgba(255,61,129,0.2); }
+}
+
+.game .navigation-table {
+  table-layout: fixed;
+  width: 160px;
+}
+
+body .game button.disabled {
+  opacity: 0.3 !important;
+  cursor: unset !important;
+  box-shadow: unset !important;
+  cursor: not-allowed !important;
+}
+
+body .game button.disabled:hover {
+  opacity: 0.3 !important;
+  box-shadow: unset !important;
+  background-color: unset !important;
+}
+
+body .game button.disabled:active {
+  transform: none !important;
+}
+
+.game button {
+  background: rgba(255,255,255,0.05);
+  color: #eee;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 12px 20px;
+  margin: 6px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.game button:hover {
+  box-shadow: 0 0 12px rgba( 255, 255, 255, 0.4);
+}
+
+.game button:active {
+  transform: scale(.90);
+}
+
+.game button.action-refresh,
+.game button.action-use,
+.game button.action-cancel,
+.game button.action-ok,
+.game button.action-look,
+.game button.navigiation {
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: 19px;
+  background-position-x: 10px;
+  background-position-y: 10px;  
+}
+
+.game .navigiation-before::before { content:"▲"; }
+.game .navigiation-back::before { content:"▼"; }
+.game .navigiation-left::before { content:"◀"; }
+.game .navigiation-right::before { content:"▶"; }
+
+.game button.action-refresh {
+  border-color: #46d36b;
+  box-shadow: 0 0 6px rgba(255,61,129,0.4);
+  background-image: url('../images/icon-refresh.png');
+}
+
+.game button.action-refresh:hover {
+  background-color: #46d36b;
+}
+
+.game button.action-use {
+  border-color:#ff3d81;
+  box-shadow:0 0 6px rgba(255,61,129,0.4);
+  background-image: url('../images/icon-use.png');
+}
+
+.game button.action-use:hover {
+  background-color: #ff3d81;
+}
+
+.game button.action-look {
+  border-color: #3da6ff;
+  box-shadow: 0 0 6px rgba(61, 166, 255, 0.4);
+  background-image: url('../images/icon-eye.png');
+}
+
+.game button.action-look:hover {
+  background-color: #3da6ff !important;
+}
+
+.game button.action-ok {
+  border-color: #46d36b;
+  box-shadow: 0 0 6px rgba(70, 211, 107, 0.4);
+  background-image: url('../images/icon-ok.png');
+}
+
+.game button.action-ok:hover {
+  background-color: #46d36b;
+}
+
+.game button.action-cancel {
+  border-color: #ff4b4b;
+  box-shadow: 0 0 6px rgba(255, 75, 75, 0.4);
+  background-image: url('../images/icon-fail.png');
+}
+
+.game button.action-cancel:hover {
+  background-color: #ff4b4b;
+}
+
+.game button.action-use {
+  animation: pulseColorMagenta 2s infinite;
+}
+
+body .game button.fake-button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  cursor: unset !important;
+  
+}

@@ -49,14 +49,32 @@
     "nameDe": "Rolle",
     "element": "select",
     "type": "text",
-    "options": [
-      { "value": "guest", "nameDe": "Gast" },
-      { "value": "player", "nameDe": "Spieler" },
-      { "value": "administrator", "nameDe": "Administrator" }
-    ],
+    "options": {
+      "guest": "Gast",
+      "player": "Spieler",
+      "administrator": "Administrator"
+    },
     "readOnly": true,
     "mandatory": true,
     "unit": "",
     "position": 600
+  },
+  "title": {
+    "nameDe": "Title",
+    "element": "input",
+    "type": "text",
+    "unit": "",
+    "mandatory": false,
+    "readOnly": false,
+    "position": 700
+  },
+  "description": {
+    "nameDe": "Beschreibung",
+    "element": "textarea",
+    "type": "text",
+    "unit": "",
+    "mandatory": false,
+    "readOnly": false,
+    "position": 800
   }
 }

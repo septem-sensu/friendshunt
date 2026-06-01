@@ -1,0 +1,27 @@
+:root {
+  --backgroundColorBody: #1e0505;
+  --backgroundColorContent: #2a0808;
+  --backgroundColorContentContainer: rgba(255, 255, 255, 0.1);
+
+  --backgroundColorPrimary: #286090;
+  --backgroundColorSuccess: #449d44;
+  --backgroundColorInfo: #31b0d5;
+  --backgroundColorWarning: #ec971f;
+  --backgroundColorDanger: #d9534f;
+
+  --borderColorPrimary: #204d74;
+  --borderColorSuccess: #398439;
+  --borderColorInfo: #269abc;
+  --borderColorWarning: #d58512;
+  --borderColorDanger: #d43f3a;;
+
+  --borderColorInput: #ccc;
+  --backgroundColorInput: #fff;
+
+  --textColorContent: rgb(238, 238, 238);
+  --textColorHeadline: rgb(238, 238, 238);
+  --textColorLink: rgb(238, 238, 238);
+
+  --colorInput: #555;
+  --fontSizeForms: 14px;
+}

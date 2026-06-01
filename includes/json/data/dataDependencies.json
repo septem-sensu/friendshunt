@@ -1,0 +1,22 @@
+{
+  "guest": {
+    "methods": [
+      "Player::login"
+    ]
+  },
+  "player": {
+    "methods": [
+      "Player::saveRequestObject",
+      "Player::deletePlayer",
+      "Player::avatarFileUploaded"
+    ]
+  },
+  "administrator": {
+    "methods": [
+      "Player::newPlayer",
+      "Player::saveRequestObject",
+      "Player::deletePlayer",
+      "Player::avatarFileUploaded"
+    ]
+  }
+}

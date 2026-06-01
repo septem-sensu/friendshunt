@@ -1,0 +1,34 @@
+<script type="text/javascript">
+  window[ appAlias ].games      = {{Player::gameObjects}};
+  window[ appAlias ].gameFields = {{Game::gameFields}};
+</script>
+
+<div class="content-container first-child" >
+  <h1 class="align-left">Dashboard</h1>
+</div>
+<div class="content-container" >
+  <h2 class="align-left">Meine Daten</h2>
+  <table class="c-info-table mt-10" cellspacing="0">
+    <tr>
+      <td>
+        <table cellspacing="0">
+          <tr><td class="w-120">Titel:</td><td>{{Player::title}}</td></tr>
+          <tr><td class="w-120">Benutzername:</td><td>{{Player::name}}</td></tr>
+          <tr><td>E-Mail Adresse:</td><td>{{Player::email}}</td></tr>
+          <tr><td>Rolle:</td><td>{{Translate::Player::role}}</td></tr>
+          <tr><td>Titel:</td><td>{{Player::title}}</td></tr>
+          <tr><td>Beschreibung:</td><td>{{Player::description}}</td></tr>
+        </table>
+      </td>
+      <td class="align-right">
+        <img class="c-dashboard-player-image" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" />
+        <p><button data-link="index.php?view=playerEdit" type="button" class="primary event-link mt-10 w-140">Anpassen</button></p>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="content-container" >
+  <h2 class="align-left float-left">Spiele</h2>
+  <p class="align-right"><button data-link="index.php?view=gameEdit" type="button" class="event-link success w-140">Neues Spiel</button></p>
+</div>
+<div id="game-content-container"></div>

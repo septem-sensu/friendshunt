@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif, arial !important;
+  background-color: var(--backgroundColorBody);
+  text-align: center;   
+  color: var(--textColorContent); 
+}
+
+a {
+  text-decoration: none;
+  color: var(--textColorLink);
+}
+
+.content {
+  width: 600px;
+  margin: 0 auto;
+  background-color: var(--backgroundColorContent);
+  min-height: 3000px;
+}
+
+.content-container {
+  background-color: var(--backgroundColorContentContainer);
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+body .content-container.first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}

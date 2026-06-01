@@ -1,13 +1,13 @@
 <script type="text/javascript">
-  window[ appAlias ].gamesWithCurrentPlayer = {{gamesWithCurrentPlayer}};
+  // window[ appAlias ].gamesWithCurrentPlayer = {{gamesWithCurrentPlayer}};
 </script>
 <form>
   <input type="hidden" name="resetForm" value="1" />
   <div class="content-container first-child" >
     <h1 class="align-left float-left">Mein Account</h1>
     <div class="align-right">
-      <button type="button" class="warning w-140 event-link" data-link="index.php?view=dashboard" />Zurück</button>
-    </div>  
+      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+    </div>
   </div>
   <div class="content-container" >
     <h2 class="align-left mb-15">Avatar</h2>
@@ -15,15 +15,14 @@
       <tr>
         <td class="align-top pr-10">
           <div class="align-left" ><span class="bold">WICHTIG:</span> Felder mit einem Sternchen (*) sind Pflichtfelder und müssen ausgefüllt werden, um das Formular abzuschicken. Optionale Felder sind nicht mit einem Sternchen gekennzeichnet.</div>
-          <button type="button" class="primary c-mt-120 w-140 event-change-player-avatar" id="event-change-player-avatar">Avatar ändern</button>
         </td>
         <td class="align-top">
-          <img id="avatar" src="files/player/{{Player::email}}/avatar.png?v={{default::timestamp}}" class="c-edit-player-image">
+          <img id="avatar" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" class="c-edit-player-image pointer">
           <input id="avatar-upload" type="file" name="pictures[]" />
         </td>
-      </tr>    
+      </tr>
     </table>
-  </div>  
+  </div>
   <div class="content-container" >
     <h2 class="align-left mb-15">Benutzerdaten</h2>
     <table>
@@ -44,49 +43,37 @@
     <div class="align-left">
       <button type="button" class="w-140 primary mt-10 event-change-player-password" id="event-change-player-password">Passwort ändern</button>
     </div>
-  </div> 
+  </div>
   <div class="content-container" >
     <h2 class="align-left mb-15">Persönliche Daten</h2>
     <table>
       <tr>
-        <td class="w-200"><label class="mw-200">Geschlecht*</label></td>
-        <td>
-          <select class="mb-5 mt-5 c-w-265" name="gender" id="gender">
-            <option value="{{Player::gender}}">{{Translate::Player::gender}}</option>
-            <option value="girl">Weiblich</option>
-            <option value="boy">Männlich</option>
-          </select>
-        </td>
-      </tr> 
-      <tr>
-        <td><label class="mw-200">Benutzername*</label></td>
+        <td><label class="mw-200 w-200">Benutzername*</label></td>
         <td><input class="mb-5 mt-5 w-240" type="text" name="name" id="name" placeholder="Eingabe Benutzername" value="{{Player::name}}" /></td>
       </tr>
       <tr>
-        <td><label class="mw-200">Orientierung*</label></td>
+        <td><label class="mw-200">Rolle*</label></td>
         <td>
-          <select class="mb-5 mt-5 c-w-265" name="orientation" id="orientation">
-            <option value="{{Player::orientation}}">{{Translate::Player::orientation}}</option>
-            <option value="hetero">Heterosexuell</option>
-            <option value="bi-interested">Bisexuell interessiert</option>
-            <option value="bi">Bisexuell</option>
-            <option value="homo">Homosexuell</option>
+          <select class="mb-5 mt-5 c-w-265" name="role" id="role" readonly="readonly" disabled="disabled">
+            <option value="{{Player::role}}">{{Translate::Player::role}}</option>
+            <option value="guest">Gast</option>
+            <option value="player">Spieler</option>
+            <option value="administrator">Administrator</option>
           </select>
         </td>
-      </tr>      
+      </tr>
       <tr>
-        <td><label class="mw-200">Charakter*</label></td>
+        <td><label class="mw-200">Title </label></td>
         <td>
-          <select class="mb-5 mt-5 c-w-265" name="character" id="character">
-            <option value="{{Player::character}}">{{Translate::Player::character}}</option>
-            <option value="more-devot">eher Devot</option>
-            <option value="devot">Devot</option>
-            <option value="more-dominant">eher Dominant</option>
-            <option value="dominant">Dominant</option> 
-            <option value="switcher">Switcher</option>         
-          </select>
+          <input class="mb-5 mt-5 w-240" type="text" name="title" id="title" placeholder="Eingabe Title" value="{{Player::title}}" />
         </td>
-      </tr> 
+      </tr>
+      <tr>
+        <td><label class="mw-200">Beschreibung </label></td>
+        <td>
+          <textarea class="mb-5 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
+        </td>
+      </tr>
     </table>
     <div class="align-left">
       <button type="button" disabled="disabled" class="primary submit event-save-object w-140" id="event-save-object" />Speichern</button>
@@ -96,5 +83,5 @@
     <div class="align-left">
       <button type="button" class="primary danger event-save-object w-140" id="event-delete-player" />Spieler Löschen</button>
     </div>
-  </div>  
-</form>       
+  </div>
+</form>

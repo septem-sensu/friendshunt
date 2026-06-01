@@ -1,0 +1,892 @@
+@keyframes pulseColorGreen {
+  0% { box-shadow:0 0 4px rgba(4, 109, 54 , 0.2); }
+  50% { box-shadow:0 0 14px rgba(4, 109, 54 , 0.9); }
+  100% { box-shadow:0 0 4px rgba(4, 109, 54 , 0.2); }
+}
+
+@keyframes pulseColorGreenReverse {
+  0% { box-shadow:0 0 14px rgba(4, 109, 54 , 0.9); }
+  50% { box-shadow:0 0 4px rgba(4, 109, 54 , 0.2); }
+  100% { box-shadow:0 0 14px rgba(4, 109, 54 , 0.9); }
+}
+
+@keyframes pulseColorMagentaLight {
+  0% { box-shadow:0 0 4px rgba(255,61,129,0.1); }
+  50% { box-shadow:0 0 14px rgba(255,61,129,0.4); }
+  100% { box-shadow:0 0 4px rgba(255,61,129,0.1); }
+}
+
+@keyframes pulseColorMagentaLightReverse {
+  0% { box-shadow:0 0 14px rgba(255,61,129,0.4); }
+  50% { box-shadow:0 0 4px rgba(255,61,129,0.1); }
+  100% { box-shadow:0 0 14px rgba(255,61,129,0.4); }
+}
+
+@keyframes messageFlash {
+  0% { box-shadow: 0 0 0px #ff0000; background-color: #1a0505; }
+  30% { box-shadow: 0 0 20px #ff0000; background-color: #2a0808; }
+  100% { box-shadow: 0 0 0px #ff0000; background-color: #1a0505; }
+}
+
+@keyframes criticalBlink {
+  0% { color: rgba(255, 59, 59, 1) ;text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000; }
+  50% { color: rgba(255, 59, 59, 0) ;text-shadow: 0 0 2px #aa0000; }
+  100% { color: rgba(255, 59, 59, 1) ;text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000; }
+}
+
+@keyframes borderFlash {
+  0% { border-color: #3a0d0d; }
+  50% { border-color: #ff2a2a; }
+  100% { border-color: #3a0d0d; }
+}
+
+@keyframes fadeInOpacity {
+  0% { opacity: 0; height: 200px; width: 600px; }
+  100% { opacity: 1; height: 200px; width: 600px; }
+}
+
+@keyframes fadeOutOpacity {
+  0% { opacity: 1; height: 200px; width: 600px; }
+  99% { height: 200px; width: 600px; }
+  100% { opacity: 0; height: 0px; width: 0px; }
+}
+
+@keyframes alarm-pulse {
+  0% { background-color: rgba(0, 0, 0, 0.9); opacity: 1; }
+  50% { background-color: rgba(115, 0, 0, 0.6); opacity: 1; }
+  100% { background-color: rgba(0, 0, 0, 0.9); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+}
+
+@font-face {
+  font-family: 'DSEG7';
+  src: url('../css/fonts/DSEG7-Classic/DSEG7Classic-Regular.woff2') format('woff2'), url('../css/fonts/DSEG7-Classic/fonts/DSEG7Classic-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.game-border-magenta {
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-color: rgba(255, 61,129, 0.7) !important;
+}
+
+.game-border-green {
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-color: rgba(70, 211, 107, 0.5) !important;
+}
+
+body .critical {
+  animation: criticalBlink 1.0s infinite !important;
+}
+
+button.green {
+  border-color: rgba(70, 211, 107, 0.5) !important;
+}
+
+button.green:hover {
+  background-color: rgba(70, 211, 107, 0.7) !important;
+}
+
+button.magenta {
+  border-color: rgba(255, 61,129, 0.7) !important;
+}
+
+button.magenta:hover {
+  background-color: rgba(255, 61,129, 0.7) !important;
+}
+
+button.blue {
+  border-color: rgba(61, 166, 255, 0.7) !important;
+}
+
+button.blue:hover {
+  background-color: rgba(61, 166, 255, 0.7) !important;
+}
+
+#game-message-private-panel button.action-ok {
+  margin-top: 1px;
+}
+
+#public-message-text,
+#private-message-text {
+  padding-bottom: 18px;
+}
+
+#game-player-panel .new-message-from {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 17px;
+  height: 17px;
+  background: rgba(255, 0, 0, 0.4);
+  border-radius: 50%;
+  border: 1.5px solid white; /* Hebt den Badge vom Avatar ab */
+  box-shadow: 0 0 10px rgba(255, 71, 87, 0.7);
+  animation: pulse 2s infinite;
+}
+
+#message-text-public {
+  animation: pulseColorMagentaLightReverse 6s infinite;
+}
+
+#message-text-private-player,
+#message-text-private {
+  animation: pulseColorMagentaLight 4s infinite;
+}
+
+#message-text-public,
+#message-text-private-player {
+  position: absolute;
+  width: 575px;
+  left: 12px;
+  bottom: 10px;
+  z-index: 1000;
+  transition: opacity 0.8s; 
+}
+
+#game-message-private-panel #message-text-private-player,
+#game-message-private-panel.player-message table {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#game-message-private-panel.player-message #message-text-private-player,
+#game-message-private-panel table {
+  opacity: 0.8;
+}
+
+#game-message-private-panel table {
+  width: 588px;
+}
+
+#game-message-public-panel input,
+#game-message-private-panel input {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  z-index: 1002;
+  background-color: var(--backgroundColorContent);
+  font-size: 12px;
+  color: var(--textColorContent);
+  height: 10px;
+  width: 485px;
+  line-height: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  opacity: 0.8;
+  transition: width 0.8s;
+  padding-right: 30px;
+}
+
+#game-message-public-panel input,
+#game-message-private-panel.player-message input {
+  width: 533px !important;
+}
+
+#game-message-public-panel input::placeholder,
+#game-message-private-panel input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+#game-message-public-panel input:active,
+#game-message-public-panel input:focus,
+#game-message-private-panel input:focus,
+#game-message-private-panel input:active {
+  outline: none;
+  border-width: 1px !important;
+}
+
+.send-public-message-button,
+#game-message-private-panel.player-message .send-private-message-button {
+  right: 16px !important;
+}
+
+.send-public-message-button:hover,
+#game-message-private-panel .send-private-message-button:hover {
+  opacity: 0.4;
+}
+
+.send-public-message-button:active,
+#game-message-private-panel .send-private-message-button:active {
+  transform: scale(.90);
+}
+
+.send-public-message-button.disabled,
+#game-message-private-panel .send-private-message-button.disabled {
+  opacity: 0.4;
+}
+
+.send-public-message-button.disabled:active,
+#game-message-private-panel .send-private-message-button.disabled:active {
+  transform: scale(1);
+}
+
+.send-public-message-button,
+.send-private-message-button {
+  background-image: url('../images/message.png');
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  z-index: 1010;
+  position: absolute;
+  bottom: 10px;
+  right: 64px;
+  opacity: 0.7;
+  background-position-x: 10px;
+  background-position-y: 10px;
+  cursor: pointer;
+  transition: right 0.8s; 
+}
+
+#game-room-presentation-panel.hide,
+#game-message-private-panel.hide,
+#game-message-public-panel.hide,
+#game-meet-task-panel.hide {
+  overflow: hidden;
+  height: 0px;
+  opacity: 0;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;  
+}
+
+#game-room-presentation-panic-panel {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 600px;
+  height: 200px;
+  z-index: 10000; 
+  pointer-events: none; 
+}
+
+#game-room-presentation-fade-div {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 200px;
+  width: 600px;
+  z-index: 4000;
+  background-color: var(--backgroundColorContent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+#game-room-presentation-fade-div.fade-out {
+  opacity: 1;
+}
+
+#game-meet-task-panel {
+  height: 590px;
+  opacity: 1;
+  transition: opacity 1.5s, height 1s; 
+  animation: pulseColorMagentaLightReverse 6s infinite;
+}
+
+#game-meet-task-panel h2 {
+  opacity: 0.8;
+  font-size: 18px;
+  margin-top: 0px;
+}
+
+#game-meet-task-panel h3 {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 3px;
+}
+
+#game-meet-task-panel h4 {
+  opacity: 0.8;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
+#game-meet-task-panel p {
+  opacity: 0.8;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#game-meet-task-panel li {
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+#game-meet-task-panel img {
+  margin-left: -10px;
+  width: 600px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#game-meet-task-panel button {
+  margin-top: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#game-meet-task-panel .rules {
+  width: 600px;
+  margin-left: -10px;
+  padding-top: 2px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  background-color: var(--backgroundColorContentContainer);
+}
+
+.game-message-box-layer button:active,
+.game-item:active {
+  transform: scale(.97);
+}
+
+.new-message {
+  animation: messageFlash 1s ease;
+}
+
+#block-layer {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000;
+  z-index: 2000;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.8s
+}
+
+.game-message-box-layer {
+  position: fixed;
+  z-index: 2010;
+  background-color: var(--backgroundColorBody);
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(255, 61,129, 0.7);
+  animation: pulseColorMagentaLight 5s infinite;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.8s; 
+  font-size: 12px;
+  color: rgb(238, 238, 238);
+}
+
+#game-message-box-layer-smal {
+  width: 300px;
+  height: 150px;
+  top: calc(100vh / 2 - 75px) ;
+  left: calc(100vw / 2 - 150px) ;
+}
+
+#game-message-box-layer-medium {
+  width: 400px;
+  height: 400px;
+  top: calc(100vh / 2 - 200px) ;
+  left: calc(100vw / 2 - 200px) ;
+}
+
+#game-message-box-layer-big {
+  width: 500px;
+  height: 600px;
+  top: calc(100vh / 2 - 250px) ;
+  left: calc(100vw / 2 - 250px) ;
+}
+
+.game-message-box-layer.active,
+#block-layer.active {
+  display: block;
+} 
+
+.game-message-box-layer.show {
+  opacity: 1;
+} 
+
+#block-layer.show {
+  opacity: 0.7;
+} 
+
+.game-message-box-layer h2 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.game-message-box-layer h3 {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.game-message-box-layer h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.game-message-box-layer p {
+  margin-top: 8px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.game-message-box-layer div.rules {
+  font-size: 12px;
+  background-color: var(--backgroundColorContentContainer);
+  padding-top: 1px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+}
+
+.game-message-box-layer img {
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.game-message-box-layer li {
+  text-align: left;
+  margin-left: 40px;
+}
+
+.game-message-box-layer button {
+  opacity: 0.8;
+}
+
+.game-message-box-layer button:hover {
+  opacity: 0.6;
+}
+
+.game-message-box-layer button {
+  background-color: transparent;
+  font-size: 13px;
+}
+
+.warning {
+  color: #fff;
+  border-color: var(--backgroundColorWarning);  
+}
+
+.warning:hover {
+  background-color: var(--backgroundColorWarning);
+}
+
+.danger {
+  color: #fff;
+  border-color: var(--backgroundColorDanger);  
+}
+
+.danger:hover {
+  background-color: var(--backgroundColorDanger);
+}
+
+.primary {
+  color: #fff;
+  border-color: var(--backgroundColorPrimary);  
+}
+
+.primary:hover {
+  background-color: var(--backgroundColorPrimary);
+}
+
+.success {
+  color: #fff;
+  border-color: var(--backgroundColorSuccess);  
+}
+
+.success:hover {
+  background-color: var(--backgroundColorSuccess);
+}
+
+#game-room-presentation-image-div {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  height: 200px;
+  width: 100%;
+  z-index: 1010;
+}
+
+.player-in-room-image {
+  position: absolute;
+  bottom: 0px;
+  z-index: 5000;
+}
+
+.player-in-room-image img {
+  width: 140px;
+  margin-bottom: -4px;
+}
+
+#player-in-room-image-0 {
+  left: 20px;
+}
+
+#player-in-room-image-1 {
+  right: 20px;
+}
+
+#player-in-room-image-2 {
+  left: 140px;
+}
+
+#player-in-room-image-3 {
+  right: 140px;
+}
+
+#player-in-room-image-4 {
+  left: 260px;
+}
+
+#game-countdown-display {
+  border-radius: 4px;
+  font-family: 'DSEG7', monospace;
+  font-size: 26px;
+  color: rgba(255, 59, 59, 1);
+  background: #140404;
+  padding: 10px 20px;
+  letter-spacing: 4px;
+  margin-left: 6px;
+  margin-right: 6px;
+  margin-bottom: 5px;
+  margin-top: 6px;
+  animation: pulseColorMagentaLightReverse 5s infinite;
+}
+
+#game-countdown-display.disabled {
+  color: rgba(255, 59, 59, 0.3) !important;
+}
+
+#game-item-container {
+  width: calc(100% - 5px);
+  max-height: 202px;
+  height: 202px;
+  text-align: left;
+  overflow-y: hidden;
+  background-color: var(--backgroundColorBody);
+  font-size: 1rem;
+  border-radius: 4px;
+  font-size: 12px; 
+  animation: pulseColorMagentaLightReverse 6s infinite;
+  opacity: 0.8;
+}
+
+#game-player-panel {
+  height: 110px;
+  animation: pulseColorMagentaLight 6s infinite;
+}
+
+#game-player-panel .player-self {
+  cursor: not-allowed !important;
+}
+
+.game-item {
+  display: inline-block;
+  width: 57px;
+  height: 57px;
+  margin-left: 9px;
+  margin-top: 9px;
+  margin-bottom: -3px;
+  cursor: pointer;
+}
+
+.moderator-say {
+  color: #00ff00;
+}
+
+.content-container {
+  position: relative;
+}
+
+#game-room-presentation-panel {
+  height: 260px;
+  opacity: 1;
+  animation: pulseColorMagentaLight 4s infinite;
+  transition: opacity 1.5s, height 1s; 
+}
+
+#game-room-presentation-description {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+#game-room-presentation-image {
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  z-index: 1000;  
+}
+
+.last-child {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  bottom: -10px;
+  position: fixed;
+  width: 580px;
+}
+
+.game-player-avatar {
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 4px;
+  opacity: 0.5;
+  background-color: var(--backgroundColorBody);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.game-avatar-state-led {
+  color: rgba(255, 61, 61, 1);
+}
+
+.game-player-avatar.active .game-avatar-state-led {
+  color: rgba(70, 211, 107, 1);
+}
+
+.game-player-image {
+  width: 80px;
+  border-radius: 4px;
+}
+
+#game-player-panel .active {
+  opacity: 1;
+  animation: pulseColorGreen 3s infinite;
+}
+
+#game-player-panel .active.animation-reverse {
+  opacity: 1;
+  animation: pulseColorGreenReverse 3s infinite;
+}
+
+#game-message-private-panel {
+  height: 140px;
+  max-height: 140px;
+  opacity: 1;
+  transition: opacity 1.5s, height 1s;
+  animation: pulseColorMagentaLightReverse 6s infinite;
+}
+
+#game-message-private-panel #message-text {
+  animation: pulseColorMagentaLight 4s infinite;
+}
+
+#game-state-panel {
+  animation: pulseColorMagentaLight 6s infinite;
+}
+
+#game-button-panel {
+  padding-bottom: 3px !important;
+  animation: pulseColorMagentaLight 4s infinite;
+}
+
+#game-button-panel table.game-button-panel-table-outer {
+  width: 589px;
+  position: relative;
+  left: -6px;
+}
+
+#game-message-public-panel {
+  height: 140px;
+  max-height: 140px;
+  opacity: 1;
+  transition: opacity 1.5s, height 1s;
+  animation: pulseColorMagentaLightReverse 4s infinite;
+}
+
+#game-message-public-panel #message-text {
+  animation: pulseColorMagentaLight 6s infinite;
+}
+
+#game-state-panel p {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+#game-state-panel span {
+  margin-right: 10px;
+}
+
+#game-room-presentation-headline,
+.items-header,
+.message-header {
+  font-weight: bold;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-bottom: 4px;
+  margin-top: -5px;
+  text-align: center;  
+}
+
+.message-text {
+  width: 527px;;
+  max-height: 120px;
+  height: 120px;
+  text-align: left;
+  overflow-y: hidden;
+  background-color: var(--backgroundColorBody);
+  font-size: 1rem;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.message-text div {
+  margin: 5px;
+}
+
+#game-button-panel .game-item.disabled {
+  opacity: 0.3;
+}
+
+#game-button-panel .game-item.disabled:active {
+  transform: scale(1);
+}
+
+#game-button-panel .game-item.disabled:hover {
+  cursor: not-allowed;
+}
+
+@keyframes pulseColorMagentaColor {
+  0% { color: rgba(255, 61,129, 0.4); font-size: 20px; }
+  50% { color: rgba(255, 61,129, 1); font-size: 32px; }
+  100% { color: rgba(255, 61,129, 0.4); font-size: 20px; }
+}
+
+.room-item-wish {
+  position: absolute;  
+  background-image: url('../images/items/roomItemWunschJoker.jpg');
+  background-size: 92px;
+  background-repeat: no-repeat;
+  width: 92px;
+  height: 92px;
+  text-align: center;
+  font-weight: 900;
+  border-radius: 4px;
+}
+
+.room-item-wish-content {
+  text-shadow: #000000 1px 1px 5px;
+}
+
+.room-item-skip {
+  position: absolute;  
+  background-image: url('../images/items/roomItemJokerSkipTaskPanel.png');
+  background-size: 92px;
+  background-repeat: no-repeat;
+  width: 92px;
+  height: 92px;
+  text-align: center;
+  font-weight: 900;
+  border-radius: 4px;
+}
+
+.room-item-skip-content {
+  margin-top: 48px;
+  color: rgba(255, 61, 129, 1);
+  text-shadow: #000000 1px 1px 5px;
+  font-size: 24px;
+}
+
+#game-room-presentation-room-light-off {
+  position: absolute;
+  background-color: #000;
+  bottom: 0px;
+  left: 0px;
+  width: 600px;
+  height: 200px;
+  opacity: 0.9;
+  z-index: 6000;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+#game-room-presentation-light-div {
+  position: absolute;
+  background-color: #000;
+  bottom: 0px;
+  left: 0px;
+  width: 600px;
+  height: 200px;
+  z-index: 1000;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+#game-audio-engine-adjustment-button {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  width: 20px;
+  height: 20px;
+  background-image: url(../images/audio.png);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position-x: 0px;
+  background-position-y: 0px;
+  opacity: 0.7;
+  cursor: pointer;
+  z-index: 6000;
+}
+
+#game-audio-engine-adjustment-button:hover {
+  opacity: 0.4;
+}
+
+#game-audio-engine-adjustment-button:active {
+  transform: scale(.90);
+}
+
+#game-audio-engine-adjustment-button.all-muted {
+  background-image: url(../images/audio-off.png);
+  background-size: 12px;
+  background-position-x: 1px;
+  background-position-y: 2px;
+}
+
+#game-audio-engine-adjustment-button.disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important; 
+}
+
+#game-meet-task-panel .game-audio-adjustment-container button {
+  margin-top: 30px;
+}
+
+#game-meet-task-panel div {
+  z-index: 100;
+}
+
+#game-meet-task-panel div div {
+  z-index: 200;
+}
+
+.higher-contrast {
+  filter: contrast(1.5);
+}
+
+.panic-mode {
+  animation: alarm-pulse 1s infinite;
+}

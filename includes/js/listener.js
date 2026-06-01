@@ -13,13 +13,14 @@ window[ appAlias ].listener.loginButtons = function() {
   return;
 };
 
-window[ appAlias ].listener.registerButtons = function() {
-  var arrRegisterButtons = document.querySelectorAll( '.event-register' );
+window[ appAlias ].listener.newPlayerButtons = function() {
+  var arrRegisterButtons = document.querySelectorAll( '.event-new-player' );
 
   for( var i = 0; i < arrRegisterButtons.length; i++ ) {
     arrRegisterButtons[ i ].addEventListener( 'click', function() {
-      var objPost = window[ appAlias ].methods.newJsonRequestObject( 'Player', 'preRegister', null ); 
+      var objPost = window[ appAlias ].methods.newJsonRequestObject( 'Player', 'newPlayer', null );
       objPost.id = objPost.email;
+      objPost.image = 'avatar.png';
 
       return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
     } );
@@ -76,14 +77,14 @@ window[ appAlias ].listener.saveNewGame = function() {
   document.querySelector( '#event-save-new-game' ).addEventListener( 'click', function() {
     var arrPlayerHtmlObjects = document.querySelectorAll('input[name="player-id"]');
     var objPost              = { 'player': [], 'class': 'Game', 'methode': 'saveNewGame' };
-    
+
     objPost.level            = document.querySelector('#level') != null ? document.querySelector('#level').value : null;
     objPost.name             = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
     objPost.moderator        = document.querySelector('#moderator') != null ? document.querySelector('#moderator').value : null;
 
     if( arrPlayerHtmlObjects.length < 2 ) {
       window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-player-field' } ] );
-      return;      
+      return;
     }
 
     for( var i = 0; i < arrPlayerHtmlObjects.length; i++ ) {
@@ -110,7 +111,7 @@ window[ appAlias ].listener.changePlayerPassword = function() {
     }
 
     window[ appAlias ].methods.resetFormErrors();
-    
+
     return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
   } );
 
@@ -129,7 +130,7 @@ window[ appAlias ].listener.uploadAvatar = function() {
       objFormData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ]);
       objFormData.append( 'class', 'Player' );
       objFormData.append( 'id', window[ appAlias ].id );
-      objFormData.append( 'property', 'avatar' );
+      objFormData.append( 'property', 'image' );
       objFormData.append( 'methode', 'Player::avatarFileUploaded' );
 
       return window[ appAlias ].methods.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, objFormData, 'proccessResponse' );
@@ -148,7 +149,6 @@ window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
     return;
   } );
 
-
   return;
 };
 
@@ -158,32 +158,6 @@ window[ appAlias ].listener.changePlayerAvatar = function() {
   document.querySelector( '#event-change-player-avatar' ).addEventListener( 'click', function(){
     return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, window[ appAlias ].methods.newJsonRequestObject( 'Player', 'changePlayerAvatar', window[ appAlias ].id ), 'proccessResponse' );
   } );
-
-  return;
-};
-
-window[ appAlias ].listener.enterMessage = function() {
-  if( document.querySelector( '#game-message-private-panel input[name="message-input-field"]' ) != null ) {
-    document.querySelector( '#game-message-private-panel input[name="message-input-field"]' ).addEventListener( 'keydown', function( objEvent ) {
-      if ( objEvent.key === 'Enter' ) {
-        objEvent.preventDefault();
-        document.querySelector( '#game-message-private-panel div.send-private-message-button' ).click();
-      }
-
-      return;
-    } );
-  }
-
-  if( document.querySelector( '#game-message-public-panel input[name="message-input-field"]' ) != null ) {
-    document.querySelector( '#game-message-public-panel input[name="message-input-field"]' ).addEventListener( 'keydown', function( objEvent ) {
-      if ( objEvent.key === 'Enter' ) {
-        objEvent.preventDefault();
-        document.querySelector( '#game-message-public-panel div.send-public-message-button' ).click();
-      }
-
-      return;
-    } );
-  }
 
   return;
 };
@@ -216,7 +190,7 @@ window[ appAlias ].listener.resetForms = function() {
 
 window.addEventListener( 'load', function() {
   window[ appAlias ].listener.loginButtons();
-  window[ appAlias ].listener.registerButtons();
+  window[ appAlias ].listener.newPlayerButtons();
   window[ appAlias ].listener.links();
   window[ appAlias ].listener.uploadAvatar();
   window[ appAlias ].listener.changePlayerAvatar();
@@ -226,13 +200,12 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.addPlayerToGame();
   window[ appAlias ].listener.saveNewGame();
   window[ appAlias ].listener.deletePlayer();
-  window[ appAlias ].listener.enterMessage();
 
   return;
 } );
 
 window.addEventListener( 'pageshow', function() {
   window[ appAlias ].listener.resetForms();
-  
+
   return;
-} ); 
+} );

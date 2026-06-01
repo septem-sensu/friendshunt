@@ -137,7 +137,7 @@ class Presentation {
       }
       if( $objField->type == 'checkbox' ) continue;
       if( strlen( $objObject->$strFieldname ) < $intMinLengt ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Field has too few characters' ) );
-      if( $objField->mail && ! filter_var( $objObject->$strFieldname, FILTER_VALIDATE_EMAIL ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Not a E-Mail Address' ) );
+      if( isset( $objField->mail ) && $objField->mail && ! filter_var( $objObject->$strFieldname, FILTER_VALIDATE_EMAIL ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Not a E-Mail Address' ) );
       if( $objField->type == 'password' ) {
         if( $objConfig->passwordRules->passwordHasCapitalLetters && ! preg_match( '/[A-Z]/', $objObject->$strFieldname ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Password has no Capital Letters' ) );
         if( $objConfig->passwordRules->passwordHasLowercaseLetters && ! preg_match( '/[a-z]/', $objObject->$strFieldname ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Password has no Lowercase Letters' ) );

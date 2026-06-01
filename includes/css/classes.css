@@ -1,0 +1,20 @@
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+
+.clear-both { clear: both; height: 0px; min-height: 0px }
+.float-left { float: left; }
+.float-right { float: right; }
+
+.align-left { text-align: left; }
+.align-right { text-align: right; }
+.align-center { text-align: center; }
+.align-top { vertical-align: top; }
+.align-bottom { vertical-align: bottom; }
+.align-middle { vertical-align: middle; }
+
+.bold { font-weight: 600 }
+
+.hidden { display: none; }
+
+.pointer { cursor: pointer; }

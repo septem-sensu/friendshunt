@@ -36,8 +36,9 @@ class Controller {
     $this->response->errors   = [];
 
     $this->resultType         = isset( $_GET[ 'result' ] ) && $_GET[ 'result' ] != '' ? $_GET[ 'result' ] : 'content';
-    $this->viewName           = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : 'login'; //$this->config->defaultView;
+    $this->viewName           = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : $this->config->defaultView;
     $this->objectId           = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : '';
+    $this->objectId           = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
     $this->viewObject         = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'views/' . ucfirst( $this->viewName ) . '.json' );
     $this->className          = $this->viewObject->class;
     $this->templates          = $this->viewObject->templates;
@@ -84,14 +85,14 @@ class Controller {
 
   private function checkRole() : void {
     if( ! in_array( $this->config->defaultRole, $this->viewObject->roles ) ) {
-      $strSetRole =$this->config->setRole;
+      $strSetRole = $this->config->setRole;
       $strSetRole( $this );
     }
 
     return;
   }
 
-  public function view() : string {
+  private function view() : string {
     $this->checkRole();
 
     if( ! in_array( $this->role, $this->viewObject->roles ) )  header( 'Location: index.php?view=' . $this->config->defaultView );
@@ -101,7 +102,7 @@ class Controller {
     return $this->renderView();
   }
 
-  public function json() : string {
+  private function json() : string {
     $this->checkRole();
 
     if( ! in_array( $this->role, $this->viewObject->roles )   ) {
@@ -122,7 +123,7 @@ class Controller {
     return json_encode( $this->response );
   }
 
-  public function savePostData() {
+  private function savePostData() {
     $strClass     = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId        = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
     $strProperty  = isset( $_POST[ 'property' ] ) ? $_POST[ 'property' ] : null;
@@ -151,7 +152,23 @@ class Controller {
     return $objObject;
   }
 
-  public function responseData() : void {
+  private function checkDependencies( string $strClass, string $strMethode ) : bool {
+    $objDependencies = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'dataDependencies.json' );
+    $strRole         = $this->role;
+
+    if( ! in_array( $strClass . '::' . $strMethode, $objDependencies->$strRole->methods ) ) {
+      $objError           = new stdClass();
+      $objError->message  = 'Zugriff verweigert';
+
+      array_push( $this->response->errors, $objError );
+
+      return false;
+    }
+
+    return true;
+  }
+
+  private function responseData() : void {
     $objRequestObject             = json_decode( file_get_contents( 'php://input' ) );
 
     if( ! isset( $objRequestObject ) ) return;
@@ -160,6 +177,8 @@ class Controller {
     $strClassName                 = isset( $objRequestObject->class ) && $objRequestObject->class != '' ? $objRequestObject->class : null;
     $strMethode                   = isset( $objRequestObject->methode ) && $objRequestObject->methode != '' ? $objRequestObject->methode : null;
     $strObjectId                  = isset( $objRequestObject->id ) && $objRequestObject->id != '' ? $objRequestObject->id : null;
+
+    if( ! $this->checkDependencies( $strClassName, $strMethode ) ) return;
 
     if( isset( $strObjectId ) ) {
       $objObject              = new $strClassName( $strObjectId );
@@ -172,12 +191,15 @@ class Controller {
   }
 
   private function renderView() : string {
-    $strContent = '';
+    $strContent     = '';
+
+    $this->objectId = isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] != '' ? $_GET[ 'id' ] : '';
+    $this->objectId = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
 
     $this->presentationObject->assignTemplateVar( 'fields', 'default', null, json_encode( BaseObject::fields( $this->className ) ) );
     $this->presentationObject->assignTemplateVar( 'view', 'default', null, json_encode( $this->viewObject ) );
     $this->presentationObject->assignTemplateVar( 'class', 'default', null, $this->className );
-    $this->presentationObject->assignTemplateVar( 'id', 'default', null, isset( $strId ) ? $strId : '' );
+    $this->presentationObject->assignTemplateVar( 'id', 'default', null, isset( $this->objectId ) ? $this->objectId : '' );
 
     if( isset( $this->object ) ) {
       $this->presentationObject->assignTemplateVar( $this->object->serializeObject( $this->object ), $this->className, BaseObject::fields( $this->className ) );

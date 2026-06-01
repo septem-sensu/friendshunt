@@ -12,6 +12,42 @@ class Player extends BaseObject {
   protected string $role;
   protected string $email;
   protected string $image;
+  protected array  $games;
+  protected string $title;
+  protected string $description;
+
+  public static function newPlayer( object $objNewPlayerRequestObject ) : object {
+    $objAllPlayer                        = BaseObject::getObjects( 'Player' );
+    $objFields                           = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'fields/player.json' );
+    $objValidateResult                   = Presentation::validateFields( $objFields, $objNewPlayerRequestObject );
+    $strEmail                            = $objNewPlayerRequestObject->email;
+    $objNewPlayerRequestObject->password = isset( $objNewPlayerRequestObject->password ) ? BaseObject::enCrypteOnly( $objNewPlayerRequestObject->password ) : null;
+
+    if( ! $objValidateResult->success ) {
+      $objNewPlayerRequestObject->formErrors = $objValidateResult->formErrors;
+
+      return $objNewPlayerRequestObject;
+    }
+
+    if( isset( $objAllPlayer->$strEmail ) ) {
+      $objNewPlayerRequestObject->formErrors = [];
+      array_push( $objNewPlayerRequestObject->formErrors, Presentation::newFormError( '#email', 'Spieler existiert schon' ) );
+
+      return $objNewPlayerRequestObject;
+    }
+
+    $objNewPlayerRequestObject              = BaseObject::cleanObject( $objNewPlayerRequestObject, $objFields );
+    $objAllPlayer->$strEmail                = $objNewPlayerRequestObject;
+
+    BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataPlayer.json', $objAllPlayer );
+
+    if( ! file_exists( __DIR__ . '/../files/player/' ) ) mkdir( __DIR__ . '/../files/player' );
+    if( ! file_exists( __DIR__ . '/../files/player/' . $strEmail ) ) mkdir( __DIR__ . '/../files/player/' . $strEmail );
+
+    copy( __DIR__ . '/../images/no-profil-image.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
+
+    return $objNewPlayerRequestObject;
+  }
 
   public static function checkLogin( object | null $objController = null ) : bool {
     $objConfig                   = BaseObject::getConfig();
@@ -84,6 +120,53 @@ class Player extends BaseObject {
     $objLoginObject->succsess = true;
 
     return $objLoginObject;
+  }
+
+  public static function avatarFileUploaded( string $strFileName ) : void {
+    $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
+    $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+    $strPath         = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
+
+    if( file_exists( $strPath . 'avatar.png' ) ) unlink( $strPath . 'avatar.png' );
+    if( file_exists( $strPath . 'avatar.jpg' ) ) unlink( $strPath . 'avatar.jpg' );
+    if( file_exists( $strPath . 'avatar.webp' ) ) unlink( $strPath . 'avatar.webp' );
+
+    $arrPathInfo = pathinfo( $strPath . $strFileName );
+
+    rename( $strPath . $strFileName, $strPath . 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) );
+
+    $objPlayer = new $strClass( $strId );
+    $objPlayer->set( 'image', 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) . '?v=' . time() );
+
+    //Presentation::logToFile( $strPath . $strFileName, null, true );
+
+    return;
+  }
+
+  public function deletePlayer( object $objRequestObject ) : object {
+    //$arrGames         = $this->games;
+    $objAllPlayer     = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
+    $strPlayerId      = $this->id();
+
+    /*
+    for( $i = 0; $i < count( $arrGames ); $i++ ) {
+      $objGame   = new Game( $arrGames[ $i ] );
+      $objDelete = new stdClass();
+
+      $objDelete->class = 'Game';
+      $objDelete->id    = $arrGames[ $i ];
+
+      $objGame->deleteGame( $objDelete );
+    }
+    */
+
+    $this->deleteDirectory( __DIR__ . '/../files/player/' . $strPlayerId . '/' );
+    unset( $objAllPlayer->$strPlayerId );
+    BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataPlayer.json', $objAllPlayer );
+
+    $objRequestObject->redirect = 'index.php?view=login';
+
+    return $objRequestObject;
   }
 }
 

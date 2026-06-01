@@ -1,0 +1,57 @@
+<form>
+  <input type="hidden" name="resetForm" value="1" />
+  <div class="content-container first-child" >
+    <h1 class="align-left float-left">Mein Game</h1>
+    <div class="align-right">
+      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+    </div>
+  </div>
+
+  <div class="content-container">
+    <h2 class="align-left mb-15">Spiel Informationen</h2>
+    <table>
+      <tr>
+        <td><label class="minw-200">Name des Spiels*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Moderator*</label></td>
+        <td>
+          <select class="mb-5 mt-5 c-w-265" name="moderator" id="moderator">
+            <option value="jessy">Jessy</option>
+            <option value="chloe">Chloe</option>
+            <option value="jason">Jason</option>
+            <option value="duke">Duke</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Spiellevel*</label></td>
+        <td>
+          <select class="mb-5 mt-5 c-w-265" name="level" id="level">
+            <option value="1">Küssen und Kuscheln</option>
+            <option value="2">Fummeln und Körper erforschen</option>
+            <option value="3">Hier gehts um Sex</option>
+            <option value="4">Die etwas härtere Gangart</option>
+            <option value="5">BDSM für Einsteiger</option>
+            <option value="6">Nichts für schwache Nerven</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="content-container">
+    <h2 class="align-left float-left mt-5">Spieler</h2>
+    <p class="align-right">
+      <input type="text" class="w-220" name="search-player-field" id="search-player-field" />
+      <button type="button" class="event-add-player-to-game success w-140" id="event-add-player-to-game">Spieler hinzufügen</button>
+    </p>
+  </div>
+
+  <div id="game-content-container"></div>
+
+  <div class="align-left">
+    <button type="button" disabled="disabled" id="event-save-new-game" class="submit primary event-save-new-game w-140">Spiel speichern</button>
+  </div>
+</form>

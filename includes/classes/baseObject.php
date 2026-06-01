@@ -62,7 +62,7 @@ class BaseObject {
     } else {
       foreach( $mixProperty as $strProperty => $mixValueArray ) {
         if( ! property_exists( $this->fields, $strProperty ) ) continue;//throw new Exception("Property not exists or protected");
-        if( $this->fields->$strProperty->crypt ) $mixValueArray = $this->enCrypteOnly( $mixValueArray );
+        if( isset( $this->fields->$strProperty->crypt ) && $this->fields->$strProperty->crypt === true ) $mixValueArray = $this->enCrypteOnly( $mixValueArray );
         $this->$strProperty = $mixValueArray;
       }
     }
@@ -107,7 +107,7 @@ class BaseObject {
 
     foreach( $objRequestObject as $strProperty => $mixValue ) {
       if( ! isset( $objFields->$strProperty ) ) continue;
-      if( isset( $objFields->$strProperty->readOnly ) ) continue;
+      if( isset( $objFields->$strProperty->readOnly ) && $objFields->$strProperty->readOnly ) continue;
       if( $objFields->$strProperty->element == 'img' ) {
         $arrImage                       = explode( '/', $mixValue );
         $objSave->$strProperty          = $arrImage[ count( $arrImage ) - 1 ];
