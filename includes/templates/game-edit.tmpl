@@ -15,39 +15,81 @@
         <td><input class="mb-5 mt-5 w-240" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" /></td>
       </tr>
       <tr>
-        <td><label class="minw-200">Moderator*</label></td>
-        <td>
-          <select class="mb-5 mt-5 c-w-265" name="moderator" id="moderator">
-            <option value="jessy">Jessy</option>
-            <option value="chloe">Chloe</option>
-            <option value="jason">Jason</option>
-            <option value="duke">Duke</option>
-          </select>
-        </td>
+        <td><label class="minw-200">Titel des Spiels*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="text" name="title" id="title" placeholder="Eingabe Titel des Spiels" value="{{Game::title}}" /></td>
       </tr>
       <tr>
-        <td><label class="minw-200">Spiellevel*</label></td>
-        <td>
-          <select class="mb-5 mt-5 c-w-265" name="level" id="level">
-            <option value="1">Küssen und Kuscheln</option>
-            <option value="2">Fummeln und Körper erforschen</option>
-            <option value="3">Hier gehts um Sex</option>
-            <option value="4">Die etwas härtere Gangart</option>
-            <option value="5">BDSM für Einsteiger</option>
-            <option value="6">Nichts für schwache Nerven</option>
-          </select>
-        </td>
+        <td><label class="minw-200">Beschreibung</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="text" name="description" id="description" placeholder="Eingabe Beschreibung" value="{{Game::description}}" /></td>
       </tr>
     </table>
   </div>
 
   <div class="content-container">
-    <h2 class="align-left float-left mt-5">Spieler</h2>
+    <h2 class="align-left float-left mt-5">Spieler*</h2>
     <p class="align-right">
-      <input type="text" class="w-220" name="search-player-field" id="search-player-field" />
+      <input type="text" class="w-220 mr-10" name="search-player-field" id="search-player-field" />
       <button type="button" class="event-add-player-to-game success w-140" id="event-add-player-to-game">Spieler hinzufügen</button>
     </p>
   </div>
+
+  <div id="game-content-container-player"></div>
+
+  <div class="content-container">
+    <h2 class="align-left float-left mt-5">Jäger*</h2>
+    <p class="align-right">
+      <input type="text" class="w-220 mr-10" name="search-hunter-field" id="search-hunter-field" />
+      <button type="button" class="event-add-hunter-to-game success w-140" id="event-add-hunter-to-game">Jäger hinzufügen</button>
+    </p>
+  </div>
+
+  <div id="game-content-container-hunter"></div>
+
+  <div class="content-container">
+    <h2 class="align-left float-left mt-5">Spielleitung</h2>
+    <p class="align-right">
+      <input type="text" class="w-220 mr-10" name="search-management-field" id="search-management-field" />
+      <button type="button" class="event-add-management-to-game success w-140" id="event-add-management-to-game">Leitung hinzufügen</button>
+    </p>
+  </div>
+
+  <div id="game-content-container-management"></div>
+
+  <div class="content-container">
+    <h2 class="align-left mb-15">Spiel Einstellungen</h2>
+    <table>
+      <tr>
+        <td><label class="minw-200">Start des Spiels*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="datetime-local" name="start" id="start" placeholder="Eingabe Start des Spiels" value="{{Game::start}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Dauer des Spiels*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="number" name="duration" id="duration" placeholder="Eingabe Spieldauer in Stunden" value="{{Game::duration}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Silent Hunt Intervall*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="number" name="pingInterval" id="pingInterval" placeholder="Eingabe Silent Hunt Interv. in Minuten" value="{{Game::pingInterval}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Speed Hunt Intervall*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Anzahl Speed Hunt Pings*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::speedPingCount}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Start Position*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="text" name="startPosition" id="startPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::startPosition}}" /></td>
+      </tr>
+      <tr>
+        <td><label class="minw-200">Exit Position*</label></td>
+        <td><input class="mb-5 mt-5 w-240" type="text" name="exitPosition" id="exitPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::exitPosition}}" /></td>
+      </tr>
+    </table>
+  </div>
+
+
 
   <div id="game-content-container"></div>
 

@@ -2,6 +2,9 @@
 
 declare( strict_types = 1 );
 
+ini_set('log_errors', 1);
+ini_set('error_log', '');
+
 class BaseObject {
   const FILEPATHBASE      = __DIR__ . '/../';
   const FILEPATHJSON      = __DIR__ . '/../json/';
@@ -54,16 +57,20 @@ class BaseObject {
     return $this->$strProperty;
   }
 
-  public function set( string | array | object $mixProperty, string | array | object | null $mixValue = null ) : void {
-    if( gettype( $mixProperty ) == 'string' ) {
+  public function set( string | int | array | object $mixProperty, string | int | array | object | null $mixValue = null ) : void {
+    if( gettype( $mixProperty ) == 'string' || gettype( $mixValue ) == 'integer' ) {
       if( ! property_exists( $this->fields, $mixProperty ) ) throw new Exception("Property not exists or protected");
-      if( $this->fields->$mixProperty->crypt ) $mixValue = $this->enCrypteOnly( $mixValue );
+      if( isset( $this->fields->$mixProperty->crypt ) && $this->fields->$mixProperty->crypt === true ) $mixValue = $this->enCrypteOnly( $mixValue );
       $this->$mixProperty = $mixValue;
     } else {
       foreach( $mixProperty as $strProperty => $mixValueArray ) {
         if( ! property_exists( $this->fields, $strProperty ) ) continue;//throw new Exception("Property not exists or protected");
         if( isset( $this->fields->$strProperty->crypt ) && $this->fields->$strProperty->crypt === true ) $mixValueArray = $this->enCrypteOnly( $mixValueArray );
-        $this->$strProperty = $mixValueArray;
+        if( $this->fields->$strProperty->type == 'number' ) {
+          $this->$strProperty =  intval( $mixValueArray );
+        } else {
+          $this->$strProperty =  $mixValueArray;
+        }
       }
     }
 

@@ -76,5 +76,14 @@
     "mandatory": false,
     "readOnly": false,
     "position": 800
+  },
+  "games": {
+    "nameDe": "Games",
+    "element": "array",
+    "type": "text",
+    "mandatory": false,
+    "unit": "",
+    "minLength": 0,
+    "position": 900
   }
 }

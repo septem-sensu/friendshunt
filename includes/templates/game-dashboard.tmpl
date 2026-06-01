@@ -1,0 +1,90 @@
+<script type="text/javascript">
+  window[ appAlias ].gameImages = {{Game::images}};
+</script>
+
+<input type="hidden" name="resetForm" value="1" />
+<div class="content-container first-child" >
+  <h1 class="align-left float-left">Mein Game</h1>
+  <div class="align-right">
+    <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+  </div>
+</div>
+
+<div class="content-container">
+  <h2 class="align-left mb-15">Spiel Informationen</h2>
+  <table style="width: 100%;">
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><label class="minw-200">Name des Spiels</label></td>
+            <td>{{Game::name}}</td>
+          </tr>
+          <tr>
+            <td><label class="minw-200">Titel des Spiels</label></td>
+            <td>{{Game::title}}</td>
+          </tr>
+          <tr>
+            <td><label class="minw-200">Beschreibung</label></td>
+            <td>{{Game::description}}</td>
+          </tr>
+        </table>
+      </td>
+      <td class="align-right">
+        <img src="includes/files/game/{{Game::id}}/{{Game::avatar}}" class="c-dashboard-player-image ml-20 pointer" id="avatar" />
+        <input id="avatar-upload" type="file" name="pictures[]">
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="content-container">
+  <h2 class="align-left mb-15">Spiel Einstellungen</h2>
+  <table>
+    <tr>
+      <td><label class="minw-200">Start des Spiels</label></td>
+      <td class="align-right">{{Game::start}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label class="minw-200">Dauer des Spiels</label></td>
+      <td class="align-right">{{Game::duration}}</td>
+      <td class="align-right pl-10"> Stunden</td>
+    </tr>
+    <tr>
+      <td><label class="minw-200">Silent Hunt Intervall</label></td>
+      <td class="align-right">{{Game::pingInterval}}</td>
+      <td class="align-right pl-10"> Minuten</td>
+    </tr>
+    <tr>
+      <td><label class="minw-200">Speed Hunt Intervall</label></td>
+      <td class="align-right">{{Game::speedPingInterval}}</td>
+      <td class="align-right pl-10"> Minuten</td>
+    </tr>
+    <tr>
+      <td><label class="minw-200">Anzahl Speed Hunt Pings</label></td>
+      <td class="align-right">{{Game::speedPingCount}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label class="minw-200">Start Position</label></td>
+      <td class="align-right">{{Game::startPosition}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label class="minw-200">Exit Position</label></td>
+      <td class="align-right">{{Game::exitPosition}}</td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+<div class="content-container" id="game-images-content-container">
+  <h2 class="mb-15 align-left float-left">Bilder vom Spiel</h2>
+  <div class="align-right">
+    <button type="button" id="event-game-images-upload-button" class="submit primary w-140 mb-20">Bild hinzufügen</button>
+    <input id="game-images-upload" type="file" name="pictures[]">
+  </div>
+</div>
+<script>
+  window[ appAlias ].methods.cAddGameImagesContent();
+</script>

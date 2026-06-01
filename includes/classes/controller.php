@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/presentation.php' );
 include_once ( __DIR__ . '/../classes/player.php' );
+include_once ( __DIR__ . '/../classes/game.php' );
 
 class Controller {
   protected string        $resultType;
@@ -201,7 +202,10 @@ class Controller {
     $this->presentationObject->assignTemplateVar( 'class', 'default', null, $this->className );
     $this->presentationObject->assignTemplateVar( 'id', 'default', null, isset( $this->objectId ) ? $this->objectId : '' );
 
-    if( isset( $this->object ) ) {
+    if( isset( $this->object ) && get_class( $this->object ) == $this->className ) {
+      $this->presentationObject->assignTemplateVar( $this->object->serializeObject( $this->object ), $this->className, BaseObject::fields( $this->className ) );
+    } else if( isset( $this->className ) && $this->className != '' && isset( $this->objectId ) && $this->objectId != '' ) {
+      $this->object = new $this->className( $this->objectId );
       $this->presentationObject->assignTemplateVar( $this->object->serializeObject( $this->object ), $this->className, BaseObject::fields( $this->className ) );
     }
 
@@ -213,11 +217,14 @@ class Controller {
   }
 
   private function executeActions() : void {
+    $strObjectId      = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : null;
+    $strObjectId      = ( ! isset( $strObjectId ) || $strObjectId == '' ) && isset( $this->object ) ? $this->object->id() : $strObjectId;
+
     for( $i = 0; $i < count( $this->actions ); $i++ ) {
-      $this->objectId    = ! isset( $this->objectId ) && isset( $this->object ) ? $this->object->id() : $this->objectId;
+      $strObjectId    = ( ! isset( $this->objectId ) || $this->objectId == '' ) && isset( $this->object ) ? $this->object->id() : $this->objectId;
       $arrActionParts = explode( '::', $this->actions[ $i ] );
 
-      if( isset( $strObjectId ) && $arrActionParts[ 0 ] == $this->className ) {
+      if( isset( $strObjectId ) && $strObjectId != '' && $arrActionParts[ 0 ] == $this->className ) {
         $objObject        = new $this->className( $strObjectId );
         $strAction        = $arrActionParts[ 1 ];
         $objObject->$strAction( $this );

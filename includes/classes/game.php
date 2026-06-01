@@ -3,9 +3,25 @@
 declare( strict_types = 1 );
 
 include_once ( __DIR__ . '/../classes/baseObject.php' );
-include_once ( __DIR__ . '/../classes/gameplay.php' );
 
 class Game extends BaseObject {
+
+  protected string $name;
+  protected string $title;
+  protected string $description;
+  protected array  $player;
+  protected array  $hunter;
+  protected array  $management;
+  protected string $start;
+  protected int    $duration;
+  protected string $avatar;
+  protected int    $pingInterval;
+  protected int    $speedPingInterval;
+  protected int    $speedPingCount;
+  protected string $startPosition;
+  protected string $exitPosition;
+  protected array  $images = [];
+  protected string $tmpImageAdd;
 
   public function initGame( object | null $objController = null ) : void {
     if( isset( $_GET[ 'result' ] ) && $_GET[ 'result' ] == 'json' ) return;
@@ -76,20 +92,94 @@ class Game extends BaseObject {
     return $strTemplateContent;
   }
 
+  public static function addGameImage( string $strFileName ) : void {
+    $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
+    $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+
+    $objGame = new $strClass( $strId );
+    $arrImmages = $objGame->get( 'images' );
+
+    array_push( $arrImmages, $strFileName );
+    $objGame->set( 'images', $arrImmages );
+    $objGame->set( 'tmpImageAdd', '' );
+
+    return;
+  }
+
+  public static function avatarFileUploaded( string $strFileName ) : void {
+    $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
+    $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+    $strPath         = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
+
+    if( file_exists( $strPath . 'avatar.png' ) ) unlink( $strPath . 'avatar.png' );
+    if( file_exists( $strPath . 'avatar.jpg' ) ) unlink( $strPath . 'avatar.jpg' );
+    if( file_exists( $strPath . 'avatar.webp' ) ) unlink( $strPath . 'avatar.webp' );
+
+    $arrPathInfo = pathinfo( $strPath . $strFileName );
+
+    rename( $strPath . $strFileName, $strPath . 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) );
+
+    $objPlayer = new $strClass( $strId );
+    $objPlayer->set( 'avatar', 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) . '?v=' . time() );
+
+    //Presentation::logToFile( $strPath . $strFileName, null, true );
+
+    return;
+  }
+
   public function startGame( object $objRequestObject ) : object {
     $objRequestObject->redirect = "index.php?view=game&class=Game&id=" . $objRequestObject->id;
 
     return $objRequestObject;
   }
 
+  public function addGamePlayDataToGame( object $objRequestObject ) : object {
+
+
+
+
+
+    return $objRequestObject;
+  }
+
   public function deleteGame( object $objRequestObject ) : object {
-    $strClass     = $objRequestObject->class;
-    $strId        = $objRequestObject->id;
-    $objGame      = new $strClass( $strId );
-    $arrPlayerIds = $objGame->get( 'player' );
+    $strClass         = $objRequestObject->class;
+    $strId            = $objRequestObject->id;
+    $objGame          = new $strClass( $strId );
+    $arrPlayerIds     = $objGame->get( 'player' );
+    $arrHunterIds     = $objGame->get( 'hunter' );
+    $arrManagementIds = $objGame->get( 'management' );
 
     for( $i = 0; $i < count( $arrPlayerIds ); $i++ ) {
       $objPlayer   = new Player( $arrPlayerIds[ $i ] );
+      $arrGames    = $objPlayer->get( 'games' );
+      $arrGames    = isset( $arrGames ) ? $arrGames : [];
+      $arrGamesNew = [];
+
+      for( $j = 0; $j < count( $arrGames ); $j++ ) {
+        if( $arrGames[ $j ] == $strId ) continue;
+        array_push( $arrGamesNew, $arrGames[ $j ] );
+      }
+
+      $objPlayer->set( 'games', $arrGamesNew );
+    }
+
+    for( $i = 0; $i < count( $arrHunterIds ); $i++ ) {
+      $objPlayer   = new Player( $arrHunterIds[ $i ] );
+      $arrGames    = $objPlayer->get( 'games' );
+      $arrGames    = isset( $arrGames ) ? $arrGames : [];
+      $arrGamesNew = [];
+
+      for( $j = 0; $j < count( $arrGames ); $j++ ) {
+        if( $arrGames[ $j ] == $strId ) continue;
+        array_push( $arrGamesNew, $arrGames[ $j ] );
+      }
+
+      $objPlayer->set( 'games', $arrGamesNew );
+    }
+
+    for( $i = 0; $i < count( $arrManagementIds ); $i++ ) {
+      $objPlayer   = new Player( $arrManagementIds[ $i ] );
       $arrGames    = $objPlayer->get( 'games' );
       $arrGames    = isset( $arrGames ) ? $arrGames : [];
       $arrGamesNew = [];
@@ -109,55 +199,94 @@ class Game extends BaseObject {
   }
 
   public static function saveNewGame( object $objRequestObject ) : object {
-    $arrCalc                       = [ 'man' => 0, 'girl' => 0, 'domgirl' => 0, 'devgirl' => 0, 'domboy' => 0, 'devboy' => 0, 'level' => $objRequestObject->level ];
-    $objAvatars                    = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataAvatar.json' );
-    $strGameId                     = uniqid( 'game_', true );
-    $objGame                       = new Game( $strGameId );
-    $arrPlayer                     = $objRequestObject->player;
-    $strModeratorId                = $objRequestObject->moderator;
-    $objRequestObject->redirect    = 'index.php?view=dashboard';
-    $strGameplayPath               = __DIR__ . '/../files/game/' . $strGameId . '/';
-    $objGameplay                   = new StdClass();
-    $objGameplay->player           = [];
-    $objGameplay->level            = $objRequestObject->level;
-    $objGameplay->name             = $objRequestObject->name;
-    $objGameplay->moderator        = $objAvatars->moderators->$strModeratorId;
-    $objGameplay->creationDate     = date( "Y-m-d H:i:s" );
-    $objGameplay->foundedRoomItems = new StdClass();
+    $strGameId                      = uniqid( 'game_', true );
+    $objGame                        = new Game( $strGameId );
+    $arrPlayer                      = $objRequestObject->player;
+    $arrHunter                      = $objRequestObject->hunter;
+    $arrManagement                  = $objRequestObject->management;
+
+    $objRequestObject->redirect     = 'index.php?view=player';
+    $strGameplayPath                = __DIR__ . '/../files/game/' . $strGameId . '/';
+    $objGameplay                    = new StdClass();
+    $objGameplay->player            = [];
+    $objGameplay->hunter            = [];
+    $objGameplay->management        = [];
+    $objGameplay->name              = $objRequestObject->name;
+    $objGameplay->title             = $objRequestObject->title;
+    $objGameplay->description       = $objRequestObject->description;
+    $objGameplay->start             = $objRequestObject->start;
+    $objGameplay->duration          = $objRequestObject->duration;
+    $objGameplay->pingInterval      = $objRequestObject->pingInterval;
+    $objGameplay->speedPingInterval = $objRequestObject->speedPingInterval;
+    $objGameplay->speedPingCount    = $objRequestObject->speedPingCount;
+    $objGameplay->startPosition     = $objRequestObject->startPosition;
+    $objGameplay->exitPosition      = $objRequestObject->exitPosition;
+    $objGameplay->creationDate      = date( "Y-m-d H:i:s" );
 
     for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
-      $objPlayer      = new Player( $arrPlayer[ $i ] );
-      $arrGames       = $objPlayer->get( 'games' );
-      $arrGames       = isset( $arrGames ) ? $arrGames : [];
-      $strCharacter   = $objPlayer->get( 'character' );
+      $objPlayer           = new Player( $arrPlayer[ $i ] );
+      $arrGames            = $objPlayer->get( 'games' );
+      $arrGames            = isset( $arrGames ) ? $arrGames : [];
+      $objSerializedPlayer = $objPlayer->serializeObject();
+
       $objPlayer->set( 'id', $arrPlayer[ $i ] );
 
-      array_push( $objGameplay->player, $objPlayer );
+      unset( $objSerializedPlayer->games );
+      unset( $objSerializedPlayer->password );
 
-      if( $objPlayer->get( 'gender' ) == 'girl' ) {
-        $arrCalc[ 'girl' ]    = $arrCalc[ 'girl' ] + 1;
-        $arrCalc[ 'devgirl' ] = $strCharacter == 'more-devot' || $strCharacter == 'devot' ? $arrCalc[ 'devgirl' ] + 1 : $arrCalc[ 'devgirl' ];
-        $arrCalc[ 'domgirl' ] = $strCharacter == 'more-dominant' || $strCharacter == 'dominant' ? $arrCalc[ 'domgirl' ] + 1 : $arrCalc[ 'domgirl' ];
-      } else {
-        $arrCalc[ 'boy' ]     = $arrCalc[ 'boy' ] + 1;
-        $arrCalc[ 'devboy' ]  = $strCharacter == 'more-devot' || $strCharacter == 'devot' ? $arrCalc[ 'devboy' ] + 1 : $arrCalc[ 'devboy' ];
-        $arrCalc[ 'domboy' ]  = $strCharacter == 'more-dominant' || $strCharacter == 'dominant' ? $arrCalc[ 'domboy' ] + 1 : $arrCalc[ 'domboy' ];
+      array_push( $objGameplay->player, $objSerializedPlayer );
+
+      if( ! in_array( $strGameId, $arrGames ) ) {
+        array_push( $arrGames, $strGameId );
+        $objPlayer->set( 'games', $arrGames );
       }
-
-      array_push( $arrGames, $strGameId );
-      $objPlayer->set( 'games', $arrGames );
     }
 
-    //$strAvatar                 = Game::getAvatar( $arrCalc );
-    //$objRequestObject->avatar  = $strAvatar;
+    for( $i = 0; $i < count( $arrHunter ); $i++ ) {
+      $objPlayer           = new Player( $arrHunter[ $i ] );
+      $arrGames            = $objPlayer->get( 'games' );
+      $arrGames            = isset( $arrGames ) ? $arrGames : [];
+      $objSerializedPlayer = $objPlayer->serializeObject();
 
+      $objPlayer->set( 'id', $arrHunter[ $i ] );
+
+      unset( $objSerializedPlayer->games );
+      unset( $objSerializedPlayer->password );
+
+      array_push( $objGameplay->hunter, $objSerializedPlayer );
+
+      if( ! in_array( $strGameId, $arrGames ) ) {
+        array_push( $arrGames, $strGameId );
+        $objPlayer->set( 'games', $arrGames );
+      }
+    }
+
+    for( $i = 0; $i < count( $arrManagement ); $i++ ) {
+      $objPlayer           = new Player( $arrManagement[ $i ] );
+      $arrGames            = $objPlayer->get( 'games' );
+      $arrGames            = isset( $arrGames ) ? $arrGames : [];
+      $objSerializedPlayer = $objPlayer->serializeObject();
+
+      $objPlayer->set( 'id', $arrManagement[ $i ] );
+
+      unset( $objSerializedPlayer->games );
+      unset( $objSerializedPlayer->password );
+
+      array_push( $objGameplay->management, $objSerializedPlayer );
+
+      if( ! in_array( $strGameId, $arrGames ) ) {
+        array_push( $arrGames, $strGameId );
+        $objPlayer->set( 'games', $arrGames );
+      }
+    }
+
+    $objRequestObject->avatar  = 'avatar.png';
 
     mkdir( $strGameplayPath );
-    //copy( __DIR__ . '/../images/avatars/game/' . $strAvatar, $strGameplayPath . $strAvatar );
+    copy( __DIR__ . '/../images/no-profil-image.png', $strGameplayPath . 'avatar.png' );
     BaseObject::saveFileEnCrypted( $strGameplayPath . 'gameplay.json', $objGameplay );
-    BaseObject::saveFileEnCrypted( $strGameplayPath . 'messages.json', new StdClass() );
 
-    //$objGame->set( 'avatar', $strAvatar );
+    $objGame->set( 'avatar', 'avatar.png' );
     $objGame->set( $objRequestObject );
     $objGame->set( 'id', $strGameId );
 
@@ -181,9 +310,39 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+  public static function addHunterToGame( object $objRequestObject ) : object {
+    $objAllPlayer  = BaseObject::getObjects( 'Player' );
+    $strPlayerId   = $objRequestObject->player;
+    $objPlayer     = isset( $objAllPlayer ) && isset( $strPlayerId ) && $strPlayerId != '' && isset( $objAllPlayer->$strPlayerId ) ? $objAllPlayer->$strPlayerId : null;
 
+    if( ! isset( $objPlayer ) ) {
+      $objRequestObject->formErrors = [];
+      array_push( $objRequestObject->formErrors, Presentation::newFormError( '#search-hunter-field', 'Jäger nicht gefunden' ) );
 
+      return $objRequestObject;
+    }
 
+    $objRequestObject->playerObject = $objPlayer;
+
+    return $objRequestObject;
+  }
+
+  public static function addManagementToGame( object $objRequestObject ) : object {
+    $objAllPlayer  = BaseObject::getObjects( 'Player' );
+    $strPlayerId   = $objRequestObject->player;
+    $objPlayer     = isset( $objAllPlayer ) && isset( $strPlayerId ) && $strPlayerId != '' && isset( $objAllPlayer->$strPlayerId ) ? $objAllPlayer->$strPlayerId : null;
+
+    if( ! isset( $objPlayer ) ) {
+      $objRequestObject->formErrors = [];
+      array_push( $objRequestObject->formErrors, Presentation::newFormError( '#search-management-field', 'Management nicht gefunden' ) );
+
+      return $objRequestObject;
+    }
+
+    $objRequestObject->playerObject = $objPlayer;
+
+    return $objRequestObject;
+  }
 
 
 

@@ -16,7 +16,12 @@
       "Player::newPlayer",
       "Player::saveRequestObject",
       "Player::deletePlayer",
-      "Player::avatarFileUploaded"
+      "Player::avatarFileUploaded",
+      "Game::addPlayerToGame",
+      "Game::addHunterToGame",
+      "Game::addManagementToGame",
+      "Game::saveNewGame",
+      "Game::deleteGame"
     ]
   }
 }

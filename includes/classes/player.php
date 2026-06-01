@@ -2,6 +2,9 @@
 
 declare( strict_types = 1 );
 
+ini_set('log_errors', 1);
+ini_set('error_log', '');
+
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/presentation.php' );
 
@@ -12,7 +15,7 @@ class Player extends BaseObject {
   protected string $role;
   protected string $email;
   protected string $image;
-  protected array  $games;
+  protected array  $games = [];
   protected string $title;
   protected string $description;
 
@@ -47,6 +50,23 @@ class Player extends BaseObject {
     copy( __DIR__ . '/../images/no-profil-image.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
 
     return $objNewPlayerRequestObject;
+  }
+
+  public function addGamesToTemplate( object $objRequestObject ) : object {
+    $arrGameIds = $this->games;
+    $arrGames   = [];
+
+    if( ! is_array( $arrGameIds ) ) return $objRequestObject;
+
+    for( $i = 0; $i < count( $arrGameIds ); $i++ ) {
+      $objGame         = new Game( $arrGameIds[ $i ] );
+      array_push( $arrGames, $objGame->serializeObject() );
+    }
+
+    $objRequestObject->getPresentationObject()->assignTemplateVar( 'gameObjects', 'Player', $this->fields( 'Player' ), json_encode( $arrGames ) );
+    $objRequestObject->getPresentationObject()->assignTemplateVar( 'gameFields', 'Game', $this->fields( 'Game' ), json_encode( $this->fields( 'Game' ) ) );
+
+    return $objRequestObject;
   }
 
   public static function checkLogin( object | null $objController = null ) : bool {

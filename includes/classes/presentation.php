@@ -56,7 +56,7 @@ class Presentation {
 
     foreach( $this->templateVars as $strProperty => $strValue ) {
       if( gettype( $strValue ) == 'object' || gettype( $strValue ) == 'array' ) $strValue = json_encode( $strValue );
-      $strContent = str_replace( '{{' . $strProperty . '}}', $strValue, $strContent );
+      $strContent = str_replace( '{{' . $strProperty . '}}', strval( $strValue ), $strContent );
     }
 
      return preg_replace( '/\{\{.*?\}\}/s', '', $strContent );

@@ -59,6 +59,46 @@ window[ appAlias ].listener.addPlayerToGame = function() {
   return;
 };
 
+window[ appAlias ].listener.addHunterToGame = function() {
+  if( document.querySelector( '#event-add-hunter-to-game' ) == null ) return;
+
+  document.querySelector( '#event-add-hunter-to-game' ).addEventListener( 'click', function() {
+    window[ appAlias ].methods.resetFormErrors();
+
+    var strSearchField = document.querySelector( '#search-hunter-field' ) != null ? document.querySelector( '#search-hunter-field' ).value : null;
+    var objPost        = { 'class': 'Game', 'methode': 'addHunterToGame', 'player': strSearchField };
+
+    if( strSearchField == null || strSearchField.length < 6 ) {
+      window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
+      return;
+    }
+
+    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponseAddHunterToGame' );
+  } );
+
+  return;
+};
+
+window[ appAlias ].listener.addManagementToGame = function() {
+  if( document.querySelector( '#event-add-management-to-game' ) == null ) return;
+
+  document.querySelector( '#event-add-management-to-game' ).addEventListener( 'click', function() {
+    window[ appAlias ].methods.resetFormErrors();
+
+    var strSearchField = document.querySelector( '#search-management-field' ) != null ? document.querySelector( '#search-management-field' ).value : null;
+    var objPost        = { 'class': 'Game', 'methode': 'addManagementToGame', 'player': strSearchField };
+
+    if( strSearchField == null || strSearchField.length < 6 ) {
+      window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-management-field' } ] );
+      return;
+    }
+
+    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponseAddManagementToGame' );
+  } );
+
+  return;
+};
+
 window[ appAlias ].listener.deletePlayer = function() {
   if( document.querySelector( '#event-delete-player' ) == null ) return;
 
@@ -75,20 +115,43 @@ window[ appAlias ].listener.saveNewGame = function() {
   if( document.querySelector( '#event-save-new-game' ) == null ) return;
 
   document.querySelector( '#event-save-new-game' ).addEventListener( 'click', function() {
-    var arrPlayerHtmlObjects = document.querySelectorAll('input[name="player-id"]');
-    var objPost              = { 'player': [], 'class': 'Game', 'methode': 'saveNewGame' };
+    var arrPlayerHtmlObjects     = document.querySelectorAll('input[name="player-id"]');
+    var arrHunterHtmlObjects     = document.querySelectorAll('input[name="hunter-id"]');
+    var arrManagementHtmlObjects = document.querySelectorAll('input[name="management-id"]');
 
-    objPost.level            = document.querySelector('#level') != null ? document.querySelector('#level').value : null;
-    objPost.name             = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
-    objPost.moderator        = document.querySelector('#moderator') != null ? document.querySelector('#moderator').value : null;
+    var objPost                  = { 'player': [], 'hunter': [], 'management': [], 'class': 'Game', 'methode': 'saveNewGame' };
 
-    if( arrPlayerHtmlObjects.length < 2 ) {
+    objPost.name                 = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
+    objPost.title                = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
+    objPost.description          = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
+    objPost.start                = document.querySelector('#start') != null ? document.querySelector('#start').value : null;
+    objPost.duration             = document.querySelector('#duration') != null ? document.querySelector('#duration').value : null;
+    objPost.pingInterval         = document.querySelector('#pingInterval') != null ? document.querySelector('#pingInterval').value : null;
+    objPost.speedPingInterval    = document.querySelector('#speedPingInterval') != null ? document.querySelector('#speedPingInterval').value : null;
+    objPost.speedPingCount       = document.querySelector('#speedPingCount') != null ? document.querySelector('#speedPingCount').value : null;
+    objPost.startPosition        = document.querySelector('#startPosition') != null ? document.querySelector('#startPosition').value : null;
+    objPost.exitPosition         = document.querySelector('#exitPosition') != null ? document.querySelector('#exitPosition').value : null;
+
+    if( arrPlayerHtmlObjects.length < 1 ) {
       window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-player-field' } ] );
+      return;
+    }
+
+    if( arrHunterHtmlObjects.length < 1 ) {
+      window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
       return;
     }
 
     for( var i = 0; i < arrPlayerHtmlObjects.length; i++ ) {
       objPost.player.push( arrPlayerHtmlObjects[ i ].value );
+    }
+
+    for( var i = 0; i < arrHunterHtmlObjects.length; i++ ) {
+      objPost.hunter.push( arrHunterHtmlObjects[ i ].value );
+    }
+
+    for( var i = 0; i < arrManagementHtmlObjects.length; i++ ) {
+      objPost.management.push( arrManagementHtmlObjects[ i ].value );
     }
 
     return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
@@ -123,15 +186,65 @@ window[ appAlias ].listener.uploadAvatar = function() {
 
   for( var i = 0; i < arrFileUploadButtons.length; i++ ) {
     arrFileUploadButtons[ i ].addEventListener( 'change', function( objEvent ) {
-      if( ! event.target.files[ 0 ] ) return;
+      if( ! objEvent.target.files[ 0 ] ) return;
+
+      var objFormData = new FormData();
+      var strClass    = 'Player';
+      var strMethode  = 'Player::avatarFileUploaded';
+      var strProperty = 'image';
+
+      if( typeof window[ appAlias ].class != 'undefined' && window[ appAlias ].class == 'Game' ) {
+        strClass = 'Game';
+        strMethode = 'Game::avatarFileUploaded';
+        strProperty = 'avatar';
+      }
+
+      objFormData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ]);
+      objFormData.append( 'class', strClass );
+      objFormData.append( 'id', window[ appAlias ].id );
+      objFormData.append( 'property', strProperty );
+      objFormData.append( 'methode', strMethode );
+
+      return window[ appAlias ].methods.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, objFormData, 'proccessResponse' );
+    } );
+  }
+
+  return;
+};
+
+window[ appAlias ].listener.zoomImageListenter = function() {
+  var arrZoomImages = document.querySelectorAll('.zoom-image');
+
+  for( var i = 0; i < arrZoomImages.length; i++ ) {
+    arrZoomImages[ i ].addEventListener( 'click', function() {
+      document.querySelector('.full-image-layer').style.display = 'block';
+      document.querySelector('.full-image').style.display = 'block';
+
+      var tagImage = '<img src="' + this.src + '" />';
+
+      document.querySelector('.full-image').innerHTML = tagImage;
+
+      return;
+    });
+  }
+
+  return;
+};
+
+window[ appAlias ].listener.uploadGameImages = function() {
+  var arrFileUploadButtons = document.querySelectorAll( '#game-images-upload' );
+
+  for( var i = 0; i < arrFileUploadButtons.length; i++ ) {
+    arrFileUploadButtons[ i ].addEventListener( 'change', function( objEvent ) {
+      if( ! objEvent.target.files[ 0 ] ) return;
 
       var objFormData = new FormData();
 
-      objFormData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ]);
-      objFormData.append( 'class', 'Player' );
+      objFormData.append( 'files', document.querySelector( '#game-images-upload' ).files[ 0 ]);
+      objFormData.append( 'class', 'Game' );
       objFormData.append( 'id', window[ appAlias ].id );
-      objFormData.append( 'property', 'image' );
-      objFormData.append( 'methode', 'Player::avatarFileUploaded' );
+      objFormData.append( 'property', 'tmpImageAdd' );
+      objFormData.append( 'methode', 'Game::addGameImage' );
 
       return window[ appAlias ].methods.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, objFormData, 'proccessResponse' );
     } );
@@ -152,11 +265,31 @@ window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
   return;
 };
 
+window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
+  if( document.querySelector( '#event-game-images-upload-button' ) == null ) return;
+
+  document.querySelector( '#event-game-images-upload-button' ).addEventListener( 'click', function() {
+    if( document.querySelector( '#game-images-upload' ) != null ) document.querySelector( '#game-images-upload' ).click();
+
+    return;
+  } );
+
+  return;
+};
+
 window[ appAlias ].listener.changePlayerAvatar = function() {
   if( document.querySelector( '#event-change-player-avatar' ) == null ) return;
 
+  var strClass   = 'Player';
+  var strMethode = 'changePlayerAvatar';
+
+  if( window[ appAlias ].class == 'Game' ) {
+    strClass   = 'Game';
+    strMethode = 'changeGameAvatar';
+  }
+
   document.querySelector( '#event-change-player-avatar' ).addEventListener( 'click', function(){
-    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, window[ appAlias ].methods.newJsonRequestObject( 'Player', 'changePlayerAvatar', window[ appAlias ].id ), 'proccessResponse' );
+    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, window[ appAlias ].methods.newJsonRequestObject( strClass, strMethode, window[ appAlias ].id ), 'proccessResponse' );
   } );
 
   return;
@@ -193,13 +326,18 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.newPlayerButtons();
   window[ appAlias ].listener.links();
   window[ appAlias ].listener.uploadAvatar();
-  window[ appAlias ].listener.changePlayerAvatar();
+  window[ appAlias ].listener.uploadGameImages();
+  //window[ appAlias ].listener.changePlayerAvatar();
   window[ appAlias ].listener.uploadAvatarOpenDialog();
+  window[ appAlias ].listener.uploadGameImagesOpenDialog();
   window[ appAlias ].listener.saveObject();
   window[ appAlias ].listener.changePlayerPassword();
   window[ appAlias ].listener.addPlayerToGame();
+  window[ appAlias ].listener.addHunterToGame();
+  window[ appAlias ].listener.addManagementToGame();
   window[ appAlias ].listener.saveNewGame();
   window[ appAlias ].listener.deletePlayer();
+  window[ appAlias ].listener.zoomImageListenter();
 
   return;
 } );

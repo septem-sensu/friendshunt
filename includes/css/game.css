@@ -148,7 +148,7 @@ button.blue:hover {
   left: 12px;
   bottom: 10px;
   z-index: 1000;
-  transition: opacity 0.8s; 
+  transition: opacity 0.8s;
 }
 
 #game-message-private-panel #message-text-private-player,
@@ -244,7 +244,7 @@ button.blue:hover {
   background-position-x: 10px;
   background-position-y: 10px;
   cursor: pointer;
-  transition: right 0.8s; 
+  transition: right 0.8s;
 }
 
 #game-room-presentation-panel.hide,
@@ -257,7 +257,7 @@ button.blue:hover {
   margin-top: 0px;
   margin-bottom: 0px;
   padding-top: 0px;
-  padding-bottom: 0px;  
+  padding-bottom: 0px;
 }
 
 #game-room-presentation-panic-panel {
@@ -266,8 +266,8 @@ button.blue:hover {
   left: 0px;
   width: 600px;
   height: 200px;
-  z-index: 10000; 
-  pointer-events: none; 
+  z-index: 10000;
+  pointer-events: none;
 }
 
 #game-room-presentation-fade-div {
@@ -290,7 +290,7 @@ button.blue:hover {
 #game-meet-task-panel {
   height: 590px;
   opacity: 1;
-  transition: opacity 1.5s, height 1s; 
+  transition: opacity 1.5s, height 1s;
   animation: pulseColorMagentaLightReverse 6s infinite;
 }
 
@@ -385,7 +385,7 @@ button.blue:hover {
   animation: pulseColorMagentaLight 5s infinite;
   display: none;
   opacity: 0;
-  transition: opacity 0.8s; 
+  transition: opacity 0.8s;
   font-size: 12px;
   color: rgb(238, 238, 238);
 }
@@ -414,15 +414,15 @@ button.blue:hover {
 .game-message-box-layer.active,
 #block-layer.active {
   display: block;
-} 
+}
 
 .game-message-box-layer.show {
   opacity: 1;
-} 
+}
 
 #block-layer.show {
   opacity: 0.7;
-} 
+}
 
 .game-message-box-layer h2 {
   margin-top: 10px;
@@ -479,7 +479,7 @@ button.blue:hover {
 
 .warning {
   color: #fff;
-  border-color: var(--backgroundColorWarning);  
+  border-color: var(--backgroundColorWarning);
 }
 
 .warning:hover {
@@ -488,7 +488,7 @@ button.blue:hover {
 
 .danger {
   color: #fff;
-  border-color: var(--backgroundColorDanger);  
+  border-color: var(--backgroundColorDanger);
 }
 
 .danger:hover {
@@ -497,7 +497,7 @@ button.blue:hover {
 
 .primary {
   color: #fff;
-  border-color: var(--backgroundColorPrimary);  
+  border-color: var(--backgroundColorPrimary);
 }
 
 .primary:hover {
@@ -506,7 +506,7 @@ button.blue:hover {
 
 .success {
   color: #fff;
-  border-color: var(--backgroundColorSuccess);  
+  border-color: var(--backgroundColorSuccess);
 }
 
 .success:hover {
@@ -581,7 +581,7 @@ button.blue:hover {
   background-color: var(--backgroundColorBody);
   font-size: 1rem;
   border-radius: 4px;
-  font-size: 12px; 
+  font-size: 12px;
   animation: pulseColorMagentaLightReverse 6s infinite;
   opacity: 0.8;
 }
@@ -617,7 +617,7 @@ button.blue:hover {
   height: 260px;
   opacity: 1;
   animation: pulseColorMagentaLight 4s infinite;
-  transition: opacity 1.5s, height 1s; 
+  transition: opacity 1.5s, height 1s;
 }
 
 #game-room-presentation-description {
@@ -632,7 +632,7 @@ button.blue:hover {
   bottom: 0px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  z-index: 1000;  
+  z-index: 1000;
 }
 
 .last-child {
@@ -737,7 +737,7 @@ button.blue:hover {
   opacity: 0.7;
   margin-bottom: 4px;
   margin-top: -5px;
-  text-align: center;  
+  text-align: center;
 }
 
 .message-text {
@@ -776,7 +776,7 @@ button.blue:hover {
 }
 
 .room-item-wish {
-  position: absolute;  
+  position: absolute;
   background-image: url('../images/items/roomItemWunschJoker.jpg');
   background-size: 92px;
   background-repeat: no-repeat;
@@ -792,7 +792,7 @@ button.blue:hover {
 }
 
 .room-item-skip {
-  position: absolute;  
+  position: absolute;
   background-image: url('../images/items/roomItemJokerSkipTaskPanel.png');
   background-size: 92px;
   background-repeat: no-repeat;
@@ -868,7 +868,7 @@ button.blue:hover {
 
 #game-audio-engine-adjustment-button.disabled {
   opacity: 0.4 !important;
-  cursor: not-allowed !important; 
+  cursor: not-allowed !important;
 }
 
 #game-meet-task-panel .game-audio-adjustment-container button {

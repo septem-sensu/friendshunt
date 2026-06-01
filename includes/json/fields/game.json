@@ -1,1 +1,149 @@
-{}
+{
+  "id": {
+    "nameDe": "ID",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 100
+  },
+  "name": {
+    "nameDe": "Name des Spiels",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 200
+  },
+  "title": {
+    "nameDe": "Titel des Spiels",
+    "element": "input",
+    "type": "text",
+    "unit": "",
+    "mandatory": true,
+    "readOnly": false,
+    "position": 300
+  },
+  "description": {
+    "nameDe": "Beschreibung",
+    "element": "textarea",
+    "type": "text",
+    "unit": "",
+    "mandatory": false,
+    "readOnly": false,
+    "position": 400
+  },
+  "player": {
+    "nameDe": "Spieler",
+    "element": "array",
+    "type": "text",
+    "mandatory": false,
+    "unit": "",
+    "position": 500
+  },
+  "hunter": {
+    "nameDe": "Jäger",
+    "element": "array",
+    "type": "text",
+    "mandatory": false,
+    "unit": "",
+    "position": 600
+  },
+  "management": {
+    "nameDe": "Spielleitung",
+    "element": "array",
+    "type": "text",
+    "mandatory": false,
+    "unit": "",
+    "position": 700
+  },
+  "start": {
+    "nameDe": "Spielstart",
+    "element": "input",
+    "type": "datetime",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 800
+  },
+  "duration": {
+    "nameDe": "Spieldauer",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Stunden",
+    "minLength": 1,
+    "position": 900
+  },
+  "avatar": {
+    "nameDe": "Spielbild",
+    "element": "input",
+    "type": "file",
+    "mandatory": false,
+    "unit": "",
+    "position": 1000
+  },
+  "pingInterval": {
+    "nameDe": "Silent Hunt Intervall",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Minuten",
+    "minLength": 2,
+    "position": 1100
+  },
+  "speedPingInterval": {
+    "nameDe": "Speed Hunt Intervall",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Minuten",
+    "minLength": 2,
+    "position": 1200
+  },
+  "speedPingCount": {
+    "nameDe": "Anzahl Speed Hunt Pings",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 1,
+    "position": 1300
+  },
+  "startPosition": {
+    "nameDe": "Startposition",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 1400
+  },
+  "exitPosition": {
+    "nameDe": "Zielposition",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "minLength": 3,
+    "unit": "",
+    "position": 1500
+  },
+  "tmpImageAdd": {
+    "nameDe": "Temp Bilder",
+    "element": "input",
+    "type": "file",
+    "mandatory": false,
+    "unit": "",
+    "position": 1600
+  },
+  "images": {
+    "nameDe": "Bilder vom Spiel",
+    "element": "array",
+    "type": "text",
+    "mandatory": false,
+    "unit": "",
+    "position": 1700
+  }
+}

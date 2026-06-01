@@ -1,13 +1,13 @@
 {
-  "alias": "player",
-  "class": "Player",
+  "alias": "gameDashboard",
+  "class": "Game",
   "roles": [ "player", "administrator" ],
   "templates": [
     "header.tmpl",
-    "player.tmpl",
+    "game-dashboard.tmpl",
     "footer.tmpl"
   ],
   "actions": [
-    "Player::addGamesToTemplate"
+    "Game::addGamePlayDataToGame"
   ]
 }
