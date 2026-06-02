@@ -127,9 +127,13 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
   }
 
   if( typeof objResponse.result == 'object' && objResponse.result != null ) {
-      if( typeof objResponse.result.formErrors == 'object' && objResponse.result.formErrors != null ) window[ appAlias ].methods.manageFormErrors( objResponse.result.formErrors );
-      if( typeof objResponse.result.redirect == 'string' && objResponse.result.redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.result.redirect );
-      window[ appAlias ].methods.setFields( objResponse.result );
+    if( typeof objResponse.result.formErrors == 'object' && objResponse.result.formErrors != null ) window[ appAlias ].methods.manageFormErrors( objResponse.result.formErrors );
+    if( typeof objResponse.result.redirect == 'string' && objResponse.result.redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.result.redirect );
+    window[ appAlias ].methods.setFields( objResponse.result );
+
+    if( objResponse.result.methode && objResponse.result.methode == 'gameplay' && objResponse.result.callback ) {
+      window[ appAlias ].methods.gameplay[ objResponse.result.callback ]( objResponse );
+    }
   }
 
   if( typeof objResponse.object == 'object' && objResponse.object != null ) {

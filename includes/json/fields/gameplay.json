@@ -1,0 +1,28 @@
+{
+  "id": {
+    "nameDe": "ID",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 100
+  },
+  "gameplayPath": {
+    "nameDe": "Gameplay Pfad",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 200
+  },
+  "currentPlayer": {
+    "nameDe": "Player Object",
+    "element": "input",
+    "type": "object",
+    "mandatory": true,
+    "unit": "",
+    "position": 300
+  }
+}

@@ -23,15 +23,15 @@ window[ appAlias ].methods.cGetPlayerInfoHtml = function( objPlayer, strInputNam
   var strContentContainerContent = '';
 
   strContentContainerContent    += '<table class="w-100p"><tr><td class="w-160 align-top">';
-  strContentContainerContent    += '<img class="c-dashboard-player-image mr-10" src="includes/files/player/' + objPlayer.email + '/' + objPlayer.image + '" />';
+  strContentContainerContent    += '<img class="c-dashboard-player-image" src="includes/files/player/' + objPlayer.email + '/' + objPlayer.image + '" />';
+  strContentContainerContent    += '<div class="align-left w-100p mt-10"><button onclick="javascript: this.closest(\'.content-container\').remove();" type="button" class="w-140 warning event-remove-player-from-game">Spieler entfernen</button></div>';
   strContentContainerContent    += '</td><td class="align-top">';
-  strContentContainerContent    += '<p><span class="bold">Name: ' + objPlayer.name + '</span></p>';
-  strContentContainerContent    += '<p><br /></p>';
-  strContentContainerContent    += '<p>E-Mail: ' + objPlayer.email + '</p>';
-  strContentContainerContent    += '<p>Rolle: ' + objPlayer.role + '</p>';
-  strContentContainerContent    += '<p>Titel: ' + objPlayer.title + '</p>';
+  strContentContainerContent    += '<p class="bold mb-10">' + objPlayer.name + '</p>';
+  strContentContainerContent    += '<p>' + objPlayer.email + '</p>';
+  strContentContainerContent    += '<p>' + objPlayer.role + '</p>';
+  strContentContainerContent    += '<p>' + objPlayer.title + '</p>';
   strContentContainerContent    += '<input type="hidden" name="' + strInputName + '" value="' + objPlayer.email + '">';
-  strContentContainerContent    += '<div class="align-right w-100p"><button onclick="javascript: this.closest(\'.content-container\').remove();" type="button" class="warning event-remove-player-from-game">Spieler entfernen</button></div>';
+
   strContentContainerContent    += '</td></tr></table>';
 
   return strContentContainerContent;
@@ -120,22 +120,52 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     var strContentContainer        = document.createElement( 'div' );
     var strContentContainerContent = '';
 
-    strContentContainerContent    += '<table class="w-100p"><tr><td class="w-160 align-top">';
-    strContentContainerContent    += '<img class="c-dashboard-player-image mr-10" src="includes/files/game/' + arrGames[ i ].id + '/' + arrGames[ i ].avatar + '" />';
-    strContentContainerContent    += '</td><td class="align-top">';
-    strContentContainerContent    += '<p><span class="bold">Name: ' + arrGames[ i ].name + '</span></p>';
-    strContentContainerContent    += '<p>Story: ' + '</span></p>';
+    strContentContainerContent    += '<table class="w-100p"><tr>';
+    strContentContainerContent    += '<td class="align-top align-left">';
+    strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button></div>';
+    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-160 mt-5 event-delete-game warning">Dashboard</button></div>';
+    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-160 mt-5 event-delete-game danger">Spiel löschen</button></div>';
+    strContentContainerContent    += '</td>';
+    strContentContainerContent    += '<td class="w-160 align-top align-right">';
+    strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image" src="includes/files/game/' + arrGames[ i ].id + '/' + arrGames[ i ].avatar + '" />';
+    strContentContainerContent    += '</td>';
+    strContentContainerContent    += '</tr></table>';
+    strContentContainerContent    += '<table><tr><td><span class="bold">Name:</span></td><td><span class="bold">' + arrGames[ i ].name + '</span></td></tr>';
+    strContentContainerContent    += '<tr><td>Titel:</td><td>' + arrGames[ i ].title + '</td></tr>';
+    strContentContainerContent    += '<tr><td class="pr-10">Beschreibung:</td><td>' + arrGames[ i ].description  + '</td></tr></table>';
     strContentContainerContent    += '<input type="hidden" name="game-id" value="' + arrGames[ i ].id + '">';
-    strContentContainerContent    += '</td><td class="align-top">';
-    strContentContainerContent    += '<div class="align-right w-100p"><button type="button" class="w-140 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button></div>';
-    strContentContainerContent    += '<div class="align-right w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-140 mt-5 event-delete-game warning">Dashboard</button></div>';
-
-    strContentContainerContent    += '<div class="align-right w-100p"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-140 mt-5 event-delete-game danger">Spiel löschen</button></div>';
-    strContentContainerContent    += '</td></tr></table>';
     strContentContainer.innerHTML  = strContentContainerContent;
 
     strContentContainer.classList.add( 'content-container' );
+    strContentContainer.classList.add( 'align-left' );
     document.querySelector( '#game-content-container' ).append( strContentContainer );
+  }
+
+  return;
+};
+
+window[ appAlias ].methods.cAddGameplayDataToTemplate = function() {
+  $arrMembers      = [ 'player', 'hunter', 'management' ];
+  $objGameplayData = typeof window[ appAlias ].gameplayData == 'object' && window[ appAlias ].gameplayData != null ? window[ appAlias ].gameplayData : null;
+
+  for( var i = 0; i < $arrMembers.length; i++ ) {
+    for( var j = 0; j < $objGameplayData[ $arrMembers[ i ] ].length; j++ ) {
+      var strContentContainer        = document.createElement( 'div' );
+      var strContentContainerContent = '<div class="content-container align-left">';
+
+      strContentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
+      strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + $objGameplayData[ $arrMembers[ i ] ][ j ].email + '/' + $objGameplayData[ $arrMembers[ i ] ][ j ].image + '" />';
+      strContentContainerContent    += '</td><td class="align-top">';
+      strContentContainerContent    += '<p class="bold mb-10">' + $objGameplayData[ $arrMembers[ i ] ][ j ].name + '</p>';
+      strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].email + '</p>';
+      strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].role + '</p>';
+      strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].title + '</p>';
+      strContentContainerContent    += '</td></tr></table>';
+      strContentContainerContent    += '</div>';
+
+      strContentContainer.innerHTML  = strContentContainerContent;
+      document.querySelector( '#game-content-container-' + $arrMembers[ i ] ).append( strContentContainer );
+    }
   }
 
   return;
@@ -149,7 +179,10 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
   for( var i = 0; i < arrGameImages.length; i++ ) {
     var objImageTag = document.createElement( 'img' );
     objImageTag.classList.add( 'c-dashboard-player-image' );
-    objImageTag.classList.add( 'mr-10' );
+    objImageTag.classList.add( 'game-image-gallery-image' );
+    objImageTag.classList.add( 'mr-5' );
+    objImageTag.classList.add( 'ml-5' );
+    objImageTag.classList.add( 'mb-6' );
     objImageTag.classList.add( 'zoom-image' );
     objImageTag.classList.add( 'pointer' );
 

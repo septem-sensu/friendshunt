@@ -14,67 +14,45 @@
     <table>
       <tr>
         <td class="align-top pr-10">
-          <div class="align-left" ><span class="bold">WICHTIG:</span> Felder mit einem Sternchen (*) sind Pflichtfelder und müssen ausgefüllt werden, um das Formular abzuschicken. Optionale Felder sind nicht mit einem Sternchen gekennzeichnet.</div>
+          <div class="align-left" ><span class="bold">WICHTIG:</span> Felder mit einem Sternchen (*) sind Pflichtfelder und müssen ausgefüllt werden, um das Formular abzuschicken.</div>
         </td>
         <td class="align-top">
-          <img id="avatar" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" class="c-edit-player-image pointer">
+          <img id="avatar" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" class="c-dashboard-player-image pointer">
           <input id="avatar-upload" type="file" name="pictures[]" />
         </td>
       </tr>
     </table>
   </div>
-  <div class="content-container" >
+  <div class="content-container align-left" >
     <h2 class="align-left mb-15">Benutzerdaten</h2>
-    <table>
-      <tr>
-        <td class="w-200"><label class="mw-200">E-Mail Adresse*</label></td>
-        <td><input disabled="disabled" class="mb-5 mt-5 w-240" type="text" name="email" id="email" placeholder="Eingabe E-Mail Adresse" value="{{Player::email}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="mw-200">Passwort*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="password" name="password-temp" id="password-temp" placeholder="Eingabe Passwort" /></td>
-      </tr>
-      <tr>
-        <td><label class="mw-200">Passwort Wiederholung*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="password" name="password2-temp" id="password2-temp" placeholder="Eingabe Passwort Wiederholung" /></td>
-      </tr>
-    </table>
+    <p class="mw-200">E-Mail Adresse*</p>
+    <input disabled="disabled" class="mb-10 mt-5 w-350" type="text" name="email" id="email" placeholder="Eingabe E-Mail Adresse" value="{{Player::email}}" />
+    <p class="mw-200">Passwort*</p>
+    <input class="mb-10 mt-5 w-350" type="password" name="password-temp" id="password-temp" placeholder="Eingabe Passwort" />
+    <p class="mw-200">Passwort Wiederholung*</p>
+    <input class="mb-10 mt-5 w-350" type="password" name="password2-temp" id="password2-temp" placeholder="Eingabe Passwort Wiederholung" />
+
     <div class="align-left mt-15"><span class="bold">WICHTIG:</span> Das Passwort muss aus mindestens 8 Zeichen, welche aus Groß- und Kleinbuchstaben sowie aus Zahlen und Sonderzeichen bestehen.</div>
     <div class="align-left">
-      <button type="button" class="w-140 primary mt-10 event-change-player-password" id="event-change-player-password">Passwort ändern</button>
+      <button type="button" class="w-140 primary mt-15 event-change-player-password" id="event-change-player-password">Passwort ändern</button>
     </div>
   </div>
-  <div class="content-container" >
+  <div class="content-container align-left" >
     <h2 class="align-left mb-15">Persönliche Daten</h2>
-    <table>
-      <tr>
-        <td><label class="mw-200 w-200">Benutzername*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="text" name="name" id="name" placeholder="Eingabe Benutzername" value="{{Player::name}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="mw-200">Rolle*</label></td>
-        <td>
-          <select class="mb-5 mt-5 c-w-265" name="role" id="role" readonly="readonly" disabled="disabled">
-            <option value="{{Player::role}}">{{Translate::Player::role}}</option>
-            <option value="guest">Gast</option>
-            <option value="player">Spieler</option>
-            <option value="administrator">Administrator</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td><label class="mw-200">Title </label></td>
-        <td>
-          <input class="mb-5 mt-5 w-240" type="text" name="title" id="title" placeholder="Eingabe Title" value="{{Player::title}}" />
-        </td>
-      </tr>
-      <tr>
-        <td><label class="mw-200">Beschreibung </label></td>
-        <td>
-          <textarea class="mb-5 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
-        </td>
-      </tr>
-    </table>
+    <p class="mw-200 w-200">Benutzername*</p>
+    <input class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Benutzername" value="{{Player::name}}" />
+    <p class="mw-200">Rolle*</p>
+
+    <select class="mb-10 mt-5 w-375" name="role" id="role" readonly="readonly" disabled="disabled">
+      <option value="{{Player::role}}">{{Translate::Player::role}}</option>
+      <option value="guest">Gast</option>
+      <option value="player">Spieler</option>
+      <option value="administrator">Administrator</option>
+    </select>
+    <p class="mw-200">Title </p>
+    <input class="mb-10 mt-5 w-350" type="text" name="title" id="title" placeholder="Eingabe Title" value="{{Player::title}}" />
+    <p class="mw-200">Beschreibung </p>
+    <textarea class="mb-15 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
     <div class="align-left">
       <button type="button" disabled="disabled" class="primary submit event-save-object w-140" id="event-save-object" />Speichern</button>
     </div>

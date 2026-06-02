@@ -40,7 +40,7 @@ class Controller {
     $this->viewName           = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : $this->config->defaultView;
     $this->objectId           = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : '';
     $this->objectId           = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
-    $this->viewObject         = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'views/' . ucfirst( $this->viewName ) . '.json' );
+    $this->viewObject         = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'views/' . $this->viewName . '.json' );
     $this->className          = $this->viewObject->class;
     $this->templates          = $this->viewObject->templates;
     $this->actions            = $this->viewObject->actions;
@@ -116,7 +116,7 @@ class Controller {
         return json_encode( $this->response );
     }
 
-    $this->executeActions();
+    //$this->executeActions();
     $this->response->object = $this->savePostData();
     $this->responseData();
     $this->presentationObject->getJsonHeader();

@@ -6,8 +6,8 @@
 body {
   font-family: "Segoe UI", sans-serif, arial !important;
   background-color: var(--backgroundColorBody);
-  text-align: center;   
-  color: var(--textColorContent); 
+  text-align: center;
+  color: var(--textColorContent);
 }
 
 a {
@@ -20,6 +20,28 @@ a {
   margin: 0 auto;
   background-color: var(--backgroundColorContent);
   min-height: 3000px;
+}
+
+@media screen and (max-width: 650px) {
+  body .content {
+    width: 400px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    left: 4px;
+    height: unset;
+  }
+
+  body .game-menu-bottom,
+  body .game-menu-top {
+    width: 380px;
+    left: calc(50% - 186px);
+  }
+
+
+
 }
 
 .content-container {

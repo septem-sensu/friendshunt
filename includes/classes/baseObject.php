@@ -2,9 +2,6 @@
 
 declare( strict_types = 1 );
 
-ini_set('log_errors', 1);
-ini_set('error_log', '');
-
 class BaseObject {
   const FILEPATHBASE      = __DIR__ . '/../';
   const FILEPATHJSON      = __DIR__ . '/../json/';
@@ -17,7 +14,7 @@ class BaseObject {
 
   public function __construct( string | null $strObjectId = null ) {
     $strClassName    = get_class( $this );
-    $objAllFields    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'fields/' . $strClassName . '.json' );
+    $objAllFields    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'fields/' . strtolower( $strClassName ) . '.json' );
     $this->className = $strClassName;
     $this->config    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'config.json' );
     $this->id        = isset( $strObjectId ) ? $strObjectId : $this->newId( $this->className );
@@ -29,7 +26,7 @@ class BaseObject {
   }
 
   public static function fields( string $strClassname ) {
-    $objAllFields    = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'fields/' . $strClassname . '.json' );
+    $objAllFields    = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'fields/' . strtolower( $strClassname ) . '.json' );
 
     return $objAllFields;
   }
@@ -190,6 +187,8 @@ class BaseObject {
   }
 
   public static function loadFileDeCrypted( string $strFile ) : object | array {
+//    Presentation::logToFile( $strFile, true, 'test.log' );
+
     $strContent = file_get_contents( $strFile );
     $strContent = str_replace( array( "\r", "\n" ), '', $strContent );
 

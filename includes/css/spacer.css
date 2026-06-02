@@ -163,6 +163,8 @@ body .w-240 { width: 240px; }
 body .w-260 { width: 260px; }
 body .w-280 { width: 280px; }
 body .w-300 { width: 300px; }
+body .w-350 { width: 350px; }
+body .w-375 { width: 375px; }
 body .w-100p { width: 100%; }
 
 body .minw-10 { min-width: 10px; }
@@ -206,3 +208,25 @@ body .h-240 { height: 240px; }
 body .h-260 { height: 260px; }
 body .h-280 { height: 280px; }
 body .h-300 { height: 300px; }
+
+body .minh-10 { min-height: 10px; }
+body .minh-20 { min-height: 20px; }
+body .minh-30 { min-height: 30px; }
+body .minh-40 { min-height: 40px; }
+body .minh-50 { min-height: 50px; }
+body .minh-60 { min-height: 60px; }
+body .minh-70 { min-height: 70px; }
+body .minh-80 { min-height: 80px; }
+body .minh-90 { min-height: 90px; }
+body .minh-100 { min-height: 100px; }
+body .minh-120 { min-height: 120px; }
+body .minh-140 { min-height: 140px; }
+body .minh-160 { min-height: 160px; }
+body .minh-180 { min-height: 170px; }
+body .minh-200 { min-height: 200px; }
+body .minh-220 { min-height: 220px; }
+body .minh-240 { min-height: 240px; }
+body .minh-260 { min-height: 260px; }
+body .minh-280 { min-height: 280px; }
+body .minh-300 { min-height: 300px; }
+

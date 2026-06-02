@@ -3,6 +3,7 @@
 declare( strict_types = 1 );
 
 include_once ( __DIR__ . '/../classes/baseObject.php' );
+include_once ( __DIR__ . '/../classes/gameplay.php' );
 
 class Game extends BaseObject {
 
@@ -122,8 +123,6 @@ class Game extends BaseObject {
     $objPlayer = new $strClass( $strId );
     $objPlayer->set( 'avatar', 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) . '?v=' . time() );
 
-    //Presentation::logToFile( $strPath . $strFileName, null, true );
-
     return;
   }
 
@@ -134,10 +133,9 @@ class Game extends BaseObject {
   }
 
   public function addGamePlayDataToGame( object $objRequestObject ) : object {
+    $objGameplayData = BaseObject::loadFileDeCrypted( __DIR__ . '/../files/game/' . $this->id() . '/gameplay.json' );
 
-
-
-
+    $objRequestObject->getPresentationObject()->assignTemplateVar( 'gameplayData', 'Gameplay', null, json_encode( $objGameplayData ) );
 
     return $objRequestObject;
   }
@@ -340,6 +338,21 @@ class Game extends BaseObject {
     }
 
     $objRequestObject->playerObject = $objPlayer;
+
+    return $objRequestObject;
+  }
+
+  public static function setPlayerIdToTemplate( object $objController ) : object {
+    $objController->getPresentationObject()->assignTemplateVar( 'playerId', 'Game', null, Player::getPlayerIdFromCookie() );
+
+    return $objController;
+  }
+
+  public function gameplay( object $objRequestObject ) : object {
+    $objPlayer        = new Player( $objRequestObject->playerId );
+    $objGameplay      = new Gameplay( $this->id, $objPlayer );
+    $strMethode       = $objRequestObject->gameplayMethode;
+    $objRequestObject = $objGameplay->$strMethode( $objRequestObject );
 
     return $objRequestObject;
   }

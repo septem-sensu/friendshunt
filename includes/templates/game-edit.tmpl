@@ -7,89 +7,57 @@
     </div>
   </div>
 
-  <div class="content-container">
+  <div class="content-container align-left">
     <h2 class="align-left mb-15">Spiel Informationen</h2>
-    <table>
-      <tr>
-        <td><label class="minw-200">Name des Spiels*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Titel des Spiels*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="text" name="title" id="title" placeholder="Eingabe Titel des Spiels" value="{{Game::title}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Beschreibung</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="text" name="description" id="description" placeholder="Eingabe Beschreibung" value="{{Game::description}}" /></td>
-      </tr>
-    </table>
+    <p class="minw-200">Name des Spiels*</p>
+    <input class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" />
+    <p class="minw-200">Titel des Spiels*</p>
+    <input class="mb-10 mt-5 w-350" type="text" name="title" id="title" placeholder="Eingabe Titel des Spiels" value="{{Game::title}}" />
+    <p class="minw-200">Beschreibung</p>
+    <input class="mb-10 mt-5 w-350" type="text" name="description" id="description" placeholder="Eingabe Beschreibung" value="{{Game::description}}" />
   </div>
 
-  <div class="content-container">
+  <div class="content-container align-left">
     <h2 class="align-left float-left mt-5">Spieler*</h2>
-    <p class="align-right">
-      <input type="text" class="w-220 mr-10" name="search-player-field" id="search-player-field" />
-      <button type="button" class="event-add-player-to-game success w-140" id="event-add-player-to-game">Spieler hinzufügen</button>
-    </p>
+    <input type="text" class="w-350 mr-10 mt-15 mb-15" name="search-player-field" id="search-player-field" />
+    <p class="mb-10"><button type="button" class="event-add-player-to-game success w-140" id="event-add-player-to-game">Spieler hinzufügen</button></p>
   </div>
 
   <div id="game-content-container-player"></div>
 
-  <div class="content-container">
+  <div class="content-container align-left">
     <h2 class="align-left float-left mt-5">Jäger*</h2>
-    <p class="align-right">
-      <input type="text" class="w-220 mr-10" name="search-hunter-field" id="search-hunter-field" />
-      <button type="button" class="event-add-hunter-to-game success w-140" id="event-add-hunter-to-game">Jäger hinzufügen</button>
-    </p>
+    <input type="text" class="w-350 mr-10 mt-15 mb-15" name="search-hunter-field" id="search-hunter-field" />
+    <p class="mb-10"><button type="button" class="event-add-hunter-to-game success w-140" id="event-add-hunter-to-game">Jäger hinzufügen</button></p>
   </div>
 
   <div id="game-content-container-hunter"></div>
 
-  <div class="content-container">
+  <div class="content-container align-left">
     <h2 class="align-left float-left mt-5">Spielleitung</h2>
-    <p class="align-right">
-      <input type="text" class="w-220 mr-10" name="search-management-field" id="search-management-field" />
-      <button type="button" class="event-add-management-to-game success w-140" id="event-add-management-to-game">Leitung hinzufügen</button>
-    </p>
+    <input type="text" class="w-350 mr-10 mt-15 mb-15" name="search-management-field" id="search-management-field" />
+    <p class="mb-10"><button type="button" class="event-add-management-to-game success w-140" id="event-add-management-to-game">Leitung hinzufügen</button></p>
   </div>
 
   <div id="game-content-container-management"></div>
 
-  <div class="content-container">
+  <div class="content-container align-left">
     <h2 class="align-left mb-15">Spiel Einstellungen</h2>
-    <table>
-      <tr>
-        <td><label class="minw-200">Start des Spiels*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="datetime-local" name="start" id="start" placeholder="Eingabe Start des Spiels" value="{{Game::start}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Dauer des Spiels*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="number" name="duration" id="duration" placeholder="Eingabe Spieldauer in Stunden" value="{{Game::duration}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Silent Hunt Intervall*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="number" name="pingInterval" id="pingInterval" placeholder="Eingabe Silent Hunt Interv. in Minuten" value="{{Game::pingInterval}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Speed Hunt Intervall*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Anzahl Speed Hunt Pings*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::speedPingCount}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Start Position*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="text" name="startPosition" id="startPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::startPosition}}" /></td>
-      </tr>
-      <tr>
-        <td><label class="minw-200">Exit Position*</label></td>
-        <td><input class="mb-5 mt-5 w-240" type="text" name="exitPosition" id="exitPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::exitPosition}}" /></td>
-      </tr>
-    </table>
+    <p class="minw-200">Start des Spiels*</p>
+    <input class="mb-10 mt-5 w-350" type="datetime-local" name="start" id="start" placeholder="Eingabe Start des Spiels" value="{{Game::start}}" />
+    <p class="minw-200">Dauer des Spiels*</p>
+    <input class="mb-10 mt-5 w-350" type="number" name="duration" id="duration" placeholder="Eingabe Spieldauer in Stunden" value="{{Game::duration}}" />
+    <p class="minw-200">Silent Hunt Intervall*</p>
+    <input class="mb-10 mt-5 w-350" type="number" name="pingInterval" id="pingInterval" placeholder="Eingabe Silent Hunt Interv. in Minuten" value="{{Game::pingInterval}}" />
+    <p class="minw-200">Speed Hunt Intervall*</p>
+    <input class="mb-10 mt-5 w-350" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" />
+    <p class="minw-200">Anzahl Speed Hunt Pings*</p>
+    <input class="mb-10 mt-5 w-350" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::speedPingCount}}" />
+    <p class="minw-200">Start Position*</p>
+    <input class="mb-10 mt-5 w-350 align-right" type="text" name="startPosition" id="startPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::startPosition}}" />
+    <p class="minw-200">Exit Position*</p>
+    <input class="mb-10 mt-5 w-350 align-right" type="text" name="exitPosition" id="exitPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::exitPosition}}" />
   </div>
-
-
 
   <div id="game-content-container"></div>
 

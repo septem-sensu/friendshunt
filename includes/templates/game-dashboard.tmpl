@@ -1,10 +1,11 @@
 <script type="text/javascript">
   window[ appAlias ].gameImages = {{Game::images}};
+  window[ appAlias ].gameplayData = {{Gameplay::gameplayData}};
 </script>
 
 <input type="hidden" name="resetForm" value="1" />
 <div class="content-container first-child" >
-  <h1 class="align-left float-left">Mein Game</h1>
+  <h1 class="align-left float-left">Game Dashboard</h1>
   <div class="align-right">
     <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
   </div>
@@ -15,76 +16,95 @@
   <table style="width: 100%;">
     <tr>
       <td>
-        <table>
-          <tr>
-            <td><label class="minw-200">Name des Spiels</label></td>
-            <td>{{Game::name}}</td>
-          </tr>
-          <tr>
-            <td><label class="minw-200">Titel des Spiels</label></td>
-            <td>{{Game::title}}</td>
-          </tr>
-          <tr>
-            <td><label class="minw-200">Beschreibung</label></td>
-            <td>{{Game::description}}</td>
-          </tr>
-        </table>
-      </td>
-      <td class="align-right">
-        <img src="includes/files/game/{{Game::id}}/{{Game::avatar}}" class="c-dashboard-player-image ml-20 pointer" id="avatar" />
+        <img src="includes/files/game/{{Game::id}}/{{Game::avatar}}" class="c-dashboard-player-image my-account-image pointer" id="avatar" />
         <input id="avatar-upload" type="file" name="pictures[]">
+      </td>
+      <td class="align-top">
+        <p class="bold mb-10">{{Game::name}}</p>
+        <p>{{Game::title}}</p>
+        <p>{{Game::description}}</p>
       </td>
     </tr>
   </table>
 </div>
 
+<div class="content-container minh-40">
+  <h2 class="align-left float-left mt-5">Spieler</h2>
+</div>
+<div id="game-content-container-player"></div>
+
+<div class="content-container minh-40">
+  <h2 class="align-left float-left mt-5">Jäger</h2>
+</div>
+<div id="game-content-container-hunter"></div>
+
+<div class="content-container minh-40">
+  <h2 class="align-left float-left mt-5">Spielleitung</h2>
+</div>
+<div id="game-content-container-management"></div>
+
 <div class="content-container">
   <h2 class="align-left mb-15">Spiel Einstellungen</h2>
   <table>
     <tr>
-      <td><label class="minw-200">Start des Spiels</label></td>
+      <td style="width: 170px;">Start des Spiels:</td>
       <td class="align-right">{{Game::start}}</td>
       <td></td>
     </tr>
     <tr>
-      <td><label class="minw-200">Dauer des Spiels</label></td>
+      <td>Dauer des Spiels:</td>
       <td class="align-right">{{Game::duration}}</td>
       <td class="align-right pl-10"> Stunden</td>
     </tr>
     <tr>
-      <td><label class="minw-200">Silent Hunt Intervall</label></td>
+      <td>Silent Hunt Intervall:</td>
       <td class="align-right">{{Game::pingInterval}}</td>
       <td class="align-right pl-10"> Minuten</td>
     </tr>
     <tr>
-      <td><label class="minw-200">Speed Hunt Intervall</label></td>
+      <td>Speed Hunt Intervall:</td>
       <td class="align-right">{{Game::speedPingInterval}}</td>
       <td class="align-right pl-10"> Minuten</td>
     </tr>
     <tr>
-      <td><label class="minw-200">Anzahl Speed Hunt Pings</label></td>
+      <td>Anzahl Hunt Pings:</td>
       <td class="align-right">{{Game::speedPingCount}}</td>
       <td></td>
     </tr>
     <tr>
-      <td><label class="minw-200">Start Position</label></td>
+      <td>Start Position:</td>
       <td class="align-right">{{Game::startPosition}}</td>
       <td></td>
     </tr>
     <tr>
-      <td><label class="minw-200">Exit Position</label></td>
+      <td>Exit Position:</td>
       <td class="align-right">{{Game::exitPosition}}</td>
       <td></td>
     </tr>
   </table>
 </div>
-<div class="content-container" id="game-images-content-container">
+<div class="content-container">
   <h2 class="mb-15 align-left float-left">Bilder vom Spiel</h2>
   <div class="align-right">
     <button type="button" id="event-game-images-upload-button" class="submit primary w-140 mb-20">Bild hinzufügen</button>
     <input id="game-images-upload" type="file" name="pictures[]">
   </div>
+  <div style="width: 410px; margin-left: -4px; text-align: left;" id="game-images-content-container">
+  </div>
 </div>
+<button id="geo-test-btn" style="padding: 20px; font-size: 20px;">Standort freigeben</button>
+
+<script>
+document.getElementById('geo-test-btn').addEventListener('click', () => {
+    console.log("Button geklickt. Starte GPS...");
+    navigator.geolocation.getCurrentPosition(
+        (pos) => { alert(`Erfolg! Lat: ${pos.coords.latitude}`); },
+        (err) => { alert(`Fehler: ${err.message} (Code: ${err.code})`); },
+        { enableHighAccuracy: true, timeout: 5000 }
+    );
+});
+</script>
 <script>
   window[ appAlias ].methods.cAddGameImagesContent();
+  window[ appAlias ].methods.cAddGameplayDataToTemplate();
 </script>

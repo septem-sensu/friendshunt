@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="includes/css/themes/default.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/core.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/spacer.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/classes.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/style.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/custom.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/items.css?v={{version}}">
-  <link rel="stylesheet" href="includes/css/audio.css?v={{version}}">
+  <link rel="stylesheet" href="includes/css/themes/default.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/core.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/spacer.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/classes.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/style.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/custom.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/items.css?v={{default::version}}">
+  <link rel="stylesheet" href="includes/css/gameplay.css?v={{default::version}}" />
+  <link rel="stylesheet" href="includes/libs/leaflet/leaflet.css?v={{default::version}}" />
   <title>{{default::appName}}</title>
   <script type="text/javascript">
     var appAlias                     = '{{default::appAlias}}';
@@ -21,10 +22,10 @@
     window[ appAlias ].fields        = {{default::fields}};
     window[ appAlias ].passwordRules = {{default::passwordRules}};
   </script>
-  <script type="text/javascript" src="includes/js/communication.js?v={{version}}"></script>
-  <script type="text/javascript" src="includes/js/custom.js?v={{version}}"></script>
-  <script type="text/javascript" src="includes/js/validation.js?v={{version}}"></script>
-  <script type="text/javascript" src="includes/js/listener.js?v={{version}}"></script>
+  <script type="text/javascript" src="includes/js/communication.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/custom.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/validation.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/listener.js?v={{default::version}}"></script>
 </head>
 <body>
   <div class="content pb-10 pl-10 pr-10">

@@ -1,0 +1,13 @@
+{
+  "alias": "game",
+  "class": "Game",
+  "roles": [ "player", "administrator" ],
+  "templates": [
+    "header.tmpl",
+    "game.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+    "Game::setPlayerIdToTemplate"
+  ]
+}

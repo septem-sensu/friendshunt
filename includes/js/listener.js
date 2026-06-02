@@ -199,7 +199,7 @@ window[ appAlias ].listener.uploadAvatar = function() {
         strProperty = 'avatar';
       }
 
-      objFormData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ]);
+      objFormData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ] );
       objFormData.append( 'class', strClass );
       objFormData.append( 'id', window[ appAlias ].id );
       objFormData.append( 'property', strProperty );
@@ -277,24 +277,6 @@ window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
   return;
 };
 
-window[ appAlias ].listener.changePlayerAvatar = function() {
-  if( document.querySelector( '#event-change-player-avatar' ) == null ) return;
-
-  var strClass   = 'Player';
-  var strMethode = 'changePlayerAvatar';
-
-  if( window[ appAlias ].class == 'Game' ) {
-    strClass   = 'Game';
-    strMethode = 'changeGameAvatar';
-  }
-
-  document.querySelector( '#event-change-player-avatar' ).addEventListener( 'click', function(){
-    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, window[ appAlias ].methods.newJsonRequestObject( strClass, strMethode, window[ appAlias ].id ), 'proccessResponse' );
-  } );
-
-  return;
-};
-
 window[ appAlias ].listener.links = function() {
   var arrLinks = document.querySelectorAll( '.event-link' );
 
@@ -327,7 +309,6 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.links();
   window[ appAlias ].listener.uploadAvatar();
   window[ appAlias ].listener.uploadGameImages();
-  //window[ appAlias ].listener.changePlayerAvatar();
   window[ appAlias ].listener.uploadAvatarOpenDialog();
   window[ appAlias ].listener.uploadGameImagesOpenDialog();
   window[ appAlias ].listener.saveObject();
