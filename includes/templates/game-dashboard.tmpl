@@ -48,13 +48,18 @@
   <table>
     <tr>
       <td style="width: 170px;">Start des Spiels:</td>
-      <td class="align-right">{{Game::start}}</td>
+      <td class="align-right format-date-time">{{Game::start}}</td>
       <td></td>
     </tr>
     <tr>
       <td>Dauer des Spiels:</td>
       <td class="align-right">{{Game::duration}}</td>
       <td class="align-right pl-10"> Stunden</td>
+    </tr>
+    <tr>
+      <td>Tracking Intervall:</td>
+      <td class="align-right">{{Game::trackInterval}}</td>
+      <td class="align-right pl-10"> Sekunden</td>
     </tr>
     <tr>
       <td>Silent Hunt Intervall:</td>
@@ -67,8 +72,8 @@
       <td class="align-right pl-10"> Minuten</td>
     </tr>
     <tr>
-      <td>Anzahl Hunt Pings:</td>
-      <td class="align-right">{{Game::speedPingCount}}</td>
+      <td>Jäger Sperrzeit:</td>
+      <td class="align-right">{{Game::hunterClosingTime}}</td>
       <td></td>
     </tr>
     <tr>
@@ -79,6 +84,16 @@
     <tr>
       <td>Exit Position:</td>
       <td class="align-right">{{Game::exitPosition}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Mitspieler anzeigen:</td>
+      <td class="align-right">{{Translate::Game::showPlayer}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Spielernamen anzeigen:</td>
+      <td class="align-right">{{Translate::Game::showNames}}</td>
       <td></td>
     </tr>
   </table>
@@ -95,15 +110,16 @@
 <button id="geo-test-btn" style="padding: 20px; font-size: 20px;">Standort freigeben</button>
 
 <script>
-document.getElementById('geo-test-btn').addEventListener('click', () => {
+  document.getElementById('geo-test-btn').addEventListener('click', () => {
     console.log("Button geklickt. Starte GPS...");
     navigator.geolocation.getCurrentPosition(
-        (pos) => { alert(`Erfolg! Lat: ${pos.coords.latitude}`); },
-        (err) => { alert(`Fehler: ${err.message} (Code: ${err.code})`); },
-        { enableHighAccuracy: true, timeout: 5000 }
+      (pos) => { alert(`Erfolg! Lat: ${pos.coords.latitude}`); },
+      (err) => { alert(`Fehler: ${err.message} (Code: ${err.code})`); },
+      { enableHighAccuracy: true, timeout: 5000 }
     );
-});
+  });
 </script>
+
 <script>
   window[ appAlias ].methods.cAddGameImagesContent();
   window[ appAlias ].methods.cAddGameplayDataToTemplate();

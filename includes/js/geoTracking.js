@@ -5,6 +5,10 @@ class GeoTracker {
       timeout: 10000,            // Maximal 10 Sekunden auf das Signal warten
       maximumAge: 0              // Keinen alten Cache-Wert nutzen, sondern live abfragen
     }
+
+    this.trackInterval = typeof window[ appAlias ].gameSettings == 'object' && typeof window[ appAlias ].gameSettings.trackInterval != 'undefined' ? window[ appAlias ].gameSettings.trackInterval * 1000 : 60000;
+    this.debug         = true;
+
     return;
   }
 
@@ -16,8 +20,8 @@ class GeoTracker {
           const lng       = position.coords.longitude;
           const precision = position.coords.accuracy; // Genauigkeit in Metern
 
-          console.log(`Erfolg! Breitengrad: ${lat}, Längengrad: ${lng}`);
-          console.log(`Genauigkeit: ${precision} Meter`);
+          if( this.debug ) console.log(`Erfolg! Breitengrad: ${lat}, Längengrad: ${lng}`);
+          if( this.debug ) console.log(`Genauigkeit: ${precision} Meter`);
 
           window[ appAlias ].methods.gameplay[ callbackSuccess ]( lat, lng, precision, {} );
         },
@@ -41,6 +45,24 @@ class GeoTracker {
         'errorMessage': 'Ihr Browser unterstützt die Geolocation API nicht. Bitte verwenden Sie einen modernen Browser.'
       } );
     }
+
+    return;
+  }
+
+  startIntervalTracking( callbackSuccess ) {
+    if( typeof window[ appAlias ].tracker.intervalTrackingId != 'undefined' && window[ appAlias ].tracker.intervalTrackingId != null ) return;
+    if( this.debug ) console.log( 'Tracking läuft... Intervall: ' + this.trackInterval + ' ms' );
+
+    window[ appAlias ].tracker.intervalTrackingId = setInterval( () => this.getCurrentPosition( callbackSuccess ), this.trackInterval );
+
+    return;
+  }
+
+  stopIntervalTracking() {
+    clearInterval( window[ appAlias ].tracker.intervalTrackingId );
+    window[ appAlias ].tracker.intervalTrackingId = null;
+
+    return;
   }
 
 

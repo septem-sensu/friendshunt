@@ -47,7 +47,7 @@ class Player extends BaseObject {
     if( ! file_exists( __DIR__ . '/../files/player/' ) ) mkdir( __DIR__ . '/../files/player' );
     if( ! file_exists( __DIR__ . '/../files/player/' . $strEmail ) ) mkdir( __DIR__ . '/../files/player/' . $strEmail );
 
-    copy( __DIR__ . '/../images/no-profil-image.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
+    copy( __DIR__ . '/../images/apple-touch-icon.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
 
     return $objNewPlayerRequestObject;
   }

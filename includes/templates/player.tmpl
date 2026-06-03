@@ -17,6 +17,7 @@
         <p>{{Player::title}}</p>
         <p>{{Player::description}}</p>
         <p><button data-link="index.php?view=playerEdit" type="button" class="primary event-link mt-10 w-160">Anpassen</button></p>
+        <p class="hidden" id="new-player-button-container"><button data-link="index.php?view=playerNew" type="button" class="info event-link mt-5 mb-5 w-160">Spieler anlegen</button></p>
       </td>
       <td class="align-right align-top">
         <img class="c-dashboard-player-image my-account-image" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" />
@@ -29,3 +30,22 @@
   <p class="align-right"><button data-link="index.php?view=gameEdit" type="button" class="event-link success w-160">Neues Spiel</button></p>
 </div>
 <div id="game-content-container"></div>
+<script>
+  window[ appAlias ].methods.unhideGameDeleteButtons = function() {
+    var strRole          = '{{Player::role}}';
+    var arrDeleteButtons = document.querySelectorAll( '.game-delete-button' );
+    if( strRole == 'administrator' ) {
+      for( var i = 0; i < arrDeleteButtons.length; i++ ) {
+        arrDeleteButtons[ i ].classList.remove( 'hidden' );
+      }
+    }
+  };
+  ( function() {
+    var strRole = '{{Player::role}}';
+    if( strRole == 'administrator' ) {
+      document.querySelector( '#new-player-button-container' ).classList.remove( 'hidden' );
+    }
+    window[ appAlias ].methods.cAddGamesToTemplate();
+    return;
+  } )();
+</script>

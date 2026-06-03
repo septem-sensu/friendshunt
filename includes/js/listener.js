@@ -131,6 +131,10 @@ window[ appAlias ].listener.saveNewGame = function() {
     objPost.speedPingCount       = document.querySelector('#speedPingCount') != null ? document.querySelector('#speedPingCount').value : null;
     objPost.startPosition        = document.querySelector('#startPosition') != null ? document.querySelector('#startPosition').value : null;
     objPost.exitPosition         = document.querySelector('#exitPosition') != null ? document.querySelector('#exitPosition').value : null;
+    objPost.trackInterval        = document.querySelector('#trackInterval') != null ? document.querySelector('#trackInterval').value : null;
+    objPost.showPlayer           = document.querySelector('#showPlayer') != null ? document.querySelector('#showPlayer').value : null;
+    objPost.hunterClosingTime    = document.querySelector('#hunterClosingTime') != null ? document.querySelector('#hunterClosingTime').value : null;
+    objPost.showNames            = document.querySelector('#showNames') != null ? document.querySelector('#showNames').value : null;
 
     if( arrPlayerHtmlObjects.length < 1 ) {
       window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-player-field' } ] );
@@ -303,6 +307,17 @@ window[ appAlias ].listener.resetForms = function() {
   return;
 };
 
+window[ appAlias ].listener.formatDateTime = function() {
+  var arrFormateTags = document.querySelectorAll( '.format-date-time' );
+
+  for( var i = 0; i < arrFormateTags.length; i++ ) {
+    arrFormateTags[ i ].innerHTML = window[ appAlias ].methods.TimeStringToTimeString( arrFormateTags[ i ].innerHTML );
+  }
+
+  return;
+}
+
+
 window.addEventListener( 'load', function() {
   window[ appAlias ].listener.loginButtons();
   window[ appAlias ].listener.newPlayerButtons();
@@ -319,6 +334,7 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.saveNewGame();
   window[ appAlias ].listener.deletePlayer();
   window[ appAlias ].listener.zoomImageListenter();
+  window[ appAlias ].listener.formatDateTime();
 
   return;
 } );

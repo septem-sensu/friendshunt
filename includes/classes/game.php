@@ -23,6 +23,10 @@ class Game extends BaseObject {
   protected string $exitPosition;
   protected array  $images = [];
   protected string $tmpImageAdd;
+  protected string $showPlayer;
+  protected int    $trackInterval;
+  protected int    $hunterClosingTime;
+  protected string $showNames;
 
   public function initGame( object | null $objController = null ) : void {
     if( isset( $_GET[ 'result' ] ) && $_GET[ 'result' ] == 'json' ) return;
@@ -219,6 +223,10 @@ class Game extends BaseObject {
     $objGameplay->speedPingCount    = $objRequestObject->speedPingCount;
     $objGameplay->startPosition     = $objRequestObject->startPosition;
     $objGameplay->exitPosition      = $objRequestObject->exitPosition;
+    $objGameplay->showPlayer        = $objRequestObject->showPlayer;
+    $objGameplay->showNames         = $objRequestObject->showNames;
+    $objGameplay->trackInterval     = $objRequestObject->trackInterval;
+    $objGameplay->hunterClosingTime = $objRequestObject->hunterClosingTime;
     $objGameplay->creationDate      = date( "Y-m-d H:i:s" );
 
     for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
@@ -281,7 +289,7 @@ class Game extends BaseObject {
     $objRequestObject->avatar  = 'avatar.png';
 
     mkdir( $strGameplayPath );
-    copy( __DIR__ . '/../images/no-profil-image.png', $strGameplayPath . 'avatar.png' );
+    copy( __DIR__ . '/../images/apple-touch-icon.png', $strGameplayPath . 'avatar.png' );
     BaseObject::saveFileEnCrypted( $strGameplayPath . 'gameplay.json', $objGameplay );
 
     $objGame->set( 'avatar', 'avatar.png' );
@@ -343,7 +351,18 @@ class Game extends BaseObject {
   }
 
   public static function setPlayerIdToTemplate( object $objController ) : object {
-    $objController->getPresentationObject()->assignTemplateVar( 'playerId', 'Game', null, Player::getPlayerIdFromCookie() );
+    $strPlayerId = Player::getPlayerIdFromCookie();
+    $strGameId   = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : null;
+
+    if( isset( $strGameId ) ) {
+      $objPlayer        = new Player( $strPlayerId );
+      $objGameplay      = new Gameplay( $strGameId, $objPlayer );
+      $objGameSettings  = $objGameplay->getGameSettings();
+
+      $objController->getPresentationObject()->assignTemplateVar( 'gameSettings', 'Gameplay', null, json_encode( $objGameSettings ) );;
+    }
+
+    $objController->getPresentationObject()->assignTemplateVar( 'playerId', 'Game', null, $strPlayerId );
 
     return $objController;
   }

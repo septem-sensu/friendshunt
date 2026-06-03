@@ -132,7 +132,9 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
     window[ appAlias ].methods.setFields( objResponse.result );
 
     if( objResponse.result.methode && objResponse.result.methode == 'gameplay' && objResponse.result.callback ) {
+      window[ appAlias ].gameplayState = typeof objResponse.result.state == 'object' && objResponse.result.state != null ? objResponse.result.state : {};
       window[ appAlias ].methods.gameplay[ objResponse.result.callback ]( objResponse );
+      console.log( objResponse.result );
     }
   }
 

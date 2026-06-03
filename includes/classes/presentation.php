@@ -62,6 +62,14 @@ class Presentation {
      return preg_replace( '/\{\{.*?\}\}/s', '', $strContent );
   }
 
+  public static function stringToTimestamp ( string $strTimestamp ) : int {
+    return strtotime( $strTimestamp );
+  }
+
+  public static function timestampToString( int $intTimestamp ) : string {
+    return date( 'd.m.Y H:i', $intTimestamp );
+  }
+
   public static function writeCookie( object $objParams ) : void {
     $objConfig      = BaseObject::getConfig();
     $strCookieName  = $objConfig->cookieName;

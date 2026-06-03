@@ -40,7 +40,9 @@ a {
     left: calc(50% - 186px);
   }
 
-
+  body .login-box {
+    width: 380px;
+  }
 
 }
 
@@ -55,3 +57,21 @@ body .content-container.first-child {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
+
+.friendshunt-login-logo {
+  width: 150px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.spacer-login-top {
+  display: flex;
+  justify-content: center; /* Zentriert horizontal */
+  align-items: center;     /* Zentriert vertikal */
+  min-height: 100dvh;
+  max-height: 100dvh;
+}
+
+.login-box {
+    width: 580px;
+  }

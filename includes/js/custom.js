@@ -124,7 +124,7 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainerContent    += '<td class="align-top align-left">';
     strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button></div>';
     strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-160 mt-5 event-delete-game warning">Dashboard</button></div>';
-    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-160 mt-5 event-delete-game danger">Spiel löschen</button></div>';
+    strContentContainerContent    += '<div class="w-100p hidden game-delete-button"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-160 mt-5 event-delete-game danger">Spiel löschen</button></div>';
     strContentContainerContent    += '</td>';
     strContentContainerContent    += '<td class="w-160 align-top align-right">';
     strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image" src="includes/files/game/' + arrGames[ i ].id + '/' + arrGames[ i ].avatar + '" />';
@@ -132,7 +132,8 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainerContent    += '</tr></table>';
     strContentContainerContent    += '<table><tr><td><span class="bold">Name:</span></td><td><span class="bold">' + arrGames[ i ].name + '</span></td></tr>';
     strContentContainerContent    += '<tr><td>Titel:</td><td>' + arrGames[ i ].title + '</td></tr>';
-    strContentContainerContent    += '<tr><td class="pr-10">Beschreibung:</td><td>' + arrGames[ i ].description  + '</td></tr></table>';
+    strContentContainerContent    += '<tr><td class="pr-10">Beschreibung:</td><td>' + arrGames[ i ].description  + '</td></tr>';
+    strContentContainerContent    += '<tr><td class="pr-10 bold">Start:</td><td class="bold">' + window[ appAlias ].methods.TimeStringToTimeString( arrGames[ i ].start )  + '</td></tr></table>';
     strContentContainerContent    += '<input type="hidden" name="game-id" value="' + arrGames[ i ].id + '">';
     strContentContainer.innerHTML  = strContentContainerContent;
 
@@ -140,6 +141,8 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainer.classList.add( 'align-left' );
     document.querySelector( '#game-content-container' ).append( strContentContainer );
   }
+
+  window[ appAlias ].methods.unhideGameDeleteButtons();
 
   return;
 };
@@ -214,6 +217,19 @@ window[ appAlias ].methods.cProccessResponseDeleteGame = function( objResponse )
   return;
 };
 
+window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
+  const objDateTimer     = new Date( strTime );
+  const strFormattedDate = objDateTimer.toLocaleString( 'de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  } );
+
+  return strFormattedDate;
+}
+
 window[ appAlias ].methods.cCloseFullImage = function() {
   document.querySelector('.full-image img').remove();
   document.querySelector('.full-image-layer').style.display = 'none';
@@ -223,7 +239,7 @@ window[ appAlias ].methods.cCloseFullImage = function() {
 };
 
 window.addEventListener( 'load', function() {
-  window[ appAlias ].methods.cAddGamesToTemplate();
+
 
   return;
 } );

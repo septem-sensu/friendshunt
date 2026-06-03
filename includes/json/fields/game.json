@@ -145,5 +145,47 @@
     "mandatory": false,
     "unit": "",
     "position": 1700
+  },
+  "showPlayer": {
+    "nameDe": "Spieler anzeigen",
+    "element": "select",
+    "type": "text",
+    "options": {
+      "1": "Ja",
+      "0": "Nein"
+    },
+    "mandatory": true,
+    "unit": "",
+    "position": 1800
+  },
+  "showNames": {
+    "nameDe": "Spielernamen anzeigen",
+    "element": "select",
+    "type": "text",
+    "options": {
+      "1": "Ja",
+      "0": "Nein"
+    },
+    "mandatory": true,
+    "unit": "",
+    "position": 1800
+  },
+  "trackInterval": {
+    "nameDe": "Tracking Intervall",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Sekunden",
+    "minLength": 2,
+    "position": 1900
+  },
+  "hunterClosingTime": {
+    "nameDe": "Jäger Sperrzeit",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Minuten",
+    "minLength": 2,
+    "position": 2000
   }
 }

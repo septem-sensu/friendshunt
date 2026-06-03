@@ -28,8 +28,6 @@ class GeoMaps {
     this.marker[ id ] = L.marker( [ lat, lng ], { icon: icon } ).addTo( this.map );
     this.marker[ id ].bindPopup( content );
 
-    console.log( this.marker );
-
     return;
   }
 

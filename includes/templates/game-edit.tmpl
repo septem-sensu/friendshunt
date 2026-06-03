@@ -47,16 +47,32 @@
     <input class="mb-10 mt-5 w-350" type="datetime-local" name="start" id="start" placeholder="Eingabe Start des Spiels" value="{{Game::start}}" />
     <p class="minw-200">Dauer des Spiels*</p>
     <input class="mb-10 mt-5 w-350" type="number" name="duration" id="duration" placeholder="Eingabe Spieldauer in Stunden" value="{{Game::duration}}" />
+    <p class="minw-200">Tracking Intervall*</p>
+    <input class="mb-10 mt-5 w-350" type="number" name="trackInterval" id="trackInterval" placeholder="Eingabe Tracking Intervall in Sekunden" value="{{Game::trackInterval}}" />
     <p class="minw-200">Silent Hunt Intervall*</p>
     <input class="mb-10 mt-5 w-350" type="number" name="pingInterval" id="pingInterval" placeholder="Eingabe Silent Hunt Interv. in Minuten" value="{{Game::pingInterval}}" />
     <p class="minw-200">Speed Hunt Intervall*</p>
     <input class="mb-10 mt-5 w-350" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" />
     <p class="minw-200">Anzahl Speed Hunt Pings*</p>
     <input class="mb-10 mt-5 w-350" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::speedPingCount}}" />
+    <p class="minw-200">Jäger Sperrzeit*</p>
+    <input class="mb-10 mt-5 w-350" type="number" name="hunterClosingTime" id="hunterClosingTime" placeholder="Eingabe Jäger Sperrzeit in Minuten" value="{{Game::hunterClosingTime}}" />
     <p class="minw-200">Start Position*</p>
     <input class="mb-10 mt-5 w-350 align-right" type="text" name="startPosition" id="startPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::startPosition}}" />
     <p class="minw-200">Exit Position*</p>
     <input class="mb-10 mt-5 w-350 align-right" type="text" name="exitPosition" id="exitPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::exitPosition}}" />
+    <p class="minw-200">Andere Spiele anzeigen*</p>
+    <select class="mb-10 mt-5 w-375 align-right" name="showPlayer" id="showPlayer">
+      <option value="{{Game::showPlayer}}">{{Translate::Game::showPlayer}}</option>
+      <option value="1">Ja</option>
+      <option value="0">Nein</option>
+    </select>
+    <p class="minw-200">Spielernamen anzeigen*</p>
+    <select class="mb-10 mt-5 w-375 align-right" name="showNames" id="showNames">
+      <option value="{{Game::showNames}}">{{Translate::Game::showNames}}</option>
+      <option value="1">Ja</option>
+      <option value="0">Nein</option>
+    </select>
   </div>
 
   <div id="game-content-container"></div>

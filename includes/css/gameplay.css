@@ -56,3 +56,76 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
+.icon-game-state-stop {
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
+  margin-top: 6px;
+  opacity: 0.6;
+}
+
+.icons-gamplay-menu-bottom {
+  filter: invert(1);
+  color: #000000 !important;
+  position: absolute;
+  opacity: 0.6;
+}
+
+.icon-game-camera {
+  width: 35px;
+  height: 37px;
+  left: 222px;
+  top: 6px;
+}
+
+.icon-game-message {
+  width: 35px;
+  height: 40px;
+  left: 116px;
+  top: 5px;
+}
+
+.icon-game-reload {
+  width: 35px;
+  height: 30px;
+  left: 21px;
+  top: 10px;
+}
+
+.icon-game-back {
+  width: 35px;
+  height: 30px;
+  left: 323px;
+  top: 10px;
+}
+
+@keyframes moveTicker	{
+  from {
+    transform: translate3d(0%, 0%, 0px);
+    left: 100%;
+  }	to{
+    transform: translate3d(-200%, 0%, 0px);
+    left: 0%;
+  }
+}
+
+#game-scrolling-info-text-container {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  left: 56px;
+  min-width: 300px;
+}
+
+#game-scrolling-info-text {
+  position: relative;
+  animation: moveTicker 20s linear infinite;
+  font-size: 19px;
+  top: -2px;
+  opacity: 0.8;
+}
+
