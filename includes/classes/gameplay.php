@@ -80,11 +80,28 @@ class Gameplay extends Game {
   }
 
   public function getGameSettings() : object {
-    $objGameConfiguration = clone $this->gameplayObject;
+    $objGameConfiguration                = clone $this->gameplayObject;
+    $objGameConfiguration->playerIds     = [];
+    $objGameConfiguration->hunterIds     = [];
+    $objGameConfiguration->managementIds = [];
 
     unset( $objGameConfiguration->player );
     unset( $objGameConfiguration->hunter );
     unset( $objGameConfiguration->management );
+    unset( $objGameConfiguration->silentHunt );
+    unset( $objGameConfiguration->speedHunts );
+
+    for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
+      array_push( $objGameConfiguration->playerIds, $this->gameplayObject->player[ $i ]->id );
+    }
+
+    for( $i = 0; $i < count( $this->gameplayObject->hunter ); $i++ ) {
+      array_push( $objGameConfiguration->hunterIds, $this->gameplayObject->hunter[ $i ]->id );
+    }
+
+    for( $i = 0; $i < count( $this->gameplayObject->management ); $i++ ) {
+      array_push( $objGameConfiguration->managementIds, $this->gameplayObject->management[ $i ]->id );
+    }
 
     return $objGameConfiguration;
   }
@@ -290,6 +307,7 @@ class Gameplay extends Game {
     $objRequestObject->state     = $objState;
     $objRequestObject->settings  = $this->gameSettings;
     $objRequestObject->gameRole  = $this->currentPlayerGameRole;
+    $objRequestObject->messages  = $this->messages->messages;
 
     return $objRequestObject;
   }
@@ -306,6 +324,7 @@ class Gameplay extends Game {
     $objRequestObject->state     = $objState;
     $objRequestObject->settings  = $this->gameSettings;
     $objRequestObject->gameRole  = $this->currentPlayerGameRole;
+    $objRequestObject->messages  = $this->messages->messages;
 
     return $objRequestObject;
   }
@@ -316,7 +335,7 @@ class Gameplay extends Game {
     $objMessage             = new stdClass();
     $objMessage->message    = $objRequestObject->message;
     $objMessage->playerId   = $this->currentPlayer->id();
-    $objMessage->time       = time();
+    $objMessage->timestamp  = time();
     $objMessage->playerName = $this->currentPlayer->get( 'name' );
     $objMessage->id         = $this->newId( 'message' );
 
@@ -326,7 +345,7 @@ class Gameplay extends Game {
 
     $this->saveMessages();
 
-    $objRequestObject->messages = $this->messages;
+    $objRequestObject->messages = $this->messages->messages;
 
     return $objRequestObject;
   }

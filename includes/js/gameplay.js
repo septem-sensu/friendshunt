@@ -63,6 +63,7 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
   }
 
   window[ appAlias ].methods.gameplay.setStateLine();
+  window[ appAlias ].methods.gameplay.setMessages();
 
   return;
 };
@@ -192,12 +193,98 @@ window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTim
 };
 
 window[ appAlias ].methods.gameplay.showMessageLayer = function() {
-  var objMessageLayer = document.querySelector( '#game-message-layer' );
+  var objMessageLayer     = document.querySelector( '#game-message-layer' );
+  var objMessageContainer = document.querySelector( '#game-message-content' );
 
   if( objMessageLayer.classList.contains( 'hidden' ) ) {
     objMessageLayer.classList.remove( 'hidden' );
+    document.querySelector( '.icon-new-message' ).classList.add( 'hidden' );
+    objMessageContainer.scrollTo( { 'top': objMessageContainer.scrollHeight, 'behavior': 'smooth' } );
   } else {
     objMessageLayer.classList.add( 'hidden' );
+  }
+
+  return;
+}
+
+window[ appAlias ].methods.gameplay.sendNewMessage = function() {
+  var objNewMessage = document.querySelector( '#new-game-message' );
+  var objPost       = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
+
+  objPost.gameplayMethode = 'message';
+  objPost.callback        = 'setMessages';
+  objPost.playerId        = window[ appAlias ].playerId;
+  objPost.timestamp       = new Date().getTime();
+  objPost.message         = objNewMessage.value;
+
+  console.log( 'sendMessage' );
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+}
+
+window[ appAlias ].methods.gameplay.setMessages = function() {
+  var objNewMessage       = document.querySelector( '#new-game-message' ).value = '';
+  var strLastMessageId    = '';
+  var strContent          = '';
+  var objMessageContainer = document.querySelector( '#game-message-content' );
+
+  for( var i = 0; i < window[ appAlias ].gameplayMessages.length; i++ ) {
+    var objMessage     = window[ appAlias ].gameplayMessages[ i ];
+    var strPlayerName  = '';
+
+    console.log( i );
+
+    strContent        += objMessage.playerId == window[ appAlias ].playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + objMessage.id + '"><div>';
+
+    if( objMessage.playerId != window[ appAlias ].playerId ) strLastMessageId = objMessage.id;
+
+    if( window[ appAlias ].gameSettings.showNames == '1' ) {
+      strPlayerName = objMessage.playerName;
+    } else {
+      if( objMessage.playerId == window[ appAlias ].playerId ) strPlayerName = objMessage.playerName;
+
+      if( strPlayerName == '' ) {
+        for( var j = 0; j < window[ appAlias ].gameSettings.playerIds.length; j++ ) {
+          if( window[ appAlias ].gameSettings.playerIds[ j ] == objMessage.playerId ) {
+            strPlayerName = 'Spieler ' + ( j + 1 );
+            break;
+          }
+        }
+      }
+
+      if( strPlayerName == '' ) {
+        for( var j = 0; j < window[ appAlias ].gameSettings.hunterIds.length; j++ ) {
+          if( window[ appAlias ].gameSettings.hunterIds[ j ] == objMessage.playerId ) {
+            strPlayerName = 'Jäger ' + ( j + 1 );
+            break;
+          }
+        }
+      }
+
+      if( strPlayerName == '' ) {
+        for( var j = 0; j < window[ appAlias ].gameSettings.managementIds.length;j++ ) {
+          if( window[ appAlias ].gameSettings.managementIds[ j ] == objMessage.playerId ) {
+            strPlayerName = 'Spielleitung ' + ( j + 1 );
+            break;
+          }
+        }
+      }
+    }
+
+    strContent += objMessage.message;
+    strContent += '<p class="game-message-footer">' + strPlayerName + ' (' + window[ appAlias ].methods.gameplay.timestampToDateTimeString( objMessage.timestamp, '' ) + ')</p>';
+    strContent += '</div></div>';
+
+  }
+
+  objMessageContainer.innerHTML = strContent;
+
+  objMessageContainer.scrollTo( { 'top': objMessageContainer.scrollHeight, 'behavior': 'smooth' } );
+
+  if( strLastMessageId != window[ appAlias ].lastMessageId ) {
+    window[ appAlias ].lastMessageId = strLastMessageId;
+
+    if( document.querySelector( '#game-message-layer' ).classList.contains( 'hidden' ) ) document.querySelector( '.icon-new-message' ).classList.remove( 'hidden' );
   }
 
   return;
