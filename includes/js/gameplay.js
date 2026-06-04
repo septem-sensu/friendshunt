@@ -200,6 +200,8 @@ window[ appAlias ].methods.gameplay.showMessageLayer = function() {
     objMessageLayer.classList.remove( 'hidden' );
     document.querySelector( '.icon-new-message' ).classList.add( 'hidden' );
     objMessageContainer.scrollTo( { 'top': objMessageContainer.scrollHeight, 'behavior': 'smooth' } );
+
+    objMessageLayer.style.height = ( window.innerHeight - 120 ) + 'px';
   } else {
     objMessageLayer.classList.add( 'hidden' );
   }
@@ -217,8 +219,6 @@ window[ appAlias ].methods.gameplay.sendNewMessage = function() {
   objPost.timestamp       = new Date().getTime();
   objPost.message         = objNewMessage.value;
 
-  console.log( 'sendMessage' );
-
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 }
 
@@ -231,8 +231,6 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
   for( var i = 0; i < window[ appAlias ].gameplayMessages.length; i++ ) {
     var objMessage     = window[ appAlias ].gameplayMessages[ i ];
     var strPlayerName  = '';
-
-    console.log( i );
 
     strContent        += objMessage.playerId == window[ appAlias ].playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + objMessage.id + '"><div>';
 

@@ -138,7 +138,7 @@
   position: absolute;
   top: 60px;
   width: 377px;
-  height: calc(100vh - 121px);
+  height: calc(100vh - 220px);
   background-color: var(--backgroundColorContent);
   z-index: 4000;
   border-radius: 10px;

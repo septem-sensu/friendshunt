@@ -313,7 +313,7 @@ class Gameplay extends Game {
   }
 
   public function track( object $objRequestObject ) : object {
-    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, $objRequestObject->precision );
+    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ) );
 
     $objState                    = new stdClass();
     $objState                    = $this->getGameplayState( $objState );
