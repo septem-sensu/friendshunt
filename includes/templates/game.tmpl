@@ -10,16 +10,16 @@
 <script src="includes/js/gameplay.js"></script>
 
 <div class="game-menu-top">
-  <img class="icon-game-state-stop" src="includes/images/icon-stop.png" alt="Spiel läuft nicht" />
+  <img id="icon-game-state-stop" class="icon-game-state-stop" src="includes/images/icon-stop.png" alt="Spiel läuft nicht" />
   <div id="game-scrolling-info-text-container">
-    <div id="game-scrolling-info-text">Das ist ein Test. Nächster Speedhunt in einer Stunde...</div>
+    <div id="game-scrolling-info-text"></div>
   </div>
 </div>
 
 <div class="game-menu-bottom">
   <img class="pointer icon-game-reload icons-gamplay-menu-bottom" src="includes/images/icon-reload.png" alt="Seite neu laden" onclick="javascript: window.location.reload();" />
   <img class="pointer icon-game-camera icons-gamplay-menu-bottom" src="includes/images/icon-camera.png" alt="Bild speichern" onclick="javascript: document.querySelector('#game-images-upload').click();" />
-  <img class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" />
+  <img class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" onclick="javascript: window[ appAlias ].methods.gameplay.showMessageLayer()" />
   <img class="pointer icon-game-back icons-gamplay-menu-bottom" src="includes/images/icon-back.png" alt="Zurück zum Profil" onclick="javascript: window.location.href='?view=player';" />
   <input id="game-images-upload" type="file" name="pictures[]">
 </div>

@@ -111,10 +111,18 @@ button[disabled] {
   border-color: var(--borderColorPrimary);
 }
 
+.primarey-text {
+  color: var(--backgroundColorPrimary);
+}
+
 .success {
   color: #fff;
   background-color: var(--backgroundColorSuccess);
   border-color: var(--borderColorSuccess);
+}
+
+.success-text {
+  color: var(--backgroundColorSuccess);
 }
 
 .info {
@@ -123,16 +131,28 @@ button[disabled] {
   border-color: var(--borderColorInfo);
 }
 
+.info-text {
+  color: var(--backgroundColorInfo);
+}
+
 .warning {
   color: #fff;
   background-color: var(--backgroundColorWarning);
   border-color: var(--borderColorWarning);
 }
 
+.warning-text {
+  color: var(--backgroundColorWarning);
+}
+
 .danger {
   color: #fff;
   background-color: var(--backgroundColorDanger);
   border-color: var(--borderColorDanger);
+}
+
+.danger-text {
+  color: var(--backgroundColorDanger);
 }
 
 .form-error {

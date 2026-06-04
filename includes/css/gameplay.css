@@ -114,11 +114,11 @@
   position: absolute;
   right: 15px;
   top: 12px;
-  max-width: 250px;
+  max-width: 450px;
   overflow: hidden;
   white-space: nowrap;
   left: 56px;
-  min-width: 300px;
+  min-width: 500px;
 }
 
 #game-scrolling-info-text {
@@ -127,5 +127,52 @@
   font-size: 19px;
   top: -2px;
   opacity: 0.8;
+}
+
+#map p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#game-message-layer {
+  position: absolute;
+  top: 60px;
+  width: 377px;
+  height: calc(100vh - 121px);
+  background-color: var(--backgroundColorContent);
+  z-index: 4000;
+  border-radius: 10px;
+  left: calc(50% - 189px);
+}
+
+#game-message-content {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 357px;
+  height: calc(100% - 60px);
+  background-color: var(--backgroundColorContentContainer);
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+#game-message-layer input {
+  width: 283px;
+  margin-right: 3px;
+}
+
+.new-gamplay-message-button {
+  height: 30px;
+  width: 40px;
+}
+
+.new-gamplay-message-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+  position: relative;
+  top: -4px;
+  left: -5px;
+  opacity: 0.7;
 }
 

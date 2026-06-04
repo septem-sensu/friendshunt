@@ -12,6 +12,7 @@ class Gameplay extends Game {
   protected string $currentPlayerGameRole;
   protected object $currentPlayerTracking;
   protected object $gameSettings;
+  protected object $messages;
 
   public function __construct( string $strObjectId, player $objCurrentPlayer ) {
     $this->id            = $strObjectId;
@@ -50,7 +51,16 @@ class Gameplay extends Game {
       $this->saveFileEncrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $objTracking );
     }
 
+    if( ! file_exists( $this->gameplayPath . 'messages.json' ) ) {
+      $objMessages = new stdClass();
+      $objMessages->messages = [];
+
+      $this->saveFileEncrypted( $this->gameplayPath . 'messages.json', $objMessages );
+    }
+
+    $this->messages              = $this->loadFileDeCrypted( $this->gameplayPath . 'messages.json' );
     $this->currentPlayerTracking = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json' );
+    $this->gameSettings          = $this->getGameSettings();
 
     return;
   }
@@ -89,18 +99,23 @@ class Gameplay extends Game {
     $arrManagement            = $this->gameplayObject->management;
 
     for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
-      $objPlayer = new Player( $arrPlayer[ $i ]->id );
-      array_push( $objPositions->player, $this->getPlayerPosition( $objPlayer, 3 ) );
+      if( $this->currentPlayerGameRole == 'hunter' ) {
+        $arrPlayerId = $arrPlayer[ $i ]->id;
+        array_push( $objPositions->player, $this->gameplayObject->silentHunt->tracking->$arrPlayerId );
+      } else {
+        $objPlayer = new Player( $arrPlayer[ $i ]->id );
+        array_push( $objPositions->player, $this->getPlayerPosition( $objPlayer, 1 ) );
+      }
     }
 
     for( $i = 0; $i < count( $arrHunter ); $i++ ) {
       $objPlayer = new Player( $arrHunter[ $i ]->id );
-      array_push( $objPositions->hunter, $this->getPlayerPosition( $objPlayer, 3 ) );
+      array_push( $objPositions->hunter, $this->getPlayerPosition( $objPlayer, 1 ) );
     }
 
     for( $i = 0; $i < count( $arrManagement ); $i++ ) {
       $objPlayer = new Player( $arrManagement[ $i ]->id );
-      array_push( $objPositions->management, $this->getPlayerPosition( $objPlayer, 3 ) );
+      array_push( $objPositions->management, $this->getPlayerPosition( $objPlayer, 1 ) );
     }
 
     return $objPositions;
@@ -112,7 +127,7 @@ class Gameplay extends Game {
     $objPositions->id        = $objPlayer->id();
     $objPositions->timestamp = time();
     $objTracking             = file_exists( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) ? $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) : new stdClass();
-    $arrTracking             = isset( $objTracking->tracking ) ? array_slice( $objTracking->tracking, -3 ) : [];
+    $arrTracking             = isset( $objTracking->tracking ) ? array_slice( $objTracking->tracking, -$intCount ) : [];
     $objPositions->position  = $arrTracking ;
 
     return $objPositions;
@@ -124,29 +139,58 @@ class Gameplay extends Game {
     return;
   }
 
-  private function getGameplayNextSilentHunt( object $objState ) : object {
+  private function saveMessages() : void {
+    BaseObject::saveFileEncrypted( $this->gameplayPath . 'messages.json', $this->messages );
+
+    return;
+  }
+
+  private function silentHunt( object $objState ) : object {
     $intSilentHuntInterval = $this->gameSettings->pingInterval * 60;
+    $intStartTimestamp     = Presentation::stringToTimestamp( $this->gameSettings->start );
+    $intDurationSec        = $this->gameSettings->duration * 60 * 60;
+    $intEndTimestamp       = $intStartTimestamp + $intDurationSec;
     $intNowTimestamp       = time();
 
-    if( $objState->timestampStart > $intNowTimestamp ) {
-      $objState->nextSilentHunt        = Presentation::timestampToString( $objState->timestampStart + $intSilentHuntInterval );
-      $objState->nextSilentHuntMessage = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . '.';
-    } else if( $objState->timestampEnd < $intNowTimestamp ) {
-      $objState->nextSilentHunt        = '';
-      $objState->nextSilentHuntMessage = '';
-    } else {
-      $intPastTimeSeconds    = $intNowTimestamp - $objState->timestampStart;
-      $intRestTimeSeconds    = $intPastTimeSeconds % $intSilentHuntInterval;
-      $intNextTimeSeconds    = $intSilentHuntInterval - $intRestTimeSeconds;
-      $intNextSilentHunt     = $intNowTimestamp + $intNextTimeSeconds;
+    if( ! isset( $this->gameplayObject->silentHunt ) ) {
+      $objSilentHunt                = new stdClass();
+      $objSilentHunt->tracking      = new stdClass();
+      $objSilentHunt->nextTimestamp = $intStartTimestamp + $intSilentHuntInterval;
 
-      if( $intNextSilentHunt > $objState->timestampEnd ) {
+      for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
+        $strPlayerId                            = $this->gameplayObject->player[ $i ]->id;
+        $objPlayer                              = new Player( $strPlayerId );
+        $objSilentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
+      }
+
+      $this->gameplayObject->silentHunt = $objSilentHunt;
+
+      $this->saveGameplay();
+    }
+
+    if( $this->gameplayObject->silentHunt->nextTimestamp > $intNowTimestamp ) {
+      if( $this->gameplayObject->silentHunt->nextTimestamp > $intEndTimestamp ) {
         $objState->nextSilentHunt        = '';
         $objState->nextSilentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr.';
       } else {
-        $objState->nextSilentHunt        = Presentation::timestampToString( $intNextSilentHunt );
-        $objState->nextSilentHuntMessage = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . '.';
+        $objState->nextSilentHunt        = Presentation::timestampToString( $this->gameplayObject->silentHunt->nextTimestamp );
+        $objState->nextSilentHuntMessage = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . ' Uhr.';
       }
+    } else if( $objState->timestampEnd < $intNowTimestamp ) {
+      $objState->nextSilentHunt        = '';
+      $objState->nextSilentHuntMessage = 'Es gibt keinen Silent Hunt. Das Spiel ist beendet.';
+    } else if( $intNowTimestamp > $this->gameplayObject->silentHunt->nextTimestamp ) {
+      for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
+        $strPlayerId  = $this->gameplayObject->player[ $i ]->id;
+        $objPlayer    = new Player( $strPlayerId );
+        $this->gameplayObject->silentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
+      }
+
+      $this->gameplayObject->silentHunt->nextTimestamp = $this->gameplayObject->silentHunt->nextTimestamp + $intSilentHuntInterval;
+      $objState->nextSilentHunt                        = Presentation::timestampToString( $this->gameplayObject->silentHunt->nextTimestamp );
+      $objState->nextSilentHuntMessage                 = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . ' Uhr.';
+
+      $this->saveGameplay();
     }
 
     return $objState;
@@ -161,13 +205,13 @@ class Gameplay extends Game {
     $objState->timestampEnd   = $intEndTimestamp;
 
     if( $intStartTimestamp > $intNowTimestamp ) {
-      $objState->gameState        = 'offline';
-      $objState->gameStateMessage = 'Das Spiel startet am ' . Presentation::timestampToString( $intStartTimestamp );
+      $objState->gameState        = 'stopped';
+      $objState->gameStateMessage = 'Das Spiel startet am ' . Presentation::timestampToString( $intStartTimestamp ) . ' Uhr.';
     } else if( $intEndTimestamp < $intNowTimestamp ) {
-      $objState->gameState        = 'offline';
+      $objState->gameState        = 'stopped';
       $objState->gameStateMessage = 'Das Spiel ist schon beendet.';
     } else {
-      $objState->gameState        = 'online';
+      $objState->gameState        = 'running';
       $objState->gameStateMessage = 'Das Spiel läuft gerade.';
     }
 
@@ -189,12 +233,12 @@ class Gameplay extends Game {
     }
 
     $intLastSpeedhunt = isset( $this->gameplayObject->lastSpeedHunt ) ? $this->gameplayObject->lastSpeedHunt : Presentation::stringToTimestamp( $this->gameplayObject->start );
-    $intLastSpeedhunt = intval( $intLastSpeedhunt ) + ( intval( $this->gameplayObject->speedPingInterval ) * 60 );
+    $intNextSpeedhunt = intval( $intLastSpeedhunt ) + ( intval( $this->gameplayObject->speedPingInterval ) * 60 );
 
-    if( $intLastSpeedhunt < time() ) {
+    if( $intNextSpeedhunt > time() ) {
       $objState->speedHuntState->speedHuntCount    = -1;
       $objState->speedHuntState->speedHuntCountMax = -1;
-      $objState->speedHuntState->message           = 'Der nächste Speedhunt ist am ' . Presentation::timestampToString( $intLastSpeedhunt )  . ' verfügbar.';
+      $objState->speedHuntState->message           = 'Der nächste Speedhunt ist am ' . Presentation::timestampToString( $intNextSpeedhunt )  . ' Uhr verfügbar.';
       $objState->speedHuntState->state             = 'not available';
 
       return $objState;
@@ -208,29 +252,27 @@ class Gameplay extends Game {
     return $objState;
   }
 
-  private function getGameplayStateLine( object $objState ) : object {
-
-
-
-    return $objState;
-  }
-
-  public function speedHuntPing( object $objRequestObject ) : object {
+  public function speedHunt( object $objRequestObject ) : object {
     if( ! isset( $this->gameplayObject->speedHunts ) ) $this->gameplayObject->speedHunts = [];
     if( ! isset( $this->gameplayObject->speedHunt ) ) {
+      $objPlayer                                   = new Player( $objRequestObject->playerId );
       $this->gameplayObject->speedHunt             = new stdClass();
       $this->gameplayObject->speedHunt->timestamps = [];
       $this->gameplayObject->speedHunt->playerId   = $objRequestObject->playerId;
-      $this->gameplayObject->speedHunt->playerName = $objRequestObject->playerName;
+      $this->gameplayObject->speedHunt->playerName = $objPlayer->get( 'name' );
     }
 
     array_push( $this->gameplayObject->speedHunt->timestamps, time() );
 
-    $intSpeedHuntCount                    = count( $this->gameplayObject->speedHunt->timestamps );
-    $objPlayer                            = new Player( $this->gameplayObject->speedHunt->playerId );
-    $objRequestObject->positions          = $this->getPlayerPosition( $objPlayer, 1 );
-    $objRequestObject->speedHuntCount     = $intSpeedHuntCount;
-    $objRequestObject->speedHuntCountMax  = $this->gameplayObject->speedPingCount;
+    $intSpeedHuntCount                                        = count( $this->gameplayObject->speedHunt->timestamps );
+    $strPlayerId                                              = $this->gameplayObject->speedHunt->playerId;
+    $objPlayer                                                = new Player( $strPlayerId );
+    $objRequestObject->positions                              = new stdClass();
+    $objTracking                                              = $this->getPlayerPosition( $objPlayer, 1 );
+    $objRequestObject->positions->player                      = [ $objTracking ];
+    $objRequestObject->positions->hunter                      = [];
+    $objRequestObject->positions->management                  = [];
+    $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objTracking;
 
     if( $intSpeedHuntCount >= $this->gameplayObject->speedPingCount ) {
       $this->gameplayObject->lastSpeedHunt = time();
@@ -241,23 +283,50 @@ class Gameplay extends Game {
 
     $this->saveGameplay();
 
+    $objState                    = new stdClass();
+    $objState                    = $this->getGameplayState( $objState );
+    $objState                    = $this->silentHunt( $objState );
+    $objState                    = $this->getGameplaySpeedHunt( $objState );
+    $objRequestObject->state     = $objState;
+    $objRequestObject->settings  = $this->gameSettings;
+    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
+
     return $objRequestObject;
   }
 
   public function track( object $objRequestObject ) : object {
     $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, $objRequestObject->precision );
 
-    $this->gameSettings          = $this->getGameSettings();
     $objState                    = new stdClass();
     $objState                    = $this->getGameplayState( $objState );
-    $objState                    = $this->getGameplayNextSilentHunt( $objState );
+    $objState                    = $this->silentHunt( $objState );
     $objState                    = $this->getGameplaySpeedHunt( $objState );
-    $objState                    = $this->getGameplayStateLine( $objState );
 
     $objRequestObject->positions = $this->getAllPlayerPositions();
     $objRequestObject->state     = $objState;
     $objRequestObject->settings  = $this->gameSettings;
     $objRequestObject->gameRole  = $this->currentPlayerGameRole;
+
+    return $objRequestObject;
+  }
+
+  public function message( object $objRequestObject ) : object {
+    if( $objRequestObject->message == '' ) return $objRequestObject;
+
+    $objMessage             = new stdClass();
+    $objMessage->message    = $objRequestObject->message;
+    $objMessage->playerId   = $this->currentPlayer->id();
+    $objMessage->time       = time();
+    $objMessage->playerName = $this->currentPlayer->get( 'name' );
+    $objMessage->id         = $this->newId( 'message' );
+
+    array_push( $this->messages->messages, $objMessage );
+
+    if( count( $this->messages->messages ) > 20 ) $this->messages->messages = array_slice( $this->messages->messages, -20 );
+
+    $this->saveMessages();
+
+    $objRequestObject->messages = $this->messages;
 
     return $objRequestObject;
   }
