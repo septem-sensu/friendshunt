@@ -65,11 +65,12 @@ class Gameplay extends Game {
     return;
   }
 
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision ) : void {
+  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps ) : void {
     $objTracking            = new stdClass();
     $objTracking->lat       = $floatLat;
     $objTracking->lng       = $floatLng;
     $objTracking->precision = $intPrecision;
+    $objTracking->steps     = $intSteps;
     $objTracking->timestamp = time();
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
@@ -104,6 +105,46 @@ class Gameplay extends Game {
     }
 
     return $objGameConfiguration;
+  }
+
+  public function calcDistance( float $floatLat1, float $floatLng1, float $floatLat2, float $floatLng2) : float {
+    $intEarthRadiusInMeters = 6371000;
+
+    // Umrechnung von Grad in Bogenmaß (Radiant)
+    $floatDLat = deg2rad( $floatLat2 - $floatLat1 );
+    $floatDLng = deg2rad( $floatLng2 - $floatLng1 );
+    $a         = sin( $floatDLat / 2 ) * sin( $floatDLat / 2 ) + cos( deg2rad( $floatLat1 ) ) * cos( deg2rad( $floatLat2 ) ) * sin( $floatDLng / 2 ) * sin( $floatDLng / 2 );
+    $c         = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+    return $intEarthRadiusInMeters * $c;
+  }
+
+  public function calcPlayerDistances( string | Player $mixPlayer ) : object {
+    $objDistances           = new stdClass();
+    $objDistances->steps    = 0;
+    $objDistances->distance = 0;
+    $strPlayerId            = is_object( $mixPlayer ) ? $mixPlayer->id() : $mixPlayer;
+    $objTracking            = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' );
+    $arrTracking            = $objTracking->tracking;
+    $intCountTracking       = count( $arrTracking );
+
+    for( $i = 0; $i < $intCountTracking; $i++ ) {
+      $objDistances->trackCount = $i;
+      $objDistances->steps      = isset( $arrTracking[ $i ]->steps ) ? $objDistances->steps + $arrTracking[ $i ]->steps : $objDistances->steps;
+
+      if( $i < $intCountTracking - 1 ) {
+        if( ! isset( $arrTracking[ $i ]->lat ) || ! isset( $arrTracking[ $i ]->lng ) ) continue;
+        if( ! isset( $arrTracking[ $i + 1 ]->lat ) || ! isset( $arrTracking[ $i + 1 ]->lng ) ) continue;
+        if( $arrTracking[ $i ]->lat == 0 || $arrTracking[ $i ]->lng == 0 ) continue;
+        if( $arrTracking[ $i + 1 ]->lat == 0 || $arrTracking[ $i + 1 ]->lng == 0 ) continue;
+        if( $arrTracking[ $i ]->lat == -1 || $arrTracking[ $i ]->lng == -1 ) continue;
+        if( $arrTracking[ $i + 1 ]->lat == -1 || $arrTracking[ $i + 1 ]->lng == -1 ) continue;
+
+        $objDistances->distance = $objDistances->distance + $this->calcDistance( $arrTracking[ $i ]->lat, $arrTracking[ $i ]->lng, $arrTracking[ $i + 1 ]->lat, $arrTracking[ $i + 1 ]->lng );
+      }
+    }
+
+    return $objDistances;
   }
 
   private function getAllPlayerPositions() : object {
@@ -186,6 +227,8 @@ class Gameplay extends Game {
     }
 
     if( $this->gameplayObject->silentHunt->nextTimestamp > $intNowTimestamp ) {
+      Presentation::logToFile( strval( $this->gameplayObject->silentHunt->nextTimestamp ) . ' - ' . strval( $intNowTimestamp ), true, 'test.log');
+
       if( $this->gameplayObject->silentHunt->nextTimestamp > $intEndTimestamp ) {
         $objState->nextSilentHunt        = '';
         $objState->nextSilentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr.';
@@ -313,7 +356,7 @@ class Gameplay extends Game {
   }
 
   public function track( object $objRequestObject ) : object {
-    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ) );
+    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ) );
 
     $objState                    = new stdClass();
     $objState                    = $this->getGameplayState( $objState );

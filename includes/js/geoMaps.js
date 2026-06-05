@@ -9,6 +9,16 @@ class GeoMaps {
     return;
   }
 
+  get( property ) {
+    return this[ property ];
+  }
+
+  set( property, value ) {
+    this[ property ] = value;
+
+    return;
+  }
+
   setMap( lat, lng ) {
     this.map = L.map( this.selector ).setView( [ lat, lng ], this.zoomLevel );
 

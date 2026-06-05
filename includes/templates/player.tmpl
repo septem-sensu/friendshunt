@@ -25,26 +25,30 @@
     </tr>
   </table>
 </div>
-<div class="content-container" >
+<div class="content-container" style="min-height: 28px;">
   <h2 class="align-left float-left">Spiele</h2>
-  <p class="align-right"><button data-link="index.php?view=gameEdit" type="button" class="event-link success w-160">Neues Spiel</button></p>
+  <p class="align-right"><button data-link="index.php?view=gameEdit" type="button" class="event-link success w-160 hidden new-game-button">Neues Spiel</button></p>
 </div>
 <div id="game-content-container"></div>
 <script>
   window[ appAlias ].methods.unhideGameDeleteButtons = function() {
-    var strRole          = '{{Player::role}}';
-    var arrDeleteButtons = document.querySelectorAll( '.game-delete-button' );
+    var strRole            = '{{Player::role}}';
+    var arrDeleteButtons   = document.querySelectorAll( '.game-delete-button' );
+    var arrArchiveButtons  = document.querySelectorAll( '.game-archive-button' );
+    var objNewGameButton   = document.querySelector( '.new-game-button' );
+    var objNewPlayerButton = document.querySelector( '#new-player-button-container' )
     if( strRole == 'administrator' ) {
       for( var i = 0; i < arrDeleteButtons.length; i++ ) {
         arrDeleteButtons[ i ].classList.remove( 'hidden' );
       }
+      for( var i = 0; i < arrArchiveButtons.length; i++ ) {
+        arrArchiveButtons[ i ].classList.remove( 'hidden' );
+      }
+      if( objNewGameButton != null ) objNewGameButton.classList.remove( 'hidden' );
+      if( objNewPlayerButton != null ) objNewPlayerButton.classList.remove( 'hidden' );
     }
   };
   ( function() {
-    var strRole = '{{Player::role}}';
-    if( strRole == 'administrator' ) {
-      document.querySelector( '#new-player-button-container' ).classList.remove( 'hidden' );
-    }
     window[ appAlias ].methods.cAddGamesToTemplate();
     return;
   } )();

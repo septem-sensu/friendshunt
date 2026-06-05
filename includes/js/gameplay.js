@@ -2,11 +2,14 @@ window[ appAlias ].methods.gameplay  = window[ appAlias ].methods.gameplay || {}
 window[ appAlias ].listener.gameplay = window[ appAlias ].listener.gameplay || {};
 window[ appAlias ].tracker           = window[ appAlias ].tracker || {};
 window[ appAlias ].gameplayState     = window[ appAlias ].gameplayState || {};
+window[ appAlias ].stepCount         = window[ appAlias ].stepCount || 0;
 
 window[ appAlias ].methods.gameplay.init = function() {
   window[ appAlias ].tracker.geoTrackerObject = new GeoTracker();
   window[ appAlias ].tracker.geoTrackerObject.getCurrentPosition( 'setMap' );
   window[ appAlias ].tracker.geoTrackerObject.startIntervalTracking( 'track' );
+  window[ appAlias ].tracker.geoTrackerObject.startPedometer();
+  window[ appAlias ].tracker.geoTrackerObject.startWakeLock();
 
   return;
 };
@@ -21,7 +24,10 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
 };
 
 window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, message ) {
-  var objPost = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
+  var objPost      = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
+  var intStepCount = window[ appAlias ].tracker.geoTrackerObject.get( 'stepCount' );
+
+  window[ appAlias ].stepCount = window[ appAlias ].stepCount + intStepCount;
 
   objPost.gameplayMethode = 'track';
   objPost.callback        = 'setPositions';
@@ -30,7 +36,10 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
   objPost.lng             = lng;
   objPost.precision       = precision;
   objPost.message         = message;
+  objPost.steps           = intStepCount;
   objPost.timestamp       = new Date().getTime();
+
+  window[ appAlias ].tracker.geoTrackerObject.set( 'stepCount', 0 );
 
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 };

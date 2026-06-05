@@ -298,6 +298,34 @@ class Game extends BaseObject {
     return $objController;
   }
 
+  public function archiveGame( object $objRequestObject ) : object {
+    $strClass         = $objRequestObject->class;
+    $strId            = $objRequestObject->id;
+    $objGame          = new $strClass( $strId );
+    $strPathSource    = __DIR__ . '/../files/game/' . $strId . '/';
+    $strPathArchive   = __DIR__ . '/../files/game/archive/';
+    $strPathTarget    = __DIR__ . '/../files/game/archive/' . $strId . '/';
+    $arrSourceFiles   = scandir( $strPathSource );
+
+    if( ! file_exists( $strPathArchive ) ) mkdir( $strPathArchive );
+    if( ! file_exists( $strPathTarget ) ) mkdir( $strPathTarget );
+
+    $this->saveFileEnCrypted( $strPathTarget . 'dataGame.json', $objGame );
+
+    foreach ( $arrSourceFiles as $strFile ) {
+      if ( $strFile == '.' || $strFile == '..' ) continue;
+
+      $strSourceFile = $strPathSource . $strFile;
+      $strTargetFile = $strPathTarget . $strFile;
+
+      if ( is_file( $strSourceFile ) ) copy( $strSourceFile, $strTargetFile );
+    }
+
+    $this->deleteGame( $objRequestObject );
+
+    return $objRequestObject;
+  }
+
   public function gameplay( object $objRequestObject ) : object {
     $objPlayer        = new Player( $objRequestObject->playerId );
     $objGameplay      = new Gameplay( $this->id, $objPlayer );

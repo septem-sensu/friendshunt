@@ -6,8 +6,17 @@ window[ appAlias ].formErrors = window[ appAlias ].formErrors || [];
 
 
 window[ appAlias ].methods.cStartGame = function( objElement ) {
-  var objPost = { 'class': 'Game', 'methode': 'startGame' };
-  objPost.id  = objElement.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
+  var objPost       = { 'class': 'Game', 'methode': 'startGame' };
+  var objGeoTracker = new GeoTracker();
+
+  objPost.id        = objElement.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
+
+  // Berechtigung für iOS (Safari) anfordern – muss durch einen Klick getriggert werden!
+  if ( typeof DeviceMotionEvent.requestPermission === 'function' ) {
+    DeviceMotionEvent.requestPermission().then( strPermissionState => {
+      if ( strPermissionState === 'granted' ) objGeoTracker.startPedometer();
+    } );
+  }
 
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost , 'proccessResponse' );
 };
@@ -123,7 +132,8 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainerContent    += '<table class="w-100p"><tr>';
     strContentContainerContent    += '<td class="align-top align-left">';
     strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button></div>';
-    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-160 mt-5 event-delete-game warning">Dashboard</button></div>';
+    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-160 mt-5 event-delete-game primary">Dashboard</button></div>';
+    strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 warning mt-5 hidden game-archive-button" onclick="javascript: window[ appAlias ].methods.cArchiveGame( this );">Spiel archivieren</button></div>';
     strContentContainerContent    += '<div class="w-100p hidden game-delete-button"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-160 mt-5 event-delete-game danger">Spiel löschen</button></div>';
     strContentContainerContent    += '</td>';
     strContentContainerContent    += '<td class="w-160 align-top align-right">';
@@ -197,6 +207,26 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
   return;
 };
 
+window[ appAlias ].methods.cArchiveGame = function( strElement ) {
+  var objHtmlGamesContainer = strElement.closest( '.content-container' );
+  var strGameId             = objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
+  var objPost               = { 'class': 'Game', 'id': strGameId, 'methode': 'archiveGame' };
+
+  if( typeof strGameId != 'string' || strGameId == null ) return;
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponseArchiveGame' );
+};
+
+window[ appAlias ].methods.cProccessResponseArchiveGame = function( objResponse ) {
+  var arrResultMethods = objResponse.result.methods;
+
+  if( typeof objResponse.result.methode != 'string' || objResponse.result.methode != 'archiveGame' ) return;
+  if( typeof objResponse.result.id != 'string' || objResponse.result.id == '' ) return;
+  document.querySelector( 'input[value="' + objResponse.result.id + '"]' ).closest('.content-container').remove();
+
+  return;
+};
+
 window[ appAlias ].methods.cDeleteGame = function( strElement ) {
   var objHtmlGamesContainer = strElement.closest( '.content-container' );
   var strGameId             = objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
@@ -237,6 +267,13 @@ window[ appAlias ].methods.cCloseFullImage = function() {
 
   return;
 };
+
+
+
+
+
+
+
 
 window.addEventListener( 'load', function() {
 

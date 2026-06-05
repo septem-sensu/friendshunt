@@ -24,6 +24,7 @@
       "Game::addManagementToGame",
       "Game::saveNewGame",
       "Game::deleteGame",
+      "Game::archiveGame",
       "Game::startGame",
       "Game::gameplay"
     ]
