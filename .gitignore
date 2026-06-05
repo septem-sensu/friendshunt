@@ -6,9 +6,9 @@ test.html
 test.php
 *.log
 .fiveserverrc
-/includes/files/game/*
-/includes/files/game/*.*
-/includes/files/player/*
-/includes/files/player/*.*
-/includes/json/data/dataGame.*
-/includes/json/data/dataPlayer.*
+includes/files/game/*
+includes/files/game/*.*
+includes/files/player/*
+includes/files/player/*.*
+includes/json/data/dataGame.*
+includes/json/data/dataPlayer.*
