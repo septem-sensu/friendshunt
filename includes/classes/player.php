@@ -2,14 +2,28 @@
 
 declare( strict_types = 1 );
 
-ini_set('log_errors', 1);
-ini_set('error_log', '');
-
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/presentation.php' );
 
+/**
+ * Player Class for the Friendshunt App.
+ *
+ * This Class represents the Player Class for the Friendshunt App with his Properties and Methods.
+ *
+ * @category    class
+ * @package     Application
+ * @subpackage  Friendshunt
+ * @access      public
+ * @author      Markus Götz <info@septem-sensu.de>
+ * @copyright   2026 Markus Götz <info@septem-sensu.de>
+ * @since       2026-06-05
+ * @version     0.1.0
+ * @example     $objPlayer = new Player( $strPlayerId );
+ *
+*/
 class Player extends BaseObject {
 
+/* Class Properties */
   protected string $name;
   protected string $password;
   protected string $role;
@@ -19,6 +33,18 @@ class Player extends BaseObject {
   protected string $title;
   protected string $description;
 
+/**
+ * This static Method add a new Player to the App.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objNewPlayerRequestObject    The Request Object
+ * @return     object     $objNewPlayerRequestObject    The Request Object
+ * @example    $objNewPlayerRequestObject = Player::newPlayer( $objNewPlayerRequestObject );
+ * @example    $objNewPlayerRequestObject = $this::newPlayer( $objNewPlayerRequestObject );
+ *
+*/
   public static function newPlayer( object $objNewPlayerRequestObject ) : object {
     $objAllPlayer                        = BaseObject::getObjects( 'Player' );
     $objFields                           = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'fields/player.json' );
@@ -52,6 +78,18 @@ class Player extends BaseObject {
     return $objNewPlayerRequestObject;
   }
 
+/**
+ * This Method add the Game Objects to the Template Variables for the Template Engine.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->addGamesToTemplate( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->addGamesToTemplate( $objRequestObject );
+ *
+*/
   public function addGamesToTemplate( object $objRequestObject ) : object {
     $arrGameIds = $this->games;
     $arrGames   = [];
@@ -69,11 +107,23 @@ class Player extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This static Method manage the Login of a Player and controlls the App Cookie, set the System Role and the Controller Player Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      mixed     $objController    The Controller Object
+ * @return     bool      $boolLoginTrue    The Login
+ * @example    $boolLoginTrue = Player::checkLogin( $objController );
+ * @example    $boolLoginTrue = $this::checkLogin( $objController );
+ *
+*/
   public static function checkLogin( object | null $objController = null ) : bool {
-    $objConfig                   = BaseObject::getConfig();
-    $strCookieName               = $objConfig->cookieName;
-    $objViewObject               = isset( $objController ) ? $objController->getViewObject() : null;
-    $strResultType               = isset( $objController ) ? $objController->getResultType() : 'json';
+    $objConfig      = BaseObject::getConfig();
+    $strCookieName  = $objConfig->cookieName;
+    $objViewObject  = isset( $objController ) ? $objController->getViewObject() : null;
+    $strResultType  = isset( $objController ) ? $objController->getResultType() : 'json';
 
     if( ! isset( $_COOKIE ) || ! isset( $_COOKIE[ $strCookieName ] ) ) return false;
 
@@ -99,6 +149,17 @@ class Player extends BaseObject {
     return true;
   }
 
+/**
+ * This static Method returns the PlayerId from the App Cookie.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     mixed   $strPlayerId | null    The PlayerId from the Cookie if available
+ * @example    $strPlayerId = Player::getPlayerIdFromCookie();
+ * @example    $strPlayerId = $this::getPlayerIdFromCookie();
+ *
+*/
   public static function getPlayerIdFromCookie() : string | null {
     $strToken  = BaseObject::deCrypte( Presentation::getCookieProperty( 'token' ) );
     $arrToken  = isset( $strToken  ) ? explode( '|||', $strToken ) : null;
@@ -106,6 +167,18 @@ class Player extends BaseObject {
     return isset( $arrToken ) && count( $arrToken ) > 0 ? $arrToken[ 0 ] : null;
   }
 
+/**
+ * This static Method check the Player Login from the Login Page.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objLoginObject    The Request Object
+ * @return     object     $objLoginObject    The Request Object
+ * @example    $objLoginObject = Player::login( $objLoginObject );
+ * @example    $objLoginObject = $this::login( $objLoginObject );
+ *
+*/
   public static function login( object $objLoginObject ) : object {
     $objLoginObject->formErrors  = [];
     $objPlayer                   = null;
@@ -142,10 +215,22 @@ class Player extends BaseObject {
     return $objLoginObject;
   }
 
+/**
+ * This static Method renamed the Avatar Image File after Upload.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string     $strFileName    The Avatar Image File Name after Upload
+ * @return     void
+ * @example    Player::avatarFileUploaded( $strFileName );
+ * @example    $this::avatarFileUploaded( $strFileName );
+ *
+*/
   public static function avatarFileUploaded( string $strFileName ) : void {
-    $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
-    $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
-    $strPath         = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
+    $strClass  = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
+    $strId     = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+    $strPath   = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
 
     if( file_exists( $strPath . 'avatar.png' ) ) unlink( $strPath . 'avatar.png' );
     if( file_exists( $strPath . 'avatar.jpg' ) ) unlink( $strPath . 'avatar.jpg' );
@@ -158,27 +243,24 @@ class Player extends BaseObject {
     $objPlayer = new $strClass( $strId );
     $objPlayer->set( 'image', 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) . '?v=' . time() );
 
-    //Presentation::logToFile( $strPath . $strFileName, null, true );
-
     return;
   }
 
+/**
+ * This Method delete the current Player with all Files and Directories.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->deletePlayer( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->deletePlayer( $objRequestObject );
+ *
+*/
   public function deletePlayer( object $objRequestObject ) : object {
-    //$arrGames         = $this->games;
-    $objAllPlayer     = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
-    $strPlayerId      = $this->id();
-
-    /*
-    for( $i = 0; $i < count( $arrGames ); $i++ ) {
-      $objGame   = new Game( $arrGames[ $i ] );
-      $objDelete = new stdClass();
-
-      $objDelete->class = 'Game';
-      $objDelete->id    = $arrGames[ $i ];
-
-      $objGame->deleteGame( $objDelete );
-    }
-    */
+    $objAllPlayer  = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
+    $strPlayerId   = $this->id();
 
     $this->deleteDirectory( __DIR__ . '/../files/player/' . $strPlayerId . '/' );
     unset( $objAllPlayer->$strPlayerId );

@@ -5,7 +5,26 @@ declare( strict_types = 1 );
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/game.php' );
 
+/**
+ * Gameplay Class for the Friendshunt App.
+ *
+ * This Class represents the Gameplay Class for the Friendshunt App with his Properties and Methods.
+ * The Gameplay Class controls the complete Gameplay with Tracking and save all Informations to the Gameplay.
+ *
+ * @category    class
+ * @package     Application
+ * @subpackage  Friendshunt
+ * @access      public
+ * @author      Markus Götz <info@septem-sensu.de>
+ * @copyright   2026 Markus Götz <info@septem-sensu.de>
+ * @since       2026-06-05
+ * @version     0.1.0
+ * @example     $objGameplay = new Gameplay( $strGameId, $objCurrentPlayer );
+ *
+*/
 class Gameplay extends Game {
+
+/* Class Properties */
   protected object $gameplayObject;
   protected string $gameplayPath;
   protected Player $currentPlayer;
@@ -14,6 +33,18 @@ class Gameplay extends Game {
   protected object $gameSettings;
   protected object $messages;
 
+/**
+ * This Method is the Constructor for this Class
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strObjectId    Object Id of the Game
+ * @param      player   $objCurrentPlayer    Object Id of the Game
+ * @return     void
+ * @example    $objGameplay = new Gameplay( $strObjectId, objCurrentPlayer );
+ *
+*/
   public function __construct( string $strObjectId, player $objCurrentPlayer ) {
     $this->id            = $strObjectId;
     $this->currentPlayer = $objCurrentPlayer;
@@ -23,6 +54,17 @@ class Gameplay extends Game {
     return;
   }
 
+/**
+ * This Method is the init the Gameplay, set all Properties and create the Directories and Files for the Game.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->init();
+ * @example    $objGameplay->init();
+ *
+*/
   private function init() : void {
     $this->gameplayPath   = __DIR__ . '/../files/game/' . $this->id . '/';
     $this->gameplayObject = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'gameplay.json' );
@@ -65,6 +107,21 @@ class Gameplay extends Game {
     return;
   }
 
+/**
+ * This Method save the Tracking and the Steps that have been run since the last Tracking.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      float   $floatLat        The Tracking coordinates
+ * @param      float   $floatLng        The Tracking coordinates
+ * @param      int     $intPrecision    The Precision of the Tracking coordinates
+ * @param      int     $intSteps        The count of Steps that have been run since the last Tracking
+ * @return     void
+ * @example    $this->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps );
+ * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps );
+ *
+*/
   private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps ) : void {
     $objTracking            = new stdClass();
     $objTracking->lat       = $floatLat;
@@ -80,6 +137,17 @@ class Gameplay extends Game {
     return;
   }
 
+/**
+ * This Method return the Game Settings.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     object $objGameSettings  The Game Settings Object
+ * @example    $objGameSettings = $this->getGameSettings();
+ * @example    $objGameSettings = $objGameplay->getGameSettings();
+ *
+*/
   public function getGameSettings() : object {
     $objGameConfiguration                = clone $this->gameplayObject;
     $objGameConfiguration->playerIds     = [];
@@ -107,6 +175,21 @@ class Gameplay extends Game {
     return $objGameConfiguration;
   }
 
+/**
+ * This Method calculates the Distance between two Points with the Haversine-Formula.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      float   $floatLat1        The Tracking coordinates from Point 1
+ * @param      float   $floatLng1        The Tracking coordinates from Point 1
+ * @param      float   $floatLat2        The Tracking coordinates from Point 2
+ * @param      float   $floatLng2        The Tracking coordinates from Point 2
+ * @return     float   $floatDistance    The Distance in Meters from Point 1 to Point 2
+ * @example    $floatDistance = $this->calcDistance( $floatLat1, $floatLng1, $floatLat2, $floatLng2 );
+ * @example    $floatDistance = $objGameplay->calcDistance( $floatLat1, $floatLng1, $floatLat2, $floatLng2 );
+ *
+*/
   public function calcDistance( float $floatLat1, float $floatLng1, float $floatLat2, float $floatLng2) : float {
     $intEarthRadiusInMeters = 6371000;
 
@@ -119,6 +202,18 @@ class Gameplay extends Game {
     return $intEarthRadiusInMeters * $c;
   }
 
+/**
+ * This Method calculates the Distances and Steps from a full Game for a User.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      mixed    $mixPlayer       Player Object or Player Id
+ * @return     object   $objDistances    The Distances and Steps from a Player for a full Game
+ * @example    $objDistances = $this->calcPlayerDistances( $mixPlayer );
+ * @example    $objDistances = $objGameplay->calcPlayerDistances( $mixPlayer );
+ *
+*/
   public function calcPlayerDistances( string | Player $mixPlayer ) : object {
     $objDistances           = new stdClass();
     $objDistances->steps    = 0;
@@ -147,6 +242,17 @@ class Gameplay extends Game {
     return $objDistances;
   }
 
+/**
+ * This Method returs a Standard Object with the Position Coordinates from all Players.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     object   $objPositions    Standard Object with the Position Coordinates from all Players
+ * @example    $objPositions = $this->getAllPlayerPositions();
+ * @example    $objPositions = $objGameplay->getAllPlayerPositions();
+ *
+*/
   private function getAllPlayerPositions() : object {
     $objPositions             = new stdClass();
     $objPositions->player     = [];
@@ -179,6 +285,19 @@ class Gameplay extends Game {
     return $objPositions;
   }
 
+/**
+ * This Method returs a Standard Object with the Position Coordinates from one Player.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      Player     $objPlayer       Player Object
+ * @param      int        $intCount        Count of the last Trackings do you get
+ * @return     object     $objPositions    Standard Object with the Position Coordinates from one Player
+ * @example    $objPositions = $this->getPlayerPosition( $objPlayer, $intCount );
+ * @example    $objPositions = $objGameplay->getPlayerPosition( $objPlayer, $intCount );
+ *
+*/
   private function getPlayerPosition( Player $objPlayer, int $intCount ) : object {
     $objPositions            = new stdClass();
     $objPositions->name      = $objPlayer->get( 'name' );
@@ -191,18 +310,52 @@ class Gameplay extends Game {
     return $objPositions;
   }
 
+/**
+ * This Method save the Gameplay to a encrypted JSON File.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->saveGameplay();
+ * @example    $objGameplay->saveGameplay();
+ *
+*/
   private function saveGameplay() : void {
     BaseObject::saveFileEncrypted( $this->gameplayPath . 'gameplay.json', $this->gameplayObject );
 
     return;
   }
 
+/**
+ * This Method save the Game Messages to a encrypted JSON File.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->saveMessages();
+ * @example    $objGameplay->saveMessages();
+ *
+*/
   private function saveMessages() : void {
     BaseObject::saveFileEncrypted( $this->gameplayPath . 'messages.json', $this->messages );
 
     return;
   }
 
+/**
+ * This Method controlls a silent Hunt from the Current Player and added to the Response State Object.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objState    Gameplay State Object for the Response
+ * @return     object     $objState    Gameplay State Object for the Response
+ * @example    $objState = $this->silentHunt( $objState );
+ * @example    $objState = $objGameplay->silentHunt( $objState );
+ *
+*/
   private function silentHunt( object $objState ) : object {
     $intSilentHuntInterval = $this->gameSettings->pingInterval * 60;
     $intStartTimestamp     = Presentation::stringToTimestamp( $this->gameSettings->start );
@@ -256,6 +409,18 @@ class Gameplay extends Game {
     return $objState;
   }
 
+/**
+ * This Method added the Gameplay State to the Gameplay State Object for the current Player for the Response.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objState    Gameplay State Object for the Response
+ * @return     object     $objState    Gameplay State Object for the Response
+ * @example    $objState = $this->getGameplayState( $objState );
+ * @example    $objState = $objGameplay->getGameplayState( $objState );
+ *
+*/
   private function getGameplayState( object $objState ) : object {
     $intStartTimestamp        = Presentation::stringToTimestamp( $this->gameSettings->start );
     $intDurationSec           = $this->gameSettings->duration * 60 * 60;
@@ -278,6 +443,18 @@ class Gameplay extends Game {
     return $objState;
   }
 
+/**
+ * This Method added the Speed Hunt Informations to the Gameplay State Object for the current Player for the Response.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objState    Gameplay State Object for the Response
+ * @return     object     $objState    Gameplay State Object for the Response
+ * @example    $objState = $this->getGameplaySpeedHunt( $objState );
+ * @example    $objState = $objGameplay->getGameplaySpeedHunt( $objState );
+ *
+*/
   private function getGameplaySpeedHunt( object $objState ) : object {
     $objState->speedHuntState = new stdClass();
 
@@ -312,6 +489,18 @@ class Gameplay extends Game {
     return $objState;
   }
 
+/**
+ * This Method controlls the Speed Hunts and returns the State of the Speed Hunts.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->speedHunt( $objRequestObject );
+ * @example    $objRequestObject = $objGameplay->speedHunt( $objRequestObject );
+ *
+*/
   public function speedHunt( object $objRequestObject ) : object {
     if( ! isset( $this->gameplayObject->speedHunts ) ) $this->gameplayObject->speedHunts = [];
     if( ! isset( $this->gameplayObject->speedHunt ) ) {
@@ -355,6 +544,18 @@ class Gameplay extends Game {
     return $objRequestObject;
   }
 
+/**
+ * This Method controlls and adds the Player Tracking for the current Player.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->track( $objRequestObject );
+ * @example    $objRequestObject = $objGameplay->track( $objRequestObject );
+ *
+*/
   public function track( object $objRequestObject ) : object {
     $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ) );
 
@@ -372,6 +573,18 @@ class Gameplay extends Game {
     return $objRequestObject;
   }
 
+/**
+ * This Method controlls a new Message from the current Player and adds the Message Queue for the Response.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->message( $objRequestObject );
+ * @example    $objRequestObject = $objGameplay->message( $objRequestObject );
+ *
+*/
   public function message( object $objRequestObject ) : object {
     if( $objRequestObject->message == '' ) return $objRequestObject;
 
@@ -392,8 +605,6 @@ class Gameplay extends Game {
 
     return $objRequestObject;
   }
-
-
 }
 
 // EOF

@@ -5,8 +5,26 @@ declare( strict_types = 1 );
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/gameplay.php' );
 
+/**
+ * Game Class for the Friendshunt App.
+ *
+ * This Class represents the Game Class for the Friendshunt App with his Properties and Methods.
+ * The Game Class controls the Game Settings.
+ *
+ * @category    class
+ * @package     Application
+ * @subpackage  Friendshunt
+ * @access      public
+ * @author      Markus Götz <info@septem-sensu.de>
+ * @copyright   2026 Markus Götz <info@septem-sensu.de>
+ * @since       2026-06-05
+ * @version     0.1.0
+ * @example     $objGame = new Game( $strGameId );
+ *
+*/
 class Game extends BaseObject {
 
+/* Class Properties */
   protected string $name;
   protected string $title;
   protected string $description;
@@ -28,6 +46,18 @@ class Game extends BaseObject {
   protected int    $hunterClosingTime;
   protected string $showNames;
 
+/**
+ * This static Method set a uploaded Game Image to the Game Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strFileName    The File Name of the Image
+ * @return     void
+ * @example    Game::addGameImage( $strFileName );
+ * @example    $this::addGameImage( $strFileName );
+ *
+*/
   public static function addGameImage( string $strFileName ) : void {
     $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
@@ -42,6 +72,18 @@ class Game extends BaseObject {
     return;
   }
 
+/**
+ * This static Method set a uploaded Game Avatar to the Game Object and renamed the Image.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strFileName    The Avatar File Name of the Image
+ * @return     void
+ * @example    Game::avatarFileUploaded( $strFileName );
+ * @example    $this::avatarFileUploaded( $strFileName );
+ *
+*/
   public static function avatarFileUploaded( string $strFileName ) : void {
     $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
@@ -61,12 +103,36 @@ class Game extends BaseObject {
     return;
   }
 
+/**
+ * This Method starts the Game with a redirect to the Game.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = $this->startGame( $objRequestObject );
+ * @example    objRequestObject = $objGame->startGame( $objRequestObject );
+ *
+*/
   public function startGame( object $objRequestObject ) : object {
     $objRequestObject->redirect = "index.php?view=game&class=Game&id=" . $objRequestObject->id;
 
     return $objRequestObject;
   }
 
+/**
+ * This Method set the Gameplay Data to the Template Engine.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = $this->addGamePlayDataToGame( $objRequestObject );
+ * @example    objRequestObject = $objGame->addGamePlayDataToGame( $objRequestObject );
+ *
+*/
   public function addGamePlayDataToGame( object $objRequestObject ) : object {
     $objGameplayData = BaseObject::loadFileDeCrypted( __DIR__ . '/../files/game/' . $this->id() . '/gameplay.json' );
 
@@ -75,6 +141,18 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This Method delete a Game with all Files.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = $this->deleteGame( $objRequestObject );
+ * @example    objRequestObject = $objGame->deleteGame( $objRequestObject );
+ *
+*/
   public function deleteGame( object $objRequestObject ) : object {
     $strClass         = $objRequestObject->class;
     $strId            = $objRequestObject->id;
@@ -131,6 +209,18 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This static Method save all Game Data for a new Game in a encrypted JSON File.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = Game::saveNewGame( $objRequestObject );
+ * @example    objRequestObject = $this::saveNewGame( $objRequestObject );
+ *
+*/
   public static function saveNewGame( object $objRequestObject ) : object {
     $strGameId                      = uniqid( 'game_', true );
     $objGame                        = new Game( $strGameId );
@@ -230,6 +320,18 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This static Method add a Player to a new Game and set the Template Variables for the Template Engine.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = Game::addPlayerToGame( $objRequestObject );
+ * @example    objRequestObject = $this::addPlayerToGame( $objRequestObject );
+ *
+*/
   public static function addPlayerToGame( object $objRequestObject ) : object {
     $objAllPlayer  = BaseObject::getObjects( 'Player' );
     $strPlayerId   = $objRequestObject->player;
@@ -247,6 +349,18 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This static Method add a Hunter to a new Game and set the Template Variables for the Template Engine.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = Game::addHunterToGame( $objRequestObject );
+ * @example    objRequestObject = $this::addHunterToGame( $objRequestObject );
+ *
+*/
   public static function addHunterToGame( object $objRequestObject ) : object {
     $objAllPlayer  = BaseObject::getObjects( 'Player' );
     $strPlayerId   = $objRequestObject->player;
@@ -264,6 +378,18 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This static Method add a Management to a new Game and set the Template Variables for the Template Engine.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = Game::addManagementToGame( $objRequestObject );
+ * @example    objRequestObject = $this::addManagementToGame( $objRequestObject );
+ *
+*/
   public static function addManagementToGame( object $objRequestObject ) : object {
     $objAllPlayer  = BaseObject::getObjects( 'Player' );
     $strPlayerId   = $objRequestObject->player;
@@ -281,7 +407,19 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
-  public static function setPlayerIdToTemplate( object $objController ) : object {
+/**
+ * This static Method set the Game Settings and the Player Id as Template Variables for the Template Engine.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objController    The Controler Object
+ * @return     object   $objController    The Controler Object
+ * @example    objController = Game::setPlayerIdToTemplate( $objController );
+ * @example    objController = $this::setPlayerIdToTemplate( $objController );
+ *
+*/
+  public static function setPlayerIdToTemplate( Controller $objController ) : object {
     $strPlayerId = Player::getPlayerIdFromCookie();
     $strGameId   = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : null;
 
@@ -298,6 +436,18 @@ class Game extends BaseObject {
     return $objController;
   }
 
+/**
+ * This Method is the Game Archive Methode and moved all Files in the Archive Folder.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = $this->archiveGame( $objRequestObject );
+ * @example    objRequestObject = $objGame->archiveGame( $objRequestObject );
+ *
+*/
   public function archiveGame( object $objRequestObject ) : object {
     $strClass         = $objRequestObject->class;
     $strId            = $objRequestObject->id;
@@ -326,6 +476,18 @@ class Game extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This Method controlls the Gameplay and redirect the Requests to the Gameplay Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = $this->gameplay( $objRequestObject );
+ * @example    objRequestObject = $objGame->gameplay( $objRequestObject );
+ *
+*/
   public function gameplay( object $objRequestObject ) : object {
     $objPlayer        = new Player( $objRequestObject->playerId );
     $objGameplay      = new Gameplay( $this->id, $objPlayer );
@@ -334,9 +496,6 @@ class Game extends BaseObject {
 
     return $objRequestObject;
   }
-
-
-
 }
 
 // EOF

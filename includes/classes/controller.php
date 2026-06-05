@@ -7,7 +7,26 @@ include_once ( __DIR__ . '/../classes/presentation.php' );
 include_once ( __DIR__ . '/../classes/player.php' );
 include_once ( __DIR__ . '/../classes/game.php' );
 
+/**
+ * Controller Class for the Friendshunt App.
+ *
+ * This Class represents the Controller Class for the Friendshunt App with his Properties and Methods.
+ * The Controller Class controls all Requests and Response with the App.
+ *
+ * @category    class
+ * @package     Application
+ * @subpackage  Friendshunt
+ * @access      public
+ * @author      Markus Götz <info@septem-sensu.de>
+ * @copyright   2026 Markus Götz <info@septem-sensu.de>
+ * @since       2026-06-05
+ * @version     0.1.0
+ * @example     $objController = new Controller();
+ *
+*/
 class Controller {
+
+/* Class Properties */
   protected string        $resultType;
   protected string        $viewName;
   protected object        $viewObject;
@@ -21,12 +40,33 @@ class Controller {
   protected object        $object;
   protected object        $response;
 
+/**
+ * This Method is the Constructor for this Class
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $objController = new Controller();
+ *
+*/
   public function __construct() {
     $this->init();
 
     return;
   }
 
+/**
+ * This Method init the Controler Properties.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->init();
+ * @example    $objController->init();
+ *
+*/
   private function init() : void {
     $this->config             = BaseObject::getConfig();
     $this->presentationObject = new Presentation();
@@ -48,30 +88,98 @@ class Controller {
     return;
   }
 
+/**
+ * This Method is the getter for the Presentation Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     Presentation   $objPresentation  The Presentation Object
+ * @example    $objPresentation = $this->getPresentationObject();
+ * @example    $objPresentation = $objController->getPresentationObject();
+ *
+*/
   public function getPresentationObject() : Presentation {
     return $this->presentationObject;
   }
 
+/**
+ * This Method is the getter for the current View Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     object   $objViewObject  The current View Object
+ * @example    $objViewObject = $this->getViewObject();
+ * @example    $objViewObject = $objController->getViewObject();
+ *
+*/
   public function getViewObject() : object {
     return $this->viewObject;
   }
 
+/**
+ * This Method is the getter for the Ajax Result Type.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string   $strResultType  The Result Type (json or content)
+ * @example    $strResultType = $this->getResultType();
+ * @example    $strResultType = $objController->getResultType();
+ *
+*/
   public function getResultType() : string {
     return $this->resultType;
   }
 
+/**
+ * This Method is the setter for the Object to handle.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objObject The Object to set
+ * @return     void
+ * @example    $this->setObject( objObject );
+ * @example    $objController->setObject( objObject );
+ *
+*/
   public function setObject( object $objObject ) : void {
     $this->object = $objObject;
 
     return;
   }
 
+/**
+ * This Method is the setter for the System Role of the current User.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strRole  The current User System Role
+ * @return     void
+ * @example    $this->setRole( strRole );
+ * @example    $this->objController( strRole );
+ *
+*/
   public function setRole( string $strRole ) : void {
     $this->role = $strRole;
 
     return;
   }
 
+/**
+ * This Method is the Main Methode of the Controler Class and controls the Requests and the Response.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     mixed    $mixResult    The Result of the Response
+ * @example    $mixResult = $this->execute();
+ * @example    $mixResult = $objController->execute();
+ *
+*/
   public function execute() : mixed {
     if( isset( $_GET[ 'result' ] ) ) {
       $this->resultType = 'json';
@@ -84,6 +192,17 @@ class Controller {
     return $this->view();
   }
 
+/**
+ * This Method controls the Roles for the View Object and set the default Role if the Role undefined.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->checkRole();
+ * @example    $objController->checkRole();
+ *
+*/
   private function checkRole() : void {
     if( ! in_array( $this->config->defaultRole, $this->viewObject->roles ) ) {
       $strSetRole = $this->config->setRole;
@@ -93,6 +212,17 @@ class Controller {
     return;
   }
 
+/**
+ * This Method is the View Methode for the Response Content.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string    $strContent    The Response Content
+ * @example    $strContent = $this->view();
+ * @example    $strContent = $objController->view();
+ *
+*/
   private function view() : string {
     $this->checkRole();
 
@@ -103,6 +233,17 @@ class Controller {
     return $this->renderView();
   }
 
+/**
+ * This Method is the JSON View Methode for the Json Content.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string    $strJsonContent    The Json Content
+ * @example    $strJsonContent = $this->json();
+ * @example    $strJsonContent = $objController->json();
+ *
+*/
   private function json() : string {
     $this->checkRole();
 
@@ -124,6 +265,17 @@ class Controller {
     return json_encode( $this->response );
   }
 
+/**
+ * This Method save all Post Data to File and set the Properties of the Request Object.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     object    $objObject    The Result Object
+ * @example    $objObject = $this->savePostData();
+ * @example    $objObject = $objController->savePostData();
+ *
+*/
   private function savePostData() {
     $strClass     = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId        = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
@@ -153,11 +305,24 @@ class Controller {
     return $objObject;
   }
 
-  private function checkDependencies( string $strClass, string $strMethode ) : bool {
-    $objDependencies = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'dataDependencies.json' );
+/**
+ * This Method checked the System Role of the current User for a Methode in a Class.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strClass     The Class Name of the Method
+ * @param      string   $strMethode   The Methode to check
+ * @return     bool     $boolAllowed  True if the User is allowed to call this Method
+ * @example    $boolAllowed = $this->checkPermissions( strClass, strMethode );
+ * @example    $boolAllowed = $objController->checkPermissions( strClass, strMethode );
+ *
+*/
+  private function checkPermissions( string $strClass, string $strMethode ) : bool {
+    $objPermissions = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'dataPermissions.json' );
     $strRole         = $this->role;
 
-    if( ! in_array( $strClass . '::' . $strMethode, $objDependencies->$strRole->methods ) ) {
+    if( ! in_array( $strClass . '::' . $strMethode, $objPermissions->$strRole->methods ) ) {
       $objError           = new stdClass();
       $objError->message  = 'Zugriff verweigert';
 
@@ -169,6 +334,17 @@ class Controller {
     return true;
   }
 
+/**
+ * This Method handled the Response Object of the Request.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->responseData();
+ * @example    $objController->responseData();
+ *
+*/
   private function responseData() : void {
     $objRequestObject             = json_decode( file_get_contents( 'php://input' ) );
 
@@ -179,7 +355,7 @@ class Controller {
     $strMethode                   = isset( $objRequestObject->methode ) && $objRequestObject->methode != '' ? $objRequestObject->methode : null;
     $strObjectId                  = isset( $objRequestObject->id ) && $objRequestObject->id != '' ? $objRequestObject->id : null;
 
-    if( ! $this->checkDependencies( $strClassName, $strMethode ) ) return;
+    if( ! $this->checkPermissions( $strClassName, $strMethode ) ) return;
 
     if( isset( $strObjectId ) ) {
       $objObject              = new $strClassName( $strObjectId );
@@ -191,6 +367,17 @@ class Controller {
     return;
   }
 
+/**
+ * This Method is rendering the Content and set the Template Variables for the Response.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string   $strContent   The Content for the Response
+ * @example    $strContent = $this->renderView();
+ * @example    $strContent = $objController->renderView();
+ *
+*/
   private function renderView() : string {
     $strContent     = '';
 
@@ -216,6 +403,17 @@ class Controller {
     return $strContent;
   }
 
+/**
+ * This Method execute the Actions before rendering the View Content.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->executeActions();
+ * @example    $objController->executeActions();
+ *
+*/
   private function executeActions() : void {
     $strObjectId      = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : null;
     $strObjectId      = ( ! isset( $strObjectId ) || $strObjectId == '' ) && isset( $this->object ) ? $this->object->id() : $strObjectId;

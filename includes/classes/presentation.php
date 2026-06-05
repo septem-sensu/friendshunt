@@ -4,12 +4,41 @@ declare( strict_types = 1 );
 
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 
+/**
+ * Presentation Class for the Friendshunt App.
+ *
+ * This Class represents the Presentation Class for the Friendshunt App with his Properties and Methods.
+ * The Presentation Class contains the Template Engine, the server-side Validation, E-Mail Management and different Utils like:
+ * formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cors Utils, Logging, URL Utils and cleaning Ids.
+ *
+ * @category    class
+ * @package     Application
+ * @subpackage  Friendshunt
+ * @access      public
+ * @author      Markus Götz <info@septem-sensu.de>
+ * @copyright   2026 Markus Götz <info@septem-sensu.de>
+ * @since       2026-06-05
+ * @version     0.1.0
+ * @example     $objPresentation = new Presentation();
+ *
+*/
 class Presentation {
   const FILEPATHTEMPLATES = __DIR__ . '/../templates/';
 
+/* Class Properties */
   protected object $templateVars;
   protected object $config;
 
+/**
+ * This Method is the Constructor for this Class
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $objPresentation = new Presentation();
+ *
+*/
   public function __construct() {
     $this->config = BaseObject::getConfig();
 
@@ -18,6 +47,17 @@ class Presentation {
     return;
   }
 
+/**
+ * This Method init the default Template Variables for the App.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->initTemplateVars();
+ * @example    $objPresentation->initTemplateVars();
+ *
+*/
   public function initTemplateVars() {
     $this->templateVars = new StdClass();
 
@@ -30,6 +70,21 @@ class Presentation {
     return;
   }
 
+/**
+ * This Method delete the current Player with all Files and Directories.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      mixed     $mixProperty    The Property to set to Template
+ * @param      string    $strClass       The Class Name to set to Template
+ * @param      mixed     $objFields      The Field Settings Object
+ * @param      mixed     $mixValue       The Value to set to Template
+ * @return     void
+ * @example    $this->assignTemplateVar( $mixProperty, strClass, objFields, mixValue );
+ * @example    $objPresentation->assignTemplateVar( $mixProperty, strClass, objFields, mixValue );
+ *
+*/
   public function assignTemplateVar( mixed $mixProperty, string $strClass, object | null $objFields = null, string | null $mixValue = null ) : void {
     if( is_object( $mixProperty ) ) {
       foreach( $mixProperty as $strProperty => $strValue ) {
@@ -51,6 +106,18 @@ class Presentation {
     return;
   }
 
+/**
+ * This Method rendering the Template and replaced the Template Variables.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strTemplateName       The Template File Name
+ * @return     string    $strTemplateName       The rendered Content Template
+ * @example    $strTemplateName = $this->processTemplate( $strTemplateName );
+ * @example    $strTemplateName = $objPresentation->processTemplate( $strTemplateName );
+ *
+*/
   public function processTemplate( string $strTemplateName ) : string {
     $strContent = file_get_contents( Presentation::FILEPATHTEMPLATES . $strTemplateName );
 
@@ -62,14 +129,50 @@ class Presentation {
      return preg_replace( '/\{\{.*?\}\}/s', '', $strContent );
   }
 
+/**
+ * This static Method convert a Date Time String to a Timestamp.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strTimestamp       The Date Time String
+ * @return     int       $intTimestamp       The Timestamp
+ * @example    $intTimestamp = $this::stringToTimestamp( $strTimestamp );
+ * @example    $intTimestamp = Presentation::stringToTimestamp( $strTimestamp );
+ *
+*/
   public static function stringToTimestamp ( string $strTimestamp ) : int {
     return strtotime( $strTimestamp );
   }
 
+/**
+ * This static Method convert a Timestamp to a formated Date Time String.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      int      $intTimestamp       The Timestamp
+ * @return     string   $strTimestamp       The formated Date Time String
+ * @example    $strTimestamp = $this::timestampToString( $intTimestamp );
+ * @example    $strTimestamp = Presentation::timestampToString( $intTimestamp );
+ *
+*/
   public static function timestampToString( int $intTimestamp ) : string {
     return date( 'd.m.Y H:i', $intTimestamp );
   }
 
+/**
+ * This static Method set App Cookie Variables to the JSON Cookie Value.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object      $objParams   The Cookie Variables to set
+ * @return     void
+ * @example    $this::writeCookie( $objParams );
+ * @example    Presentation::writeCookie( $objParams );
+ *
+*/
   public static function writeCookie( object $objParams ) : void {
     $objConfig      = BaseObject::getConfig();
     $strCookieName  = $objConfig->cookieName;
@@ -86,6 +189,18 @@ class Presentation {
     return;
   }
 
+/**
+ * This static Method get a Value from the App Cookie Json Value.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strCookieProperty   The Cookie Property to get the Value
+ * @return     mixed     $strCookieValue      The Cookie Value from the Hand over Property
+ * @example    $strCookieValue = $this::getCookieProperty( $strCookieProperty );
+ * @example    $strCookieValue = Presentation::getCookieProperty( $strCookieProperty );
+ *
+*/
   public static function getCookieProperty( string $strCookieProperty ) : string | null {
     $objConfig      = BaseObject::getConfig();
     $strCookieName  = $objConfig->cookieName;
@@ -96,6 +211,19 @@ class Presentation {
     return isset( $objCookie ) && isset( $objCookie->$strCookieProperty ) ? $objCookie->$strCookieProperty : null;
   }
 
+/**
+ * This static Method returns a new Form Error Object for the given Field and Message.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strField      The Field Id from the Form
+ * @param      string    $strMessage    The Error Message
+ * @return     object    $objFormError  The Form Error Object
+ * @example    $objFormError = $this::newFormError( $strField, $strMessage );
+ * @example    $objFormError = Presentation::newFormError( $strField, $strMessage );
+ *
+*/
   public static function newFormError( string $strField, string $strMessage ) : object {
     $objFormError          = new StdClass();
     $objFormError->field   =  $strField;
@@ -104,6 +232,17 @@ class Presentation {
     return $objFormError;
   }
 
+/**
+ * This static Method returns the Base Url from the App.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string    $strBaseUrl   The Base Url from the App
+ * @example    $strBaseUrl = $this::getBaseUrl();
+ * @example    $strBaseUrl = Presentation::getBaseUrl();
+ *
+*/
   public static function getBaseUrl() : string {
     $strUrl  = Presentation::getFullUrl();
     $strPath = parse_url( $strUrl, PHP_URL_PATH );
@@ -111,11 +250,34 @@ class Presentation {
     return 'https://' . $_SERVER[ 'HTTP_HOST' ] . $strPath;
   }
 
+/**
+ * This static Method returns the full Request Url from the App Request.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string    $strFullRequestUrl   The full Request Url from the App
+ * @example    $strFullRequestUrl = $this::getFullUrl();
+ * @example    $strFullRequestUrl = Presentation::getFullUrl();
+ *
+*/
   public static function getFullUrl() : string {
     return 'https://' . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ];
   }
 
-  public function sendHtmlMail( $objEmail ) : void {
+/**
+ * This Method send a Html E-Mail over the PHP mail Function.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object    $objEmail      The Standard Class Object with all E-Mail Parameters
+ * @return     void
+ * @example    $this->sendHtmlMail( $objEmail );
+ * @example    $objPresentation->sendHtmlMail( $objEmail );
+ *
+*/
+  public function sendHtmlMail( object $objEmail ) : void {
     $objConfig   = BaseObject::getConfig();
 
     $arrHeader[] = 'MIME-Version: 1.0';
@@ -131,6 +293,19 @@ class Presentation {
     return;
   }
 
+/**
+ * This static Method validate a Form with the Field Objects.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object    $objFields      The Standard Class Object the Field Configuration
+ * @param      object    $objObject      The Standard Class Object all Fields and Values of the Form
+ * @return     object    $objFormErrors   The Standard Class Object with the Result of Validation
+ * @example    $objFormErrors = $this::validateFields( $objFields, $objObject );
+ * @example    $objFormErrors = Presentation::validateFields( $objFields, $objObject );
+ *
+*/
   public static function validateFields( object $objFields, object $objObject ) : object {
     $objConfig             = BaseObject::getConfig();
     $objResult             = new StdClass();
@@ -159,6 +334,20 @@ class Presentation {
     return $objResult;
   }
 
+/**
+ * This static Method write logs to a File for debuging.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      mixed    $strMessage      The Content which should be written to the File
+ * @param      bool     $boolTimestamp   If is true then write a formated Timestamp before the Content of every Message
+ * @param      mixed    $strFile         The Log File with Path
+ * @return     void
+ * @example    $this::logToFile( $strMessage, $boolTimestamp, strFile );
+ * @example    Presentation::logToFile( $strMessage, $boolTimestamp, strFile );
+ *
+*/
   public static function logToFile( $strMessage, bool $boolTimestamp = true, string | null $strFile = null  ) : void {
     $strFile    = isset( $strFile ) ? $strFile : __DIR__ . '/../logs/messages.log';
     $strMessage = is_object( $strMessage ) || is_array( $strMessage ) ? json_encode( $strMessage ) : strval( $strMessage );
@@ -169,12 +358,38 @@ class Presentation {
     return;
   }
 
+/**
+ * This Method short a String.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strText          The String which should be shorten
+ * @param      bool      $boolPoints       If is true then the shorted Text ended with three Points
+ * @param      mixed     $intLength        The Length of the shorted String
+ * @return     string    $strShortedText   The Shorted Text
+ * @example    $strShortedText = $this->logToFile( $strText, $boolPoints, intLength );
+ * @example    $strShortedText = $objPresentation->logToFile( $strText, $boolPoints, intLength );
+ *
+*/
   public function shortText( string $strText, bool $boolPoints, int $intLength ) : string {
     if( strlen( $strText ) > $intLength ) return $boolPoints ? substr( $strText, 0, $intLength - 3 ) . '...' : substr( $strText, 0, $intLength );
 
     return $strText;
   }
 
+/**
+ * This Method cleaned a Id.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strContent  The Id
+ * @return     string    $strContent  The cleaned Id
+ * @example    $strContent = $this::cleanId( $strContent );
+ * @example    $strContent = Presentation::cleanId( $strContent );
+ *
+*/
   public static function cleanId( string $strContent ) : string {
     $strContent = str_replace( '@', 'at', $strContent );
     $strContent = str_replace( '.', 'punkt', $strContent );
@@ -183,7 +398,18 @@ class Presentation {
     return $strContent;
   }
 
-  public function cors() {
+/**
+ * This Method set the Cors Header for the Response.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->cors();
+ * @example    $objPresentation->cors();
+ *
+*/
+  public function cors() : void {
     if ( isset( $_SERVER[ 'HTTP_ORIGIN' ] ) ) {
       header( "Access-Control-Allow-Origin: {$_SERVER[ 'HTTP_ORIGIN']}" );
       header( 'Access-Control-Allow-Credentials: true' );
@@ -205,11 +431,33 @@ class Presentation {
     return;
   }
 
+/**
+ * This Method set the JSON Header for the Response.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->getJsonHeader();
+ * @example    $objPresentation->getJsonHeader();
+ *
+*/
   public function getJsonHeader() {
     header( 'Content-type: application/json' );
     return;
   }
 
+/**
+ * This Method set the JavaScript Header for the Response.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->getJavaScriptHeader();
+ * @example    $objPresentation->getJavaScriptHeader();
+ *
+*/
   public function getJavaScriptHeader() {
     header( 'Content-type: text/javascript' );
     return;

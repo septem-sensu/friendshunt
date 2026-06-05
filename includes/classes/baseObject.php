@@ -2,16 +2,44 @@
 
 declare( strict_types = 1 );
 
+/**
+ * Base Class for the Friendshunt App.
+ *
+ * This Class represents the base Class for the Friendshunt App with his Properties and Methods.
+ *
+ * @category    class
+ * @package     Application
+ * @subpackage  Friendshunt
+ * @access      public
+ * @author      Markus Götz <info@septem-sensu.de>
+ * @copyright   2026 Markus Götz <info@septem-sensu.de>
+ * @since       2026-06-05
+ * @version     0.1.0
+ * @example     $objFriendshunt = new BaseObject( $strId );
+ *
+*/
 class BaseObject {
   const FILEPATHBASE      = __DIR__ . '/../';
   const FILEPATHJSON      = __DIR__ . '/../json/';
   const FILEPATHDATA      = __DIR__ . '/../json/data/';
 
+/* Class Properties */
   protected object $config;
   protected object $fields;
   protected string $className;
   protected string $id;
 
+/**
+ * This Method is the Constructor for this Class
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strObjectId    Object Id
+ * @return     void
+ * @example    $objBaseObject = new BasObject( $strObjectId );
+ *
+*/
   public function __construct( string | null $strObjectId = null ) {
     $strClassName    = get_class( $this );
     $objAllFields    = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'fields/' . strtolower( $strClassName ) . '.json' );
@@ -25,12 +53,35 @@ class BaseObject {
     return;
   }
 
+/**
+ * This static Method get the Class Fields from the JSON File and returs the Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string  $strClassname   Classname
+ * @return     object  $objAllFields   The Fields Object with all Properties
+ * @example    $objAllFields = BaseObject::fields( $strProperty );
+ * @example    $objAllFields = $this::fields( $strProperty );
+ *
+*/
   public static function fields( string $strClassname ) {
     $objAllFields    = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'fields/' . strtolower( $strClassname ) . '.json' );
 
     return $objAllFields;
   }
 
+/**
+ * This Method load the Objects File of the Class decryted his and fill the Object with his data.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->fillObject();
+ * @example    $objBaseObject->fillObject();
+ *
+*/
   public function fillObject() : void {
     $objClassObjects = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'data/data' . $this->className . '.json' );
     $strObjectId     = $this->id;
@@ -44,16 +95,51 @@ class BaseObject {
     return;
   }
 
+/**
+ * This static Method get the Class Fields from the JSON File and returs the Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     string  $strId   The Id from the Object
+ * @example    $strId = $this->id();
+ * @example    $strId = $objBaseObject->id();
+ *
+*/
   public function id() {
     return $this->id;
   }
 
+/**
+ * This Method is the default getter.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string  $strProperty   Property
+ * @return     mixed   $value         Value of Property
+ * @example    $value = $this->get( $strProperty );
+ * @example    $value = $objBaseObject->get( $strProperty );
+ *
+*/
   public function get( string $strProperty ) {
     if( ! property_exists( $this->fields, $strProperty ) ) throw new Exception("Property not exists or protected");
 
     return $this->$strProperty;
   }
 
+/**
+ * This Method is the default setter.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      mixed    $mixProperty    Property
+ * @param      mixed    $mixValue       Value of Property
+ * @return     void
+ * @example    $this->set( $mixProperty, $mixValue );
+ * @example    $objBaseObject->set( $mixProperty, $mixValue );
+*/
   public function set( string | int | array | object $mixProperty, string | int | array | object | null $mixValue = null ) : void {
     if( gettype( $mixProperty ) == 'string' || gettype( $mixValue ) == 'integer' ) {
       if( ! property_exists( $this->fields, $mixProperty ) ) throw new Exception("Property not exists or protected");
@@ -76,6 +162,17 @@ class BaseObject {
     return;
   }
 
+/**
+ * This Method delete the Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->deleteObject();
+ * @example    $objBaseObject->deleteObject();
+ *
+*/
   public function deleteObject() : void {
     $strId           = $this->id();
     $objClassObjects = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'data/data' . $this->className . '.json' );
@@ -87,6 +184,17 @@ class BaseObject {
     return;
   }
 
+/**
+ * This Method saved encrypted all Data from the Object in a JSON File.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this->saveObject();
+ * @example    $objBaseObject->saveObject();
+ *
+*/
   public function saveObject() : void {
     $objClassObjects                   = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'data/data' . $this->className . '.json' );
     $strObjectId                       = $this->id;
@@ -102,6 +210,18 @@ class BaseObject {
     return;
   }
 
+/**
+ * This Method set the Parameters to the Object and saved the handed over Files.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object    $objRequestObject     Request Object
+ * @return     object    $objRequestObject     Request Object
+ * @example    $objRequestObject = $this->saveRequestObject( $objRequestObject );
+ * @example    $objRequestObject = $objBaseObject->saveRequestObject( $objRequestObject );
+ *
+*/
   public function saveRequestObject( object $objRequestObject ) : object {
     $strClassName = $objRequestObject->class;
     $strObjectId  = $objRequestObject->id;
@@ -126,28 +246,102 @@ class BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This Method generate a new GUID.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strPrefix   Perfix of the GUID
+ * @return     string   $strId       The generated GUID
+ * @example    $strId = $this->newId( $strPrefix );
+ * @example    $strId = $objBaseObject->newId( $strPrefix );
+ *
+*/
   public function newId( string $strPrefix ) : string {
     return uniqid( $strPrefix . '_', true );
   }
 
+/**
+ * This static method returns all Object from a Class.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strClassName   The Class Name
+ * @return     object   $objObjects     The Main Config Object of Friendshunt
+ * @example    $objObjects = BaseObject::getObjects( $strClassName );
+ * @example    $objObjects = $this::getObjects( $strClassName );
+ *
+*/
   public static function getObjects( string $strClassName ) {
     return BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'data'. $strClassName  . '.json' );
   }
 
+/**
+ * This static method returns the Main Config Object of Friendshunt.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     object   $objConfig    The Main Config Object of Friendshunt
+ * @example    $objConfig = BaseObject::getConfig();
+ * @example    $objConfig = $this::getConfig();
+ *
+*/
   public static function getConfig() : object {
     return BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'config.json' );
   }
 
+/**
+ * This static Method is checked is the string a json.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strContent  String to test
+ * @return     bool     $boolResult  Is the String a Json
+ * @example    $boolResult = BaseObject::isJson( $strContent );
+ * @example    $boolResult = $this::isJson( $strContent );
+ *
+*/
   public static function isJson( string $strContent ) : bool {
     json_decode( $strContent );
 
     return json_last_error() === JSON_ERROR_NONE ? true : false;
   }
 
+/**
+ * This static Method encrypted SHA-256 a String.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strContent  String to encrypt
+ * @return     string   $strContent  The encrypted Content String
+ * @example    $strContent = BaseObject::isJson( $strContent );
+ * @example    $strContent = $this::isJson( $strContent );
+ *
+*/
   public static function enCrypteOnly ( string $strContent ) : string {
     return hash( 'sha256', $strContent );
   }
 
+/**
+ * This static method encrypted a string with AES-256-CBC.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strContent   String to be encrypted
+ * @return     string   $strContent   Encrypted String
+ * @example    $strContent = BaseObject::enCrypte( $strContent );
+ * @example    $strContent = $this::enCrypte( $strContent );
+ *
+*/
   public static function enCrypte( string $strContent ) : string {
     $strContent = openssl_encrypt(
       $strContent, "AES-256-CBC",
@@ -158,6 +352,19 @@ class BaseObject {
     return $strContent;
   }
 
+/**
+ * This static method decrypted a encrypted string with AES-256-CBC.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strContent   Encrypted String
+ * @return     string   $strContent   String to be decrypted
+ * @example    $strContent = BaseObject::deCrypte( $strContent );
+ * @example    $strContent = $this::deCrypte( $strContent );
+ *
+*/
   public static function deCrypte( string $strContent ) : string {
     $strContent = openssl_decrypt(
       $strContent, "AES-256-CBC",
@@ -168,6 +375,20 @@ class BaseObject {
     return $strContent;
   }
 
+/**
+ * This static method changes a Object in a json String, encrypted this json String with AES-256-CBC and saved this as File.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strFile     Filepath and Filename to be encrypted json String saved
+ * @param      object   $objObject   Object to be changed, encrypted and saved
+ * @return     void
+ * @example    BaseObject::saveFileEnCrypted( $strFile, $objObject );
+ * @example    $this::saveFileEnCrypted( $strFile, $objObject );
+ *
+*/
   public static function saveFileEnCrypted( string $strFile, object $objObject ) : void {
     $strContent = json_encode( $objObject );
 
@@ -186,9 +407,20 @@ class BaseObject {
     return;
   }
 
+/**
+ * This static method load a File with encrypted json Content, decrypted it, to be changed it to an Object and return this Object.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string    $strFile     Filepath and Filename to the encrypted json File
+ * @return     object    $objObject   The decrypted Object from the encrypted json File
+ * @example    $objObject = BaseObject::loadFileDeCrypted( $strFile );
+ * @example    $objObject = $this::loadFileDeCrypted( $strFile );
+ *
+*/
   public static function loadFileDeCrypted( string $strFile ) : object | array {
-//    Presentation::logToFile( $strFile, true, 'test.log' );
-
     $strContent = file_get_contents( $strFile );
     $strContent = str_replace( array( "\r", "\n" ), '', $strContent );
 
@@ -205,6 +437,18 @@ class BaseObject {
     return $objObject;
   }
 
+/**
+ * This method serialize a Object, removes particular Properties and returns the Standard Class Object.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     object    $objObject   The cleaned Standard Class Object
+ * @example    $objObject = $this->serializeObject();
+ * @example    $objObject = $objBaseObject->serializeObject();
+ *
+*/
   public function serializeObject() : object {
     $objStdObject  = new StdClass();
     $objProperties = get_object_vars( $this );
@@ -220,6 +464,20 @@ class BaseObject {
     return $objStdObject;
   }
 
+/**
+ * This static method removed a Element from a Array.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      array    $arrArray     The Array to remove a Element from
+ * @param      int      $intIndex     The Index of the Element to remove
+ * @return     array    $arrArray     The Array without the Element.
+ * @example    $arrArray = BaseObject::removeFromArray( $arrArray, $intIndex );
+ * @example    $arrArray = $this::removeFromArray( $arrArray, $intIndex );
+ *
+*/
   public static function removeFromArray( array $arrArray, int $intIndex ) : array {
     $arrNewArray = [];
 
@@ -231,6 +489,20 @@ class BaseObject {
     return $arrNewArray;
   }
 
+/**
+ * This static method cleans a object and removed all properties without Field-Entries in the Class Field Configuration.
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object    $objObject     The Object to clean up
+ * @param      object    $objFields     The Class Field Object with the Property Informations
+ * @return     object    $objObject     The cleaned Object
+ * @example    $objObject = BaseObject::cleanObject( $objObject, $objFields );
+ * @example    $objObject = $this::cleanObject( $objObject, $objFields );
+ *
+*/
   public static function cleanObject( object $objObject, object $objFields ) : object {
     $objStdObject  = new StdClass();
     $objProperties = get_object_vars( $objObject );
@@ -245,6 +517,18 @@ class BaseObject {
     return $objStdObject;
   }
 
+/**
+ * This Method delelte a Directory with all Files and Sub Directories recursiv.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      string   $strPath        Path to Direrctory to be deleted
+ * @return     bool     $boolSucsess    Is deleted
+ * @example    $boolSucsess = $this->deleteDirectory( $strPath );
+ * @example    $boolSucsess = $objBaseObject->deleteDirectory( $strPath );
+ *
+*/
   public function deleteDirectory( string $strPath ) : bool {
     if( ! is_dir( $strPath ) ) return unlink( $strPath );
 
