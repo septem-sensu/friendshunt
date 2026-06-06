@@ -390,6 +390,8 @@ body {
   margin-top: -20px !important;
   min-height: 1000px !important;
   color: #cccccc !important;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 #main::before {
