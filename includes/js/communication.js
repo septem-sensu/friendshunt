@@ -1,3 +1,18 @@
+/**
+ * Communication Package for the Friendshunt App.
+ *
+ * This Package represents the Communication Package for the Friendshunt App with his Functions.
+ *
+ * @public
+ * @module        communication.js
+ * @namespace     friendshunt
+ * @access        public
+ * @author        Markus Götz <info@septem-sensu.de>
+ * @since         2026-06-06
+ * @version       0.1.0
+ * @copyright     2026 Markus Götz <info@septem-sensu.de>
+ *
+*/
 window[ appAlias ]                 = window[ appAlias ] || {};
 window[ appAlias ].methods         = window[ appAlias ].methods || {};
 window[ appAlias ].listener        = window[ appAlias ].listener || {};
@@ -7,6 +22,23 @@ window[ appAlias ].requestQueue    = window[ appAlias ].requestQueue || [];
 window[ appAlias ].requestOnTheWay = window[ appAlias ].requestOnTheWay || {};
 window[ appAlias ].requestErrors   = window[ appAlias ].requestErrors || [];
 
+/**
+ * This Function is a helper Function to create a Ajax Request Object.
+ *
+ * @function
+ * @public
+ * @name       newJsonRequestObject
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strClass          The Server-side Class Name for the Ajax Request
+ * @param      {string}   strMethode        The Server-side Method in the Class for the Ajax Request
+ * @param      {string}   strId             The Server-side Id of the Object for the Ajax Request
+ * @return     {object}   objRequestObject  The prepared Ajax Request Object
+ * @example    objRequestObject = friendshunt.methods.newJsonRequestObject( strClass, strMethode, strId );
+ *
+*/
 window[ appAlias ].methods.newJsonRequestObject = function( strClass, strMethode, strId ) {
   var objJsonRequestObject     = {};
 
@@ -34,6 +66,24 @@ window[ appAlias ].methods.newJsonRequestObject = function( strClass, strMethode
   return objJsonRequestObject;
 };
 
+/**
+ * This Function is the base Function for a Ajax Request and start the Request Queue.
+ *
+ * @function
+ * @public
+ * @name       request
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strMethode          The Server-side Method in the Class for the Ajax Request
+ * @param      {object}   objGetParams        All Get Parameters for the Ajax Request
+ * @param      {object}   objPostParams       All Post Parameters for the Ajax Request
+ * @param      {string}   strCallback         The Callback Function by the Ajax Response to Call
+ * @return     {void}
+ * @example    friendshunt.methods.request( strMethode, objGetParams, objPostParams, strCallback );
+ *
+*/
 window[ appAlias ].methods.request = function( strMethode, objGetParams, objPostParams, strCallback ) {
   var objQueueObject = { 'requestId': window[ appAlias ].methods.guid, 'requestCount': 0 };
 
@@ -48,6 +98,20 @@ window[ appAlias ].methods.request = function( strMethode, objGetParams, objPost
   return;
 };
 
+/**
+ * This Function controlls the Request Queue and calls the Ajax Request.
+ *
+ * @function
+ * @public
+ * @name       manageRequestQueue
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.manageRequestQueue();
+ *
+*/
 window[ appAlias ].methods.manageRequestQueue = function() {
   if( window[ appAlias ].requestQueue.length < 1 ) return;
   if( typeof window[ appAlias ].requestOnTheWay.requestId == 'string' && window[ appAlias ].requestOnTheWay.requestId != '' ) return;
@@ -59,6 +123,21 @@ window[ appAlias ].methods.manageRequestQueue = function() {
   return;
 };
 
+/**
+ * This Function is the Ajax Request Function. It is called by the manageRequestQueue() Function.
+ *
+ * @function
+ * @private
+ * @name       _request
+ * @memberof   friendshunt
+ * @access     private
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}  objRequest  The prepared Ajax Request Object for fire to Server with all Parameters
+ * @return     {void}
+ * @example    friendshunt.methods._request( objRequest );
+ *
+*/
 window[ appAlias ].methods._request = function( objRequest ) {
   var objXhr                         = new XMLHttpRequest();
   var strUrl                         = 'index.php';
@@ -117,6 +196,23 @@ window[ appAlias ].methods._request = function( objRequest ) {
   return;
 };
 
+/**
+ * This Function manage the Ajax Response from the Server and procces it.
+ * It will check if there is an error and call the Callback Function.
+ * The Function is called after the Ajex Request is finished.
+ *
+ * @function
+ * @public
+ * @name       proccessResponse
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}  objResponse  The Response Object from the Server
+ * @return     {void}
+ * @example    friendshunt.methods.proccessResponse( objResponse );
+ *
+*/
 window[ appAlias ].methods.proccessResponse = function( objResponse ) {
   var i = 0;
 
@@ -148,6 +244,22 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
   return;
 };
 
+/**
+ * This Function set the Form Fields Values after the Ajax Request is done.
+ *
+ * @function
+ * @public
+ * @name       setFields
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}  objObject  The Object with the Form Fields and his Values
+ * @return     {void}
+ * @todo       Manage Form Errors...
+ * @example    friendshunt.methods.setFields( objObject );
+ *
+*/
 window[ appAlias ].methods.setFields = function( objObject ) {
   if( typeof objObject != 'object' || objObject == null ) return;
   if( typeof window[ appAlias ].fields != 'object' || window[ appAlias ].fields == null ) return;
@@ -161,27 +273,35 @@ window[ appAlias ].methods.setFields = function( objObject ) {
     if( window[ appAlias ].fields[ strProperty ].element == 'img' ) {
       objHtmlObject.src = 'files/' + window[ appAlias ].class.toLowerCase() + '/' + window[ appAlias ].id + '/' + objObject[ strProperty ];
     }
-
-
-
-
   }
 
   return;
 };
 
+/**
+ * This Function manage the Redirect after the Ajax Request is done.
+ *
+ * @function
+ * @public
+ * @name       manageRedirects
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}  strRedirect  The Redirect Url
+ * @return     {void}
+ * @example    friendshunt.methods.manageRedirects( strRedirect );
+ *
+*/
 window[ appAlias ].methods.manageRedirects = function( strRedirect ) {
   document.location = strRedirect;
 
   return;
 };
-/*
-window[ appAlias ].methods.fileExists = function( strUrl ) {
-  var objXhr = new XMLHttpRequest();
 
-  return;
-};
-*/
+
+
+
 window.addEventListener( 'load', function() {
 
   return;

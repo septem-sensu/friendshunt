@@ -1,0 +1,169 @@
+@startuml
+
+class BaseObject {
+  +config
+  +fields
+  +className
+  +id
+  +__construct()
+  +fields()
+  +fillObject()
+  +id()
+  +get()
+  +set()
+  +deleteObject()
+  +saveObject()
+  +saveRequestObject()
+  +newId()
+  +getObjects()
+  +getConfig()
+  +isJson()
+  +enCrypteOnly()
+  +enCrypte()
+  +deCrypte()
+  +saveFileEnCrypted()
+  +loadFileDeCrypted()
+  +serializeObject()
+  +removeFromArray()
+  +cleanObject()
+  +deleteDirectory()
+}
+
+class Controller {
+  +resultType
+  +viewName
+  +viewObject
+  +objectId
+  +className
+  +actions
+  +templates
+  +config
+  +presentationObject
+  +role
+  +object
+  +response
+  +__construct()
+  +init()
+  +getPresentationObject()
+  +getViewObject()
+  +getResultType()
+  +setObject()
+  +setRole()
+  +execute()
+  +checkRole()
+  +view()
+  +json()
+  +savePostData()
+  +checkPermissions()
+  +responseData()
+  +renderView()
+  +executeActions()
+}
+
+class Game {
+  +name
+  +title
+  +description
+  +player
+  +hunter
+  +management
+  +start
+  +duration
+  +avatar
+  +pingInterval
+  +speedPingInterval
+  +speedPingCount
+  +startPosition
+  +exitPosition
+  +images
+  +tmpImageAdd
+  +showPlayer
+  +trackInterval
+  +hunterClosingTime
+  +showNames
+  +addGameImage()
+  +avatarFileUploaded()
+  +startGame()
+  +addGamePlayDataToGame()
+  +deleteGame()
+  +saveNewGame()
+  +addPlayerToGame()
+  +addHunterToGame()
+  +addManagementToGame()
+  +setPlayerIdToTemplate()
+  +archiveGame()
+  +gameplay()
+}
+
+class Gameplay {
+  +gameplayObject
+  +gameplayPath
+  +currentPlayer
+  +currentPlayerGameRole
+  +currentPlayerTracking
+  +gameSettings
+  +messages
+  +__construct()
+  +init()
+  +addTracking()
+  +getGameSettings()
+  +calcDistance()
+  +calcPlayerDistances()
+  +getAllPlayerPositions()
+  +getPlayerPosition()
+  +saveGameplay()
+  +saveMessages()
+  +silentHunt()
+  +getGameplayState()
+  +getGameplaySpeedHunt()
+  +speedHunt()
+  +track()
+  +message()
+}
+
+class Player {
+  +name
+  +password
+  +role
+  +email
+  +image
+  +games
+  +title
+  +description
+  +newPlayer()
+  +addGamesToTemplate()
+  +checkLogin()
+  +getPlayerIdFromCookie()
+  +login()
+  +avatarFileUploaded()
+  +deletePlayer()
+}
+
+class Presentation {
+  +templateVars
+  +config
+  +__construct()
+  +initTemplateVars()
+  +assignTemplateVar()
+  +processTemplate()
+  +stringToTimestamp()
+  +timestampToString()
+  +writeCookie()
+  +getCookieProperty()
+  +newFormError()
+  +getBaseUrl()
+  +getFullUrl()
+  +sendHtmlMail()
+  +validateFields()
+  +logToFile()
+  +shortText()
+  +cleanId()
+  +cors()
+  +getJsonHeader()
+  +getJavaScriptHeader()
+}
+
+BaseObject <|-- Game
+Game <|-- Gameplay
+BaseObject <|-- Player
+@enduml

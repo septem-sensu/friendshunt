@@ -1,6 +1,37 @@
+/**
+ * Event Listener Package for the Friendshunt App.
+ *
+ * This Package represents the Event Listener Package for the Friendshunt App with his Functions.
+ *
+ * @public
+ * @module        listener.js
+ * @namespace     friendshunt
+ * @access        public
+ * @author        Markus Götz <info@septem-sensu.de>
+ * @since         2026-06-06
+ * @version       0.1.0
+ * @copyright     2026 Markus Götz <info@septem-sensu.de>
+ *
+*/
 window[ appAlias ]            = window[ appAlias ] || {};
 window[ appAlias ].listener   = window[ appAlias ].listener || {};
 
+/**
+ * This Function register the Event Listener for the Login Buttons at the Login Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for the Player Login.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       loginButtons
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.loginButtons();
+ *
+*/
 window[ appAlias ].listener.loginButtons = function() {
   var arrLoginButtons = document.querySelectorAll( '.event-login' );
 
@@ -13,6 +44,22 @@ window[ appAlias ].listener.loginButtons = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for the New Player Button at the My Account Page for Administrators and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for a new Player (only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       newPlayerButtons
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.newPlayerButtons();
+ *
+*/
 window[ appAlias ].listener.newPlayerButtons = function() {
   var arrRegisterButtons = document.querySelectorAll( '.event-new-player' );
 
@@ -29,6 +76,22 @@ window[ appAlias ].listener.newPlayerButtons = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for the Save Button and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for save a Object.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       saveObject
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.saveObject();
+ *
+*/
 window[ appAlias ].listener.saveObject = function() {
   if( document.querySelector( '#event-save-object' ) == null ) return;
 
@@ -39,6 +102,22 @@ window[ appAlias ].listener.saveObject = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for add a Game Player Player to the Game Button on the New Game Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for add Game Player Player to the Game (only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       addPlayerToGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.addPlayerToGame();
+ *
+*/
 window[ appAlias ].listener.addPlayerToGame = function() {
   if( document.querySelector( '#event-add-player-to-game' ) == null ) return;
 
@@ -59,6 +138,22 @@ window[ appAlias ].listener.addPlayerToGame = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for add a Game Hunter Player to the Game Button on the New Game Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for add Game Hunter Player to the Game (only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       addHunterToGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.addHunterToGame();
+ *
+*/
 window[ appAlias ].listener.addHunterToGame = function() {
   if( document.querySelector( '#event-add-hunter-to-game' ) == null ) return;
 
@@ -79,6 +174,22 @@ window[ appAlias ].listener.addHunterToGame = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for add a Game Management Player to the Game Button on the New Game Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for add Game Management Player to the Game (only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       addManagementToGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.addManagementToGame();
+ *
+*/
 window[ appAlias ].listener.addManagementToGame = function() {
   if( document.querySelector( '#event-add-management-to-game' ) == null ) return;
 
@@ -99,6 +210,22 @@ window[ appAlias ].listener.addManagementToGame = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for delete a Player to from the Game Button on the My Account Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for delete a Player (only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       deletePlayer
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.deletePlayer();
+ *
+*/
 window[ appAlias ].listener.deletePlayer = function() {
   if( document.querySelector( '#event-delete-player' ) == null ) return;
 
@@ -111,6 +238,22 @@ window[ appAlias ].listener.deletePlayer = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for save a new Game Button on the new Game Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for save a new Game (only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       saveNewGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.saveNewGame();
+ *
+*/
 window[ appAlias ].listener.saveNewGame = function() {
   if( document.querySelector( '#event-save-new-game' ) == null ) return;
 
@@ -164,6 +307,22 @@ window[ appAlias ].listener.saveNewGame = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for save a new Password Button on the My Account Edit Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for save a new Password.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       changePlayerPassword
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.changePlayerPassword();
+ *
+*/
 window[ appAlias ].listener.changePlayerPassword = function() {
   if( document.querySelector( '#event-change-player-password' ) == null ) return;
 
@@ -185,6 +344,22 @@ window[ appAlias ].listener.changePlayerPassword = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for save a new Player or Game Avatar Button on the My Account / Game Dashboard Page and process the Functions by Click Event.
+ * The Function generate and fired the Ajax Request for save a new Avatar (Game Avatar is only available for Administrators).
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       uploadAvatar
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.uploadAvatar();
+ *
+*/
 window[ appAlias ].listener.uploadAvatar = function() {
   var arrFileUploadButtons = document.querySelectorAll( '#avatar-upload' );
 
@@ -216,6 +391,21 @@ window[ appAlias ].listener.uploadAvatar = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for show the Zoom Image Layer and process the Functions by Click Event.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       zoomImageListenter
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.zoomImageListenter();
+ *
+*/
 window[ appAlias ].listener.zoomImageListenter = function() {
   var arrZoomImages = document.querySelectorAll('.zoom-image');
 
@@ -235,6 +425,22 @@ window[ appAlias ].listener.zoomImageListenter = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for uplaod a new Game Image Button and process the Functions by Change the File Dialog Event.
+ * The Function generate and fired the Ajax Request for upload a new Game Image.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       uploadGameImages
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.uploadGameImages();
+ *
+*/
 window[ appAlias ].listener.uploadGameImages = function() {
   var arrFileUploadButtons = document.querySelectorAll( '#game-images-upload' );
 
@@ -257,6 +463,21 @@ window[ appAlias ].listener.uploadGameImages = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for show the File Dialog to upload a new Avatar and process the Functions by Click Event.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       uploadAvatarOpenDialog
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.uploadAvatarOpenDialog();
+ *
+*/
 window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
   if( document.querySelector( '#avatar' ) == null ) return;
 
@@ -269,6 +490,21 @@ window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for show the File Dialog to upload a new game Image and process the Functions by Click Event.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       uploadGameImagesOpenDialog
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.uploadGameImagesOpenDialog();
+ *
+*/
 window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
   if( document.querySelector( '#event-game-images-upload-button' ) == null ) return;
 
@@ -281,6 +517,21 @@ window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for Links and process the Functions by Click Event.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       links
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.links();
+ *
+*/
 window[ appAlias ].listener.links = function() {
   var arrLinks = document.querySelectorAll( '.event-link' );
 
@@ -295,6 +546,21 @@ window[ appAlias ].listener.links = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for Reset Forms and process the Functions by Click Event.
+ * The Event Listener registered at Pageshow.
+ *
+ * @function
+ * @public
+ * @name       resetForms
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.resetForms();
+ *
+*/
 window[ appAlias ].listener.resetForms = function() {
   var arrForms = document.querySelectorAll( 'form' );
 
@@ -307,6 +573,21 @@ window[ appAlias ].listener.resetForms = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for format Date Time and process the Functions by Click Event.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       formatDateTime
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.formatDateTime();
+ *
+*/
 window[ appAlias ].listener.formatDateTime = function() {
   var arrFormateTags = document.querySelectorAll( '.format-date-time' );
 

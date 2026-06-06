@@ -1,10 +1,40 @@
+/**
+ * Custom Package for the Friendshunt App.
+ *
+ * This Package represents the Custom Package for the Friendshunt App with his Functions.
+ *
+ * @public
+ * @module        custom.js
+ * @namespace     friendshunt
+ * @access        public
+ * @author        Markus Götz <info@septem-sensu.de>
+ * @since         2026-06-06
+ * @version       0.1.0
+ * @copyright     2026 Markus Götz <info@septem-sensu.de>
+ *
+*/
 window[ appAlias ]            = window[ appAlias ] || {};
 window[ appAlias ].methods    = window[ appAlias ].methods || {};
 window[ appAlias ].listener   = window[ appAlias ].listener || {};
 window[ appAlias ].responses  = window[ appAlias ].responses || [];
 window[ appAlias ].formErrors = window[ appAlias ].formErrors || [];
 
-
+/**
+ * This Function obtains permission to use the motion sensor on iOS devices.
+ * And fired a Ajax Request to Server for Start the Game.
+ *
+ * @function
+ * @public
+ * @name       cStartGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objElement  ...
+ * @return     {void}
+ * @example    friendshunt.methods.cStartGame( objElement );
+ *
+*/
 window[ appAlias ].methods.cStartGame = function( objElement ) {
   var objPost       = { 'class': 'Game', 'methode': 'startGame' };
   var objGeoTracker = new GeoTracker();
@@ -21,6 +51,21 @@ window[ appAlias ].methods.cStartGame = function( objElement ) {
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost , 'proccessResponse' );
 };
 
+/**
+ * This Function is the Callback Function after the Ajax Request for the Game has been finished.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseSaveGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponseObject  The Ajax Response Object from the Server
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseSaveGame( objResponseObject );
+ *
+*/
 window[ appAlias ].methods.cProccessResponseSaveGame = function( objResponseObject ) {
   window[ appAlias ].methods.proccessResponse( objResponseObject );
   document.location = 'index.php?view=dashboard';
@@ -28,6 +73,22 @@ window[ appAlias ].methods.cProccessResponseSaveGame = function( objResponseObje
   return;
 };
 
+/**
+ * This Function generate the Html Code for a Game Player at the Game Dashboard.
+ *
+ * @function
+ * @public
+ * @name       cGetPlayerInfoHtml
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objPlayer                   The Player
+ * @param      {string}   strInputName                The Input Name
+ * @return     {string}   strContentContainerContent  The Content to set in the Html Content
+ * @example    strContentContainerContent = friendshunt.methods.cGetPlayerInfoHtml( objPlayer, strInputName );
+ *
+*/
 window[ appAlias ].methods.cGetPlayerInfoHtml = function( objPlayer, strInputName ) {
   var strContentContainerContent = '';
 
@@ -46,6 +107,21 @@ window[ appAlias ].methods.cGetPlayerInfoHtml = function( objPlayer, strInputNam
   return strContentContainerContent;
 };
 
+/**
+ * This Function Callback Helper Function for the Game Dashboard and add the Game Management Players to the Html.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseAddManagementToGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponseObject    The Response Object after the Ajax Request
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseAddManagementToGame( objResponseObject );
+ *
+*/
 window[ appAlias ].methods.cProccessResponseAddManagementToGame = function( objResponseObject ) {
   var arrMethods = objResponseObject.result.methods;
 
@@ -71,6 +147,21 @@ window[ appAlias ].methods.cProccessResponseAddManagementToGame = function( objR
   return;
 };
 
+/**
+ * This Function Callback Helper Function for the Game Dashboard and add the Game Players to the Html.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseAddPlayerToGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponseObject    The Response Object after the Ajax Request
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseAddPlayerToGame( objResponseObject );
+ *
+*/
 window[ appAlias ].methods.cProccessResponseAddPlayerToGame = function( objResponseObject ) {
   var arrMethods = objResponseObject.result.methods;
 
@@ -96,6 +187,21 @@ window[ appAlias ].methods.cProccessResponseAddPlayerToGame = function( objRespo
   return;
 };
 
+/**
+ * This Function Callback Helper Function for the Game Dashboard and add the Game Hunter Players to the Html.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseAddHunterToGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponseObject    The Response Object after the Ajax Request is done
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseAddHunterToGame( objResponseObject );
+ *
+*/
 window[ appAlias ].methods.cProccessResponseAddHunterToGame = function( objResponseObject ) {
   var arrMethods = objResponseObject.result.methods;
 
@@ -121,6 +227,20 @@ window[ appAlias ].methods.cProccessResponseAddHunterToGame = function( objRespo
   return;
 };
 
+/**
+ * This Function generate the Html Code from a Game with Game Informations and add the Content to the My Account Page.
+ *
+ * @function
+ * @public
+ * @name       cAddGamesToTemplate
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cAddGamesToTemplate();
+ *
+*/
 window[ appAlias ].methods.cAddGamesToTemplate = function() {
   var arrGames  = typeof window[ appAlias ].games == 'object' && window[ appAlias ].games != null ? window[ appAlias ].games : [];
   var objFields = window[ appAlias ].gameFields;
@@ -157,6 +277,20 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
   return;
 };
 
+/**
+ * This Function generate the Html Code from the Game Player Informations (Player, Hunter or Management) and add to the Content of the Game Dashboard.
+ *
+ * @function
+ * @public
+ * @name       cAddGameplayDataToTemplate
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cAddGameplayDataToTemplate();
+ *
+*/
 window[ appAlias ].methods.cAddGameplayDataToTemplate = function() {
   $arrMembers      = [ 'player', 'hunter', 'management' ];
   $objGameplayData = typeof window[ appAlias ].gameplayData == 'object' && window[ appAlias ].gameplayData != null ? window[ appAlias ].gameplayData : null;
@@ -184,6 +318,20 @@ window[ appAlias ].methods.cAddGameplayDataToTemplate = function() {
   return;
 };
 
+/**
+ * This Function is called by the Game Dashboard Page and generates the Html Code for the Gameplay Images in the Content Container of the Game Dashboard Page.
+ *
+ * @function
+ * @public
+ * @name       cAddGameImagesContent
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cAddGameImagesContent();
+ *
+*/
 window[ appAlias ].methods.cAddGameImagesContent = function() {
   if( typeof window[ appAlias ].gameImages != 'object' || window[ appAlias ].gameImages == null ) return;
 
@@ -207,6 +355,21 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
   return;
 };
 
+/**
+ * This Function generate and called the Ajax Request to archive a Game.
+ *
+ * @function
+ * @public
+ * @name       cArchiveGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strElement    The Button was clicked or touched to detect the Game Id
+ * @return     {void}
+ * @example    friendshunt.methods.cArchiveGame( strElement );
+ *
+*/
 window[ appAlias ].methods.cArchiveGame = function( strElement ) {
   var objHtmlGamesContainer = strElement.closest( '.content-container' );
   var strGameId             = objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
@@ -217,6 +380,21 @@ window[ appAlias ].methods.cArchiveGame = function( strElement ) {
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponseArchiveGame' );
 };
 
+/**
+ * This Function is the Callback Function from the Archive Game Ajax Request.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseArchiveGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponse    The Response Object after the Ajax Request is done
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseArchiveGame( objResponse );
+ *
+*/
 window[ appAlias ].methods.cProccessResponseArchiveGame = function( objResponse ) {
   var arrResultMethods = objResponse.result.methods;
 
@@ -227,6 +405,21 @@ window[ appAlias ].methods.cProccessResponseArchiveGame = function( objResponse 
   return;
 };
 
+/**
+ * This Function generate and called the Ajax Request to delete a Game.
+ *
+ * @function
+ * @public
+ * @name       cDeleteGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strElement    The Button was clicked or touched to detect the Game Id
+ * @return     {void}
+ * @example    friendshunt.methods.cDeleteGame( strElement );
+ *
+*/
 window[ appAlias ].methods.cDeleteGame = function( strElement ) {
   var objHtmlGamesContainer = strElement.closest( '.content-container' );
   var strGameId             = objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
@@ -237,6 +430,21 @@ window[ appAlias ].methods.cDeleteGame = function( strElement ) {
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponseDeleteGame' );
 };
 
+/**
+ * This Function is the Callback Function from the Delete Game Ajax Request.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseDeleteGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponse    The Response Object after the Ajax Request is done
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseArchiveGame( objResponse );
+ *
+*/
 window[ appAlias ].methods.cProccessResponseDeleteGame = function( objResponse ) {
   var arrResultMethods = objResponse.result.methods;
 
@@ -247,6 +455,22 @@ window[ appAlias ].methods.cProccessResponseDeleteGame = function( objResponse )
   return;
 };
 
+/**
+ * This Function formats a date-time string to a human readable format.
+ *
+ * @function
+ * @public
+ * @name       TimeStringToTimeString
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strTime           The unformated date-time String
+ * @return     {string}   strFormattedDate  The formatted date-time String
+ * @todo       Rename this Function (Lower Camel Case)
+ * @example    strFormattedDate = friendshunt.methods.TimeStringToTimeString( strTime );
+ *
+*/
 window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
   const objDateTimer     = new Date( strTime );
   const strFormattedDate = objDateTimer.toLocaleString( 'de-DE', {
@@ -260,6 +484,20 @@ window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
   return strFormattedDate;
 }
 
+/**
+ * This Function close the Image Zoom Layer.
+ *
+ * @function
+ * @public
+ * @name       cCloseFullImage
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cCloseFullImage();
+ *
+*/
 window[ appAlias ].methods.cCloseFullImage = function() {
   document.querySelector('.full-image img').remove();
   document.querySelector('.full-image-layer').style.display = 'none';

@@ -1,4 +1,27 @@
+/**
+ * Geo Maps Class for the Friendshunt App.
+ *
+ * This Class represents the Geo Maps Class for the Friendshunt App with his Properties and Methods.
+ * The Class is for handling Leaflet with OpenStreetMap.
+ *
+ * @class
+ *
+ * @author    Markus Götz <info@septem-sensu.de>
+ * @version   0.1.0
+ * @since     2026-06-05
+ *
+ * @example   var objGeoMaps = new GeoMaps();
+ *
+ */
 class GeoMaps {
+
+/**
+ * This Method is the Constructor for this Class.
+ *
+ * @example   var objGeoMaps = new GeoMaps();
+ *
+ * @constructor
+ */
   constructor() {
     this.zoomLevel    = 14; // Standard-Zoomstufe für die Kartendarstellung
     this.maxZoomLevel = 19; // Maximale Zoomstufe, die von der Karte unterstützt wird
@@ -9,16 +32,48 @@ class GeoMaps {
     return;
   }
 
+/**
+ * This Method is the default getter of the Class.
+ *
+ * @public
+ * @param     {string}   property   The Property to get
+ * @return    {mixed}    value      The Value of the Property
+ *
+ * @example   var value = objGeoMaps.get( property );
+ *
+ */
   get( property ) {
     return this[ property ];
   }
 
+/**
+ * This Method is the default setter of the Class.
+ *
+ * @public
+ * @param     {string}   property   The Property to set
+ * @param     {mixed}    value      The Value to set
+ * @return    {void}
+ *
+ * @example   objGeoMaps.set( property, value );
+ *
+ */
   set( property, value ) {
     this[ property ] = value;
 
     return;
   }
 
+/**
+ * This Method set the Map in the Page.
+ *
+ * @public
+ * @param     {number}  lat   The current Latidude
+ * @param     {number}  lng   The current Langidude
+ * @return    {void}
+ *
+ * @example   objGeoMaps.setMap( lat, lng );
+ *
+ */
   setMap( lat, lng ) {
     this.map = L.map( this.selector ).setView( [ lat, lng ], this.zoomLevel );
 
@@ -30,6 +85,21 @@ class GeoMaps {
     return;
   }
 
+/**
+ * This Method set a Marker with Popup on the Map.
+ *
+ * @public
+ * @param     {string}  id        The Game Player Id
+ * @param     {string}  role      The Game Player Role (player, hunter or management)
+ * @param     {string}  color     The Game Player Color
+ * @param     {number}  lat       The Latidude of the Game Player
+ * @param     {number}  lng       The Langidude of the Game Player
+ * @param     {string}  content   The Content of the Popup
+ * @return    {void}
+ *
+ * @example   objGeoMaps.setMarker( id, role, color, lat, lng, content );
+ *
+ */
   setMarker( id, role, color, lat, lng, content ) {
     const icon   = this.getIcon( role, color );
 
@@ -41,6 +111,17 @@ class GeoMaps {
     return;
   }
 
+/**
+ * This Method returns a Icon Vector Object for the Game Player Role.
+ *
+ * @public
+ * @param     {string}  role      The Game Player Role (player, hunter or management)
+ * @param     {string}  color     The Game Player Color
+ * @return    {string}  strImage  The Vector Object Image
+ *
+ * @example   strImage = objGeoMaps.getIcon( role, color );
+ *
+ */
   getIcon( role, color ) {
     let svgContent = "";
     const size = 30;
@@ -85,6 +166,4 @@ class GeoMaps {
       popupAnchor: [0, -size / 2]
     } );
   }
-
-
 };

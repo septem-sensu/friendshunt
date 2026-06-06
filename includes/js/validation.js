@@ -1,7 +1,37 @@
+/**
+ * Form Field Validation Package for the Friendshunt App.
+ *
+ * This Package represents the Form Field Validation Package for the Friendshunt App with his Functions.
+ *
+ * @public
+ * @module        validation.js
+ * @namespace     friendshunt
+ * @access        public
+ * @author        Markus Götz <info@septem-sensu.de>
+ * @since         2026-06-06
+ * @version       0.1.0
+ * @copyright     2026 Markus Götz <info@septem-sensu.de>
+ *
+*/
 window[ appAlias ]            = window[ appAlias ] || {};
 window[ appAlias ].methods    = window[ appAlias ].methods || {};
 window[ appAlias ].formErrors = window[ appAlias ].formErrors || [];
 
+/**
+ * This Function loop all Form Field and validate against the Field Definitions after a Key Event.
+ * The Key Event Listener are registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       validateFields
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.validateFields();
+ *
+*/
 window[ appAlias ].methods.validateFields = function() {
   window[ appAlias ].methods._validateFields();
 
@@ -23,6 +53,20 @@ window[ appAlias ].methods.validateFields = function() {
   return;
 };
 
+/**
+ * This Function is a validation Helper Function to set or remove a Form Error to the Form Field after a Key Event.
+ *
+ * @function
+ * @public
+ * @name       _validateFieldSetFormError
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods._validateFieldSetFormError();
+ *
+*/
 window[ appAlias ].methods._validateFieldSetFormError = function() {
   if( window[ appAlias ].methods._validateField( this.name ) ) {
     this.classList.remove( 'form-error' );
@@ -33,6 +77,21 @@ window[ appAlias ].methods._validateFieldSetFormError = function() {
   return;
 };
 
+/**
+ * This Function is a validation Helper Function and is used to validate a Form Field Value with the given Key from the Field Definition and returns a boolean value.
+ *
+ * @function
+ * @public
+ * @name       _validateField
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strKey            The Form Field Key of the Field Definition.
+ * @return     {boolean}  boolFormIsValide  The validation result (true = Field Value is Valide, false = Field Value is not Valide).
+ * @example    boolFormIsValide = friendshunt.methods._validateField( strKey );
+ *
+*/
 window[ appAlias ].methods._validateField = function( strKey ) {
   var arrFields        = window[ appAlias ].fields;
   var boolFormIsValide = true;
@@ -59,10 +118,24 @@ window[ appAlias ].methods._validateField = function( strKey ) {
   return boolFormIsValide;
 };
 
+/**
+ * This Function is a validation Helper Function and validate the Fields, controlls the other Helper Functions and enable / disable the Submit Buttons.
+ *
+ * @function
+ * @public
+ * @name       _validateFields
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods._validateFields();
+ *
+*/
 window[ appAlias ].methods._validateFields = function() {
   var arrFields        = window[ appAlias ].fields;
   var boolFormIsValide = true;
-  
+
   if( typeof( arrFields ) != 'object' || arrFields == null ) return;
 
   for ( var strKey in arrFields ) {
@@ -84,7 +157,7 @@ window[ appAlias ].methods._validateFields = function() {
   }
 
   if( boolFormIsValide ) {
-    if( document.querySelector( '.submit' ) == null ) return; 
+    if( document.querySelector( '.submit' ) == null ) return;
     document.querySelector( '.submit' ).removeAttribute( 'disabled' );
   } else {
     if( document.querySelector( '.submit' ) == null ) return;
@@ -94,6 +167,21 @@ window[ appAlias ].methods._validateFields = function() {
   return;
 };
 
+/**
+ * This Function is a validation Helper Function for validate Passoword.
+ *
+ * @function
+ * @public
+ * @name       _validatePassword
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strPassword             The Passowrd Form Field Value.
+ * @return     {boolean}  boolFormFieldIsValide   The validation result (true = Field Value is Valide, false = Field Value is not Valide).
+ * @example    boolFormFieldIsValide = friendshunt.methods._validatePassword( strPassword );
+ *
+*/
 window[ appAlias ].methods._validatePassword = function( strPassword ) {
   if( window[ appAlias ].passwordRules.passwordHasNumbers ) {
     var regexNumbers = /[0-9]/;
@@ -118,10 +206,40 @@ window[ appAlias ].methods._validatePassword = function( strPassword ) {
   return true;
 };
 
+/**
+ * This Function is a validation Helper Function for validate E-mail Addresses.
+ *
+ * @function
+ * @public
+ * @name       _validateEmail
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strEmail               The E-Mail Address Form Field Value.
+ * @return     {boolean}  boolFormFieldIsValide  The validation result (true = Field Value is Valide, false = Field Value is not Valide).
+ * @example    boolFormFieldIsValide = friendshunt.methods._validateEmail( strEmail );
+ *
+*/
 window[ appAlias ].methods._validateEmail = function( strEmail ) {
   return String( strEmail ).toLowerCase().match( /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ );
 };
 
+/**
+ * This Function manage and controlls the Form Field Errors of the current Page.
+ *
+ * @function
+ * @public
+ * @name       manageFormErrors
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {array}   arrFormErrors   The Array with the Form Field Errors.
+ * @return     {void}
+ * @example    friendshunt.methods.manageFormErrors( arrFormErrors );
+ *
+*/
 window[ appAlias ].methods.manageFormErrors = function( arrFormErrors ) {
   for( var i = 0; i < arrFormErrors.length; i++ ) {
     if( document.querySelector( arrFormErrors[ i ].field ) == null ) continue;
@@ -132,6 +250,20 @@ window[ appAlias ].methods.manageFormErrors = function( arrFormErrors ) {
   return;
 };
 
+/**
+ * This Function remove all Form Field Errors of the current Page.
+ *
+ * @function
+ * @public
+ * @name       resetFormErrors
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.resetFormErrors();
+ *
+*/
 window[ appAlias ].methods.resetFormErrors = function() {
   var arrFormErrors = document.querySelectorAll( '.form-error' );
 
@@ -151,4 +283,4 @@ window.addEventListener( 'load', function() {
 window.addEventListener( 'pageshow', function() {
 
   return;
-} ); 
+} );

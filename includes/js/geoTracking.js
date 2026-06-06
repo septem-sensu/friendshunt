@@ -1,4 +1,29 @@
+/**
+ * Geo Tracker Class for the Friendshunt App.
+ *
+ * This Class represents the Geo Tracker Class for the Friendshunt App with his Properties and Methods.
+ * The Class is for handling Position Tracking, Step Counting and Calculte Distances.
+ * The Class can start inverval Tracking and used the Wake Lock API.
+ *
+ * @class
+ *
+ * @author    Markus Götz <info@septem-sensu.de>
+ * @version   0.1.0
+ * @since     2026-06-05
+ *
+ * @example   var objGeoTracker = new GeoTracker();
+ *
+ */
 class GeoTracker {
+
+  /**
+ * This Method is the Constructor for this Class.
+ *
+ * @constructor
+ *
+ * @example   var objGeoTracker = new GeoTracker();
+ *
+ */
   constructor() {
     this.options = {
       enableHighAccuracy: false, // GPS statt WLAN-Tracking
@@ -15,16 +40,47 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method is the default getter of the Class.
+ *
+ * @public
+ * @param     {string}   property   The Property to get
+ * @return    {mixed}    value      The Value of the Property
+ *
+ * @example   var value = objGeoTracker.stepCount( property );
+ *
+ */
   get( property ) {
     return this[ property ];
   }
 
+/**
+ * This Method is the default setter of the Class.
+ *
+ * @public
+ * @param     {string}   property   The Property to set
+ * @param     {mixed}    value      The Value to set
+ * @return    {void}
+ *
+ * @example   objGeoTracker.set( property, value );
+ *
+ */
   set( property, value ) {
     this[ property ] = value;
 
     return;
   }
 
+/**
+ * This Method get the current Position, called the Callback Function and hand over the Position Data.
+ *
+ * @public
+ * @param     {string}   callbackSuccess   The Property to set
+ * @return    {void}
+ *
+ * @example   objGeoTracker.getCurrentPosition( callbackSuccess );
+ *
+ */
   getCurrentPosition( callbackSuccess ) {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition (
@@ -62,6 +118,16 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method start the interval Tracking and get periodically the current Position, called the Callback Function and hand over the Position Data.
+ *
+ * @public
+ * @param     {string}   callbackSuccess   The Property to set
+ * @return    {void}
+ *
+ * @example   objGeoTracker.startIntervalTracking( callbackSuccess );
+ *
+ */
   startIntervalTracking( callbackSuccess ) {
     if( typeof window[ appAlias ].tracker.intervalTrackingId != 'undefined' && window[ appAlias ].tracker.intervalTrackingId != null ) return;
     if( this.debug ) console.log( 'Tracking läuft... Intervall: ' + this.trackInterval + ' ms' );
@@ -71,6 +137,15 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method stop the interval Tracking.
+ *
+ * @public
+ * @return    {void}
+ *
+ * @example   objGeoTracker.stopIntervalTracking();
+ *
+ */
   stopIntervalTracking() {
     clearInterval( window[ appAlias ].tracker.intervalTrackingId );
     window[ appAlias ].tracker.intervalTrackingId = null;
@@ -78,6 +153,16 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
+ *
+ * @async
+ * @public
+ * @return    {void}
+ *
+ * @example   objGeoTracker.startWakeLock();
+ *
+ */
   async startWakeLock() {
     try {
       this.wakeLock = await navigator.wakeLock.request( 'screen' );
@@ -89,6 +174,15 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
+ *
+ * @public
+ * @return    {void}
+ *
+ * @example   objGeoTracker.stopWakeLock();
+ *
+ */
   stopWakeLock() {
     if( this.wakeLock !== null ) return;
 
@@ -100,6 +194,15 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method start the Pedometer to count the steps.
+ *
+ * @public
+ * @return    {void}
+ *
+ * @example   objGeoTracker.startPedometer();
+ *
+ */
   startPedometer() {
     window.addEventListener( 'devicemotion', ( event ) => {
       const acc = event.accelerationIncludingGravity;
@@ -119,6 +222,19 @@ class GeoTracker {
     return;
   }
 
+/**
+ * This Method calculate the Distance between two Points on the Earth's surface with the Haversine-Formula.
+ *
+ * @public
+ * @param     {number}  lat1       The Latidude of Waypoint 1 (float)
+ * @param     {number}  lng1       The Langidude of Waypoint 1 (float)
+ * @param     {number}  lat2       The Latidude of Waypoint 2 (float)
+ * @param     {number}  lng2       The Langidude of Waypoint 2 (float)
+ * @return    {number}  distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
+ *
+ * @example   var floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );
+ *
+ */
   calcDistance( lat1, lng1, lat2, lng2 ) {
     const EARTH_RADIUS_IN_METERS = 6371000;
 
@@ -131,6 +247,4 @@ class GeoTracker {
 
     return distance;
   }
-
-
 };

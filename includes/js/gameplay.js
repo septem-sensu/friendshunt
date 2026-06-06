@@ -1,9 +1,39 @@
+/**
+ * Gameplay Package for the Friendshunt App.
+ *
+ * This Package represents the Gameplay Package for the Friendshunt App with his Functions.
+ * The package is only loaded on the Gameplay Page.
+ *
+ * @public
+ * @module        gameplay.js
+ * @namespace     friendshunt
+ * @access        public
+ * @author        Markus Götz <info@septem-sensu.de>
+ * @since         2026-06-06
+ * @version       0.1.0
+ * @copyright     2026 Markus Götz <info@septem-sensu.de>
+ *
+*/
 window[ appAlias ].methods.gameplay  = window[ appAlias ].methods.gameplay || {};
 window[ appAlias ].listener.gameplay = window[ appAlias ].listener.gameplay || {};
 window[ appAlias ].tracker           = window[ appAlias ].tracker || {};
 window[ appAlias ].gameplayState     = window[ appAlias ].gameplayState || {};
 window[ appAlias ].stepCount         = window[ appAlias ].stepCount || 0;
 
+/**
+ * This Function init the Gameplay, starts the Game Player Tracking, the Step Counter and used the Wake Lock API.
+ *
+ * @function
+ * @public
+ * @name       init
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.init();
+ *
+*/
 window[ appAlias ].methods.gameplay.init = function() {
   window[ appAlias ].tracker.geoTrackerObject = new GeoTracker();
   window[ appAlias ].tracker.geoTrackerObject.getCurrentPosition( 'setMap' );
@@ -14,6 +44,24 @@ window[ appAlias ].methods.gameplay.init = function() {
   return;
 };
 
+/**
+ * This Function set the Map for the Gameplay after Game start.
+ *
+ * @function
+ * @public
+ * @name       setMap
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {number}   lat         The Latitude Coordinate (float)
+ * @param      {number}   lng         The Longitude Coordinate (float)
+ * @param      {number}   precision   The Precision in Meters (int)
+ * @param      {string}   message     The Message of the Geo Tracker Methode
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.setMap( lat, lng, precision, message );
+ *
+*/
 window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, message ) {
   window[ appAlias ].tracker.geoMapsObject = new GeoMaps();
 
@@ -23,6 +71,24 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
   return;
 };
 
+/**
+ * This Function generate the Ajax Request to track the Game Player with the current Position Coordinates.
+ *
+ * @function
+ * @public
+ * @name       track
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {number}   lat         The Latitude Coordinate (float)
+ * @param      {number}   lng         The Longitude Coordinate (float)
+ * @param      {number}   precision   The Precision in Meters (int)
+ * @param      {string}   message     The Message of the Geo Tracker Methode
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.track( lat, lng, precision, message );
+ *
+*/
 window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, message ) {
   var objPost      = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
   var intStepCount = window[ appAlias ].tracker.geoTrackerObject.get( 'stepCount' );
@@ -44,6 +110,21 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 };
 
+/**
+ * This Function is the Track Callback Function and set the Posistion from the Game Player to the Map.
+ *
+ * @function
+ * @public
+ * @name       setPositions
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponse   The Response Object from the Ajax Request
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.setPositions( objResponse );
+ *
+*/
 window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
   var arrGameplayRoles   = [ 'player', 'hunter', 'management' ];
   var strSpeedHuntPlayer = '';
@@ -77,6 +158,21 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
   return;
 };
 
+/**
+ * This Function is a Helper Function after the Track Ajax Request to set the
+ * Gameplay Informations (Silent Hunt, Speed Hunt etc.) to the State Line of the Gameplay Page.
+ *
+ * @function
+ * @public
+ * @name       setStateLine
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.setStateLine();
+ *
+*/
 window[ appAlias ].methods.gameplay.setStateLine = function() {
   $strStateLine = '';
 
@@ -101,6 +197,21 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
   return;
 }
 
+/**
+ * This Function is a Helper Function after the Track Ajax Request to set the
+ * the Positions, the Popup Content to the Map in the Gampeplay Page.
+ *
+ * @function
+ * @public
+ * @name       setPosition
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.setPosition();
+ *
+*/
 window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer ) {
   var arrColors           = [ '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
   var objLastPosition     = objTracking.position.at( -1 );
@@ -176,6 +287,21 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   return;
 };
 
+/**
+ * This Function generate and fired the Ajax Request for a Speed Hunt.
+ *
+ * @function
+ * @public
+ * @name       speedHunt
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strPlayerId   The Player Id being hunted
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.speedHunt( strPlayerId );
+ *
+*/
 window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
   var objPost = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
 
@@ -189,6 +315,22 @@ window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 };
 
+/**
+ * This Function format a Timestamp to a Human readable Format.
+ *
+ * @function
+ * @public
+ * @name       timestampToDateTimeString
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {string}   strTimestamp          The Timestamp
+ * @param      {string}   strFormat             The Result Format ( date -> only Date, time -> only Time and datetime -> full Datetime )
+ * @return     {string}   strFormatedDateTime   The formated, human readable DateTime String
+ * @example    strFormatedDateTime = friendshunt.methods.gameplay.timestampToDateTimeString( strTimestamp, strFormat );
+ *
+*/
 window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTimestamp, strFormat ) {
   const objDateTime = new Date( strTimestamp * 1000 );
 
@@ -201,6 +343,20 @@ window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTim
   return objDateTime.toLocaleString( 'de-DE' );
 };
 
+/**
+ * This Function hide and unhide the Message Layer of the Gamplay Page scrolled to the End of the Messages.
+ *
+ * @function
+ * @public
+ * @name       showMessageLayer
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.showMessageLayer();
+ *
+*/
 window[ appAlias ].methods.gameplay.showMessageLayer = function() {
   var objMessageLayer     = document.querySelector( '#game-message-layer' );
   var objMessageContainer = document.querySelector( '#game-message-content' );
@@ -218,6 +374,20 @@ window[ appAlias ].methods.gameplay.showMessageLayer = function() {
   return;
 }
 
+/**
+ * This Function generate and fired a New Message Ajax Request from the current Player.
+ *
+ * @function
+ * @public
+ * @name       sendNewMessage
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.sendNewMessage();
+ *
+*/
 window[ appAlias ].methods.gameplay.sendNewMessage = function() {
   var objNewMessage = document.querySelector( '#new-game-message' );
   var objPost       = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
@@ -231,6 +401,20 @@ window[ appAlias ].methods.gameplay.sendNewMessage = function() {
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 }
 
+/**
+ * This Function set the Messages to the Message Layer at the Gameplay Page.
+ *
+ * @function
+ * @public
+ * @name       setMessages
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.setMessages();
+ *
+*/
 window[ appAlias ].methods.gameplay.setMessages = function() {
   var objNewMessage       = document.querySelector( '#new-game-message' ).value = '';
   var strLastMessageId    = '';
