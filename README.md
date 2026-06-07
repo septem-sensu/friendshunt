@@ -68,7 +68,7 @@ BaseObject/               # Abstraktes Kern-Objekt mit Basis-Logiken
 
 1. Klicke auf GitHub auf **Code -> Download ZIP** oder klone das Repository:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/septem-sensu/friendshunt.git
    ```
 2. Lade den Ordner auf deinen PHP-fähigen Webserver (Apache / Nginx) hoch.
 3. Stelle sicher, dass der Server über ein **SSL-Zertifikat (HTTPS)** verfügt, da mobile Browser den GPS-Zugriff im unverschlüsselten HTTP-Netz aus Datenschutzgründen blockieren.
