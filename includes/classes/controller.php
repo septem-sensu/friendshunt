@@ -166,6 +166,8 @@ class Controller {
   public function setRole( string $strRole ) : void {
     $this->role = $strRole;
 
+    $this->presentationObject->assignTemplateVar( 'role', 'Player', null, $strRole );
+
     return;
   }
 

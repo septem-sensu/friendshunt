@@ -62,14 +62,47 @@ class Game extends BaseObject {
     $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
 
-    $objGame = new $strClass( $strId );
-    $arrImmages = $objGame->get( 'images' );
+    $objGame   = new $strClass( $strId );
+    $arrImages = $objGame->get( 'images' );
 
-    array_push( $arrImmages, $strFileName );
-    $objGame->set( 'images', $arrImmages );
+    array_push( $arrImages, $strFileName );
+    $objGame->set( 'images', $arrImages );
     $objGame->set( 'tmpImageAdd', '' );
 
     return;
+  }
+
+/**
+ * This Method delete a Gameplay Image.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @return     object   $objRequestObject    The Ajax Request Object
+ * @example    objRequestObject = $this->deleteGameImage( $objRequestObject );
+ * @example    objRequestObject = $objGame->deleteGameImage( $objRequestObject );
+ *
+*/
+  public function deleteGameImage( object $objRequestObject ) : object {
+    $strImageName = $objRequestObject->imageId;
+    $arrImages   = $this->get( 'images' );
+
+    unlink( __DIR__ . '/../files/game/' . $this->id() . '/' . $strImageName );
+
+    for( $i = 0; $i < count( $arrImages ); $i++ ) {
+      if( $arrImages[ $i ] != $strImageName ) continue;
+
+      $arrImages = $this::removeFromArray( $arrImages, $i );
+
+      $this->set( 'images', $arrImages );
+
+      break;
+    }
+
+    $objRequestObject->redirect = '?view=gameDashboard&class=game&id=' . $this->id();
+
+    return $objRequestObject;
   }
 
 /**
@@ -310,7 +343,7 @@ class Game extends BaseObject {
     $objRequestObject->avatar  = 'avatar.png';
 
     mkdir( $strGameplayPath );
-    copy( __DIR__ . '/../images/apple-touch-icon.png', $strGameplayPath . 'avatar.png' );
+    copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', $strGameplayPath . 'avatar.png' );
     BaseObject::saveFileEnCrypted( $strGameplayPath . 'gameplay.json', $objGameplay );
 
     $objGame->set( 'avatar', 'avatar.png' );

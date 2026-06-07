@@ -1,12 +1,11 @@
 <div class="spacer-login-top">
   <form>
     <div class="content-container login-box">
-      <img src="includes/images/android-chrome-192x192.png" class="friendshunt-login-logo" alt="Friends Hunt Logo" />
-
-      <h1>Friends Hunt Login</h1>
-      <p><label class="w-100 mt-15 mb-5">Spieler</label></p>
-      <input type="text" name="name" id="name" class="w-200 mb-10" placeholder="Eingabe E-Mail Adresse" />
-      <p><label class="w-100 mb-5">Password</label></p>
+      <img src="includes/images/favicons/friendshunt-app-icon-192x192.png" class="friendshunt-login-logo" alt="Friends Hunt Logo" />
+      <h1>{{default::appName}} Login</h1>
+      <label class="w-200 m-auto block mt-15 mb-5" for="name">Spieler E-Mail Adresse</label>
+      <input type="text" name="name" autocomplete="email" id="name" class="w-200 mb-10" placeholder="Eingabe E-Mail Adresse" />
+      <label class="w-200 m-auto block mb-5" for="password">Password</label>
       <input type="password" name="password" id="password" class="w-200 mb-15" placeholder="Eingabe Passwort" />
       <p class="mt-15"><button type="button" class="default submit mb-10 w-140 event-login" disabled="disabled">Anmelden</button></p>
       <p class="mb-50"><button type="button" class="success w-140 mb-20" disabled="disabled">App installieren</button></p>

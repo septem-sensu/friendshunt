@@ -338,7 +338,9 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
   var arrGameImages = window[ appAlias ].gameImages;
 
   for( var i = 0; i < arrGameImages.length; i++ ) {
-    var objImageTag = document.createElement( 'img' );
+    var objImageTrash = document.createElement( 'div' );
+    var objImageCover = document.createElement( 'div' );
+    var objImageTag   = document.createElement( 'img' );
     objImageTag.classList.add( 'c-dashboard-player-image' );
     objImageTag.classList.add( 'game-image-gallery-image' );
     objImageTag.classList.add( 'mr-5' );
@@ -346,10 +348,19 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
     objImageTag.classList.add( 'mb-6' );
     objImageTag.classList.add( 'zoom-image' );
     objImageTag.classList.add( 'pointer' );
+    objImageCover.classList.add( 'inline-block' );
+    objImageCover.classList.add( 'relative' );
+    objImageTrash.classList.add( 'delete-game-image-button' );
+    objImageTrash.setAttribute( 'data-image-id', arrGameImages[ i ] );
 
-    objImageTag.src = 'includes/files/game/' + window[ appAlias ].id + '/' + arrGameImages[ i ];
+    if( typeof window[ appAlias ].systemRole != 'string' || window[ appAlias ].systemRole != 'administrator' ) objImageTrash.classList.add( 'hidden' );
 
-    document.querySelector( '#game-images-content-container' ).append( objImageTag );
+    objImageTag.src         = 'includes/files/game/' + window[ appAlias ].id + '/' + arrGameImages[ i ];
+    objImageTrash.innerHTML = '<img src="includes/images/icon-trash.png" alt="Löschbutton" />'
+
+    objImageCover.append( objImageTag );
+    objImageCover.append( objImageTrash );
+    document.querySelector( '#game-images-content-container' ).append( objImageCover );
   }
 
   return;

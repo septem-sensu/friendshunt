@@ -13,9 +13,9 @@
 
 <div class="content-container">
   <h2 class="align-left mb-15">Spiel Informationen</h2>
-  <table style="width: 100%;">
+  <table class="w-100p">
     <tr>
-      <td>
+      <td class="align-top mr-15" style="width: 195px;">
         <img src="includes/files/game/{{Game::id}}/{{Game::avatar}}" class="c-dashboard-player-image my-account-image pointer" id="avatar" />
         <input id="avatar-upload" type="file" name="pictures[]">
       </td>
@@ -23,9 +23,14 @@
         <p class="bold mb-10">{{Game::name}}</p>
         <p>{{Game::title}}</p>
         <p>{{Game::description}}</p>
+        <p class="bold mt-5 mb-2">Start: <span class="format-date-time">{{Game::start}}</span></p>
+        <p>Dauer: {{Game::duration}} Stunden</p>
+        <button type="button" class="w-160 mt-10 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button>
       </td>
     </tr>
   </table>
+  <input type="hidden" name="game-id" value="{{Game::id}}">
+
 </div>
 
 <div class="content-container minh-40">
@@ -104,8 +109,7 @@
     <button type="button" id="event-game-images-upload-button" class="submit primary w-140 mb-20">Bild hinzufügen</button>
     <input id="game-images-upload" type="file" name="pictures[]">
   </div>
-  <div style="width: 410px; margin-left: -4px; text-align: left;" id="game-images-content-container">
-  </div>
+  <div id="game-images-content-container"></div>
 </div>
 <button id="geo-test-btn" style="padding: 20px; font-size: 20px;">Standort freigeben</button>
 
@@ -121,6 +125,7 @@
 </script>
 
 <script>
+  window[ appAlias ].systemRole = '{{Player::role}}';
   window[ appAlias ].methods.cAddGameImagesContent();
   window[ appAlias ].methods.cAddGameplayDataToTemplate();
 </script>

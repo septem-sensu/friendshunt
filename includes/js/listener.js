@@ -668,7 +668,6 @@ window[ appAlias ].listener.setupButton = function() {
 
   if( objSetupButton != null ) {
     objSetupButton.addEventListener( 'click', function() {
-
       var objPost                  = { 'class': 'Player', 'methode': 'setup' };
 
       objPost.email                = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
@@ -684,8 +683,35 @@ window[ appAlias ].listener.setupButton = function() {
   return;
 };
 
+/**
+ * This Function register the Event Listener for click the delete Game Image Button.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       deleteGameplayImageButton
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.deleteGameplayImageButton();
+ *
+*/
+window[ appAlias ].listener.deleteGameplayImageButton = function() {
+  var arrImageButtons = document.querySelectorAll('.delete-game-image-button');
 
+  for( var i = 0; i < arrImageButtons.length; i++ ) {
+    arrImageButtons[i].addEventListener( 'click', function() {
+      var objPost                  = { 'class': 'Game', 'methode': 'deleteGameImage', 'class': 'Game', 'id': window[ appAlias ].id };
+      objPost.imageId  = this.getAttribute( 'data-image-id' );
 
+      return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+    } );
+  }
+
+  return;
+}
 
 
 
@@ -711,6 +737,7 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.formatDateTime();
   window[ appAlias ].listener.enterKey();
   window[ appAlias ].listener.setupButton();
+  window[ appAlias ].listener.deleteGameplayImageButton();
 
   return;
 } );

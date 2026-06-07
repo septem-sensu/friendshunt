@@ -3,7 +3,7 @@ Search.appendIndex(
                 {
             "fqsen": "\\BaseObject",
             "name": "BaseObject",
-            "summary": "Base\u0020Class\u0020for\u0020the\u0020Friendshunt\u0020App.",
+            "summary": "Base\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
             "url": "classes/BaseObject.html"
         },                {
             "fqsen": "\\BaseObject\u003A\u003A__construct\u0028\u0029",
@@ -63,13 +63,18 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseObject\u003A\u003AgetConfig\u0028\u0029",
             "name": "getConfig",
-            "summary": "This\u0020static\u0020method\u0020returns\u0020the\u0020Main\u0020Config\u0020Object\u0020of\u0020Friendshunt.",
+            "summary": "This\u0020static\u0020method\u0020returns\u0020the\u0020Main\u0020Config\u0020Object\u0020of\u0020Friends\u0020Hunt.",
             "url": "classes/BaseObject.html#method_getConfig"
         },                {
             "fqsen": "\\BaseObject\u003A\u003AisJson\u0028\u0029",
             "name": "isJson",
             "summary": "This\u0020static\u0020Method\u0020is\u0020checked\u0020is\u0020the\u0020string\u0020a\u0020json.",
             "url": "classes/BaseObject.html#method_isJson"
+        },                {
+            "fqsen": "\\BaseObject\u003A\u003AgetCryptKeys\u0028\u0029",
+            "name": "getCryptKeys",
+            "summary": "This\u0020static\u0020Method\u0020returns\u0020the\u0020crypt\u0020passphrases\u0020Keys.",
+            "url": "classes/BaseObject.html#method_getCryptKeys"
         },                {
             "fqsen": "\\BaseObject\u003A\u003AenCrypteOnly\u0028\u0029",
             "name": "enCrypteOnly",
@@ -116,6 +121,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020delelte\u0020a\u0020Directory\u0020with\u0020all\u0020Files\u0020and\u0020Sub\u0020Directories\u0020recursiv.",
             "url": "classes/BaseObject.html#method_deleteDirectory"
         },                {
+            "fqsen": "\\BaseObject\u003A\u003AgenerateRandomString\u0028\u0029",
+            "name": "generateRandomString",
+            "summary": "This\u0020ststic\u0020Method\u0020generate\u0020a\u0020random\u0020String\u0020with\u0020a\u0020defined\u0020length.",
+            "url": "classes/BaseObject.html#method_generateRandomString"
+        },                {
             "fqsen": "\\BaseObject\u003A\u003AFILEPATHBASE",
             "name": "FILEPATHBASE",
             "summary": "",
@@ -143,7 +153,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller",
             "name": "Controller",
-            "summary": "Controller\u0020Class\u0020for\u0020the\u0020Friendshunt\u0020App.",
+            "summary": "Controller\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
             "url": "classes/Controller.html"
         },                {
             "fqsen": "\\Controller\u003A\u003A__construct\u0028\u0029",
@@ -288,13 +298,18 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Game",
             "name": "Game",
-            "summary": "Game\u0020Class\u0020for\u0020the\u0020Friendshunt\u0020App.",
+            "summary": "Game\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
             "url": "classes/Game.html"
         },                {
             "fqsen": "\\Game\u003A\u003AaddGameImage\u0028\u0029",
             "name": "addGameImage",
             "summary": "This\u0020static\u0020Method\u0020set\u0020a\u0020uploaded\u0020Game\u0020Image\u0020to\u0020the\u0020Game\u0020Object.",
             "url": "classes/Game.html#method_addGameImage"
+        },                {
+            "fqsen": "\\Game\u003A\u003AdeleteGameImage\u0028\u0029",
+            "name": "deleteGameImage",
+            "summary": "This\u0020Method\u0020delete\u0020a\u0020Gameplay\u0020Image.",
+            "url": "classes/Game.html#method_deleteGameImage"
         },                {
             "fqsen": "\\Game\u003A\u003AavatarFileUploaded\u0028\u0029",
             "name": "avatarFileUploaded",
@@ -453,7 +468,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay",
             "name": "Gameplay",
-            "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friendshunt\u0020App.",
+            "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
             "url": "classes/Gameplay.html"
         },                {
             "fqsen": "\\Gameplay\u003A\u003A__construct\u0028\u0029",
@@ -573,7 +588,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Player",
             "name": "Player",
-            "summary": "Player\u0020Class\u0020for\u0020the\u0020Friendshunt\u0020App.",
+            "summary": "Player\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
             "url": "classes/Player.html"
         },                {
             "fqsen": "\\Player\u003A\u003AnewPlayer\u0028\u0029",
@@ -610,6 +625,11 @@ Search.appendIndex(
             "name": "deletePlayer",
             "summary": "This\u0020Method\u0020delete\u0020the\u0020current\u0020Player\u0020with\u0020all\u0020Files\u0020and\u0020Directories.",
             "url": "classes/Player.html#method_deletePlayer"
+        },                {
+            "fqsen": "\\Player\u003A\u003Asetup\u0028\u0029",
+            "name": "setup",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020Setup\u0020Routine\u0020for\u0020the\u0020App.\u0020The\u0020Methode\u0020genedoes\u0020the\u0020following\u003A\n\u002D\u0020creates\u0020the\u0020dataPlayer.json\u0020file\u0020with\u0020the\u0020Admininistrator\u0020Data\u0020from\u0020the\u0020Setup\u0020Form\n\u002D\u0020creates\u0020the\u0020dataGame.json\n\u002D\u0020creates\u0020the\u0020Player\u0020File\u0020Directory\u0020and\u0020copies\u0020the\u0020default\u0020Avatar\u0020in\u0020the\u0020Directory\n\u002D\u0020set\u0020the\u0020Prephases\u0020in\u0020the\u0020PHP\u0020Config\u0020Package",
+            "url": "classes/Player.html#method_setup"
         },                {
             "fqsen": "\\Player\u003A\u003A\u0024name",
             "name": "name",
@@ -653,7 +673,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Presentation",
             "name": "Presentation",
-            "summary": "Presentation\u0020Class\u0020for\u0020the\u0020Friendshunt\u0020App.",
+            "summary": "Presentation\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
             "url": "classes/Presentation.html"
         },                {
             "fqsen": "\\Presentation\u003A\u003A__construct\u0028\u0029",
@@ -765,6 +785,26 @@ Search.appendIndex(
             "name": "config",
             "summary": "",
             "url": "classes/Presentation.html#property_config"
+        },                {
+            "fqsen": "\\main\u0028\u0029",
+            "name": "main",
+            "summary": "",
+            "url": "namespaces/default.html#function_main"
+        },                {
+            "fqsen": "\\setup\u0028\u0029",
+            "name": "setup",
+            "summary": "",
+            "url": "namespaces/default.html#function_setup"
+        },                {
+            "fqsen": "\\executeSetup\u0028\u0029",
+            "name": "executeSetup",
+            "summary": "",
+            "url": "namespaces/default.html#function_executeSetup"
+        },                {
+            "fqsen": "\\generateRandomString\u0028\u0029",
+            "name": "generateRandomString",
+            "summary": "",
+            "url": "namespaces/default.html#function_generateRandomString"
         },                {
             "fqsen": "\\",
             "name": "\\",

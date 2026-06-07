@@ -27,7 +27,8 @@
       "Game::deleteGame",
       "Game::archiveGame",
       "Game::startGame",
-      "Game::gameplay"
+      "Game::gameplay",
+      "Game::deleteGameImage"
     ]
   }
 }

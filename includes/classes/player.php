@@ -73,7 +73,7 @@ class Player extends BaseObject {
     if( ! file_exists( __DIR__ . '/../files/player/' ) ) mkdir( __DIR__ . '/../files/player' );
     if( ! file_exists( __DIR__ . '/../files/player/' . $strEmail ) ) mkdir( __DIR__ . '/../files/player/' . $strEmail );
 
-    copy( __DIR__ . '/../images/apple-touch-icon.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
+    copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
 
     return $objNewPlayerRequestObject;
   }
@@ -328,7 +328,7 @@ class Player extends BaseObject {
 
     if( ! file_exists( __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/' ) ) {
       mkdir( __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/' );
-      copy( __DIR__ . '/../images/apple-touch-icon.png', __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/avatar.png' );
+      copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/avatar.png' );
     }
 
     $objRequestObject->redirect = 'index.php?view=' . $objConfig->defaultView;

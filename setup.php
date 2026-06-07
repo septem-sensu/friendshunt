@@ -69,7 +69,7 @@ function executeSetup() : void {
   if( ! file_exists( $strPlayerFile ) ) BaseObject::saveFileEnCrypted( $strPlayerFile, $objPlayer );
   if( ! file_exists( $strGameFile ) ) BaseObject::saveFileEnCrypted( $strGameFile, new stdClass() );
 
-  copy( __DIR__ . '/includes/images/apple-touch-icon.png', __DIR__ . '/includes/files/player/' . $strEMail . '/avatar.png' );
+  copy( __DIR__ . '/includes/images/favicons/friendshunt-app-icon-180x180.png', __DIR__ . '/includes/files/player/' . $strEMail . '/avatar.png' );
 
   header( 'Location: index.php?setup=success' );
   setup( null );
