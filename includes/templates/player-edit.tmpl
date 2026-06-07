@@ -25,11 +25,11 @@
   </div>
   <div class="content-container align-left" >
     <h2 class="align-left mb-15">Benutzerdaten</h2>
-    <p class="mw-200">E-Mail Adresse*</p>
+    <label class="mw-200" for="email">E-Mail Adresse*</label>
     <input disabled="disabled" class="mb-10 mt-5 w-350" type="text" name="email" id="email" placeholder="Eingabe E-Mail Adresse" value="{{Player::email}}" />
-    <p class="mw-200">Passwort*</p>
+    <label class="mw-200" for="password-temp">Passwort*</label>
     <input class="mb-10 mt-5 w-350" type="password" name="password-temp" id="password-temp" placeholder="Eingabe Passwort" />
-    <p class="mw-200">Passwort Wiederholung*</p>
+    <label class="mw-200" for="password2-temp">Passwort Wiederholung*</label>
     <input class="mb-10 mt-5 w-350" type="password" name="password2-temp" id="password2-temp" placeholder="Eingabe Passwort Wiederholung" />
 
     <div class="align-left mt-15"><span class="bold">WICHTIG:</span> Das Passwort muss aus mindestens 8 Zeichen, welche aus Groß- und Kleinbuchstaben sowie aus Zahlen und Sonderzeichen bestehen.</div>
@@ -39,20 +39,19 @@
   </div>
   <div class="content-container align-left" >
     <h2 class="align-left mb-15">Persönliche Daten</h2>
-    <p class="mw-200 w-200">Benutzername*</p>
-    <input class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Benutzername" value="{{Player::name}}" />
-    <p class="mw-200">Rolle*</p>
-
+    <label class="mw-200 w-200" for="name">Benutzername*</label>
+    <input autocomplete="name" class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Benutzername" value="{{Player::name}}" />
+    <label class="mw-200" for="role">Rolle*</label>
     <select class="mb-10 mt-5 w-375" name="role" id="role" readonly="readonly" disabled="disabled">
       <option value="{{Player::role}}">{{Translate::Player::role}}</option>
       <option value="guest">Gast</option>
       <option value="player">Spieler</option>
       <option value="administrator">Administrator</option>
     </select>
-    <p class="mw-200">Title </p>
-    <input class="mb-10 mt-5 w-350" type="text" name="title" id="title" placeholder="Eingabe Title" value="{{Player::title}}" />
-    <p class="mw-200">Beschreibung </p>
-    <textarea class="mb-15 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
+    <label class="mw-200" for="title">Title </label>
+    <input autocomplete="title" class="mb-10 mt-5 w-350" type="text" name="title" id="title" placeholder="Eingabe Title" value="{{Player::title}}" />
+    <label class="mw-200" for="description">Beschreibung</label>
+    <textarea autocomplete="description" class="mb-15 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
     <div class="align-left">
       <button type="button" disabled="disabled" class="primary submit event-save-object w-140" id="event-save-object" />Speichern</button>
     </div>

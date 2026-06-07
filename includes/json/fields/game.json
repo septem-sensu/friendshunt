@@ -178,14 +178,5 @@
     "unit": "Sekunden",
     "minLength": 2,
     "position": 1900
-  },
-  "hunterClosingTime": {
-    "nameDe": "Jäger Sperrzeit",
-    "element": "input",
-    "type": "number",
-    "mandatory": true,
-    "unit": "Minuten",
-    "minLength": 2,
-    "position": 2000
   }
 }

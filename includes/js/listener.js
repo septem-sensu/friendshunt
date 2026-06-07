@@ -276,7 +276,6 @@ window[ appAlias ].listener.saveNewGame = function() {
     objPost.exitPosition         = document.querySelector('#exitPosition') != null ? document.querySelector('#exitPosition').value : null;
     objPost.trackInterval        = document.querySelector('#trackInterval') != null ? document.querySelector('#trackInterval').value : null;
     objPost.showPlayer           = document.querySelector('#showPlayer') != null ? document.querySelector('#showPlayer').value : null;
-    objPost.hunterClosingTime    = document.querySelector('#hunterClosingTime') != null ? document.querySelector('#hunterClosingTime').value : null;
     objPost.showNames            = document.querySelector('#showNames') != null ? document.querySelector('#showNames').value : null;
 
     if( arrPlayerHtmlObjects.length < 1 ) {

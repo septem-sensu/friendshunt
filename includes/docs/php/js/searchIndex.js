@@ -456,11 +456,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Game.html#property_trackInterval"
         },                {
-            "fqsen": "\\Game\u003A\u003A\u0024hunterClosingTime",
-            "name": "hunterClosingTime",
-            "summary": "",
-            "url": "classes/Game.html#property_hunterClosingTime"
-        },                {
             "fqsen": "\\Game\u003A\u003A\u0024showNames",
             "name": "showNames",
             "summary": "",
@@ -785,26 +780,6 @@ Search.appendIndex(
             "name": "config",
             "summary": "",
             "url": "classes/Presentation.html#property_config"
-        },                {
-            "fqsen": "\\main\u0028\u0029",
-            "name": "main",
-            "summary": "",
-            "url": "namespaces/default.html#function_main"
-        },                {
-            "fqsen": "\\setup\u0028\u0029",
-            "name": "setup",
-            "summary": "",
-            "url": "namespaces/default.html#function_setup"
-        },                {
-            "fqsen": "\\executeSetup\u0028\u0029",
-            "name": "executeSetup",
-            "summary": "",
-            "url": "namespaces/default.html#function_executeSetup"
-        },                {
-            "fqsen": "\\generateRandomString\u0028\u0029",
-            "name": "generateRandomString",
-            "summary": "",
-            "url": "namespaces/default.html#function_generateRandomString"
         },                {
             "fqsen": "\\",
             "name": "\\",

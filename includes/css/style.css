@@ -10,6 +10,21 @@ body {
   color: var(--textColorContent);
 }
 
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+input[type="password"] {
+  width: 555px !important;
+}
+
+select {
+  width: 580px !important;
+}
+
+textarea {
+  width: 554px !important;
+}
+
 a {
   text-decoration: none;
   color: var(--textColorLink);
@@ -48,6 +63,26 @@ a {
     width: 265px;
   }
 
+  body input[type="text"],
+  body input[type="number"],
+  body input[type="datetime-local"],
+  body input[type="password"] {
+    width: 350px !important;
+  }
+
+  body select {
+    width: 377px !important;
+  }
+
+  body textarea {
+    width: 351px !important;
+  }
+
+  body .login-box textarea,
+  body .login-box input {
+    width: 250px !important;
+  }
+
 }
 
 .content-container {
@@ -66,6 +101,11 @@ body .content-container.first-child {
   width: 150px;
   margin-top: 15px;
   margin-bottom: 20px;
+}
+
+.login-box textarea,
+.login-box input {
+  width: 300px !important;
 }
 
 .spacer-login-top {

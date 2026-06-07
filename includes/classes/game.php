@@ -43,7 +43,6 @@ class Game extends BaseObject {
   protected string $tmpImageAdd;
   protected string $showPlayer;
   protected int    $trackInterval;
-  protected int    $hunterClosingTime;
   protected string $showNames;
 
 /**
@@ -280,7 +279,6 @@ class Game extends BaseObject {
     $objGameplay->showPlayer        = $objRequestObject->showPlayer;
     $objGameplay->showNames         = $objRequestObject->showNames;
     $objGameplay->trackInterval     = $objRequestObject->trackInterval;
-    $objGameplay->hunterClosingTime = $objRequestObject->hunterClosingTime;
     $objGameplay->creationDate      = date( "Y-m-d H:i:s" );
 
     for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
