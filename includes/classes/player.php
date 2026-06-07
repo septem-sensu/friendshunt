@@ -313,6 +313,8 @@ class Player extends BaseObject {
 
     file_put_contents( __DIR__ . '/../classes/config.php', $strConfig );
 
+    if ( function_exists( 'opcache_invalidate' ) ) opcache_invalidate( __DIR__ . '/../classes/config.php', true );
+
     if( ! file_exists( __DIR__ . '/../json/data/dataGame.json' ) ) BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', new stdClass() );
 
     if( ! file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {

@@ -2,12 +2,6 @@
 
 declare( strict_types = 1 );
 
-if( file_exists( __DIR__ . '/../classes/.config.php' ) ) {
-  include_once ( __DIR__ . '/../classes/.config.php' );
-} else {
-  include_once ( __DIR__ . '/../classes/config.php' );
-}
-
 /**
  * Base Class for the Friends Hunt App.
  *
@@ -320,6 +314,29 @@ class BaseObject {
   }
 
 /**
+ * This static Method returns the crypt passphrases Keys.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     array  $arrCryptKeys  The crypt passphrases Keys
+ * @example    $arrCryptKeys = BaseObject::getCryptKeys( $strContent );
+ * @example    $arrCryptKeys = $this::getCryptKeys( $strContent );
+ *
+*/
+  public static function getCryptKeys() : array {
+    $arrCryptKeys = [];
+
+    if( file_exists( __DIR__ . '/../classes/.config.php' ) ) {
+      $arrCryptKeys = include __DIR__ . '/../classes/.config.php';
+    } else {
+      $arrCryptKeys = include __DIR__ . '/../classes/config.php';
+    }
+
+    return $arrCryptKeys;
+  }
+
+/**
  * This static Method encrypted SHA-256 a String.
  *
  * @access     public
@@ -349,10 +366,11 @@ class BaseObject {
  *
 */
   public static function enCrypte( string $strContent ) : string {
-    $strContent = openssl_encrypt(
+    $arrCryptKeys = BaseObject::getCryptKeys();
+    $strContent   = openssl_encrypt(
       $strContent, "AES-256-CBC",
-      hash( 'sha256', Config::getPassphrase1() ), 0,
-      substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
+      hash( 'sha256', $arrCryptKeys[ 'passphrase1' ] ), 0,
+      substr( hash( 'sha256', $arrCryptKeys[ 'passphrase2' ] ), 0, 16 )
     );
 
     return $strContent;
@@ -372,10 +390,11 @@ class BaseObject {
  *
 */
   public static function deCrypte( string $strContent ) : string {
-    $strContent = openssl_decrypt(
+    $arrCryptKeys = BaseObject::getCryptKeys();
+    $strContent   = openssl_decrypt(
       $strContent, "AES-256-CBC",
-      hash( 'sha256', Config::getPassphrase1() ), 0,
-      substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
+      hash( 'sha256', $arrCryptKeys[ 'passphrase1' ] ), 0,
+      substr( hash( 'sha256', $arrCryptKeys[ 'passphrase2' ] ), 0, 16 )
     );
 
     return $strContent;
@@ -396,15 +415,16 @@ class BaseObject {
  *
 */
   public static function saveFileEnCrypted( string $strFile, object $objObject ) : void {
-    $strContent = json_encode( $objObject );
+    $strContent   = json_encode( $objObject );
+    $arrCryptKeys = BaseObject::getCryptKeys();
 
     file_put_contents( $strFile . '.json', $strContent, LOCK_EX );
 
     if( BaseObject::isJson( $strContent ) ) {
       $strContent = openssl_encrypt(
         $strContent, "AES-256-CBC",
-        hash( 'sha256', Config::getPassphrase1() ), 0,
-        substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
+        hash( 'sha256', $arrCryptKeys[ 'passphrase1' ] ), 0,
+        substr( hash( 'sha256', $arrCryptKeys[ 'passphrase2' ] ), 0, 16 )
       );
     }
 
@@ -427,14 +447,15 @@ class BaseObject {
  *
 */
   public static function loadFileDeCrypted( string $strFile ) : object | array {
-    $strContent = file_get_contents( $strFile );
-    $strContent = str_replace( array( "\r", "\n" ), '', $strContent );
+    $strContent   = file_get_contents( $strFile );
+    $strContent   = str_replace( array( "\r", "\n" ), '', $strContent );
+    $arrCryptKeys = BaseObject::getCryptKeys();
 
     if( ! BaseObject::isJson( $strContent ) ) {
       $strContent = openssl_decrypt(
         $strContent, "AES-256-CBC",
-        hash( 'sha256', Config::getPassphrase1() ), 0,
-        substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
+        hash( 'sha256', $arrCryptKeys[ 'passphrase1' ] ), 0,
+        substr( hash( 'sha256', $arrCryptKeys[ 'passphrase2' ] ), 0, 16 )
       );
     }
 
