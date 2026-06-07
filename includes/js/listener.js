@@ -671,7 +671,6 @@ window[ appAlias ].listener.setupButton = function() {
 
       var objPost                  = { 'class': 'Player', 'methode': 'setup' };
 
-      objPost.id                   = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
       objPost.email                = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
       objPost.password             = document.querySelector('#password') != null ? document.querySelector('#password').value : null;
       objPost.name                 = document.querySelector('#name') != null ? document.querySelector('#name').value : null;

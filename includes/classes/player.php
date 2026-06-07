@@ -288,21 +288,23 @@ class Player extends BaseObject {
  * @example    $objRequestObject = $objPlayer->setup( $objRequestObject );
  *
 */
-  public function setup( object $objRequestObject ) : object {
-    $objConfig                   = $this->getConfig();
+  public static function setup( object $objRequestObject ) : object {
+    $objConfig                   = BaseObject::getConfig();
     $objSetupPlayer              = new stdClass();
-    $objSetupPlayer->id          = isset( $objRequestObject->id ) ? $objRequestObject->id : '';
+    $objSetupPlayer->id          = isset( $objRequestObject->email ) ? $objRequestObject->email : '';
     $objSetupPlayer->email       = isset( $objRequestObject->email ) ? $objRequestObject->email : '';
+    $objSetupPlayer->password    = isset( $objRequestObject->password ) ? $objRequestObject->password : '';
     $objSetupPlayer->name        = isset( $objRequestObject->name ) ? $objRequestObject->name : '';
     $objSetupPlayer->title       = isset( $objRequestObject->title ) ? $objRequestObject->title : '';
     $objSetupPlayer->description = isset( $objRequestObject->description ) ? $objRequestObject->description : '';
     $objSetupPlayer->image       = 'avatar.png?v=' . time();
     $objSetupPlayer->role        = 'administrator';
+    $objSetupPlayer->games       = [];
     $objFields                   = BaseObject::Fields( 'player' );
     $objValidationResult         = Presentation::validateFields( $objFields, $objSetupPlayer );
     $strConfig                   = file_get_contents( __DIR__ . '/../classes/config.php' );
-    $strConfig                   = str_replace( '{{PASSPHRASE1}}', generateRandomString( 15 ), $strConfig );
-    $strConfig                   = str_replace( '{{PASSPHRASE2}}', generateRandomString( 15 ), $strConfig );
+    $strConfig                   = str_replace( '{{PASSPHRASE1}}', BaseObject::generateRandomString( 15 ), $strConfig );
+    $strConfig                   = str_replace( '{{PASSPHRASE2}}', BaseObject::generateRandomString( 15 ), $strConfig );
 
     if( ! $objValidationResult->success ) {
       $objRequestObject->formErrors = $objValidationResult->formErrors;
@@ -311,14 +313,15 @@ class Player extends BaseObject {
 
     file_put_contents( __DIR__ . '/../classes/config.php', $strConfig );
 
-    if( ! file_exists( __DIR__ . '/../json/data/dataGame.json' ) ) $this::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', new stdClass() );
+    if( ! file_exists( __DIR__ . '/../json/data/dataGame.json' ) ) BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', new stdClass() );
 
     if( ! file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {
       $objFirstPlayer                    = new stdClass();
+      $objSetupPlayer->password          = BaseObject::enCrypteOnly( $objSetupPlayer->password );
       $strFirstPlayerId                  = $objSetupPlayer->id;
       $objFirstPlayer->$strFirstPlayerId = $objSetupPlayer;
 
-      $this::saveFileEnCrypted( __DIR__ . '/../json/data/dataPlayer.json', $objFirstPlayer );
+      BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataPlayer.json', $objFirstPlayer );
     }
 
     if( ! file_exists( __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/' ) ) {
@@ -327,8 +330,6 @@ class Player extends BaseObject {
     }
 
     $objRequestObject->redirect = 'index.php?view=' . $objConfig->defaultView;
-
-    header( 'Location: index.php?view=' . $objConfig->defaultView  );
 
     return $objRequestObject;
   }

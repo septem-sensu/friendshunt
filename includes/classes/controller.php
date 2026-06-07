@@ -225,11 +225,13 @@ class Controller {
     $this->checkRole();
 
     if( $this->role !=  $this->config->defaultRole && $this->viewName == $this->config->defaultView ) header( 'Location: index.php?view=' . $this->config->defaultLoginView );
+
+    if( $this->role !=  $this->config->defaultRole && $this->viewName == $this->config->defaultView ) header( 'Location: index.php?view=' . $this->config->defaultLoginView );
     if( ! in_array( $this->role, $this->viewObject->roles ) )  header( 'Location: index.php?view=' . $this->config->defaultView );
     if( file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {
       if( $this->viewName == $this->config->defaultSetupView ) header( 'Location: index.php?view=' . $this->config->defaultView );
     } else {
-      header( 'Location: index.php?view=' . $this->config->defaultSetupView );
+      if( $this->viewName != $this->config->defaultSetupView ) header( 'Location: index.php?view=' . $this->config->defaultSetupView );
     }
 
     $this->executeActions();
