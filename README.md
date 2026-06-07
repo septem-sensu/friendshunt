@@ -1,6 +1,6 @@
-# 🛰️ Friendshunt
+# 🛰️ Friends Hunt
 
-> **Friendshunt** ist eine performante, selbst-hostbare Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine hochpräzise GPS-Fährte, taktische Intervalle und maximale Privatsphäre machen dein Smartphone zur mobilen Einsatzzentrale.
+> **Friends Hunt** ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.
 
 ---
 

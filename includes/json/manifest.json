@@ -1,0 +1,29 @@
+{
+  "name": "Friends Hunt",
+  "short_name": "Friends Hunt",
+  "theme_color": "#191920",
+  "background_color": "#191920",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/index.php",
+  "description": "Friends Hunt ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.",
+  "orientation": "any",
+  "categories": ["fitness", "games", "navigation", "social", "lifestyle"],
+  "icons": [{
+      "src": "../images/android-chrome-512x512.png",
+      "sizes": "512x512"
+    }, {
+      "src": "../images/android-chrome-192x192.png",
+      "sizes": "192x192"
+    }, {
+      "src": "../images/apple-touch-icon.png",
+      "sizes": "180x180"
+    }, {
+      "src": "../images/favicon-32x32.png",
+      "sizes": "32x32"
+    }, {
+      "src": "../images/favicon-16x16.png",
+      "sizes": "16x16"
+    }
+  ]
+}

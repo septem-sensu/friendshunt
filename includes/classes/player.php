@@ -6,13 +6,13 @@ include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/presentation.php' );
 
 /**
- * Player Class for the Friendshunt App.
+ * Player Class for the Friends Hunt App.
  *
- * This Class represents the Player Class for the Friendshunt App with his Properties and Methods.
+ * This Class represents the Player Class for the Friends Hunt App with his Properties and Methods.
  *
  * @category    class
  * @package     Application
- * @subpackage  Friendshunt
+ * @subpackage  FriendsHunt
  * @access      public
  * @author      Markus Götz <info@septem-sensu.de>
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
@@ -228,6 +228,7 @@ class Player extends BaseObject {
  *
 */
   public static function avatarFileUploaded( string $strFileName ) : void {
+    $strView   = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : null;
     $strClass  = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId     = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
     $strPath   = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
@@ -270,6 +271,74 @@ class Player extends BaseObject {
 
     return $objRequestObject;
   }
+
+/**
+ * This Method is the Setup Routine for the App. The Methode genedoes the following:
+ * - creates the dataPlayer.json file with the Admininistrator Data from the Setup Form
+ * - creates the dataGame.json
+ * - creates the Player File Directory and copies the default Avatar in the Directory
+ * - set the Prephases in the PHP Config Package
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->setup( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->setup( $objRequestObject );
+ *
+*/
+  public function setup( object $objRequestObject ) : object {
+    $objConfig                   = $this->getConfig();
+    $objSetupPlayer              = new stdClass();
+    $objSetupPlayer->id          = isset( $objRequestObject->id ) ? $objRequestObject->id : '';
+    $objSetupPlayer->email       = isset( $objRequestObject->email ) ? $objRequestObject->email : '';
+    $objSetupPlayer->name        = isset( $objRequestObject->name ) ? $objRequestObject->name : '';
+    $objSetupPlayer->title       = isset( $objRequestObject->title ) ? $objRequestObject->title : '';
+    $objSetupPlayer->description = isset( $objRequestObject->description ) ? $objRequestObject->description : '';
+    $objSetupPlayer->image       = 'avatar.png?v=' . time();
+    $objSetupPlayer->role        = 'administrator';
+    $objFields                   = BaseObject::Fields( 'player' );
+    $objValidationResult         = Presentation::validateFields( $objFields, $objSetupPlayer );
+    $strConfig                   = file_get_contents( __DIR__ . '/../classes/config.php' );
+    $strConfig                   = str_replace( '{{PASSPHRASE1}}', generateRandomString( 15 ), $strConfig );
+    $strConfig                   = str_replace( '{{PASSPHRASE2}}', generateRandomString( 15 ), $strConfig );
+
+    if( ! $objValidationResult->success ) {
+      $objRequestObject->formErrors = $objValidationResult->formErrors;
+      return $objRequestObject;
+    }
+
+    file_put_contents( __DIR__ . '/../classes/config.php', $strConfig );
+
+    if( ! file_exists( __DIR__ . '/../json/data/dataGame.json' ) ) $this::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', new stdClass() );
+
+    if( ! file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {
+      $objFirstPlayer                    = new stdClass();
+      $strFirstPlayerId                  = $objSetupPlayer->id;
+      $objFirstPlayer->$strFirstPlayerId = $objSetupPlayer;
+
+      $this::saveFileEnCrypted( __DIR__ . '/../json/data/dataPlayer.json', $objFirstPlayer );
+    }
+
+    if( ! file_exists( __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/' ) ) {
+      mkdir( __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/' );
+      copy( __DIR__ . '/../images/apple-touch-icon.png', __DIR__ . '/../files/player/' . $objSetupPlayer->id . '/avatar.png' );
+    }
+
+    $objRequestObject->redirect = 'index.php?view=' . $objConfig->defaultView;
+
+    header( 'Location: index.php?view=' . $objConfig->defaultView  );
+
+    return $objRequestObject;
+  }
+
+
+
+
+
+
+
 }
 
 // EOF

@@ -1,7 +1,7 @@
 /**
- * Form Field Validation Package for the Friendshunt App.
+ * Form Field Validation Package for the Friends Hunt App.
  *
- * This Package represents the Form Field Validation Package for the Friendshunt App with his Functions.
+ * This Package represents the Form Field Validation Package for the Friends Hunt App with his Functions.
  *
  * @public
  * @module        validation.js

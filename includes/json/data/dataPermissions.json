@@ -1,7 +1,8 @@
 {
   "guest": {
     "methods": [
-      "Player::login"
+      "Player::login",
+      "Player::setup"
     ]
   },
   "player": {

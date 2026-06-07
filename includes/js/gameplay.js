@@ -1,7 +1,7 @@
 /**
- * Gameplay Package for the Friendshunt App.
+ * Gameplay Package for the Friends Hunt App.
  *
- * This Package represents the Gameplay Package for the Friendshunt App with his Functions.
+ * This Package represents the Gameplay Package for the Friends Hunt App with his Functions.
  * The package is only loaded on the Gameplay Page.
  *
  * @public

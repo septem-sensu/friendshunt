@@ -1,7 +1,7 @@
 /**
- * Custom Package for the Friendshunt App.
+ * Custom Package for the Friends Hunt App.
  *
- * This Package represents the Custom Package for the Friendshunt App with his Functions.
+ * This Package represents the Custom Package for the Friends Hunt App with his Functions.
  *
  * @public
  * @module        custom.js

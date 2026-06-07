@@ -8,5 +8,6 @@
   <div class="full-image-layer" onclick="window[ appAlias ].methods.cCloseFullImage()" style="display: none;"></div>
   <div class="full-image" onclick="window[ appAlias ].methods.cCloseFullImage()" style="display: none;"></div>
   </div>
+  <script>if("serviceWorker" in navigator) {  navigator.serviceWorker.register("includes/js/sw.js", { scope: "includes/js/" });}</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /**
- * Geo Tracker Class for the Friendshunt App.
+ * Geo Tracker Class for the Friends Hunt App.
  *
- * This Class represents the Geo Tracker Class for the Friendshunt App with his Properties and Methods.
+ * This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.
  * The Class is for handling Position Tracking, Step Counting and Calculte Distances.
  * The Class can start inverval Tracking and used the Wake Lock API.
  *

@@ -8,14 +8,14 @@ include_once ( __DIR__ . '/../classes/player.php' );
 include_once ( __DIR__ . '/../classes/game.php' );
 
 /**
- * Controller Class for the Friendshunt App.
+ * Controller Class for the Friends Hunt App.
  *
- * This Class represents the Controller Class for the Friendshunt App with his Properties and Methods.
+ * This Class represents the Controller Class for the Friends Hunt App with his Properties and Methods.
  * The Controller Class controls all Requests and Response with the App.
  *
  * @category    class
  * @package     Application
- * @subpackage  Friendshunt
+ * @subpackage  FriendsHunt
  * @access      public
  * @author      Markus Götz <info@septem-sensu.de>
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
@@ -204,10 +204,8 @@ class Controller {
  *
 */
   private function checkRole() : void {
-    if( ! in_array( $this->config->defaultRole, $this->viewObject->roles ) ) {
-      $strSetRole = $this->config->setRole;
-      $strSetRole( $this );
-    }
+    $strSetRole = $this->config->setRole;
+    $strSetRole( $this );
 
     return;
   }
@@ -226,7 +224,9 @@ class Controller {
   private function view() : string {
     $this->checkRole();
 
+    if( $this->role !=  $this->config->defaultRole && $this->viewName == $this->config->defaultView ) header( 'Location: index.php?view=' . $this->config->defaultLoginView );
     if( ! in_array( $this->role, $this->viewObject->roles ) )  header( 'Location: index.php?view=' . $this->config->defaultView );
+    if( ! file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) header( 'Location: index.php?view=' . $this->config->defaultSetupView );
 
     $this->executeActions();
 
@@ -280,6 +280,7 @@ class Controller {
     $strClass     = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId        = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
     $strProperty  = isset( $_POST[ 'property' ] ) ? $_POST[ 'property' ] : null;
+    $strRedirect  = isset( $_POST[ 'redirect' ] ) ? $_POST[ 'redirect' ] : null;
     $strFile      = isset( $_FILES[ 'files' ] ) ? $_FILES[ 'files' ] : null;
     $strPath      = __DIR__ . '/../files/';
 
@@ -300,6 +301,8 @@ class Controller {
     if( isset( $_POST[ 'methode' ] ) ) {
       $_POST[ 'methode' ]( $strName );
       $objObject->fillObject();
+      $objObject = $objObject->serializeObject();
+      if( isset( $strRedirect ) ) $objObject->redirect = $strRedirect;
     }
 
     return $objObject;

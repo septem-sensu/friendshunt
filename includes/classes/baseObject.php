@@ -2,20 +2,26 @@
 
 declare( strict_types = 1 );
 
+if( file_exists( __DIR__ . '/../classes/.config.php' ) ) {
+  include_once ( __DIR__ . '/../classes/.config.php' );
+} else {
+  include_once ( __DIR__ . '/../classes/config.php' );
+}
+
 /**
- * Base Class for the Friendshunt App.
+ * Base Class for the Friends Hunt App.
  *
- * This Class represents the base Class for the Friendshunt App with his Properties and Methods.
+ * This Class represents the base Class for the Friends Hunt App with his Properties and Methods.
  *
  * @category    class
  * @package     Application
- * @subpackage  Friendshunt
+ * @subpackage  FriendsHunt
  * @access      public
  * @author      Markus Götz <info@septem-sensu.de>
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
  * @since       2026-06-05
  * @version     0.1.0
- * @example     $objFriendshunt = new BaseObject( $strId );
+ * @example     $objFriendsHunt = new BaseObject( $strId );
  *
 */
 class BaseObject {
@@ -270,7 +276,7 @@ class BaseObject {
  * @since      2026-06-05
  * @version    0.1.0
  * @param      string   $strClassName   The Class Name
- * @return     object   $objObjects     The Main Config Object of Friendshunt
+ * @return     object   $objObjects     The Main Config Object of Friends Hunt
  * @example    $objObjects = BaseObject::getObjects( $strClassName );
  * @example    $objObjects = $this::getObjects( $strClassName );
  *
@@ -280,13 +286,13 @@ class BaseObject {
   }
 
 /**
- * This static method returns the Main Config Object of Friendshunt.
+ * This static method returns the Main Config Object of Friends Hunt.
  *
  * @static
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
- * @return     object   $objConfig    The Main Config Object of Friendshunt
+ * @return     object   $objConfig    The Main Config Object of Friends Hunt
  * @example    $objConfig = BaseObject::getConfig();
  * @example    $objConfig = $this::getConfig();
  *
@@ -345,8 +351,8 @@ class BaseObject {
   public static function enCrypte( string $strContent ) : string {
     $strContent = openssl_encrypt(
       $strContent, "AES-256-CBC",
-      hash( 'sha256', 'suPerStrengGeheim' ), 0,
-      substr( hash( 'sha256', 'PR0GramIeRerLungE' ), 0, 16 )
+      hash( 'sha256', Config::getPassphrase1() ), 0,
+      substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
     );
 
     return $strContent;
@@ -368,8 +374,8 @@ class BaseObject {
   public static function deCrypte( string $strContent ) : string {
     $strContent = openssl_decrypt(
       $strContent, "AES-256-CBC",
-      hash( 'sha256', 'suPerStrengGeheim' ), 0,
-      substr( hash( 'sha256', 'PR0GramIeRerLungE' ), 0, 16 )
+      hash( 'sha256', Config::getPassphrase1() ), 0,
+      substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
     );
 
     return $strContent;
@@ -397,8 +403,8 @@ class BaseObject {
     if( BaseObject::isJson( $strContent ) ) {
       $strContent = openssl_encrypt(
         $strContent, "AES-256-CBC",
-        hash( 'sha256', 'suPerStrengGeheim' ), 0,
-        substr( hash( 'sha256', 'PR0GramIeRerLungE' ), 0, 16 )
+        hash( 'sha256', Config::getPassphrase1() ), 0,
+        substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
       );
     }
 
@@ -427,8 +433,8 @@ class BaseObject {
     if( ! BaseObject::isJson( $strContent ) ) {
       $strContent = openssl_decrypt(
         $strContent, "AES-256-CBC",
-        hash( 'sha256', 'suPerStrengGeheim' ), 0,
-        substr( hash( 'sha256', 'PR0GramIeRerLungE' ), 0, 16 )
+        hash( 'sha256', Config::getPassphrase1() ), 0,
+        substr( hash( 'sha256', Config::getPassphrase2() ), 0, 16 )
       );
     }
 
@@ -539,6 +545,30 @@ class BaseObject {
     }
 
     return rmdir( $strPath );
+  }
+
+/**
+ * This ststic Method generate a random String with a defined length.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      int      $intLength        The length of the random result String
+ * @return     string   $strRandomString  The result random String with a defined length
+ * @example    $strRandomString = $this::generateRandomString( $intLength );
+ * @example    $strRandomString = BaseObject::generateRandomString( $intLength );
+ *
+*/
+  public static function generateRandomString( int $intLength = 15 ) : string {
+    $strCharacters        = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $intCharactersLength  = strlen( $strCharacters );
+    $strRandomString      = '';
+
+    for ( $i = 0; $i < $intLength; $i++ ) {
+        $strRandomString .= $strCharacters[ random_int( 0, $intCharactersLength - 1 ) ];
+    }
+
+    return $strRandomString;
   }
 
 }

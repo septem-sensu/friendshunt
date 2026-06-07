@@ -6,14 +6,14 @@ include_once ( __DIR__ . '/../classes/baseObject.php' );
 include_once ( __DIR__ . '/../classes/gameplay.php' );
 
 /**
- * Game Class for the Friendshunt App.
+ * Game Class for the Friends Hunt App.
  *
- * This Class represents the Game Class for the Friendshunt App with his Properties and Methods.
+ * This Class represents the Game Class for the Friends Hunt App with his Properties and Methods.
  * The Game Class controls the Game Settings.
  *
  * @category    class
  * @package     Application
- * @subpackage  Friendshunt
+ * @subpackage  FriendsHunt
  * @access      public
  * @author      Markus Götz <info@septem-sensu.de>
  * @copyright   2026 Markus Götz <info@septem-sensu.de>

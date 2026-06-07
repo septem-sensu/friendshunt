@@ -1,7 +1,7 @@
 /**
- * Communication Package for the Friendshunt App.
+ * Communication Package for the Friends Hunt App.
  *
- * This Package represents the Communication Package for the Friendshunt App with his Functions.
+ * This Package represents the Communication Package for the Friends Hunt App with his Functions.
  *
  * @public
  * @module        communication.js
@@ -239,6 +239,7 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
 
   if( typeof objResponse.object == 'object' && objResponse.object != null ) {
     window[ appAlias ].methods.setFields( objResponse.object );
+    if( typeof objResponse.object.redirect == 'string' && objResponse.object.redirect != '' ) window[ appAlias ].methods.manageRedirects( objResponse.object.redirect );
   }
 
   return;

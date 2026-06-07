@@ -7,6 +7,7 @@ test.php
 *.log
 .fiveserverrc
 notes.txt
+.config.php
 
 includes/json/data/dataGame.*
 includes/json/data/dataPlayer.*
@@ -18,3 +19,4 @@ includes/files/game/*
 includes/files/game/archive/*
 !includes/files/game/.gitkeep
 !includes/files/game/archive/.gitkeep
+

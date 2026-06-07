@@ -5,15 +5,15 @@ declare( strict_types = 1 );
 include_once ( __DIR__ . '/../classes/baseObject.php' );
 
 /**
- * Presentation Class for the Friendshunt App.
+ * Presentation Class for the Friends Hunt App.
  *
- * This Class represents the Presentation Class for the Friendshunt App with his Properties and Methods.
+ * This Class represents the Presentation Class for the Friends Hunt App with his Properties and Methods.
  * The Presentation Class contains the Template Engine, the server-side Validation, E-Mail Management and different Utils like:
  * formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cors Utils, Logging, URL Utils and cleaning Ids.
  *
  * @category    class
  * @package     Application
- * @subpackage  Friendshunt
+ * @subpackage  FriendsHunt
  * @access      public
  * @author      Markus Götz <info@septem-sensu.de>
  * @copyright   2026 Markus Götz <info@septem-sensu.de>

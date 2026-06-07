@@ -1,7 +1,7 @@
 /**
- * Event Listener Package for the Friendshunt App.
+ * Event Listener Package for the Friends Hunt App.
  *
- * This Package represents the Event Listener Package for the Friendshunt App with his Functions.
+ * This Package represents the Event Listener Package for the Friends Hunt App with his Functions.
  *
  * @public
  * @module        listener.js
@@ -383,6 +383,7 @@ window[ appAlias ].listener.uploadAvatar = function() {
       objFormData.append( 'id', window[ appAlias ].id );
       objFormData.append( 'property', strProperty );
       objFormData.append( 'methode', strMethode );
+      objFormData.append( 'redirect', '?view=' + window[ appAlias ].view.alias + '&class=' + strClass + '&id=' + window[ appAlias ].id );
 
       return window[ appAlias ].methods.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, objFormData, 'proccessResponse' );
     } );
@@ -455,6 +456,10 @@ window[ appAlias ].listener.uploadGameImages = function() {
       objFormData.append( 'id', window[ appAlias ].id );
       objFormData.append( 'property', 'tmpImageAdd' );
       objFormData.append( 'methode', 'Game::addGameImage' );
+
+      if( window[ appAlias ].view.alias == 'gameDashboard' ) {
+        objFormData.append( 'redirect', '?view=gameDashboard&class=Game&id=' + window[ appAlias ].id );
+      }
 
       return window[ appAlias ].methods.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, objFormData, 'proccessResponse' );
     } );
@@ -596,7 +601,96 @@ window[ appAlias ].listener.formatDateTime = function() {
   }
 
   return;
-}
+};
+
+/**
+ * This Function register the Event Listener for press the Enter Key.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       enterKey
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.enterKey();
+ *
+*/
+window[ appAlias ].listener.enterKey = function() {
+  var objInputLoginName     = document.querySelector( 'input#name' );
+  var objInputLoginPassword = document.querySelector( 'input#password' );
+  var objLoginSubmit        = document.querySelector( 'button.event-login' );
+
+  if( objLoginSubmit != null && objInputLoginName != null && objInputLoginPassword != null ) {
+    objInputLoginName.addEventListener( 'keydown', function( objEvent ) {
+      if ( objEvent.key === 'Enter' ) {
+        objEvent.preventDefault();
+        objLoginSubmit.click();
+      }
+
+      return;
+    } );
+
+    objInputLoginPassword.addEventListener( 'keydown', function( objEvent ) {
+      if ( objEvent.key === 'Enter' ) {
+        objEvent.preventDefault();
+        objLoginSubmit.click();
+      }
+
+      return;
+    } );
+  }
+
+
+
+  return;
+};
+
+/**
+ * This Function register the Event Listener for click the Setup Button.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       setupButton
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.setupButton();
+ *
+*/
+window[ appAlias ].listener.setupButton = function() {
+  var objSetupButton = document.querySelector( '.event-setup' );
+
+  if( objSetupButton != null ) {
+    objSetupButton.addEventListener( 'click', function() {
+
+      var objPost                  = { 'class': 'Player', 'methode': 'setup' };
+
+      objPost.id                   = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
+      objPost.email                = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
+      objPost.password             = document.querySelector('#password') != null ? document.querySelector('#password').value : null;
+      objPost.name                 = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
+      objPost.title                = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
+      objPost.description          = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
+
+      return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+    } );
+  }
+
+  return;
+};
+
+
+
+
+
+
+
 
 
 window.addEventListener( 'load', function() {
@@ -616,9 +710,13 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.deletePlayer();
   window[ appAlias ].listener.zoomImageListenter();
   window[ appAlias ].listener.formatDateTime();
+  window[ appAlias ].listener.enterKey();
+  window[ appAlias ].listener.setupButton();
 
   return;
 } );
+
+
 
 window.addEventListener( 'pageshow', function() {
   window[ appAlias ].listener.resetForms();
