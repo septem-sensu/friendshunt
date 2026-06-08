@@ -1,5 +1,5 @@
 {
-  "alias": "playerlist",
+  "alias": "playerList",
   "class": "Player",
   "roles": [ "administrator" ],
   "templates": [

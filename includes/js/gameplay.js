@@ -422,50 +422,50 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
   var objMessageContainer = document.querySelector( '#game-message-content' );
 
   for( var i = 0; i < window[ appAlias ].gameplayMessages.length; i++ ) {
-    var objMessage     = window[ appAlias ].gameplayMessages[ i ];
-    var strPlayerName  = '';
+    var objMessage        = window[ appAlias ].gameplayMessages[ i ];
+    var strRealPlayerName = objMessage.playerName;
+    var strPlayerName     = '';
 
-    strContent        += objMessage.playerId == window[ appAlias ].playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + objMessage.id + '"><div>';
+    strContent           += objMessage.playerId == window[ appAlias ].playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + objMessage.id + '"><div>';
 
     if( objMessage.playerId != window[ appAlias ].playerId ) strLastMessageId = objMessage.id;
 
-    if( window[ appAlias ].gameSettings.showNames == '1' ) {
-      strPlayerName = objMessage.playerName;
-    } else {
-      if( objMessage.playerId == window[ appAlias ].playerId ) strPlayerName = objMessage.playerName;
+    if( strPlayerName == '' ) {
+      for( var j = 0; j < window[ appAlias ].gameSettings.playerIds.length; j++ ) {
+        if( window[ appAlias ].gameSettings.playerIds[ j ] != objMessage.playerId ) continue;
 
-      if( strPlayerName == '' ) {
-        for( var j = 0; j < window[ appAlias ].gameSettings.playerIds.length; j++ ) {
-          if( window[ appAlias ].gameSettings.playerIds[ j ] == objMessage.playerId ) {
-            strPlayerName = 'Spieler ' + ( j + 1 );
-            break;
-          }
-        }
+        strPlayerName  = window[ appAlias ].gameSettings.showNames == '1' ? strRealPlayerName + ' - Spieler' : 'Spieler ' + ( j + 1 );
+        strPlayerName  = objMessage.playerId == window[ appAlias ].playerId ? strRealPlayerName + ' - Spieler' : strPlayerName;
+
+        break;
       }
+    }
 
-      if( strPlayerName == '' ) {
-        for( var j = 0; j < window[ appAlias ].gameSettings.hunterIds.length; j++ ) {
-          if( window[ appAlias ].gameSettings.hunterIds[ j ] == objMessage.playerId ) {
-            strPlayerName = 'Jäger ' + ( j + 1 );
-            break;
-          }
-        }
+    if( strPlayerName == '' ) {
+      for( var j = 0; j < window[ appAlias ].gameSettings.hunterIds.length; j++ ) {
+        if( window[ appAlias ].gameSettings.hunterIds[ j ] != objMessage.playerId ) continue;
+
+        strPlayerName  = window[ appAlias ].gameSettings.showNames == '1' ? strRealPlayerName + ' - Jäger' : 'Jäger ' + ( j + 1 );
+        strPlayerName  = objMessage.playerId == window[ appAlias ].playerId ? strRealPlayerName + ' - Jäger' : strPlayerName;
+
+        break;
       }
+    }
 
-      if( strPlayerName == '' ) {
-        for( var j = 0; j < window[ appAlias ].gameSettings.managementIds.length;j++ ) {
-          if( window[ appAlias ].gameSettings.managementIds[ j ] == objMessage.playerId ) {
-            strPlayerName = 'Spielleitung ' + ( j + 1 );
-            break;
-          }
-        }
+    if( strPlayerName == '' ) {
+      for( var j = 0; j < window[ appAlias ].gameSettings.managementIds.length;j++ ) {
+        if( window[ appAlias ].gameSettings.managementIds[ j ] != objMessage.playerId ) continue;
+
+        strPlayerName  = window[ appAlias ].gameSettings.showNames == '1' ? strRealPlayerName + ' - Spielleitung' : 'Spielleitung ' + ( j + 1 );
+        strPlayerName  = objMessage.playerId == window[ appAlias ].playerId ? strRealPlayerName + ' - Spielleitung' : strPlayerName;
+
+        break;
       }
     }
 
     strContent += objMessage.message;
     strContent += '<p class="game-message-footer">' + strPlayerName + ' (' + window[ appAlias ].methods.gameplay.timestampToDateTimeString( objMessage.timestamp, '' ) + ')</p>';
     strContent += '</div></div>';
-
   }
 
   objMessageContainer.innerHTML = strContent;

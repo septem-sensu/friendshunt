@@ -618,8 +618,6 @@ window[ appAlias ].methods.cGetGameArchiveList = function() {
 window[ appAlias ].methods.cProccessResponseGameArchiveList = function( objResponseObject ) {
   var objArchiveGames = objResponseObject.result.archiveGames;
 
-  console.log( objResponseObject );
-
   for (var strGameId in objArchiveGames ) {
     var objContentContainer        = document.createElement( 'div' );
     var strContentContainerContent = '<div class="content-container align-left">';
