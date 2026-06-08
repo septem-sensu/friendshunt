@@ -190,6 +190,26 @@ class Presentation {
   }
 
 /**
+ * This static Method delete the App Cookie.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @return     void
+ * @example    $this::deleteCookie();
+ * @example    Presentation::deleteCookie();
+ *
+*/
+  public static function deleteCookie() : void {
+    $objConfig      = BaseObject::getConfig();
+    $strCookieName  = $objConfig->cookieName;
+
+    setcookie( $strCookieName, '', [ 'expires' => time() - 3600, 'path' => '/' ] );
+
+    return;
+  }
+
+/**
  * This static Method get a Value from the App Cookie Json Value.
  *
  * @access     public

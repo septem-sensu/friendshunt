@@ -157,6 +157,7 @@ class Presentation {
   +stringToTimestamp()
   +timestampToString()
   +writeCookie()
+  +deleteCookie()
   +getCookieProperty()
   +newFormError()
   +getBaseUrl()

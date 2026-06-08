@@ -206,6 +206,13 @@ class Controller {
  *
 */
   private function checkRole() : void {
+    if( ! file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {
+      Presentation::deleteCookie();
+      $this->setRole( 'guest' );
+
+      return;
+    }
+
     $strSetRole = $this->config->setRole;
     $strSetRole( $this );
 

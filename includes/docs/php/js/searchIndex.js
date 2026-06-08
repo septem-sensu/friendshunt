@@ -731,6 +731,11 @@ Search.appendIndex(
             "summary": "This\u0020static\u0020Method\u0020set\u0020App\u0020Cookie\u0020Variables\u0020to\u0020the\u0020JSON\u0020Cookie\u0020Value.",
             "url": "classes/Presentation.html#method_writeCookie"
         },                {
+            "fqsen": "\\Presentation\u003A\u003AdeleteCookie\u0028\u0029",
+            "name": "deleteCookie",
+            "summary": "This\u0020static\u0020Method\u0020delete\u0020the\u0020App\u0020Cookie.",
+            "url": "classes/Presentation.html#method_deleteCookie"
+        },                {
             "fqsen": "\\Presentation\u003A\u003AgetCookieProperty\u0028\u0029",
             "name": "getCookieProperty",
             "summary": "This\u0020static\u0020Method\u0020get\u0020a\u0020Value\u0020from\u0020the\u0020App\u0020Cookie\u0020Json\u0020Value.",

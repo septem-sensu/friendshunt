@@ -117,7 +117,7 @@ window[ appAlias ].methods._validateField = function( strKey, objForm ) {
     if( typeof( objField.value ) != 'string' || objField.value == '' ) boolFormIsValide = false;
     if( objField.value.length < intMinLength ) boolFormIsValide = false;
     var objPassword2 = objForm.querySelector( arrFields[ strKey ].element + '[name=\'' + strKey + '2\']' );
-    if( objPassword2 != null && typeof objPassword2.value == 'string' && objPassword2.value.length > 0 && objField.value != objPassword2.value ) boolFormIsValide = false;
+    if( objPassword2 != null && typeof objPassword2.value == 'string' && objField.value != objPassword2.value ) boolFormIsValide = false;
     if( typeof arrFields[ strKey ].validatePasswordSecurity == 'boolean' && arrFields[ strKey ].validatePasswordSecurity ) {
       if( ! window[ appAlias ].methods._validatePassword( objField.value ) ) boolFormIsValide = false
     }
