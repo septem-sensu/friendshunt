@@ -25,5 +25,26 @@
       "src": "../images/favicons/friendshunt-app-icon-16x16.png",
       "sizes": "16x16"
     }
-  ]
-}
+  ],
+  "screenshots":[{
+      "src": "../images/screenshots/screenshot-friendshunt-tracking-550x1024.png",
+      "type": "image/png",
+      "size": "550x1024",
+      "label": "Firends Hunt App - Tracking Ansicht"
+    }, {
+      "src": "../images/screenshots/screenshot-friendshunt-dashboard-550x1024.png",
+      "type": "image/png",
+      "size": "550x1024",
+      "label": "Firends Hunt App - Game Dashboard Ansicht"
+    }, {
+      "src": "../images/screenshots/screenshot-friendshunt-messages-550x1024.png",
+      "type": "image/png",
+      "size": "550x1024",
+      "label": "Firends Hunt App - My Account Ansicht"
+    }, {
+      "src": "../images/screenshots/screenshot-friendshunt-messages-550x1024.png",
+      "type": "image/png",
+      "size": "550x1024",
+      "label": "Firends Hunt App - Nachrichten Ansicht"
+    }
+  ]}
