@@ -395,6 +395,10 @@ class Controller {
     $this->objectId = isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] != '' ? $_GET[ 'id' ] : '';
     $this->objectId = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
 
+    if( isset( $_GET[ 'fields' ] ) && $_GET[ 'fields' ] != '' ) {
+      $this->presentationObject->assignTemplateVar( 'fields', $_GET[ 'fields' ], null, json_encode( BaseObject::fields( $_GET[ 'fields' ] ) ) );
+    }
+
     $this->presentationObject->assignTemplateVar( 'fields', 'default', null, json_encode( BaseObject::fields( $this->className ) ) );
     $this->presentationObject->assignTemplateVar( 'view', 'default', null, json_encode( $this->viewObject ) );
     $this->presentationObject->assignTemplateVar( 'class', 'default', null, $this->className );

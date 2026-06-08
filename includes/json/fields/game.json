@@ -39,7 +39,8 @@
     "nameDe": "Spieler",
     "element": "array",
     "type": "text",
-    "mandatory": false,
+    "mandatory": true,
+    "minLength": 1,
     "unit": "",
     "position": 500
   },
@@ -47,7 +48,8 @@
     "nameDe": "Jäger",
     "element": "array",
     "type": "text",
-    "mandatory": false,
+    "mandatory": true,
+    "minLength": 1,
     "unit": "",
     "position": 600
   },

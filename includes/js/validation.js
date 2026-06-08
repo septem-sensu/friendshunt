@@ -36,17 +36,20 @@ window[ appAlias ].methods.validateFields = function() {
   window[ appAlias ].methods._validateFields();
 
   var arrFieldTypes = [ 'input', 'select', 'textarea' ];
+  var arrForms      = document.querySelectorAll( 'form' );
 
-  for( var i = 0; i < arrFieldTypes.length; i++ ) {
-    var arrFieldObjects = document.querySelectorAll( arrFieldTypes[ i ] );
+  for( var k = 0; k < arrForms.length; k++ ) {
+    for( var i = 0; i < arrFieldTypes.length; i++ ) {
+      var arrFieldObjects = arrForms[ k ].querySelectorAll( arrFieldTypes[ i ] );
 
-    if( arrFieldObjects == null ) continue;
+      if( arrFieldObjects == null ) continue;
 
-    for( var j = 0; j < arrFieldObjects.length; j++ ) {
-      if( arrFieldObjects[ j ] == null ) continue;
-      arrFieldObjects[ j ].addEventListener( 'change', window[ appAlias ].methods._validateFields, false );
-      arrFieldObjects[ j ].addEventListener( 'keyup', window[ appAlias ].methods._validateFields, false );
-      arrFieldObjects[ j ].addEventListener( 'blur', window[ appAlias ].methods._validateFieldSetFormError, false );
+      for( var j = 0; j < arrFieldObjects.length; j++ ) {
+        if( arrFieldObjects[ j ] == null ) continue;
+        arrFieldObjects[ j ].addEventListener( 'change', window[ appAlias ].methods._validateFields, false );
+        arrFieldObjects[ j ].addEventListener( 'keyup', window[ appAlias ].methods._validateFields, false );
+        arrFieldObjects[ j ].addEventListener( 'blur', window[ appAlias ].methods._validateFieldSetFormError, false );
+      }
     }
   }
 
@@ -68,7 +71,9 @@ window[ appAlias ].methods.validateFields = function() {
  *
 */
 window[ appAlias ].methods._validateFieldSetFormError = function() {
-  if( window[ appAlias ].methods._validateField( this.name ) ) {
+  var objForm = this.closest( 'form' );
+
+  if( window[ appAlias ].methods._validateField( this.name, objForm ) ) {
     this.classList.remove( 'form-error' );
   } else {
     this.classList.add( 'form-error' );
@@ -92,7 +97,7 @@ window[ appAlias ].methods._validateFieldSetFormError = function() {
  * @example    boolFormIsValide = friendshunt.methods._validateField( strKey );
  *
 */
-window[ appAlias ].methods._validateField = function( strKey ) {
+window[ appAlias ].methods._validateField = function( strKey, objForm ) {
   var arrFields        = window[ appAlias ].fields;
   var boolFormIsValide = true;
 
@@ -101,13 +106,23 @@ window[ appAlias ].methods._validateField = function( strKey ) {
   if( typeof arrFields[ strKey ] == 'undefined' || arrFields[ strKey ] == null ) return true;
 
   if( ! arrFields[ strKey ].mandatory ) return true;
-  var objField = document.querySelector( arrFields[ strKey ].element + '[name=\'' + strKey + '\']' );
+  var objField = objForm.querySelector( arrFields[ strKey ].element + '[name=\'' + strKey + '\']' );
 
   if( typeof( objField ) != 'object' || objField == null ) return true;
+
   if( arrFields[ strKey ].type == 'checkbox' ) {
     if( ! objField.checked ) boolFormIsValide = false;
+  } else if( arrFields[ strKey ].type == 'password' ) {
+    var intMinLength = typeof arrFields[ strKey ].minLength == 'number' ? arrFields[ strKey ].minLength : 1;
+    if( typeof( objField.value ) != 'string' || objField.value == '' ) boolFormIsValide = false;
+    if( objField.value.length < intMinLength ) boolFormIsValide = false;
+    var objPassword2 = objForm.querySelector( arrFields[ strKey ].element + '[name=\'' + strKey + '2\']' );
+    if( objPassword2 != null && typeof objPassword2.value == 'string' && objPassword2.value.length > 0 && objField.value != objPassword2.value ) boolFormIsValide = false;
+    if( typeof arrFields[ strKey ].validatePasswordSecurity == 'boolean' && arrFields[ strKey ].validatePasswordSecurity ) {
+      if( ! window[ appAlias ].methods._validatePassword( objField.value ) ) boolFormIsValide = false
+    }
   } else {
-    var intMinLength = typeof arrFields[ strKey ].min_length == 'number' ? arrFields[ strKey ].min_length : 1;
+    var intMinLength = typeof arrFields[ strKey ].minLength == 'number' ? arrFields[ strKey ].minLength : 1;
     if( typeof( objField.value ) != 'string' || objField.value == '' ) boolFormIsValide = false;
     if( objField.value.length < intMinLength ) boolFormIsValide = false;
   }
@@ -134,34 +149,30 @@ window[ appAlias ].methods._validateField = function( strKey ) {
 */
 window[ appAlias ].methods._validateFields = function() {
   var arrFields        = window[ appAlias ].fields;
-  var boolFormIsValide = true;
+  var arrForms         = document.querySelectorAll( 'form' );
 
-  if( typeof( arrFields ) != 'object' || arrFields == null ) return;
+  for( var u = 0; u < arrForms.length; u++ ) {
+    var boolFormIsValide = true;
 
-  for ( var strKey in arrFields ) {
-    boolFormIsValide = window[ appAlias ].methods._validateField( strKey );
+    if( typeof( arrFields ) != 'object' || arrFields == null ) return;
 
-    if( ! boolFormIsValide ) {
-      if( document.querySelector( '.submit' ) == null ) return;
-      document.querySelector( '.submit' ).setAttribute( 'disabled', 'disabled' );
-      return false;
+    for ( var strKey in arrFields ) {
+      boolFormIsValide = window[ appAlias ].methods._validateField( strKey, arrForms[ u ] );
+
+      if( ! boolFormIsValide ) {
+        if( arrForms[ u ].querySelector( '.submit' ) == null ) return;
+        arrForms[ u ].querySelector( '.submit' ).setAttribute( 'disabled', 'disabled' );
+        break;
+      }
     }
-  }
 
-  var objPassword1  = document.querySelector( 'input[name="password"]' );
-  var objPassword2  = document.querySelector( 'input[name="password2"]' );
-
-  if( objPassword1 != null && objPassword2 != null ) {
-    if( objPassword1.value != objPassword2.value ) boolFormIsValide = false;
-    if( arrFields.password.validatePasswordSecurity && ! window[ appAlias ].methods._validatePassword( objPassword1.value ) ) boolFormIsValide = false;
-  }
-
-  if( boolFormIsValide ) {
-    if( document.querySelector( '.submit' ) == null ) return;
-    document.querySelector( '.submit' ).removeAttribute( 'disabled' );
-  } else {
-    if( document.querySelector( '.submit' ) == null ) return;
-    document.querySelector( '.submit' ).setAttribute( 'disabled', 'disabled' );
+    if( boolFormIsValide ) {
+      if( arrForms[ u ].querySelector( '.submit' ) == null ) return;
+      arrForms[ u ].querySelector( '.submit' ).removeAttribute( 'disabled' );
+    } else {
+      if( arrForms[ u ].querySelector( '.submit' ) == null ) return;
+      arrForms[ u ].querySelector( '.submit' ).setAttribute( 'disabled', 'disabled' );
+    }
   }
 
   return;

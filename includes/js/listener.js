@@ -96,7 +96,11 @@ window[ appAlias ].listener.saveObject = function() {
   if( document.querySelector( '#event-save-object' ) == null ) return;
 
   document.querySelector( '#event-save-object' ).addEventListener( 'click', function() {
-    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, window[ appAlias ].methods.newJsonRequestObject( 'Player', 'saveRequestObject', window[ appAlias ].id ), 'cProccessResponseSaveGame' );
+    var objPost = window[ appAlias ].methods.newJsonRequestObject( 'Player', 'saveRequestObject', window[ appAlias ].id );
+
+    objPost.redirect = 'index.php?view=player';
+
+    return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
   } );
 
   return;
@@ -326,12 +330,14 @@ window[ appAlias ].listener.changePlayerPassword = function() {
   if( document.querySelector( '#event-change-player-password' ) == null ) return;
 
   document.querySelector( '#event-change-player-password' ).addEventListener( 'click', function() {
-    var strPassword1 = document.querySelector( '#password-temp' ) != null ? document.querySelector( '#password-temp' ).value : null;
-    var strPassword2 = document.querySelector( '#password2-temp' ) != null ? document.querySelector( '#password2-temp' ).value : null;
-    var objPost      = { 'class': window[ appAlias ].class, 'id': window[ appAlias ].id, 'methode': 'saveRequestObject', 'password': strPassword1 };
+    if( this.hasAttribute( 'disabled' ) && typeof this.getAttribute( 'disabled' ) == 'string' && this.getAttribute( 'disabled' ) == 'disabled' ) return;
+
+    var strPassword1 = document.querySelector( '#password' ) != null ? document.querySelector( '#password' ).value : null;
+    var strPassword2 = document.querySelector( '#password2' ) != null ? document.querySelector( '#password2' ).value : null;
+    var objPost      = { 'class': window[ appAlias ].class, 'id': window[ appAlias ].id, 'methode': 'saveRequestObject', 'password': strPassword1, 'redirect': 'index.php?view=player' };
 
     if( strPassword1 == null || strPassword2 == null || strPassword1 != strPassword2 || ! window[ appAlias ].methods._validatePassword( strPassword1 ) ) {
-      window[ appAlias ].methods.manageFormErrors( [ { 'field': '#password-temp' }, { 'field': '#password2-temp' } ] );
+      window[ appAlias ].methods.manageFormErrors( [ { 'field': '#password' }, { 'field': '#password2' } ] );
       return;
     }
 

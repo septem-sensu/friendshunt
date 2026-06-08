@@ -35,6 +35,7 @@
     "crypt": true,
     "unit": "",
     "minLength": 5,
+    "validatePasswordSecurity": true,
     "position": 400
   },
   "image": {

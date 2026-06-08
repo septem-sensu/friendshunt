@@ -52,28 +52,6 @@ window[ appAlias ].methods.cStartGame = function( objElement ) {
 };
 
 /**
- * This Function is the Callback Function after the Ajax Request for the Game has been finished.
- *
- * @function
- * @public
- * @name       cProccessResponseSaveGame
- * @memberof   friendshunt
- * @access     public
- * @since      2026-06-06
- * @version    0.1.0
- * @param      {object}   objResponseObject  The Ajax Response Object from the Server
- * @return     {void}
- * @example    friendshunt.methods.cProccessResponseSaveGame( objResponseObject );
- *
-*/
-window[ appAlias ].methods.cProccessResponseSaveGame = function( objResponseObject ) {
-  window[ appAlias ].methods.proccessResponse( objResponseObject );
-  document.location = 'index.php?view=dashboard';
-
-  return;
-};
-
-/**
  * This Function generate the Html Code for a Game Player at the Game Dashboard.
  *
  * @function

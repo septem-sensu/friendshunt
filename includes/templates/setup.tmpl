@@ -1,24 +1,26 @@
     <div class="content pb-10 pl-10 pr-10 pt-10">
       <div class="content-container login-box">
-        <img src="includes/images/favicons/friendshunt-app-icon-192x192.png" class="friendshunt-login-logo" alt="Friends Hunt Logo" />
-        <h1>{{default::appName}} Setup</h1>
-        <div class="setup-info-container">
-          <p class="align-justify mb-10"><span class="bold">WICHTIG:</span> Felder mit einem Sternchen (*) sind Pflichtfelder und müssen ausgefüllt werden, um das Formular abzuschicken.</p>
-          <p class="align-justify"><span class="bold">WICHTIG:</span> Das Passwort muss aus mindestens 8 Zeichen, welche aus Groß- und Kleinbuchstaben sowie aus Zahlen und Sonderzeichen bestehen.</p>
-        </div>
-        <label class="w-200 m-auto block mt-15 mb-5" for="email">E-Mail Adresse*</label>
-        <input type="text" autocomplete="email" name="email" id="email" class="w-240 mb-10" placeholder="Eingabe E-Mail Adresse" />
-        <label class="w-200 mb-5 m-auto block" for="password">Password*</label>
-        <input type="password" name="password" id="password" class="w-240 mb-15" placeholder="Eingabe Passwort" />
-        <label class="w-200 mb-5 m-auto block" for="password2">Password Wiederholung*</label>
-        <input type="password" name="password2" id="password2" class="w-240 mb-15" placeholder="Eingabe Passwort Wiederholung" />
-        <label class="w-200 mb-5 m-auto block" for="name">Benutzername*</label>
-        <input type="text" autocomplete="name" name="name" id="name" class="w-240 mb-10" placeholder="Eingabe Benutzername" />
-        <label class="w-200 mb-5 m-auto block" for="title">Titel</label>
-        <input type="text" autocomplete="title" name="title" id="title" class="w-240 mb-10" placeholder="Eingabe Titel" />
-        <label class="w-200 mb-5 m-auto block" for="description">Beschreibung</label>
-        <textarea name="description" autocomplete="description" id="description" placeholder="Eingabe Beschreibung" class="mb-15 h-100"></textarea>
-        <p class="mt-15"><button type="button" class="default submit mb-10 w-140 event-setup" disabled="disabled">Setup ausführen</button></p>
-        <p class="mb-50"><button type="button" class="success w-140 mb-20" disabled="disabled">App installieren</button></p>
+        <form>
+          <img src="includes/images/favicons/friendshunt-app-icon-192x192.png" class="friendshunt-login-logo" alt="Friends Hunt Logo" />
+          <h1>{{default::appName}} Setup</h1>
+          <div class="setup-info-container">
+            <p class="align-justify mb-10"><span class="bold">WICHTIG:</span> Felder mit einem Sternchen (*) sind Pflichtfelder und müssen ausgefüllt werden, um das Formular abzuschicken.</p>
+            <p class="align-justify"><span class="bold">WICHTIG:</span> Das Passwort muss aus mindestens 8 Zeichen, welche aus Groß- und Kleinbuchstaben sowie aus Zahlen und Sonderzeichen bestehen.</p>
+          </div>
+          <label class="w-200 m-auto block mt-15 mb-5" for="email">E-Mail Adresse*</label>
+          <input type="text" autocomplete="email" name="email" id="email" class="w-240 mb-10" placeholder="Eingabe E-Mail Adresse" />
+          <label class="w-200 mb-5 m-auto block" for="password">Password*</label>
+          <input type="password" name="password" id="password" class="w-240 mb-15" placeholder="Eingabe Passwort" />
+          <label class="w-200 mb-5 m-auto block" for="password2">Password Wiederholung*</label>
+          <input type="password" name="password2" id="password2" class="w-240 mb-15" placeholder="Eingabe Passwort Wiederholung" />
+          <label class="w-200 mb-5 m-auto block" for="name">Benutzername*</label>
+          <input type="text" autocomplete="name" name="name" id="name" class="w-240 mb-10" placeholder="Eingabe Benutzername" />
+          <label class="w-200 mb-5 m-auto block" for="title">Titel</label>
+          <input type="text" autocomplete="title" name="title" id="title" class="w-240 mb-10" placeholder="Eingabe Titel" />
+          <label class="w-200 mb-5 m-auto block" for="description">Beschreibung</label>
+          <textarea name="description" autocomplete="description" id="description" placeholder="Eingabe Beschreibung" class="mb-15 h-100"></textarea>
+          <p class="mt-15"><button type="button" class="default submit mb-10 w-140 event-setup" disabled="disabled">Setup ausführen</button></p>
+          <p class="mb-50"><button type="button" class="success w-140 mb-20" disabled="disabled">App installieren</button></p>
+        </form>
       </div>
     </div>
