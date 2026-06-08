@@ -28,7 +28,7 @@ Ein oder mehrere **Spieler (Gejagte)** versuchen, sich in einem definierten Gebi
 
 - **Die Gejagten:** Bewegen sich strategisch von Start- zu Exit-Positionen und versuchen, den Hunter unter Ausnutzung von Gelände und Schrittzähler-Boni zu entkommen.
 - **Die Jäger - (Hunter):** Verfolgen die Positionen der Spieler live auf der Karte. Taktische Intervall-Wechsel fordern schnelles Reagieren und clevere Laufwege.
-- **Die Spielleitung:** Behält über das integrierte Nachrichtensystem die volle Kontrolle und kann Spielern oder Jägern Hinweise und Anweisungen zukommen lassen.
+- **Die Spielleitung (optional):** Behält über das integrierte Nachrichtensystem die volle Kontrolle und kann Spielern oder Jägern Hinweise und Anweisungen zukommen lassen.
 
 ---
 
