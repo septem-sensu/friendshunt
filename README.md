@@ -1,6 +1,24 @@
-# 🛰️ Friends Hunt
+# 🛰️ Friends-Hunt
 
-> **Friends Hunt** ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.
+<table>
+  <tr>
+    <td><br /><img src="includes/images/favicons/friendshunt-app-icon-180x180.png" alt="Friends-Hunt App - Logo Icon" width="150" /><br /><br /></td>
+    <td><b>Friends-Hunt</b> ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.</td>
+  </tr>
+</table>
+
+---
+
+## 🗺️ Screenshots
+
+<table>
+  <tr>
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-tracking-550x1024.png" alt="Friends-Hunt App - Tracking Ansicht"  width="230" /></td>
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-dashboard-550x1024.png" alt="Friends-Hunt App - Game Dashboard Ansicht"  width="230" /></td> 
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-account-550x1024.png" alt="Friends-Hunt App - My Account Ansicht"  width="230" /></td> 
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-messages-550x1024.png" alt="Friends-Hunt App - Nachrichten Ansicht"  width="230" /></td> 
+  </tr>
+</table>
 
 ---
 
