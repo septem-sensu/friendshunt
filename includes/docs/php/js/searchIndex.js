@@ -621,10 +621,35 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020delete\u0020the\u0020current\u0020Player\u0020with\u0020all\u0020Files\u0020and\u0020Directories.",
             "url": "classes/Player.html#method_deletePlayer"
         },                {
+            "fqsen": "\\Player\u003A\u003AdeletePlayerFromApp\u0028\u0029",
+            "name": "deletePlayerFromApp",
+            "summary": "This\u0020Method\u0020delete\u0020a\u0020Player\u0020with\u0020all\u0020Files\u0020and\u0020Directories.",
+            "url": "classes/Player.html#method_deletePlayerFromApp"
+        },                {
             "fqsen": "\\Player\u003A\u003Asetup\u0028\u0029",
             "name": "setup",
             "summary": "This\u0020Method\u0020is\u0020the\u0020Setup\u0020Routine\u0020for\u0020the\u0020App.\u0020The\u0020Methode\u0020genedoes\u0020the\u0020following\u003A\n\u002D\u0020creates\u0020the\u0020dataPlayer.json\u0020file\u0020with\u0020the\u0020Admininistrator\u0020Data\u0020from\u0020the\u0020Setup\u0020Form\n\u002D\u0020creates\u0020the\u0020dataGame.json\n\u002D\u0020creates\u0020the\u0020Player\u0020File\u0020Directory\u0020and\u0020copies\u0020the\u0020default\u0020Avatar\u0020in\u0020the\u0020Directory\n\u002D\u0020set\u0020the\u0020Prephases\u0020in\u0020the\u0020PHP\u0020Config\u0020Package",
             "url": "classes/Player.html#method_setup"
+        },                {
+            "fqsen": "\\Player\u003A\u003AgetPlayerList\u0028\u0029",
+            "name": "getPlayerList",
+            "summary": "This\u0020Method\u0020returns\u0020a\u0020List\u0020of\u0020all\u0020App\u0020Player\u0020Objects.",
+            "url": "classes/Player.html#method_getPlayerList"
+        },                {
+            "fqsen": "\\Player\u003A\u003AgetGameArchiveList\u0028\u0029",
+            "name": "getGameArchiveList",
+            "summary": "This\u0020Method\u0020returns\u0020a\u0020List\u0020of\u0020all\u0020archived\u0020Game\u0020Objects.",
+            "url": "classes/Player.html#method_getGameArchiveList"
+        },                {
+            "fqsen": "\\Player\u003A\u003AbackFromArchiveGame\u0028\u0029",
+            "name": "backFromArchiveGame",
+            "summary": "This\u0020Method\u0020brings\u0020a\u0020Game\u0020Object\u0020with\u0020all\u0020Files\u0020back\u0020from\u0020the\u0020Archive\u0020to\u0020the\u0020Overview.",
+            "url": "classes/Player.html#method_backFromArchiveGame"
+        },                {
+            "fqsen": "\\Player\u003A\u003AdeleteArchiveGame\u0028\u0029",
+            "name": "deleteArchiveGame",
+            "summary": "This\u0020Method\u0020delete\u0020a\u0020Game\u0020with\u0020all\u0020Files\u0020and\u0020the\u0020Directory\u0020in\u0020the\u0020the\u0020Archive.",
+            "url": "classes/Player.html#method_deleteArchiveGame"
         },                {
             "fqsen": "\\Player\u003A\u003A\u0024name",
             "name": "name",

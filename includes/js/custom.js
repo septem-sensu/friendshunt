@@ -261,9 +261,9 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainerContent    += '</td>';
     strContentContainerContent    += '</tr></table>';
     strContentContainerContent    += '<table><tr><td><span class="bold">Name:</span></td><td><span class="bold">' + arrGames[ i ].name + '</span></td></tr>';
-    strContentContainerContent    += '<tr><td>Titel:</td><td>' + arrGames[ i ].title + '</td></tr>';
-    strContentContainerContent    += '<tr><td class="pr-10">Beschreibung:</td><td>' + arrGames[ i ].description  + '</td></tr>';
-    strContentContainerContent    += '<tr><td class="pr-10 bold">Start:</td><td class="bold">' + window[ appAlias ].methods.TimeStringToTimeString( arrGames[ i ].start )  + '</td></tr></table>';
+    strContentContainerContent    += '<tr><td class="align-top">Titel:</td><td class="align-top">' + arrGames[ i ].title + '</td></tr>';
+    strContentContainerContent    += '<tr><td class="pr-10 align-top">Beschreibung:</td><td class="align-top">' + arrGames[ i ].description  + '</td></tr>';
+    strContentContainerContent    += '<tr><td class="pr-10 bold align-top">Start:</td><td class="bold align-top">' + window[ appAlias ].methods.TimeStringToTimeString( arrGames[ i ].start )  + '</td></tr></table>';
     strContentContainerContent    += '<input type="hidden" name="game-id" value="' + arrGames[ i ].id + '">';
     strContentContainer.innerHTML  = strContentContainerContent;
 
@@ -376,13 +376,13 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
- * @param      {string}   strElement    The Button was clicked or touched to detect the Game Id
+ * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
  * @return     {void}
- * @example    friendshunt.methods.cArchiveGame( strElement );
+ * @example    friendshunt.methods.cArchiveGame( objElement );
  *
 */
-window[ appAlias ].methods.cArchiveGame = function( strElement ) {
-  var objHtmlGamesContainer = strElement.closest( '.content-container' );
+window[ appAlias ].methods.cArchiveGame = function( objElement ) {
+  var objHtmlGamesContainer = objElement.closest( '.content-container' );
   var strGameId             = objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
   var objPost               = { 'class': 'Game', 'id': strGameId, 'methode': 'archiveGame' };
 
@@ -426,13 +426,13 @@ window[ appAlias ].methods.cProccessResponseArchiveGame = function( objResponse 
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
- * @param      {string}   strElement    The Button was clicked or touched to detect the Game Id
+ * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
  * @return     {void}
- * @example    friendshunt.methods.cDeleteGame( strElement );
+ * @example    friendshunt.methods.cDeleteGame( objElement );
  *
 */
-window[ appAlias ].methods.cDeleteGame = function( strElement ) {
-  var objHtmlGamesContainer = strElement.closest( '.content-container' );
+window[ appAlias ].methods.cDeleteGame = function( objElement ) {
+  var objHtmlGamesContainer = objElement.closest( '.content-container' );
   var strGameId             = objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? objHtmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
   var objPost               = { 'class': 'Game', 'id': strGameId, 'methode': 'deleteGame' };
 
@@ -493,7 +493,7 @@ window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
   } );
 
   return strFormattedDate;
-}
+};
 
 /**
  * This Function close the Image Zoom Layer.
@@ -517,7 +517,199 @@ window[ appAlias ].methods.cCloseFullImage = function() {
   return;
 };
 
+/**
+ * This Function generate and called the Ajax Request to to get all Players.
+ *
+ * @function
+ * @public
+ * @name       cGetPlayerList
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cGetPlayerList();
+ *
+*/
+window[ appAlias ].methods.cGetPlayerList = function() {
+  var objPost               = { 'class': 'Player', 'id': window[ appAlias ].id, 'methode': 'getPlayerList' };
 
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponsePlayerList' );
+};
+
+/**
+ * This Function is the Callback Function from the get All App Player Ajax Request.
+ * The Function generate the Html Content of all Player and set the Content to the Template.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponsePlayerList
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponse    The Response Object after the Ajax Request is done
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponsePlayerList( objResponse );
+ *
+*/
+window[ appAlias ].methods.cProccessResponsePlayerList = function( objResponseObject ) {
+  var objPlayerList = objResponseObject.result.playerList;
+
+  for (var strPlayerId in objPlayerList ) {
+    var objContentContainer        = document.createElement( 'div' );
+    var strContentContainerContent = '<div class="content-container align-left">';
+
+    strContentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
+    strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + objPlayerList[ strPlayerId ].email + '/' + objPlayerList[ strPlayerId ].image + '" />';
+    strContentContainerContent    += '</td><td class="align-top">';
+    strContentContainerContent    += '<p class="bold mb-10">' + objPlayerList[ strPlayerId ].name + '</p>';
+    strContentContainerContent    += '<p>' + objPlayerList[ strPlayerId ].email + '</p>';
+    strContentContainerContent    += '<p>' + objPlayerList[ strPlayerId ].role + '</p>';
+    strContentContainerContent    += '<p>' + objPlayerList[ strPlayerId ].title + '</p>';
+    strContentContainerContent    += '<button data-player-id="' + strPlayerId + '" onclick="javascript: window[ appAlias ].methods.cDeletePlayerFromApp( this );" type="button" class="w-160 mt-10 danger">Spieler löschen</button>'
+    strContentContainerContent    += '</td></tr></table>';
+    strContentContainerContent    += '</div>';
+
+    objContentContainer.innerHTML  = strContentContainerContent;
+    document.querySelector( '#content-container-player' ).append( objContentContainer );
+  }
+
+  return;
+};
+
+/**
+ * This Function generate and called the Ajax Request to delete a Player from the Administrator Player List.
+ *
+ * @function
+ * @public
+ * @name       cDeletePlayerFromApp
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objElement    The Button was clicked or touched to detect the Player Id
+ * @return     {void}
+ * @example    friendshunt.methods.cDeletePlayerFromApp( objElement );
+ *
+*/
+window[ appAlias ].methods.cDeletePlayerFromApp = function( objElement ) {
+  var objPost            = { 'class': 'Player', 'id': window[ appAlias ].id, 'methode': 'deletePlayerFromApp' };
+
+  objPost.deletePlayerId = objElement.getAttribute( 'data-player-id' );
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+};
+
+/**
+ * This Function generate and called the Ajax Request to to get all Games in the Archive.
+ *
+ * @function
+ * @public
+ * @name       cGetGameArchiveList
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cGetGameArchiveList();
+ *
+*/
+window[ appAlias ].methods.cGetGameArchiveList = function() {
+  var objPost = { 'class': 'Player', 'id': window[ appAlias ].id, 'methode': 'getGameArchiveList' };
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'cProccessResponseGameArchiveList' );
+};
+
+/**
+ * This Function is the Callback Function from the get All Games from the Archive Ajax Request.
+ * The Function generate the Html Content of all Games in the Archiv and set the Content to the Template.
+ *
+ * @function
+ * @public
+ * @name       cProccessResponseGameArchiveList
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objResponse    The Response Object after the Ajax Request is done
+ * @return     {void}
+ * @example    friendshunt.methods.cProccessResponseGameArchiveList( objResponse );
+ *
+*/
+window[ appAlias ].methods.cProccessResponseGameArchiveList = function( objResponseObject ) {
+  var objArchiveGames = objResponseObject.result.archiveGames;
+
+  console.log( objResponseObject );
+
+  for (var strGameId in objArchiveGames ) {
+    var objContentContainer        = document.createElement( 'div' );
+    var strContentContainerContent = '<div class="content-container align-left">';
+
+    strContentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
+    strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/game/archive/' + strGameId + '/' + objArchiveGames[ strGameId ].avatar + '" />';
+    strContentContainerContent    += '</td><td class="align-top">';
+    strContentContainerContent    += '<p class="bold mb-10">' + objArchiveGames[ strGameId ].name + '</p>';
+    strContentContainerContent    += '<p>' + objArchiveGames[ strGameId ].title + '</p>';
+    strContentContainerContent    += '<p class="bold mt-5 mb-5">Start: <span class="format-date-time">' + objArchiveGames[ strGameId ].start + '</span></p>';
+    strContentContainerContent    += '<p>Dauer: ' + objArchiveGames[ strGameId ].duration + ' Stunden</p>';
+    strContentContainerContent    += '<p><button data-game-id="' + strGameId + '" onclick="javascript: window[ appAlias ].methods.cBringBackArchiveGame( this );" type="button" class="w-160 mt-10 primary">Zurück holen</button></p>';
+    strContentContainerContent    += '<p><button data-game-id="' + strGameId + '" onclick="javascript: window[ appAlias ].methods.cDeleteArchiveGame( this );" type="button" class="w-160 mt-4 danger">Löschen</button></p>';
+    strContentContainerContent    += '</td></tr></table>';
+    strContentContainerContent    += '</div>';
+
+    objContentContainer.innerHTML  = strContentContainerContent;
+    document.querySelector( '#content-container-game-archive' ).append( objContentContainer );
+  }
+
+  return;
+};
+
+/**
+ * This Function generate and called the Ajax Request to bring the Game back to the Overview from the Archive of the Administrator Game Archive List.
+ *
+ * @function
+ * @public
+ * @name       cBringBackArchiveGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
+ * @return     {void}
+ * @example    friendshunt.methods.cBringBackArchiveGame( objElement );
+ *
+*/
+window[ appAlias ].methods.cBringBackArchiveGame = function( objElement ) {
+  var objPost            = { 'class': 'Player', 'id': window[ appAlias ].id, 'methode': 'backFromArchiveGame' };
+
+  objPost.gameId = objElement.getAttribute( 'data-game-id' );
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+};
+
+/**
+ * This Function delete a Game in the Game Archive of the Administrator Game Archive List.
+ *
+ * @function
+ * @public
+ * @name       cDeleteArchiveGame
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
+ * @return     {void}
+ * @example    friendshunt.methods.cDeleteArchiveGame( objElement );
+ *
+*/
+window[ appAlias ].methods.cDeleteArchiveGame = function( objElement ) {
+  var objPost            = { 'class': 'Player', 'id': window[ appAlias ].id, 'methode': 'deleteArchiveGame' };
+
+  objPost.gameId = objElement.getAttribute( 'data-game-id' );
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+}
 
 
 
@@ -525,7 +717,6 @@ window[ appAlias ].methods.cCloseFullImage = function() {
 
 
 window.addEventListener( 'load', function() {
-
 
   return;
 } );

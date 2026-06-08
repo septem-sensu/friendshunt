@@ -17,7 +17,9 @@
         <p>{{Player::title}}</p>
         <p>{{Player::description}}</p>
         <p><button data-link="index.php?view=playerEdit" type="button" class="primary event-link mt-10 w-160">Anpassen</button></p>
-        <p class="hidden" id="new-player-button-container"><button data-link="index.php?view=playerNew" type="button" class="info event-link mt-5 mb-5 w-160">Spieler anlegen</button></p>
+        <p class="hidden" id="new-player-button-container"><button data-link="index.php?view=playerNew" type="button" class="info event-link mt-5 w-160">Spieler anlegen</button></p>
+        <p class="hidden" id="player-list-button-container"><button data-link="index.php?view=playerList" type="button" class="warning event-link mt-5 w-160">Spielerliste</button></p>
+        <p class="hidden" id="game-archive-button-container"><button data-link="index.php?view=gameArchive" type="button" class="success event-link mt-5 mb-5 w-160">Archiv</button></p>
       </td>
       <td class="align-right align-top">
         <img class="c-dashboard-player-image my-account-image" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" />
@@ -32,11 +34,13 @@
 <div id="game-content-container"></div>
 <script>
   window[ appAlias ].methods.unhideGameDeleteButtons = function() {
-    var strRole            = '{{Player::role}}';
-    var arrDeleteButtons   = document.querySelectorAll( '.game-delete-button' );
-    var arrArchiveButtons  = document.querySelectorAll( '.game-archive-button' );
-    var objNewGameButton   = document.querySelector( '.new-game-button' );
-    var objNewPlayerButton = document.querySelector( '#new-player-button-container' )
+    var strRole             = '{{Player::role}}';
+    var arrDeleteButtons    = document.querySelectorAll( '.game-delete-button' );
+    var arrArchiveButtons   = document.querySelectorAll( '.game-archive-button' );
+    var objPlayerListButton = document.querySelector( '#player-list-button-container' );
+    var objNewGameButton    = document.querySelector( '.new-game-button' );
+    var objNewPlayerButton  = document.querySelector( '#new-player-button-container' );
+    var objArchiveButton    = document.querySelector( '#game-archive-button-container' );
     if( strRole == 'administrator' ) {
       for( var i = 0; i < arrDeleteButtons.length; i++ ) {
         arrDeleteButtons[ i ].classList.remove( 'hidden' );
@@ -46,6 +50,8 @@
       }
       if( objNewGameButton != null ) objNewGameButton.classList.remove( 'hidden' );
       if( objNewPlayerButton != null ) objNewPlayerButton.classList.remove( 'hidden' );
+      if( objPlayerListButton != null ) objPlayerListButton.classList.remove( 'hidden' );
+      if( objArchiveButton != null ) objArchiveButton.classList.remove( 'hidden' );
     }
   };
   ( function() {

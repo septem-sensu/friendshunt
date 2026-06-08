@@ -1,0 +1,12 @@
+{
+  "alias": "playerlist",
+  "class": "Player",
+  "roles": [ "administrator" ],
+  "templates": [
+    "header.tmpl",
+    "player-list.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+  ]
+}

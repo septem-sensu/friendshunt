@@ -67,6 +67,8 @@ class Player extends BaseObject {
 
     $objNewPlayerRequestObject              = BaseObject::cleanObject( $objNewPlayerRequestObject, $objFields );
     $objAllPlayer->$strEmail                = $objNewPlayerRequestObject;
+    $objNewPlayerRequestObject->redirect    = 'index.php?view=player';
+
 
     BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataPlayer.json', $objAllPlayer );
 
@@ -273,6 +275,31 @@ class Player extends BaseObject {
   }
 
 /**
+ * This Method delete a Player with all Files and Directories.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->deletePlayerFromApp( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->deletePlayerFromApp( $objRequestObject );
+ *
+*/
+  public function deletePlayerFromApp( object $objRequestObject ) : object {
+    $objAllPlayer  = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
+    $strPlayerId   = $objRequestObject->deletePlayerId;
+
+    $this->deleteDirectory( __DIR__ . '/../files/player/' . $strPlayerId . '/' );
+    unset( $objAllPlayer->$strPlayerId );
+    BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataPlayer.json', $objAllPlayer );
+
+    $objRequestObject->redirect = 'index.php?view=playerList';
+
+    return $objRequestObject;
+  }
+
+/**
  * This Method is the Setup Routine for the App. The Methode genedoes the following:
  * - creates the dataPlayer.json file with the Admininistrator Data from the Setup Form
  * - creates the dataGame.json
@@ -336,11 +363,133 @@ class Player extends BaseObject {
     return $objRequestObject;
   }
 
+/**
+ * This Method returns a List of all App Player Objects.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->getPlayerList( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->getPlayerList( $objRequestObject );
+ *
+*/
+  public function getPlayerList( object $objRequestObject ) : object {
+    $objRequestObject->playerList = $this->loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
 
+    return $objRequestObject;
+  }
 
+/**
+ * This Method returns a List of all archived Game Objects.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->getGameArchiveList( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->getGameArchiveList( $objRequestObject );
+ *
+*/
+  public function getGameArchiveList( object $objRequestObject ) : object {
+    $objRequestObject->archiveGames = new stdClass();
+    $strArchiveDir                  = __DIR__ . '/../files/game/archive/';
+    $arrGameArchiveDirs             = scandir( $strArchiveDir );
 
+    foreach ( $arrGameArchiveDirs as $strGameId ) {
+      $strPath = $strArchiveDir  . '/' . $strGameId . '/';
 
+      if( ! is_dir( $strPath ) || $strGameId == '.' || $strGameId == '..' ) continue;
 
+      $objRequestObject->archiveGames->$strGameId = $this->loadFileDeCrypted( $strPath . 'dataGame.json' );
+    }
+
+    return $objRequestObject;
+  }
+
+/**
+ * This Method brings a Game Object with all Files back from the Archive to the Overview.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->backFromArchiveGame( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->backFromArchiveGame( $objRequestObject );
+ *
+*/
+  public function backFromArchiveGame( object $objRequestObject ) : object {
+    $arrGameRoles          = [ 'player', 'hunter', 'management' ];
+    $objAllPlayer          = $this::getObjects( 'Player' );
+    $strGameId             = $objRequestObject->gameId;
+    $strPathSource         = __DIR__ . '/../files/game/archive/' . $strGameId . '/';
+    $strPathTarget         = __DIR__ . '/../files/game/' . $strGameId . '/';
+    $objGames              = $this->loadFileDeCrypted( __DIR__ . '/../json/data/dataGame.json' );
+    $objGame               = $this->loadFileDeCrypted( $strPathSource . 'dataGame.json' );
+    $objGames->$strGameId  = $objGame;
+    $arrSourceFiles        = scandir( $strPathSource );
+
+    $this->saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', $objGames );
+
+    if( ! file_exists( $strPathTarget ) ) mkdir( $strPathTarget );
+
+    foreach ( $arrSourceFiles as $strFile ) {
+      if ( $strFile == '.' || $strFile == '..' ) continue;
+
+      $strSourceFile = $strPathSource . $strFile;
+      $strTargetFile = $strPathTarget . $strFile;
+
+      if ( is_file( $strSourceFile ) ) copy( $strSourceFile, $strTargetFile );
+    }
+
+    for( $i = 0; $i < count( $arrGameRoles ); $i++ ) {
+      $strGameplayRole =  $arrGameRoles[ $i ];
+      $arrPlayer       = isset( $objGame->$strGameplayRole ) ? $objGame->$strGameplayRole : [];
+
+      for( $j = 0; $j < count( $arrPlayer ); $j++ ) {
+        $strPlayerId  = $arrPlayer[ $j ];
+
+        if( ! isset( $objAllPlayer->$strPlayerId ) ) continue;
+        if( ! isset( $objAllPlayer->$strPlayerId->games ) ) $objAllPlayer->$strPlayerId->games = [];
+        if( in_array( $strGameId, $objAllPlayer->$strPlayerId->games ) ) continue;
+
+        array_push( $objAllPlayer->$strPlayerId->games, $strGameId );
+      }
+    }
+
+    $this::saveFileEnCrypted( __DIR__ . '/../json/data/dataPlayer.json', $objAllPlayer );
+    unlink( $strPathTarget . 'dataGame.json' );
+    $this->deleteDirectory( $strPathSource );
+
+    $objRequestObject->redirect = 'index.php?view=gameArchive';
+
+    return $objRequestObject;
+  }
+
+/**
+ * This Method delete a Game with all Files and the Directory in the the Archive.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->deleteArchiveGame( $objRequestObject );
+ * @example    $objRequestObject = $objPlayer->deleteArchiveGame( $objRequestObject );
+ *
+*/
+  public function deleteArchiveGame( object $objRequestObject ) : object {
+    $strGameId = $objRequestObject->gameId;
+
+    $this->deleteDirectory( __DIR__ . '/../files/game/archive/' . $strGameId . '/' );
+
+    $objRequestObject->redirect = 'index.php?view=gameArchive';
+
+    return $objRequestObject;
+  }
 
 }
 

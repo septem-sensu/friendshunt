@@ -1,0 +1,17 @@
+
+<input type="hidden" name="resetForm" value="1" />
+<div class="content-container first-child" >
+  <h1 class="align-left float-left">Player Übersicht</h1>
+  <div class="align-right">
+    <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+  </div>
+</div>
+
+<div id="content-container-player"></div>
+
+<script>
+  ( function() {
+    window[ appAlias ].methods.cGetPlayerList();
+    return;
+  } )();
+</script>

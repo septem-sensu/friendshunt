@@ -491,7 +491,7 @@ class Game extends BaseObject {
     if( ! file_exists( $strPathArchive ) ) mkdir( $strPathArchive );
     if( ! file_exists( $strPathTarget ) ) mkdir( $strPathTarget );
 
-    $this->saveFileEnCrypted( $strPathTarget . 'dataGame.json', $objGame );
+    $this->saveFileEnCrypted( $strPathTarget . 'dataGame.json', $objGame->serializeObject() );
 
     foreach ( $arrSourceFiles as $strFile ) {
       if ( $strFile == '.' || $strFile == '..' ) continue;

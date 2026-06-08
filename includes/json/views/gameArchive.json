@@ -1,0 +1,12 @@
+{
+  "alias": "gameArchive",
+  "class": "Player",
+  "roles": [ "administrator" ],
+  "templates": [
+    "header.tmpl",
+    "game-archive.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+  ]
+}

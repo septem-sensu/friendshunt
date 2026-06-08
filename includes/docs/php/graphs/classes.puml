@@ -139,7 +139,12 @@ class Player {
   +login()
   +avatarFileUploaded()
   +deletePlayer()
+  +deletePlayerFromApp()
   +setup()
+  +getPlayerList()
+  +getGameArchiveList()
+  +backFromArchiveGame()
+  +deleteArchiveGame()
 }
 
 class Presentation {
