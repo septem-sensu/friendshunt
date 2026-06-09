@@ -16,7 +16,7 @@
   <a href="https://www.openstreetmap.de/" target="_blank" title="OpenStreetMap"><img src="includes/images/openstreetmap.png" alt="OpenStreetMap" height="46" /></a>
   <a href="https://leafletjs.com/" target="_blank" title="Leaflet"><img src="includes/images/leaflet.png" alt="Leaflet" height="46" /></a>
   <a href="https://mozilla.org/" target="_blank" title="Progressive Web App (PWA)"><img src="includes/images/pwa.png" alt="Progressive Web App (PWA)" height="46" /></a>
-  <a href="https://de.wikipedia.org/wiki/MIT-Lizenz" target="_blank" title="MIT-Lizenz"><img src="includes/images/mit.png" alt="MIT-Lizenz" height="46" /></a>
+  <a href="LICENSE" target="_blank" title="MIT-Lizenz"><img src="includes/images/mit.png" alt="MIT-Lizenz" height="46" /></a>
 </p>
 
 ---
@@ -108,7 +108,7 @@ BaseObject/               # Kern-Objekt mit Basis-Logiken
 
 ## 📄 Lizenz
 
-Dieses Projekt ist unter der **MIT-Lizenz** lizenziert. Du kannst es für deine privaten Spiele nutzen, modifizieren und erweitern.
+Dieses Projekt ist unter der [**MIT-Lizenz**](LICENSE) lizenziert. Du kannst es für deine privaten Spiele nutzen, modifizieren und erweitern.
 
 ---
 *Entwickelt mit ❤️ für Freunde. Bereit für die Flucht?*
