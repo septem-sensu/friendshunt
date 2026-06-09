@@ -263,25 +263,27 @@ window[ appAlias ].listener.saveNewGame = function() {
   if( document.querySelector( '#event-save-new-game' ) == null ) return;
 
   document.querySelector( '#event-save-new-game' ).addEventListener( 'click', function() {
-    var arrPlayerHtmlObjects     = document.querySelectorAll('input[name="player-id"]');
-    var arrHunterHtmlObjects     = document.querySelectorAll('input[name="hunter-id"]');
-    var arrManagementHtmlObjects = document.querySelectorAll('input[name="management-id"]');
+    var arrPlayerHtmlObjects            = document.querySelectorAll('input[name="player-id"]');
+    var arrHunterHtmlObjects            = document.querySelectorAll('input[name="hunter-id"]');
+    var arrManagementHtmlObjects        = document.querySelectorAll('input[name="management-id"]');
 
-    var objPost                  = { 'player': [], 'hunter': [], 'management': [], 'class': 'Game', 'methode': 'saveNewGame' };
+    var objPost                         = { 'player': [], 'hunter': [], 'management': [], 'class': 'Game', 'methode': 'saveNewGame' };
 
-    objPost.name                 = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
-    objPost.title                = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
-    objPost.description          = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
-    objPost.start                = document.querySelector('#start') != null ? document.querySelector('#start').value : null;
-    objPost.duration             = document.querySelector('#duration') != null ? document.querySelector('#duration').value : null;
-    objPost.pingInterval         = document.querySelector('#pingInterval') != null ? document.querySelector('#pingInterval').value : null;
-    objPost.speedPingInterval    = document.querySelector('#speedPingInterval') != null ? document.querySelector('#speedPingInterval').value : null;
-    objPost.speedPingCount       = document.querySelector('#speedPingCount') != null ? document.querySelector('#speedPingCount').value : null;
-    objPost.startPosition        = document.querySelector('#startPosition') != null ? document.querySelector('#startPosition').value : null;
-    objPost.exitPosition         = document.querySelector('#exitPosition') != null ? document.querySelector('#exitPosition').value : null;
-    objPost.trackInterval        = document.querySelector('#trackInterval') != null ? document.querySelector('#trackInterval').value : null;
-    objPost.showPlayer           = document.querySelector('#showPlayer') != null ? document.querySelector('#showPlayer').value : null;
-    objPost.showNames            = document.querySelector('#showNames') != null ? document.querySelector('#showNames').value : null;
+    objPost.name                        = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
+    objPost.title                       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
+    objPost.description                 = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
+    objPost.start                       = document.querySelector('#start') != null ? document.querySelector('#start').value : null;
+    objPost.duration                    = document.querySelector('#duration') != null ? document.querySelector('#duration').value : null;
+    objPost.pingInterval                = document.querySelector('#pingInterval') != null ? document.querySelector('#pingInterval').value : null;
+    objPost.speedPingInterval           = document.querySelector('#speedPingInterval') != null ? document.querySelector('#speedPingInterval').value : null;
+    objPost.speedPingCount              = document.querySelector('#speedPingCount') != null ? document.querySelector('#speedPingCount').value : null;
+    objPost.startPosition               = document.querySelector('#startPosition') != null ? document.querySelector('#startPosition').value : null;
+    objPost.exitPosition                = document.querySelector('#exitPosition') != null ? document.querySelector('#exitPosition').value : null;
+    objPost.trackInterval               = document.querySelector('#trackInterval') != null ? document.querySelector('#trackInterval').value : null;
+    objPost.showPlayer                  = document.querySelector('#showPlayer') != null ? document.querySelector('#showPlayer').value : null;
+    objPost.showNames                   = document.querySelector('#showNames') != null ? document.querySelector('#showNames').value : null;
+    objPost.playingFieldCenterPosition  = document.querySelector('#playingFieldCenterPosition') != null ? document.querySelector('#playingFieldCenterPosition').value : null;
+    objPost.playingFieldSize            = document.querySelector('#playingFieldSize') != null ? document.querySelector('#playingFieldSize').value : null;
 
     if( arrPlayerHtmlObjects.length < 1 ) {
       window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-player-field' } ] );

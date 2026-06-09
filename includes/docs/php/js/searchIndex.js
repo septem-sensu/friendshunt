@@ -461,6 +461,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Game.html#property_showNames"
         },                {
+            "fqsen": "\\Game\u003A\u003A\u0024playingFieldCenterPosition",
+            "name": "playingFieldCenterPosition",
+            "summary": "",
+            "url": "classes/Game.html#property_playingFieldCenterPosition"
+        },                {
+            "fqsen": "\\Game\u003A\u003A\u0024playingFieldSize",
+            "name": "playingFieldSize",
+            "summary": "",
+            "url": "classes/Game.html#property_playingFieldSize"
+        },                {
             "fqsen": "\\Gameplay",
             "name": "Gameplay",
             "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",

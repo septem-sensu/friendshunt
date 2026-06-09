@@ -180,5 +180,23 @@
     "unit": "Sekunden",
     "minLength": 2,
     "position": 1900
+  },
+  "playingFieldCenterPosition": {
+    "nameDe": "Mittelpunkt des Spielfeldes",
+    "element": "input",
+    "type": "text",
+    "mandatory": true,
+    "unit": "",
+    "minLength": 3,
+    "position": 2000
+  },
+  "playingFieldSize": {
+    "nameDe": "Spielfeldgröße",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Meter",
+    "minLength": 2,
+    "position": 2100
   }
 }

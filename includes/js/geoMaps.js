@@ -112,6 +112,70 @@ class GeoMaps {
   }
 
 /**
+ * This Method set a circle on the Map.
+ *
+ * @public
+ * @param     {string}  id        The Game Player Id
+ * @param     {number}  lat       The Latidude of the Center of the Circle
+ * @param     {number}  lng       The Langidude of the Center of the Circle
+ * @param     {number}  size      The Radius of the Circle
+ * @param     {string}  color     The Color of the Circle edge
+ * @param     {number}  weight    The weight of the Corcle edge
+ * @param     {string}  fillColor The fill Color of the Circle
+ * @param     {number}  opacity   The Opacity of the Circle
+ * @return    {void}
+ *
+ * @example   objGeoMaps.setCircle( id, lat, lng, size, color, weight, fillColor, opacity );
+ *
+ */
+  setCircle( id, lat, lng, size, color, weight, fillColor, opacity ) {
+    if( this.marker[ id ] ) this.marker[ id ].remove();
+
+    this.marker[ id ] = L.circle( [ lat, lng ], {
+      'radius': size,
+      'color': color,
+      'weight': weight,
+      'fillColor': fillColor,
+      'fillOpacity': opacity,
+      'interactive': false
+    } ).addTo( this.map );;
+
+    return;
+  }
+
+/**
+ * This Method return the Position Object of a Id.
+ *
+ * @public
+ * @param     {string}  id            The Id
+ * @return    {object}  objPosition   The Leaflet Position Object
+ *
+ * @example   objPosition = objGeoMaps.getPosition( id );
+ *
+ */
+  getPosition( id ) {
+    return this.marker[ id ].getLatLng();
+  }
+
+/**
+ * This Method return the calculated distance between two Ids in Meters.
+ *
+ * @public
+ * @param     {string}  id1             The Id1
+ * @param     {string}  id2             The Id2
+ * @return    {number}  floatDistance   The distance between two Ids in Meters
+ *
+ * @example   floatDistance = objGeoMaps.getDistance( id1, id2 );
+ *
+ */
+  getDistance( id1, id2 ) {
+    const latLng1 = this.marker[ id1 ].getLatLng();
+    const latLng2 = this.marker[ id2 ].getLatLng();
+
+    return latLng1.distanceTo( latLng2 );
+  }
+
+/**
  * This Method returns a Icon Vector Object for the Game Player Role.
  *
  * @public

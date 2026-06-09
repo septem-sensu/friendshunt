@@ -69,6 +69,7 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
   var strContentExit    = '<p class="bold">Exitpunkt des Spiels</p>';
   var arrStartPosition  = window[ appAlias ].gameSettings.startPosition.split( ',' );
   var arrExitPosition   = window[ appAlias ].gameSettings.exitPosition.split( ',' );
+  var arrFieldCenter    = window[ appAlias ].gameSettings.playingFieldCenterPosition.split( ',' );
 
   strContentStart      += '<p>Spielstart: ' + window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start ) + '</p>';
   strContentStart      += '<p>Spielende: ' + window[ appAlias ].gameSettings.end + '</p>';
@@ -80,6 +81,9 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
   window[ appAlias ].tracker.geoMapsObject.setMap( lat, lng, 'map' );
   window[ appAlias ].tracker.geoMapsObject.setMarker( 'start', 'start', '#00aa00', arrStartPosition[ 0 ], arrStartPosition[ 1 ], strContentStart );
   window[ appAlias ].tracker.geoMapsObject.setMarker( 'exit', 'exit', '#00aa00', arrExitPosition[ 0 ], arrExitPosition[ 1 ], strContentExit );
+
+  window[ appAlias ].tracker.geoMapsObject.setCircle( 'playingFieldCenterPosition', arrFieldCenter[ 0 ], arrFieldCenter[ 1 ], window[ appAlias ].gameSettings.playingFieldSize, '#ff0000', 1, '#ff0000', 0.08 );
+
   window[ appAlias ].methods.gameplay.track( lat, lng, precision, message );
 
   return;
@@ -302,6 +306,9 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   strMarkerContent   += '<p>Genauigkeit: ' + objLastPosition.precision + ' Meter</p>';
 
   window[ appAlias ].tracker.geoMapsObject.setMarker( objTracking.id, strGameplayRole, arrColors[ intPlayerCount ], objLastPosition.lat, objLastPosition.lng, strMarkerContent );
+
+  console.log( window[ appAlias ].tracker.geoMapsObject.getDistance( 'playingFieldCenterPosition', window[ appAlias ].playerId ) + ' Meter :-)');
+  console.log( window[ appAlias ].tracker.geoMapsObject.getPosition( 'playingFieldCenterPosition' ) );
 
   return;
 };

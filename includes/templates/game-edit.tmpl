@@ -61,10 +61,15 @@
     <input class="mb-10 mt-5 w-350" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" />
     <label class="minw-200" for="speedPingCount">Anzahl Speed Hunt Pings*</label>
     <input class="mb-10 mt-5 w-350" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Pings Anzahl" value="{{Game::speedPingCount}}" />
+    <label class="minw-200" for="playingFieldSize">Spielfeld Größe*</plabel>
+    <input class="mb-10 mt-5 w-350 align-right" type="number" name="playingFieldSize" id="playingFieldSize" placeholder="Eingabe Spielfeldgröße in Meter" value="{{Game::playingFieldSize}}" />
+    <label class="minw-200" for="playingFieldCenterPosition">Spielfeld Mittelpunkt*</plabel>
+    <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" type="text" name="playingFieldCenterPosition" id="playingFieldCenterPosition" placeholder="Klick für den Spielfeld Mittelpunkt" value="{{Game::playingFieldCenterPosition}}" />
     <label class="minw-200" for="startPosition">Start Position*</label>
     <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" type="text" name="startPosition" id="startPosition" placeholder="Klick für Start Position" value="{{Game::startPosition}}" />
     <label class="minw-200" for="exitPosition">Exit Position*</plabel>
     <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" type="text" name="exitPosition" id="exitPosition" placeholder="Klick für Exit Position" value="{{Game::exitPosition}}" />
+
     <label class="minw-200" for="showPlayer">Andere Spiele anzeigen*</label>
     <select class="mb-10 mt-5 w-375 align-right" name="showPlayer" id="showPlayer">
       <option value="{{Game::showPlayer}}">{{Translate::Game::showPlayer}}</option>

@@ -82,6 +82,8 @@ class Game {
   +showPlayer
   +trackInterval
   +showNames
+  +playingFieldCenterPosition
+  +playingFieldSize
   +addGameImage()
   +deleteGameImage()
   +avatarFileUploaded()

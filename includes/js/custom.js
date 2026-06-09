@@ -71,6 +71,8 @@ window[ appAlias ].methods.cStartGame = function( objElement ) {
 window[ appAlias ].methods.cGetPlayerInfoHtml = function( objPlayer, strInputName ) {
   var strContentContainerContent = '';
 
+  if( typeof objPlayer != 'object' || objPlayer == null ) return;
+
   strContentContainerContent    += '<table class="w-100p"><tr><td class="w-160 align-top">';
   strContentContainerContent    += '<img class="c-dashboard-player-image" src="includes/files/player/' + objPlayer.email + '/' + objPlayer.image + '" />';
   strContentContainerContent    += '<div class="align-left w-100p mt-10"><button onclick="javascript: this.closest(\'.content-container\').remove();" type="button" class="w-140 warning event-remove-player-from-game">Spieler entfernen</button></div>';
@@ -106,6 +108,10 @@ window[ appAlias ].methods.cProccessResponseAddManagementToGame = function( objR
 
   if( objResponseObject.result.methode != 'addManagementToGame' ) return;
   if( document.querySelector( '#' + objResponseObject.result.player.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' ) ) != null ) {
+    window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-management-field' } ] );
+    return;
+  }
+  if( typeof objResponseObject.result.playerObject != 'object' || objResponseObject.result.playerObject == null ) {
     window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-management-field' } ] );
     return;
   }
@@ -149,6 +155,10 @@ window[ appAlias ].methods.cProccessResponseAddPlayerToGame = function( objRespo
     window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-player-field' } ] );
     return;
   }
+  if( typeof objResponseObject.result.playerObject != 'object' || objResponseObject.result.playerObject == null ) {
+    window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-player-field' } ] );
+    return;
+  }
 
   var strContentContainer        = document.createElement( 'div' );
   var objPlayer                  = objResponseObject.result.playerObject;
@@ -186,6 +196,10 @@ window[ appAlias ].methods.cProccessResponseAddHunterToGame = function( objRespo
 
   if( objResponseObject.result.methode != 'addHunterToGame' ) return;
   if( document.querySelector( '#' + objResponseObject.result.player.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' ) ) != null ) {
+    window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
+    return;
+  }
+  if( typeof objResponseObject.result.playerObject != 'object' || objResponseObject.result.playerObject == null ) {
     window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
     return;
   }
@@ -719,14 +733,28 @@ window[ appAlias ].methods.gameplay.cShowMapInInfoLayer = function( floatTrackLa
   }
 
   objLeafletMap.on( 'click', ( function( objCaller, objEvent ) {
-    const floatLat               = objEvent.latlng.lat;
-    const floatLng               = objEvent.latlng.lng;
-    const strFormatedCoordinates = `${floatLat.toFixed(6)},${floatLng.toFixed(6)}`;
-    const strMarkerId            = objCaller.id == 'startPosition' ? 'start' : 'exit';
-    const strColor               = objCaller.id == 'startPosition' ? '#00aa00' : '#00aa00';
-    const strContent             = objCaller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
+    var objPlayingFieldSize    = document.querySelector( '#playingFieldSize' );
+    var floatLat               = objEvent.latlng.lat;
+    var floatLng               = objEvent.latlng.lng;
+    var strFormatedCoordinates = `${floatLat.toFixed(6)},${floatLng.toFixed(6)}`;
+    var strMarkerId            = objCaller.id == 'startPosition' ? 'start' : 'exit';
+    var strColor               = objCaller.id == 'startPosition' ? '#00aa00' : '#00aa00';
+    var strContent             = objCaller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
+    var intSize                = objPlayingFieldSize != null && objPlayingFieldSize.value > 1 ? objPlayingFieldSize.value : 1000;
 
     objCaller.value              = strFormatedCoordinates;
+
+    if( objCaller.id == 'playingFieldCenterPosition' ) {
+      strMarkerId = 'PlayingFieldCenterPosition';
+      strColor    = '#aa0000'
+      strContent  = '';
+
+      console.log( intSize );
+
+      window[ appAlias ].tracker.geoMapsObject.setCircle( strMarkerId, floatLat, floatLng, intSize, '#ff0000', 1, '#ff0000', 0.08 );
+
+      return;
+    }
 
     window[ appAlias ].tracker.geoMapsObject.setMarker( strMarkerId, strMarkerId, strColor, floatLat, floatLng, strContent );
 

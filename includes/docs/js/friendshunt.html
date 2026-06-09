@@ -3212,6 +3212,124 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".cMapInfoLayerClose"><span class="type-signature">&lt;static> </span>cMapInfoLayerClose()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function closed the Map Info Layer on the Game Configuration Page and deleted the Click Event Listener from the GeoMaps Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cMapInfoLayerClose();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".cProccessResponseAddHunterToGame"><span class="type-signature">&lt;static> </span>cProccessResponseAddHunterToGame(objResponseObject)</h4>
     
     
@@ -4052,7 +4170,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponseObject)</h4>
     
     
 </dt>
@@ -4095,7 +4213,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -4210,7 +4328,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );</pre>
 
 
     
@@ -4220,7 +4338,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponseObject)</h4>
     
     
 </dt>
@@ -4263,7 +4381,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -4378,7 +4496,247 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponseObject );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".cShowMapInInfoLayer"><span class="type-signature">&lt;static> </span>cShowMapInInfoLayer(floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function add the Map to the Info Layer in the new Game Configuration and registered a click Event Listener to set the Start and Exit Point in the Map.This Function is the Callback Function from the Geo Tracker Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Latitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLng</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Longitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackPrecision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Precision in Meters (int)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTrackMessage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Message of the Geo Tracker Methode</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );</pre>
 
 
     
@@ -4665,6 +5023,124 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">friendshunt.listener.changePlayerPassword();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".clickOpenMapInLayer"><span class="type-signature">&lt;static> </span>clickOpenMapInLayer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function register the Event Listener for click start Position Input Field or the exit Position Input Field at Game Configuration Form.The Function opened the OpenStreetMaps Layer.The Event Listener registered at Pageload Ready.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.listener.clickOpenMapInLayer();</pre>
 
 
     
@@ -7586,7 +8062,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -7823,7 +8299,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition()</h4>
+    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition(strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer)</h4>
     
     
 </dt>
@@ -7840,6 +8316,152 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>strGameplayRole</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Gameplay Role of the Player</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTracking</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Tracking Object of the Player to set in the Map</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objResult</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Result Object from the Ajax Call</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>intPlayerCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player Number for set with no Names</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strSpeedHuntPlayer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player at run a Speed Hunt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -7931,7 +8553,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition();</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );</pre>
 
 
     
@@ -8948,7 +9570,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -12924,6 +13546,124 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".cMapInfoLayerClose"><span class="type-signature">&lt;static> </span>cMapInfoLayerClose()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function closed the Map Info Layer on the Game Configuration Page and deleted the Click Event Listener from the GeoMaps Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cMapInfoLayerClose();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".cProccessResponseAddHunterToGame"><span class="type-signature">&lt;static> </span>cProccessResponseAddHunterToGame(objResponseObject)</h4>
     
     
@@ -13764,7 +14504,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponseObject)</h4>
     
     
 </dt>
@@ -13807,7 +14547,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -13922,7 +14662,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );</pre>
 
 
     
@@ -13932,7 +14672,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponseObject)</h4>
     
     
 </dt>
@@ -13975,7 +14715,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -14090,7 +14830,247 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponseObject );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".cShowMapInInfoLayer"><span class="type-signature">&lt;static> </span>cShowMapInInfoLayer(floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function add the Map to the Info Layer in the new Game Configuration and registered a click Event Listener to set the Start and Exit Point in the Map.This Function is the Callback Function from the Geo Tracker Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Latitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLng</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Longitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackPrecision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Precision in Meters (int)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTrackMessage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Message of the Geo Tracker Methode</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );</pre>
 
 
     
@@ -14377,6 +15357,124 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">friendshunt.listener.changePlayerPassword();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".clickOpenMapInLayer"><span class="type-signature">&lt;static> </span>clickOpenMapInLayer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function register the Event Listener for click start Position Input Field or the exit Position Input Field at Game Configuration Form.The Function opened the OpenStreetMaps Layer.The Event Listener registered at Pageload Ready.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.listener.clickOpenMapInLayer();</pre>
 
 
     
@@ -17298,7 +18396,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -17535,7 +18633,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition()</h4>
+    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition(strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer)</h4>
     
     
 </dt>
@@ -17552,6 +18650,152 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>strGameplayRole</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Gameplay Role of the Player</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTracking</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Tracking Object of the Player to set in the Map</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objResult</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Result Object from the Ajax Call</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>intPlayerCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player Number for set with no Names</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strSpeedHuntPlayer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player at run a Speed Hunt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -17643,7 +18887,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition();</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );</pre>
 
 
     
@@ -18660,7 +19904,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -22636,6 +23880,124 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".cMapInfoLayerClose"><span class="type-signature">&lt;static> </span>cMapInfoLayerClose()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function closed the Map Info Layer on the Game Configuration Page and deleted the Click Event Listener from the GeoMaps Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cMapInfoLayerClose();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".cProccessResponseAddHunterToGame"><span class="type-signature">&lt;static> </span>cProccessResponseAddHunterToGame(objResponseObject)</h4>
     
     
@@ -23476,7 +24838,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponseObject)</h4>
     
     
 </dt>
@@ -23519,7 +24881,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -23634,7 +24996,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );</pre>
 
 
     
@@ -23644,7 +25006,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponseObject)</h4>
     
     
 </dt>
@@ -23687,7 +25049,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -23802,7 +25164,247 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponseObject );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".cShowMapInInfoLayer"><span class="type-signature">&lt;static> </span>cShowMapInInfoLayer(floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function add the Map to the Info Layer in the new Game Configuration and registered a click Event Listener to set the Start and Exit Point in the Map.This Function is the Callback Function from the Geo Tracker Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Latitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLng</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Longitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackPrecision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Precision in Meters (int)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTrackMessage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Message of the Geo Tracker Methode</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );</pre>
 
 
     
@@ -24089,6 +25691,124 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">friendshunt.listener.changePlayerPassword();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".clickOpenMapInLayer"><span class="type-signature">&lt;static> </span>clickOpenMapInLayer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function register the Event Listener for click start Position Input Field or the exit Position Input Field at Game Configuration Form.The Function opened the OpenStreetMaps Layer.The Event Listener registered at Pageload Ready.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.listener.clickOpenMapInLayer();</pre>
 
 
     
@@ -27010,7 +28730,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -27247,7 +28967,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition()</h4>
+    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition(strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer)</h4>
     
     
 </dt>
@@ -27264,6 +28984,152 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>strGameplayRole</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Gameplay Role of the Player</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTracking</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Tracking Object of the Player to set in the Map</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objResult</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Result Object from the Ajax Call</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>intPlayerCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player Number for set with no Names</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strSpeedHuntPlayer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player at run a Speed Hunt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -27355,7 +29221,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition();</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );</pre>
 
 
     
@@ -28372,7 +30238,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -32348,6 +34214,124 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".cMapInfoLayerClose"><span class="type-signature">&lt;static> </span>cMapInfoLayerClose()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function closed the Map Info Layer on the Game Configuration Page and deleted the Click Event Listener from the GeoMaps Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cMapInfoLayerClose();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".cProccessResponseAddHunterToGame"><span class="type-signature">&lt;static> </span>cProccessResponseAddHunterToGame(objResponseObject)</h4>
     
     
@@ -33188,7 +35172,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponseObject)</h4>
     
     
 </dt>
@@ -33231,7 +35215,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -33346,7 +35330,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );</pre>
 
 
     
@@ -33356,7 +35340,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponseObject)</h4>
     
     
 </dt>
@@ -33399,7 +35383,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -33514,7 +35498,247 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponseObject );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".cShowMapInInfoLayer"><span class="type-signature">&lt;static> </span>cShowMapInInfoLayer(floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function add the Map to the Info Layer in the new Game Configuration and registered a click Event Listener to set the Start and Exit Point in the Map.This Function is the Callback Function from the Geo Tracker Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Latitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLng</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Longitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackPrecision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Precision in Meters (int)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTrackMessage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Message of the Geo Tracker Methode</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );</pre>
 
 
     
@@ -33801,6 +36025,124 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">friendshunt.listener.changePlayerPassword();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".clickOpenMapInLayer"><span class="type-signature">&lt;static> </span>clickOpenMapInLayer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function register the Event Listener for click start Position Input Field or the exit Position Input Field at Game Configuration Form.The Function opened the OpenStreetMaps Layer.The Event Listener registered at Pageload Ready.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.listener.clickOpenMapInLayer();</pre>
 
 
     
@@ -36722,7 +39064,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -36959,7 +39301,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition()</h4>
+    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition(strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer)</h4>
     
     
 </dt>
@@ -36976,6 +39318,152 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>strGameplayRole</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Gameplay Role of the Player</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTracking</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Tracking Object of the Player to set in the Map</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objResult</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Result Object from the Ajax Call</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>intPlayerCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player Number for set with no Names</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strSpeedHuntPlayer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player at run a Speed Hunt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -37067,7 +39555,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition();</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );</pre>
 
 
     
@@ -38084,7 +40572,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -42060,6 +44548,124 @@
             
 <hr>
 <dt>
+    <h4 class="name" id=".cMapInfoLayerClose"><span class="type-signature">&lt;static> </span>cMapInfoLayerClose()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function closed the Map Info Layer on the Game Configuration Page and deleted the Click Event Listener from the GeoMaps Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cMapInfoLayerClose();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id=".cProccessResponseAddHunterToGame"><span class="type-signature">&lt;static> </span>cProccessResponseAddHunterToGame(objResponseObject)</h4>
     
     
@@ -42900,7 +45506,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponseGameArchiveList"><span class="type-signature">&lt;static> </span>cProccessResponseGameArchiveList(objResponseObject)</h4>
     
     
 </dt>
@@ -42943,7 +45549,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -43058,7 +45664,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );</pre>
 
 
     
@@ -43068,7 +45674,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponse)</h4>
+    <h4 class="name" id=".cProccessResponsePlayerList"><span class="type-signature">&lt;static> </span>cProccessResponsePlayerList(objResponseObject)</h4>
     
     
 </dt>
@@ -43111,7 +45717,7 @@
 
         <tr>
             
-                <td class="name"><code>objResponse</code></td>
+                <td class="name"><code>objResponseObject</code></td>
             
 
             <td class="type">
@@ -43226,7 +45832,247 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponse );</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cProccessResponsePlayerList( objResponseObject );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".cShowMapInInfoLayer"><span class="type-signature">&lt;static> </span>cShowMapInInfoLayer(floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function add the Map to the Info Layer in the new Game Configuration and registered a click Event Listener to set the Start and Exit Point in the Map.This Function is the Callback Function from the Geo Tracker Object.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Latitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackLng</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Longitude Coordinate (float)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>floatTrackPrecision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Precision in Meters (int)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTrackMessage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Message of the Geo Tracker Methode</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );</pre>
 
 
     
@@ -43513,6 +46359,124 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">friendshunt.listener.changePlayerPassword();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".clickOpenMapInLayer"><span class="type-signature">&lt;static> </span>clickOpenMapInLayer()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Function register the Event Listener for click start Position Input Field or the exit Position Input Field at Game Configuration Form.The Function opened the OpenStreetMaps Layer.The Event Listener registered at Pageload Ready.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
+	<dd class="tag-version">
+		<ul class="dummy">
+			<li>0.1.0</li>
+		</ul>
+	</dd>
+	
+
+	
+	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
+	<dd class="tag-since">
+		<ul class="dummy">
+			<li>2026-06-06</li>
+		</ul>
+	</dd>
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">friendshunt.listener.clickOpenMapInLayer();</pre>
 
 
     
@@ -46434,7 +49398,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -46671,7 +49635,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition()</h4>
+    <h4 class="name" id=".setPosition"><span class="type-signature">&lt;static> </span>setPosition(strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer)</h4>
     
     
 </dt>
@@ -46688,6 +49652,152 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>strGameplayRole</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Gameplay Role of the Player</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objTracking</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Tracking Object of the Player to set in the Map</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>objResult</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Result Object from the Ajax Call</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>intPlayerCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player Number for set with no Names</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>strSpeedHuntPlayer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Player at run a Speed Hunt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -46779,7 +49889,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition();</pre>
+    <pre class="sunlight-highlight-javascript">friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );</pre>
 
 
     
@@ -47796,7 +50906,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -48669,7 +51779,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-08T16:22:17+02:00
+		on 2026-06-09T18:30:04+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

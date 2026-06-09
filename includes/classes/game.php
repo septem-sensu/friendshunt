@@ -44,6 +44,8 @@ class Game extends BaseObject {
   protected string $showPlayer;
   protected int    $trackInterval;
   protected string $showNames;
+  protected string $playingFieldCenterPosition;
+  protected int    $playingFieldSize;
 
 /**
  * This static Method set a uploaded Game Image to the Game Object.
@@ -254,32 +256,35 @@ class Game extends BaseObject {
  *
 */
   public static function saveNewGame( object $objRequestObject ) : object {
-    $strGameId                      = uniqid( 'game_', true );
-    $objGame                        = new Game( $strGameId );
-    $arrPlayer                      = $objRequestObject->player;
-    $arrHunter                      = $objRequestObject->hunter;
-    $arrManagement                  = $objRequestObject->management;
+    $strGameId                                = uniqid( 'game_', true );
+    $objGame                                  = new Game( $strGameId );
+    $arrPlayer                                = $objRequestObject->player;
+    $arrHunter                                = $objRequestObject->hunter;
+    $arrManagement                            = $objRequestObject->management;
 
-    $objRequestObject->redirect     = 'index.php?view=player';
-    $strGameplayPath                = __DIR__ . '/../files/game/' . $strGameId . '/';
-    $objGameplay                    = new StdClass();
-    $objGameplay->player            = [];
-    $objGameplay->hunter            = [];
-    $objGameplay->management        = [];
-    $objGameplay->name              = $objRequestObject->name;
-    $objGameplay->title             = $objRequestObject->title;
-    $objGameplay->description       = $objRequestObject->description;
-    $objGameplay->start             = $objRequestObject->start;
-    $objGameplay->duration          = $objRequestObject->duration;
-    $objGameplay->pingInterval      = $objRequestObject->pingInterval;
-    $objGameplay->speedPingInterval = $objRequestObject->speedPingInterval;
-    $objGameplay->speedPingCount    = $objRequestObject->speedPingCount;
-    $objGameplay->startPosition     = $objRequestObject->startPosition;
-    $objGameplay->exitPosition      = $objRequestObject->exitPosition;
-    $objGameplay->showPlayer        = $objRequestObject->showPlayer;
-    $objGameplay->showNames         = $objRequestObject->showNames;
-    $objGameplay->trackInterval     = $objRequestObject->trackInterval;
-    $objGameplay->creationDate      = date( "Y-m-d H:i:s" );
+    $objRequestObject->redirect               = 'index.php?view=player';
+    $strGameplayPath                          = __DIR__ . '/../files/game/' . $strGameId . '/';
+    $objGameplay                              = new StdClass();
+    $objGameplay->player                      = [];
+    $objGameplay->hunter                      = [];
+    $objGameplay->management                  = [];
+    $objGameplay->name                        = $objRequestObject->name;
+    $objGameplay->title                       = $objRequestObject->title;
+    $objGameplay->description                 = $objRequestObject->description;
+    $objGameplay->start                       = $objRequestObject->start;
+    $objGameplay->duration                    = $objRequestObject->duration;
+    $objGameplay->pingInterval                = $objRequestObject->pingInterval;
+    $objGameplay->speedPingInterval           = $objRequestObject->speedPingInterval;
+    $objGameplay->speedPingCount              = $objRequestObject->speedPingCount;
+    $objGameplay->startPosition               = $objRequestObject->startPosition;
+    $objGameplay->exitPosition                = $objRequestObject->exitPosition;
+    $objGameplay->showPlayer                  = $objRequestObject->showPlayer;
+    $objGameplay->showNames                   = $objRequestObject->showNames;
+    $objGameplay->trackInterval               = $objRequestObject->trackInterval;
+    $objGameplay->playingFieldCenterPosition  = $objRequestObject->playingFieldCenterPosition;
+    $objGameplay->playingFieldSize            = $objRequestObject->playingFieldSize;
+
+    $objGameplay->creationDate                = date( "Y-m-d H:i:s" );
 
     for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
       $objPlayer           = new Player( $arrPlayer[ $i ] );
