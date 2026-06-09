@@ -15,6 +15,7 @@
 */
 window[ appAlias ]            = window[ appAlias ] || {};
 window[ appAlias ].listener   = window[ appAlias ].listener || {};
+window[ appAlias ].tracker    = window[ appAlias ].tracker || {};
 
 /**
  * This Function register the Event Listener for the Login Buttons at the Login Page and process the Functions by Click Event.
@@ -718,7 +719,44 @@ window[ appAlias ].listener.deleteGameplayImageButton = function() {
   return;
 }
 
+/**
+ * This Function register the Event Listener for click start Position Input Field or the exit Position Input Field at Game Configuration Form.
+ * The Function opened the OpenStreetMaps Layer.
+ * The Event Listener registered at Pageload Ready.
+ *
+ * @function
+ * @public
+ * @name       clickOpenMapInLayer
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.clickOpenMapInLayer();
+ *
+*/
+window[ appAlias ].listener.clickOpenMapInLayer = function() {
+  arrMapInfoLayer = document.querySelectorAll('.event-open-map-layer');
 
+  for( var i = 0; i < arrMapInfoLayer.length; i++ ) {
+    arrMapInfoLayer[ i ].addEventListener( 'click', function() {
+      var objMapLayer = document.querySelector( '#info-layer-map' )
+
+      objMapLayer.classList.remove( 'hidden' );
+
+      objMapLayer.style.height = ( window.innerHeight - 20 ) + 'px';
+
+      window[ appAlias ].tracker.geoTrackerObject = new GeoTracker();
+
+      window[ appAlias ].tracker.geoTrackerObject.getCurrentPosition( 'cShowMapInInfoLayer' );
+      window[ appAlias ].tracker.geoTrackerObject.set( 'caller', this );
+
+      return;
+    } );
+  }
+
+  return;
+}
 
 
 
@@ -743,6 +781,7 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.enterKey();
   window[ appAlias ].listener.setupButton();
   window[ appAlias ].listener.deleteGameplayImageButton();
+  window[ appAlias ].listener.clickOpenMapInLayer();
 
   return;
 } );

@@ -1,6 +1,8 @@
 <script>
   window[ appAlias ].fields = {{Game::fields}};
 </script>
+<script src="includes/libs/leaflet/leaflet.js"></script>
+<script src="includes/js/geoMaps.js"></script>
 
 <form>
   <input type="hidden" name="resetForm" value="1" />
@@ -58,11 +60,11 @@
     <label class="minw-200" for="speedPingInterval">Speed Hunt Intervall*</label>
     <input class="mb-10 mt-5 w-350" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" />
     <label class="minw-200" for="speedPingCount">Anzahl Speed Hunt Pings*</label>
-    <input class="mb-10 mt-5 w-350" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::speedPingCount}}" />
+    <input class="mb-10 mt-5 w-350" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Pings Anzahl" value="{{Game::speedPingCount}}" />
     <label class="minw-200" for="startPosition">Start Position*</label>
-    <input class="mb-10 mt-5 w-350 align-right" type="text" name="startPosition" id="startPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::startPosition}}" />
+    <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" type="text" name="startPosition" id="startPosition" placeholder="Klick für Start Position" value="{{Game::startPosition}}" />
     <label class="minw-200" for="exitPosition">Exit Position*</plabel>
-    <input class="mb-10 mt-5 w-350 align-right" type="text" name="exitPosition" id="exitPosition" placeholder="Eingabe Speed Hunt Anzahl" value="{{Game::exitPosition}}" />
+    <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" type="text" name="exitPosition" id="exitPosition" placeholder="Klick für Exit Position" value="{{Game::exitPosition}}" />
     <label class="minw-200" for="showPlayer">Andere Spiele anzeigen*</label>
     <select class="mb-10 mt-5 w-375 align-right" name="showPlayer" id="showPlayer">
       <option value="{{Game::showPlayer}}">{{Translate::Game::showPlayer}}</option>
@@ -83,3 +85,14 @@
     <button type="button" disabled="disabled" id="event-save-new-game" class="submit primary event-save-new-game w-140">Spiel speichern</button>
   </div>
 </form>
+
+<div id="info-layer-map" class="hidden">
+  <div id="info-layer-map-close-button" class="pointer bold" onclick="javascript: window[ appAlias ].methods.gameplay.cMapInfoLayerClose();">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="15" y1="9" x2="9" y2="15" />
+      <line x1="9" y1="9" x2="15" y2="15" />
+    </svg>
+  </div>
+  <div id="map"></div>
+</div>

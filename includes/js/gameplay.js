@@ -57,15 +57,29 @@ window[ appAlias ].methods.gameplay.init = function() {
  * @param      {number}   lat         The Latitude Coordinate (float)
  * @param      {number}   lng         The Longitude Coordinate (float)
  * @param      {number}   precision   The Precision in Meters (int)
- * @param      {string}   message     The Message of the Geo Tracker Methode
+ * @param      {object}   message     The Message of the Geo Tracker Methode
  * @return     {void}
  * @example    friendshunt.methods.gameplay.setMap( lat, lng, precision, message );
  *
 */
 window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, message ) {
+  var strSpielstart     = window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start );
+  var intSpielstart     = window[ appAlias ].gameSettings.start;
+  var strContentStart   = '<p class="bold">Startposition des Spiels</p>';
+  var strContentExit    = '<p class="bold">Exitpunkt des Spiels</p>';
+  var arrStartPosition  = window[ appAlias ].gameSettings.startPosition.split( ',' );
+  var arrExitPosition   = window[ appAlias ].gameSettings.exitPosition.split( ',' );
+
+  strContentStart      += '<p>Spielstart: ' + window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start ) + '</p>';
+  strContentStart      += '<p>Spielende: ' + window[ appAlias ].gameSettings.end + '</p>';
+  strContentExit       += '<p>Spielstart: ' + window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start ) + '</p>';
+  strContentExit       += '<p>Spielende: ' + window[ appAlias ].gameSettings.end + '</p>';
+
   window[ appAlias ].tracker.geoMapsObject = new GeoMaps();
 
   window[ appAlias ].tracker.geoMapsObject.setMap( lat, lng, 'map' );
+  window[ appAlias ].tracker.geoMapsObject.setMarker( 'start', 'start', '#00aa00', arrStartPosition[ 0 ], arrStartPosition[ 1 ], strContentStart );
+  window[ appAlias ].tracker.geoMapsObject.setMarker( 'exit', 'exit', '#00aa00', arrExitPosition[ 0 ], arrExitPosition[ 1 ], strContentExit );
   window[ appAlias ].methods.gameplay.track( lat, lng, precision, message );
 
   return;
@@ -84,7 +98,7 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
  * @param      {number}   lat         The Latitude Coordinate (float)
  * @param      {number}   lng         The Longitude Coordinate (float)
  * @param      {number}   precision   The Precision in Meters (int)
- * @param      {string}   message     The Message of the Geo Tracker Methode
+ * @param      {object}   message     The Message of the Geo Tracker Methode
  * @return     {void}
  * @example    friendshunt.methods.gameplay.track( lat, lng, precision, message );
  *
@@ -208,8 +222,13 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ * @param      {string}   strGameplayRole      The Gameplay Role of the Player
+ * @param      {object}   objTracking          The Tracking Object of the Player to set in the Map
+ * @param      {object}   objResult            The Result Object from the Ajax Call
+ * @param      {number}   intPlayerCount       The Player Number for set with no Names
+ * @param      {string}   strSpeedHuntPlayer   The Player at run a Speed Hunt
  * @return     {void}
- * @example    friendshunt.methods.gameplay.setPosition();
+ * @example    friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );
  *
 */
 window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer ) {
@@ -480,7 +499,6 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
 
   return;
 }
-
 
 
 

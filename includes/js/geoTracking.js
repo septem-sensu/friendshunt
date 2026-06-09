@@ -36,6 +36,7 @@ class GeoTracker {
     this.lastPulse     = 0;
     this.wakeLock      = null;
     this.debug         = true;
+    this.caller        = null;
 
     return;
   }

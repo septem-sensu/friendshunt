@@ -455,9 +455,10 @@ class Game extends BaseObject {
     $strGameId   = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : null;
 
     if( isset( $strGameId ) ) {
-      $objPlayer        = new Player( $strPlayerId );
-      $objGameplay      = new Gameplay( $strGameId, $objPlayer );
-      $objGameSettings  = $objGameplay->getGameSettings();
+      $objPlayer            = new Player( $strPlayerId );
+      $objGameplay          = new Gameplay( $strGameId, $objPlayer );
+      $objGameSettings      = $objGameplay->getGameSettings();
+      $objGameSettings->end = Presentation::timestampToString( Presentation::stringToTimestamp( $objGameSettings->start ) + ( $objGameSettings->duration * 60 * 60 ) );
 
       $objController->getPresentationObject()->assignTemplateVar( 'gameSettings', 'Gameplay', null, json_encode( $objGameSettings ) );;
     }

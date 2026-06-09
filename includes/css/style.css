@@ -83,6 +83,43 @@ a {
     width: 250px !important;
   }
 
+  body #info-layer-map {
+    width: 400px;
+  }
+
+}
+
+#info-layer-map {
+  position: fixed;
+  top: 0px;
+  background-color: var(--backgroundColorContent);;
+  width: 600px;
+  height: 200px;
+  padding:10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  overflow:hidden;
+}
+
+#info-layer-map #map {
+    border-radius: 8px;
+    height: 100%;
+}
+
+#info-layer-map-close-button {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  z-index: 3000;
+  color: #000000;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.icon-svg-lens {
+  display: inline-block;
+  position: relative;
+  top: 5px;
 }
 
 .content-container {

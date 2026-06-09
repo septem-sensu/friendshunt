@@ -13,11 +13,12 @@
  * @copyright     2026 Markus Götz <info@septem-sensu.de>
  *
 */
-window[ appAlias ]            = window[ appAlias ] || {};
-window[ appAlias ].methods    = window[ appAlias ].methods || {};
-window[ appAlias ].listener   = window[ appAlias ].listener || {};
-window[ appAlias ].responses  = window[ appAlias ].responses || [];
-window[ appAlias ].formErrors = window[ appAlias ].formErrors || [];
+window[ appAlias ]                  = window[ appAlias ] || {};
+window[ appAlias ].methods          = window[ appAlias ].methods || {};
+window[ appAlias ].listener         = window[ appAlias ].listener || {};
+window[ appAlias ].responses        = window[ appAlias ].responses || [];
+window[ appAlias ].formErrors       = window[ appAlias ].formErrors || [];
+window[ appAlias ].methods.gameplay = window[ appAlias ].methods.gameplay || {};
 
 /**
  * This Function obtains permission to use the motion sensor on iOS devices.
@@ -526,9 +527,9 @@ window[ appAlias ].methods.cGetPlayerList = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
- * @param      {object}   objResponse    The Response Object after the Ajax Request is done
+ * @param      {object}   objResponseObject    The Response Object after the Ajax Request is done
  * @return     {void}
- * @example    friendshunt.methods.cProccessResponsePlayerList( objResponse );
+ * @example    friendshunt.methods.cProccessResponsePlayerList( objResponseObject );
  *
 */
 window[ appAlias ].methods.cProccessResponsePlayerList = function( objResponseObject ) {
@@ -610,9 +611,9 @@ window[ appAlias ].methods.cGetGameArchiveList = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
- * @param      {object}   objResponse    The Response Object after the Ajax Request is done
+ * @param      {object}   objResponseObject    The Response Object after the Ajax Request is done
  * @return     {void}
- * @example    friendshunt.methods.cProccessResponseGameArchiveList( objResponse );
+ * @example    friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );
  *
 */
 window[ appAlias ].methods.cProccessResponseGameArchiveList = function( objResponseObject ) {
@@ -687,8 +688,74 @@ window[ appAlias ].methods.cDeleteArchiveGame = function( objElement ) {
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 }
 
+/**
+ * This Function add the Map to the Info Layer in the new Game Configuration and registered a click Event Listener to set the Start and Exit Point in the Map.
+ * This Function is the Callback Function from the Geo Tracker Object.
+ *
+ * @function
+ * @public
+ * @name       cShowMapInInfoLayer
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {number}   floatTrackLat         The Latitude Coordinate (float)
+ * @param      {number}   floatTrackLng         The Longitude Coordinate (float)
+ * @param      {number}   floatTrackPrecision   The Precision in Meters (int)
+ * @param      {object}   objTrackMessage       The Message of the Geo Tracker Methode
+ * @return     {void}
+ * @example    friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );
+ *
+*/
+window[ appAlias ].methods.gameplay.cShowMapInInfoLayer = function( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage ) {
+  var objLeafletMap = null;
+  var objCaller     = window[ appAlias ].tracker.geoTrackerObject.get( 'caller' );
 
+  if( window[ appAlias ].tracker.geoMapsObject ) {
+    objLeafletMap = window[ appAlias ].tracker.geoMapsObject.get( 'map' );
+  } else {
+    window[ appAlias ].tracker.geoMapsObject = new GeoMaps();
+    objLeafletMap = window[ appAlias ].tracker.geoMapsObject.setMap( floatTrackLat, floatTrackLng, 'map' );
+  }
 
+  objLeafletMap.on( 'click', ( function( objCaller, objEvent ) {
+    const floatLat               = objEvent.latlng.lat;
+    const floatLng               = objEvent.latlng.lng;
+    const strFormatedCoordinates = `${floatLat.toFixed(6)},${floatLng.toFixed(6)}`;
+    const strMarkerId            = objCaller.id == 'startPosition' ? 'start' : 'exit';
+    const strColor               = objCaller.id == 'startPosition' ? '#00aa00' : '#00aa00';
+    const strContent             = objCaller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
+
+    objCaller.value              = strFormatedCoordinates;
+
+    window[ appAlias ].tracker.geoMapsObject.setMarker( strMarkerId, strMarkerId, strColor, floatLat, floatLng, strContent );
+
+    return;
+  } ).bind( this, objCaller ) );
+
+  return;
+};
+
+/**
+ * This Function closed the Map Info Layer on the Game Configuration Page and deleted the Click Event Listener from the GeoMaps Object.
+ *
+ * @function
+ * @public
+ * @name       cMapInfoLayerClose
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cMapInfoLayerClose();
+ *
+*/
+window[ appAlias ].methods.gameplay.cMapInfoLayerClose = function() {
+  window[ appAlias ].tracker.geoMapsObject.get( 'map' ).off('click');
+  document.querySelector( '#info-layer-map' ).classList.add( 'hidden' );
+
+  return;
+};
 
 
 

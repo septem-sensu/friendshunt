@@ -67,11 +67,11 @@ class GeoMaps {
  * This Method set the Map in the Page.
  *
  * @public
- * @param     {number}  lat   The current Latidude
- * @param     {number}  lng   The current Langidude
- * @return    {void}
+ * @param     {number}  lat         The current Latidude
+ * @param     {number}  lng         The current Langidude
+ * @return    {object}  objMap      The Leaflet Map Object
  *
- * @example   objGeoMaps.setMap( lat, lng );
+ * @example   var objMap = objGeoMaps.setMap( lat, lng );
  *
  */
   setMap( lat, lng ) {
@@ -82,7 +82,7 @@ class GeoMaps {
       attribution: '© OpenStreetMap'
     } ).addTo( this.map );
 
-    return;
+    return this.map;
   }
 
 /**
@@ -151,6 +151,29 @@ class GeoMaps {
           <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <polygon points="12 11 13.5 14.5 17 14.5 14 16.5 15.5 20 12 18 8.5 20 10 16.5 7 14.5 10.5 14.5" fill="${color}"/>
+          </svg>`;
+        break;
+
+      case 'start': // Start-Flagge / Dropzone
+        svgContent = `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Äußerer taktischer Ring
+              <circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/> -->
+              <!-- Die Flagge -->
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="${color}" fill-opacity="0.2"/>
+              <line x1="4" y1="22" x2="4" y2="15"/>
+          </svg>`;
+        break;
+
+      case 'exit': // Exit-Zone / Extraction Point
+        svgContent = `
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Äußerer Sicherheitsring
+              <circle cx="12" cy="12" r="10"/> -->
+              <!-- Das rettende Tor mit Pfeil nach draußen -->
+              <path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/>
+              <polyline points="14 17 19 12 14 7"/>
+              <line x1="19" y1="12" x2="8" y2="12"/>
           </svg>`;
         break;
 
