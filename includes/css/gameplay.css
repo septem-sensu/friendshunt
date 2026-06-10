@@ -8,6 +8,20 @@
   }
 }
 
+body, html {
+    /* Zwingt das Layout, sich an den sicheren Display-Rändern auszurichten */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+
+    /* Verhindert, dass Text beim Drehen des Handys unkontrolliert mitskaliert */
+    -webkit-text-size-adjust: 100%;
+
+    /* Verhindert den bläulichen Klick-Schatten, den Safari standardmäßig auf Buttons legt */
+    -webkit-tap-highlight-color: transparent;
+}
+
 @media screen and (max-width: 650px) {
   body .icon-game-camera {
     left: 222px;
@@ -57,6 +71,10 @@
   body #game-images-content-container img {
     margin-left: 5px;
     margin-right: 5px;
+  }
+
+  body #game-system-message-container {
+    width: 360px;
   }
 
 }
@@ -315,3 +333,48 @@
   margin-right: 0px !important;
 }
 
+#game-system-message-container {
+  position: fixed;
+  top: 58px;
+  background-color: var(--backgroundColorContent);
+  width: 560px;
+  height: 200px;
+  padding: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  overflow: hidden;
+  z-index: 3000;
+  margin-left: 11px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#game-system-message-container .game-system-message {
+  background-color: var(--backgroundColorContentContainer);
+  text-align: left;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.game-info-small {
+  font-size: 14px;
+}
+
+#game-system-message-container input[type="checkbox"] {
+  position: relative;
+  top: 1px;
+  margin-right: 7px;
+}
+
+#game-system-messages {
+  height: calc(100% - 32px);
+  overflow: hidden;
+}
+
+#game-system-messages-ok-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+}

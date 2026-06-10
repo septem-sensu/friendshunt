@@ -107,6 +107,7 @@ class Gameplay {
   +currentPlayerTracking
   +gameSettings
   +messages
+  +gameplayRoles
   +__construct()
   +init()
   +addTracking()
@@ -118,6 +119,7 @@ class Gameplay {
   +saveGameplay()
   +saveMessages()
   +silentHunt()
+  +checkRules()
   +getGameplayState()
   +getGameplaySpeedHunt()
   +speedHunt()

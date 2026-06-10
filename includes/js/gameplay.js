@@ -14,11 +14,13 @@
  * @copyright     2026 Markus Götz <info@septem-sensu.de>
  *
 */
-window[ appAlias ].methods.gameplay  = window[ appAlias ].methods.gameplay || {};
-window[ appAlias ].listener.gameplay = window[ appAlias ].listener.gameplay || {};
-window[ appAlias ].tracker           = window[ appAlias ].tracker || {};
-window[ appAlias ].gameplayState     = window[ appAlias ].gameplayState || {};
-window[ appAlias ].stepCount         = window[ appAlias ].stepCount || 0;
+window[ appAlias ].methods.gameplay       = window[ appAlias ].methods.gameplay || {};
+window[ appAlias ].listener.gameplay      = window[ appAlias ].listener.gameplay || {};
+window[ appAlias ].tracker                = window[ appAlias ].tracker || {};
+window[ appAlias ].gameplayState          = window[ appAlias ].gameplayState || {};
+window[ appAlias ].systemMessagesDontShow = window[ appAlias ].systemMessagesDontShow || {};
+window[ appAlias ].stepCount              = window[ appAlias ].stepCount || 0;
+window[ appAlias ].outOfPlayingField      = window[ appAlias ].outOfPlayingField || false;
 
 /**
  * This Function init the Gameplay, starts the Game Player Tracking, the Step Counter and used the Wake Lock API.
@@ -113,15 +115,16 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
 
   window[ appAlias ].stepCount = window[ appAlias ].stepCount + intStepCount;
 
-  objPost.gameplayMethode = 'track';
-  objPost.callback        = 'setPositions';
-  objPost.playerId        = window[ appAlias ].playerId;
-  objPost.lat             = lat;
-  objPost.lng             = lng;
-  objPost.precision       = precision;
-  objPost.message         = message;
-  objPost.steps           = intStepCount;
-  objPost.timestamp       = new Date().getTime();
+  objPost.gameplayMethode      = 'track';
+  objPost.callback             = 'setPositions';
+  objPost.playerId             = window[ appAlias ].playerId;
+  objPost.lat                  = lat;
+  objPost.lng                  = lng;
+  objPost.precision            = precision;
+  objPost.message              = message;
+  objPost.steps                = intStepCount;
+  objPost.outOfPlayingField    = window[ appAlias ].outOfPlayingField;
+  objPost.timestamp            = new Date().getTime();
 
   window[ appAlias ].tracker.geoTrackerObject.set( 'stepCount', 0 );
 
@@ -172,6 +175,95 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
 
   window[ appAlias ].methods.gameplay.setStateLine();
   window[ appAlias ].methods.gameplay.setMessages();
+  window[ appAlias ].methods.gameplay.checkRules();
+  window[ appAlias ].methods.gameplay.checkSystemMessages();
+
+  return;
+};
+
+window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
+  var objGameSettings             = window[ appAlias ].gameSettings;
+  var arrSystemMessages           = window[ appAlias ].gameplayState.systemMessages;
+  var objSystemMessagesDontShow   = window[ appAlias ].systemMessagesDontShow;
+  var boolShowLayer               = false;
+  var objSystemMessageLayer       = document.querySelector( '#game-system-message-container' );
+  var objSystemMessages           = document.querySelector( '#game-system-messages' );
+
+  objSystemMessages.innerHTML     = '';
+
+  for( var i = 0; i < arrSystemMessages.length; i++ ) {
+    if( ! arrSystemMessages[ i ].for.includes( window[ appAlias ].gameplayRole ) ) continue;
+    if( objSystemMessagesDontShow[ arrSystemMessages[ i ].id ] ) continue;
+
+    var objNewSystemMessage       = document.createElement( 'div' );
+    var strMessage                = '';
+    var strApplies                = '';
+    var strCssClass               = typeof arrSystemMessages[ i ].cssClass == 'string' ? ' class="' + arrSystemMessages[ i ].cssClass + '"' : '';
+
+    if( typeof arrSystemMessages[ i ].applies == 'string' && arrSystemMessages[ i ].applies != '' ) {
+      if( window[ appAlias ].gameplayRole == 'hunter' && objGameSettings.showNames != '1' && arrSystemMessages[ i ].$objSystemMessage.appliesRole == 'player' ) {
+        strApplies = '<p' + strCssClass + '>Betrifft: Spieler ' + arrSystemMessages[ i ].appliesCount + '</p>';
+      } else {
+        strApplies = '<p' + strCssClass + '>Betrifft: ' + arrSystemMessages[ i ].appliesName + '</p>';
+      }
+    }
+
+    strMessage                   += arrSystemMessages[ i ].message;
+    strMessage                   += strApplies;
+    strMessage                   += '<input type="checkbox" name="dontShow" value="' + arrSystemMessages[ i ].id + '" /><span class="game-info-small">Nicht mehr anzeigen</span>';
+
+    objNewSystemMessage.innerHTML = strMessage;
+    boolShowLayer                 = true;
+
+    objNewSystemMessage.classList.add( 'game-system-message' );
+    objSystemMessages.append( objNewSystemMessage );
+  }
+
+  if( ! boolShowLayer ) return;
+
+  objSystemMessageLayer.classList.remove( 'hidden' );
+  objSystemMessageLayer.style.height = ( window.innerHeight - 137 ) + 'px';
+
+  objSystemMessages.scrollTo( { 'top': objSystemMessages.scrollHeight, 'behavior': 'smooth' } );
+
+  return;
+};
+
+window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
+  var arrDontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
+
+  for( var i = 0; i < arrDontShowMessages.length; ++i ) {
+    if( ! arrDontShowMessages[ i ].checked ) continue;
+    window[ appAlias ].systemMessagesDontShow[ arrDontShowMessages[ i ].value ] = true;
+  }
+
+  document.querySelector( '#game-system-message-container' ).classList.add( 'hidden' );
+
+  return;
+}
+
+/**
+ * This Function checks the Game Rules and set the window Variable of the Game.
+ *
+ * @function
+ * @public
+ * @name       checkRules
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.checkRules();
+ *
+*/
+window[ appAlias ].methods.gameplay.checkRules = function() {
+  var floatPlayerDistance = window[ appAlias ].tracker.geoMapsObject.getDistance( 'playingFieldCenterPosition', window[ appAlias ].playerId );
+
+  if( floatPlayerDistance > parseInt( window[ appAlias ].gameSettings.playingFieldSize ) + 50 ) {
+    window[ appAlias ].outOfPlayingField = true;
+  } else {
+    window[ appAlias ].outOfPlayingField = false;
+  }
 
   return;
 };
@@ -306,9 +398,6 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   strMarkerContent   += '<p>Genauigkeit: ' + objLastPosition.precision + ' Meter</p>';
 
   window[ appAlias ].tracker.geoMapsObject.setMarker( objTracking.id, strGameplayRole, arrColors[ intPlayerCount ], objLastPosition.lat, objLastPosition.lng, strMarkerContent );
-
-  console.log( window[ appAlias ].tracker.geoMapsObject.getDistance( 'playingFieldCenterPosition', window[ appAlias ].playerId ) + ' Meter :-)');
-  console.log( window[ appAlias ].tracker.geoMapsObject.getPosition( 'playingFieldCenterPosition' ) );
 
   return;
 };

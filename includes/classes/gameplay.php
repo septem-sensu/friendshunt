@@ -32,6 +32,7 @@ class Gameplay extends Game {
   protected object $currentPlayerTracking;
   protected object $gameSettings;
   protected object $messages;
+  protected object $gameplayRoles;
 
 /**
  * This Method is the Constructor for this Class
@@ -100,9 +101,13 @@ class Gameplay extends Game {
       $this->saveFileEncrypted( $this->gameplayPath . 'messages.json', $objMessages );
     }
 
-    $this->messages              = $this->loadFileDeCrypted( $this->gameplayPath . 'messages.json' );
-    $this->currentPlayerTracking = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json' );
-    $this->gameSettings          = $this->getGameSettings();
+    $this->messages                   = $this->loadFileDeCrypted( $this->gameplayPath . 'messages.json' );
+    $this->currentPlayerTracking      = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json' );
+    $this->gameSettings               = $this->getGameSettings();
+    $this->gameplayRoles              = new stdClass();
+    $this->gameplayRoles->player      = 'Spieler';
+    $this->gameplayRoles->hunter      = 'Jäger';
+    $this->gameplayRoles->management  = 'Spielleitung';
 
     return;
   }
@@ -113,22 +118,24 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
- * @param      float   $floatLat        The Tracking coordinates
- * @param      float   $floatLng        The Tracking coordinates
- * @param      int     $intPrecision    The Precision of the Tracking coordinates
- * @param      int     $intSteps        The count of Steps that have been run since the last Tracking
+ * @param      float   $floatLat               The Tracking coordinates
+ * @param      float   $floatLng               The Tracking coordinates
+ * @param      int     $intPrecision           The Precision of the Tracking coordinates
+ * @param      int     $intSteps               The count of Steps that have been run since the last Tracking
+ * @param      bool    $boolOutOfPlayingField  The count of Steps that have been run since the last Tracking
  * @return     void
- * @example    $this->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps );
- * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps );
+ * @example    $this->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField );
+ * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField );
  *
 */
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps ) : void {
-    $objTracking            = new stdClass();
-    $objTracking->lat       = $floatLat;
-    $objTracking->lng       = $floatLng;
-    $objTracking->precision = $intPrecision;
-    $objTracking->steps     = $intSteps;
-    $objTracking->timestamp = time();
+  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField ) : void {
+    $objTracking                     = new stdClass();
+    $objTracking->lat                = $floatLat;
+    $objTracking->lng                = $floatLng;
+    $objTracking->precision          = $intPrecision;
+    $objTracking->steps              = $intSteps;
+    $objTracking->outOfPlayingField  = $boolOutOfPlayingField;
+    $objTracking->timestamp          = time();
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
 
@@ -305,7 +312,7 @@ class Gameplay extends Game {
     $objPositions->timestamp = time();
     $objTracking             = file_exists( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) ? $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) : new stdClass();
     $arrTracking             = isset( $objTracking->tracking ) ? array_slice( $objTracking->tracking, -$intCount ) : [];
-    $objPositions->position  = $arrTracking ;
+    $objPositions->position  = $arrTracking;
 
     return $objPositions;
   }
@@ -380,8 +387,6 @@ class Gameplay extends Game {
     }
 
     if( $this->gameplayObject->silentHunt->nextTimestamp > $intNowTimestamp ) {
-      Presentation::logToFile( strval( $this->gameplayObject->silentHunt->nextTimestamp ) . ' - ' . strval( $intNowTimestamp ), true, 'test.log');
-
       if( $this->gameplayObject->silentHunt->nextTimestamp > $intEndTimestamp ) {
         $objState->nextSilentHunt        = '';
         $objState->nextSilentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr.';
@@ -404,6 +409,58 @@ class Gameplay extends Game {
       $objState->nextSilentHuntMessage                 = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . ' Uhr.';
 
       $this->saveGameplay();
+    }
+
+    return $objState;
+  }
+
+/**
+ * This Method checks the Rules and set a System Message by violation of the rules.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objState    Gameplay State Object for the Response
+ * @return     object     $objState    Gameplay State Object for the Response
+ * @example    $objState = $this->checkRules( $objState );
+ * @example    $objState = $objGameplay->checkRules( $objState );
+ *
+*/
+  public function checkRules( object $objState ) : object {
+    $objState->systemMessages = [];
+
+    foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
+      $arrObjects    = $this->gameplayObject->$strGameplayRole;
+
+      for( $i = 0; $i < count( $arrObjects ); $i++ ) {
+        $strPlayerId        = $arrObjects[ $i ]->id;
+        $objPlayer          = new Player( $strPlayerId );
+        $objPosition        = $this->getPlayerPosition( $objPlayer, 1 );
+
+        if( count( $objPosition->position ) < 1 ) continue;
+        if( ! $objPosition->position[ 0 ]->outOfPlayingField ) continue;
+
+        $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objPosition;
+
+        $objSystemMessage                   = new stdClass();
+        $objSystemMessage->for              = [ 'player', 'hunter', 'management' ];
+        $objSystemMessage->message          = '<p class="game-info-small">(' . Presentation::timestampToString( $objPosition->position[ 0 ]->timestamp ) . ')</p>';
+        $objSystemMessage->message         .= '<p class="danger-text bold">REGELVERSTOSS</p>';
+        $objSystemMessage->message         .= '<p class="danger-text">Ein ' . $strGameplayRoleName .' hat das Spielfeld verlassen.</p>';
+        $objSystemMessage->message         .= $strGameplayRole == 'player' ? '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>' : '<p class="danger-text">' . $objPlayer->get( 'name' ) . ' muss ein Bier ausgeben.<p>';
+        $objSystemMessage->applies          = $strPlayerId;
+        $objSystemMessage->appliesName      = $objPlayer->get( 'name' );
+        $objSystemMessage->appliesRole      = $strGameplayRole;
+        $objSystemMessage->appliesRoleName  = $strGameplayRoleName;
+        $objSystemMessage->cssClass         = 'danger-text';
+        $objSystemMessage->appliesCount     = $i + 1;
+        $objSystemMessage->id               = 'outOfPlayingField_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
+        $objSystemMessage->timestamp        = $objPosition->position[ 0 ]->timestamp;
+
+        array_push( $objState->systemMessages, $objSystemMessage );
+
+        $this->saveGameplay();
+      }
     }
 
     return $objState;
@@ -557,12 +614,13 @@ class Gameplay extends Game {
  *
 */
   public function track( object $objRequestObject ) : object {
-    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ) );
+    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ), $objRequestObject->outOfPlayingField );
 
     $objState                    = new stdClass();
     $objState                    = $this->getGameplayState( $objState );
     $objState                    = $this->silentHunt( $objState );
     $objState                    = $this->getGameplaySpeedHunt( $objState );
+    $objState                    = $this->checkRules( $objState );
 
     $objRequestObject->positions = $this->getAllPlayerPositions();
     $objRequestObject->state     = $objState;

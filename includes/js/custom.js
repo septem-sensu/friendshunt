@@ -722,44 +722,25 @@ window[ appAlias ].methods.cDeleteArchiveGame = function( objElement ) {
  *
 */
 window[ appAlias ].methods.gameplay.cShowMapInInfoLayer = function( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage ) {
-  var objLeafletMap = null;
-  var objCaller     = window[ appAlias ].tracker.geoTrackerObject.get( 'caller' );
+  var objCaller         = window[ appAlias ].tracker.geoTrackerObject.get( 'caller' );
+  var strMarkerId       = objCaller.id == 'startPosition' ? 'start' : 'exit';
+  var strColor          = objCaller.id == 'startPosition' ? '#00aa00' : '#00aa00';
+  var strSelector       = '#' + objCaller.id
+  var strSelectorRadius = '#playingFieldSize'
+  var strContent        = objCaller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
+  var strDefaultRadius  = 1000;
 
-  if( window[ appAlias ].tracker.geoMapsObject ) {
-    objLeafletMap = window[ appAlias ].tracker.geoMapsObject.get( 'map' );
+  window[ appAlias ].tracker.geoMapsObject = window[ appAlias ].tracker.geoMapsObject || new GeoMaps();
+
+  window[ appAlias ].tracker.geoMapsObject.setMap( floatTrackLat, floatTrackLng, 'map' );
+
+  if( objCaller.id == 'playingFieldCenterPosition' ) {
+    strSelector =
+
+    window[ appAlias ].tracker.geoMapsObject.setCircleInteractive( objCaller.id, strDefaultRadius, '#ff0000', 1, '#ff0000', 0.08, strSelector, strSelectorRadius );
   } else {
-    window[ appAlias ].tracker.geoMapsObject = new GeoMaps();
-    objLeafletMap = window[ appAlias ].tracker.geoMapsObject.setMap( floatTrackLat, floatTrackLng, 'map' );
+    window[ appAlias ].tracker.geoMapsObject.setMarkerInteractive( strMarkerId, strMarkerId, strColor, strContent, strSelector );
   }
-
-  objLeafletMap.on( 'click', ( function( objCaller, objEvent ) {
-    var objPlayingFieldSize    = document.querySelector( '#playingFieldSize' );
-    var floatLat               = objEvent.latlng.lat;
-    var floatLng               = objEvent.latlng.lng;
-    var strFormatedCoordinates = `${floatLat.toFixed(6)},${floatLng.toFixed(6)}`;
-    var strMarkerId            = objCaller.id == 'startPosition' ? 'start' : 'exit';
-    var strColor               = objCaller.id == 'startPosition' ? '#00aa00' : '#00aa00';
-    var strContent             = objCaller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
-    var intSize                = objPlayingFieldSize != null && objPlayingFieldSize.value > 1 ? objPlayingFieldSize.value : 1000;
-
-    objCaller.value              = strFormatedCoordinates;
-
-    if( objCaller.id == 'playingFieldCenterPosition' ) {
-      strMarkerId = 'PlayingFieldCenterPosition';
-      strColor    = '#aa0000'
-      strContent  = '';
-
-      console.log( intSize );
-
-      window[ appAlias ].tracker.geoMapsObject.setCircle( strMarkerId, floatLat, floatLng, intSize, '#ff0000', 1, '#ff0000', 0.08 );
-
-      return;
-    }
-
-    window[ appAlias ].tracker.geoMapsObject.setMarker( strMarkerId, strMarkerId, strColor, floatLat, floatLng, strContent );
-
-    return;
-  } ).bind( this, objCaller ) );
 
   return;
 };

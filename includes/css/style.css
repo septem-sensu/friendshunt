@@ -92,18 +92,18 @@ a {
 #info-layer-map {
   position: fixed;
   top: 0px;
-  background-color: var(--backgroundColorContent);;
+  background-color: var(--backgroundColorContent);
   width: 600px;
   height: 200px;
-  padding:10px;
+  padding: 10px;
   padding-left: 0px;
   padding-right: 0px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 #info-layer-map #map {
-    border-radius: 8px;
-    height: 100%;
+  border-radius: 8px;
+  height: 100%;
 }
 
 #info-layer-map-close-button {
@@ -114,6 +114,7 @@ a {
   color: #000000;
   opacity: 0.7;
   cursor: pointer;
+  z-index: 3000;
 }
 
 .icon-svg-lens {
@@ -165,3 +166,7 @@ body .content-container.first-child {
   margin-bottom: 20px;
 }
 
+.mode-set-points .leaflet-interactive {
+  pointer-events: none !important;
+  cursor: default !important;
+}

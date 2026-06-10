@@ -531,6 +531,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020controlls\u0020a\u0020silent\u0020Hunt\u0020from\u0020the\u0020Current\u0020Player\u0020and\u0020added\u0020to\u0020the\u0020Response\u0020State\u0020Object.",
             "url": "classes/Gameplay.html#method_silentHunt"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003AcheckRules\u0028\u0029",
+            "name": "checkRules",
+            "summary": "This\u0020Method\u0020checks\u0020the\u0020Rules\u0020and\u0020set\u0020a\u0020System\u0020Message\u0020by\u0020violation\u0020of\u0020the\u0020rules.",
+            "url": "classes/Gameplay.html#method_checkRules"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003AgetGameplayState\u0028\u0029",
             "name": "getGameplayState",
             "summary": "This\u0020Method\u0020added\u0020the\u0020Gameplay\u0020State\u0020to\u0020the\u0020Gameplay\u0020State\u0020Object\u0020for\u0020the\u0020current\u0020Player\u0020for\u0020the\u0020Response.",
@@ -590,6 +595,11 @@ Search.appendIndex(
             "name": "messages",
             "summary": "",
             "url": "classes/Gameplay.html#property_messages"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024gameplayRoles",
+            "name": "gameplayRoles",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_gameplayRoles"
         },                {
             "fqsen": "\\Player",
             "name": "Player",

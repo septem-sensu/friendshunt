@@ -27,7 +27,11 @@ class GeoMaps {
     this.maxZoomLevel = 19; // Maximale Zoomstufe, die von der Karte unterstützt wird
     this.selector     = 'map';
     this.marker       = {};
-    this.map          = {};
+    this.centreZone   = {};
+    this.isResizing   = {};
+    this.justResized  = {};
+    this.map          = null;
+
 
     return;
   }
@@ -75,6 +79,8 @@ class GeoMaps {
  *
  */
   setMap( lat, lng ) {
+    if( this.map ) return;
+
     this.map = L.map( this.selector ).setView( [ lat, lng ], this.zoomLevel );
 
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -112,6 +118,42 @@ class GeoMaps {
   }
 
 /**
+ * This Method set a Marker with Popup interactive with click on the Map.
+ *
+ * @public
+ * @param     {string}  id        The Game Player Id
+ * @param     {string}  role      The Game Player Role (player, hunter or management)
+ * @param     {string}  color     The Game Player Color
+ * @param     {string}  content   The Content of the Popup
+ * @param     {string}  selector  The Selector of a input Fiel to set the coordinates
+ * @return    {void}
+ *
+ * @example   objGeoMaps.setMarkerInteractive( id, role, color, content, selector );
+ *
+ */
+  setMarkerInteractive( id, role, color, content, selector ) {
+    document.querySelector( '#map' ).classList.add( 'mode-set-points' );
+
+    this.map.on( 'click', ( objEvent ) => {
+      if( this.marker[ id ] ) this.marker[ id ].remove();
+
+      this.marker[ id ] = L.marker( objEvent.latlng, { 'icon': this.getIcon( role, color ) } ).addTo( this.map );
+      this.marker[ id ].bindPopup( content );
+
+      if( selector && document.querySelector( selector ) != null ) {
+        const lat = objEvent.latlng.lat;
+        const lng = objEvent.latlng.lng;
+        console.log( `${lat.toFixed(6)},${lng.toFixed(6)}` );
+        document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
+      }
+
+      return;
+    } );
+
+    return;
+  }
+
+/**
  * This Method set a circle on the Map.
  *
  * @public
@@ -141,6 +183,164 @@ class GeoMaps {
     } ).addTo( this.map );;
 
     return;
+  }
+
+/**
+ * This Method set a circle on the Map interactive with click to the Map.
+ *
+ * @public
+ * @param     {string}  id              The Game Player Id
+ * @param     {number}  size            The Radius of the Circle
+ * @param     {string}  color           The Color of the Circle edge
+ * @param     {number}  weight          The weight of the Corcle edge
+ * @param     {string}  fillColor       The fill Color of the Circle
+ * @param     {number}  opacity         The Opacity of the Circle
+ * @param     {number}  selector        The Selector of a input Fiel to set the coordinates
+ * @param     {number}  selectorRadius  The Selector of a input Fiel to set the radius
+ * @return    {void}
+ *
+ * @example   objGeoMaps.setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius );
+ *
+ */
+  setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius ) {
+    document.querySelector( '#map' ).classList.remove( 'mode-set-points' );
+
+    this.map.on( 'click', ( objEvent ) => {
+      if( this.isResizing[ id ] || this.justResized[ id ] ) {
+        this.justResized[ id ] = false;
+
+        return;
+      }
+
+      this.centreZone[ id ] = objEvent.latlng;
+
+      if( selector && document.querySelector( selector ) != null ) {
+        const lat = objEvent.latlng.lat;
+        const lng = objEvent.latlng.lng;
+
+        console.log( `${lat.toFixed(6)},${lng.toFixed(6)}` );
+        document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
+      }
+
+      if( this.marker[ id ] ) {
+        this.marker[ id ].setLatLng( this.centreZone[ id ] );
+      } else {
+        this.marker[ id ] = L.circle( this.centreZone[ id ], {
+          'radius': size,
+          'color': color,
+          'weight': weight,
+          'fillColor': fillColor,
+          'fillOpacity': opacity,
+          'interactive': true
+        } ).addTo( this.map );
+
+        this.bindResizeEvents( id, selectorRadius );
+      }
+
+      return;
+    } );
+  }
+
+/**
+ * This Method is a Helper Method to bind Event Listener for Drag and Drop to set the circle radius on the Map interactive.
+ *
+ * @public
+ * @param     {string}  id              The Game Player Id
+ * @param     {number}  selectorRadius  The Selector of a input Fiel to set the radius
+ * @return    {void}
+ *
+ * @example   objGeoMaps.bindResizeEvents( id, selectorRadius );
+ *
+ */
+  bindResizeEvents( id, selectorRadius ) {
+    const circleElement = this.marker[ id ].getElement();
+
+    if( ! circleElement ) return;
+
+    this.marker[ id ].on( 'mousedown', ( objEvent ) => {
+      this.isResizing[ id ]  = true;
+      this.justResized[ id ] = false;
+
+      L.DomEvent.stopPropagation( objEvent );
+      this.map.dragging.disable();
+
+      return;
+    } );
+
+    circleElement.addEventListener( 'touchstart', ( htmlEvent ) => {
+      this.isResizing[ id ]  = true;
+      this.justResized[ id ] = false;
+
+      htmlEvent.stopPropagation();
+      this.map.dragging.disable();
+
+      return;
+    }, { 'passive': false } );
+
+    this.map.on( 'mousemove', ( objEvent ) => {
+      if( ! this.isResizing[ id ] ) return;
+
+      const radiusInMeters = this.marker[ id ].getLatLng().distanceTo( objEvent.latlng );
+
+      if( radiusInMeters >= 100 && radiusInMeters <= 10000 ) {
+        this.marker[ id ].setRadius( radiusInMeters );
+
+        if( radiusInMeters && document.querySelector( selectorRadius ) != null ) {
+          console.log( radiusInMeters + ' Meter' );
+          document.querySelector( selectorRadius ).value = Math.round( radiusInMeters );
+        }
+      }
+
+      return;
+    } );
+
+    window.addEventListener( 'touchmove', ( htmlEvent ) => {
+      if( ! this.isResizing[ id ] ) return;
+
+      htmlEvent.preventDefault();
+
+      const touch          = htmlEvent.touches[ 0 ];
+      const containerPoint = this.map.mouseEventToContainerPoint( touch );
+      const geoCoords      = this.map.containerPointToLatLng( containerPoint );
+      const radiusInMeters = this.marker[ id ].getLatLng().distanceTo( geoCoords );
+
+      if( radiusInMeters >= 100 && radiusInMeters <= 10000 ) {
+        this.marker[ id ].setRadius( radiusInMeters );
+
+        if( radiusInMeters && document.querySelector( selectorRadius ) != null ) {
+          console.log( radiusInMeters + ' Meter' );
+          document.querySelector( selectorRadius ).value = Math.round( radiusInMeters );
+        }
+      }
+
+      return;
+    }, { 'passive': false });
+
+    this.map.on( 'mouseup', ( objEvent ) => {
+      if( this.isResizing[ id ] ) {
+        L.DomEvent.stopPropagation( objEvent );
+
+        this.isResizing[ id ]  = false;
+        this.justResized[ id ] = true;
+
+        this.map.dragging.enable();
+      }
+
+      return;
+    } );
+
+    window.addEventListener( 'touchend', ( htmlEvent ) => {
+      if( this.isResizing[ id ] ) {
+        htmlEvent.stopPropagation();
+
+        this.isResizing[ id ]  = false;
+        this.justResized[ id ] = true;
+
+        this.map.dragging.enable();
+      }
+
+      return;
+    } );
   }
 
 /**

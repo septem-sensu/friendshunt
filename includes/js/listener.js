@@ -746,7 +746,7 @@ window[ appAlias ].listener.clickOpenMapInLayer = function() {
 
       objMapLayer.classList.remove( 'hidden' );
 
-      objMapLayer.style.height = ( window.innerHeight - 20 ) + 'px';
+      objMapLayer.style.height = ( window.innerHeight - 60 ) + 'px';
 
       window[ appAlias ].tracker.geoTrackerObject = new GeoTracker();
 
