@@ -31,6 +31,7 @@ class GeoMaps {
     this.isResizing   = {};
     this.justResized  = {};
     this.map          = null;
+    this.debug        = window[ appAlias ].debug ? true : false;
 
 
     return;
@@ -143,7 +144,7 @@ class GeoMaps {
       if( selector && document.querySelector( selector ) != null ) {
         const lat = objEvent.latlng.lat;
         const lng = objEvent.latlng.lng;
-        console.log( `${lat.toFixed(6)},${lng.toFixed(6)}` );
+
         document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
       }
 
@@ -218,7 +219,6 @@ class GeoMaps {
         const lat = objEvent.latlng.lat;
         const lng = objEvent.latlng.lng;
 
-        console.log( `${lat.toFixed(6)},${lng.toFixed(6)}` );
         document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
       }
 
@@ -286,7 +286,8 @@ class GeoMaps {
         this.marker[ id ].setRadius( radiusInMeters );
 
         if( radiusInMeters && document.querySelector( selectorRadius ) != null ) {
-          console.log( radiusInMeters + ' Meter' );
+          if( this.debug ) console.log( 'Radius: ' + radiusInMeters + ' Meter' );
+
           document.querySelector( selectorRadius ).value = Math.round( radiusInMeters );
         }
       }
@@ -308,7 +309,8 @@ class GeoMaps {
         this.marker[ id ].setRadius( radiusInMeters );
 
         if( radiusInMeters && document.querySelector( selectorRadius ) != null ) {
-          console.log( radiusInMeters + ' Meter' );
+          if( this.debug ) console.log( 'Radius: ' + radiusInMeters + ' Meter' );
+
           document.querySelector( selectorRadius ).value = Math.round( radiusInMeters );
         }
       }
@@ -393,7 +395,7 @@ class GeoMaps {
     switch ( role ) {
       case 'hunter': // Ein Fadenkreuz / Visier für die Jäger
         svgContent = `
-          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10" stroke-dasharray="4 2"/>
             <circle cx="12" cy="12" r="3" fill="${color}"/>
             <line x1="12" y1="1" x2="12" y2="4"/>
@@ -405,14 +407,14 @@ class GeoMaps {
 
       case 'player': // Ein schicker, rennender Keil / Pfeil für die Gejagten
         svgContent = `
-          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="${color}" stroke="#FFFFFF" stroke-width="1.5">
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="${color}" stroke="#FFFFFF" stroke-width="1">
             <path d="M12 2L2 22l10-4 10 4z"/>
           </svg>`;
         break;
 
       case 'management': // Ein Schild / Wappen mit Stern für die Spielleitung
         svgContent = `
-          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <polygon points="12 11 13.5 14.5 17 14.5 14 16.5 15.5 20 12 18 8.5 20 10 16.5 7 14.5 10.5 14.5" fill="${color}"/>
           </svg>`;
@@ -420,20 +422,20 @@ class GeoMaps {
 
       case 'start': // Start-Flagge / Dropzone
         svgContent = `
-          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Äußerer taktischer Ring
-              <circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/> -->
-              <!-- Die Flagge -->
-              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="${color}" fill-opacity="0.2"/>
-              <line x1="4" y1="22" x2="4" y2="15"/>
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Äußerer taktischer Ring -->
+            <!-- <circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/> -->
+            <!-- Die Flagge -->
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="${color}" fill-opacity="0.5"/>
+            <line x1="4" y1="22" x2="4" y2="15"/>
           </svg>`;
         break;
 
       case 'exit': // Exit-Zone / Extraction Point
         svgContent = `
-          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Äußerer Sicherheitsring
-              <circle cx="12" cy="12" r="10"/> -->
+          <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Äußerer Sicherheitsring -->
+              <!-- <circle cx="12" cy="12" r="10"/> -->
               <!-- Das rettende Tor mit Pfeil nach draußen -->
               <path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/>
               <polyline points="14 17 19 12 14 7"/>

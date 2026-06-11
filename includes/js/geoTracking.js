@@ -35,7 +35,7 @@ class GeoTracker {
     this.stepCount     = 0;
     this.lastPulse     = 0;
     this.wakeLock      = null;
-    this.debug         = true;
+    this.debug         = window[ appAlias ].debug ? true : false;
     this.caller        = null;
 
     return;

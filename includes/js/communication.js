@@ -13,6 +13,7 @@
  * @copyright     2026 Markus Götz <info@septem-sensu.de>
  *
 */
+window[ appAlias ]
 window[ appAlias ]                 = window[ appAlias ] || {};
 window[ appAlias ].methods         = window[ appAlias ].methods || {};
 window[ appAlias ].listener        = window[ appAlias ].listener || {};
@@ -21,6 +22,8 @@ window[ appAlias ].formErrors      = window[ appAlias ].formErrors || [];
 window[ appAlias ].requestQueue    = window[ appAlias ].requestQueue || [];
 window[ appAlias ].requestOnTheWay = window[ appAlias ].requestOnTheWay || {};
 window[ appAlias ].requestErrors   = window[ appAlias ].requestErrors || [];
+
+window[ appAlias ].debug           = false;
 
 /**
  * This Function is a helper Function to create a Ajax Request Object.
@@ -233,7 +236,7 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
       window[ appAlias ].gameplayMessages = typeof objResponse.result.messages == 'object' && objResponse.result.messages != null ? objResponse.result.messages : [];
       if( typeof objResponse.result.gameRole == 'string' ) window[ appAlias ].gameplayRole = objResponse.result.gameRole;
       window[ appAlias ].methods.gameplay[ objResponse.result.callback ]( objResponse );
-      console.log( objResponse.result );
+      if( window[ appAlias ].debug ) console.log( 'Object Ajax-Response: ', objResponse.result );
     }
   }
 

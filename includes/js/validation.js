@@ -279,7 +279,6 @@ window[ appAlias ].methods.resetFormErrors = function() {
   var arrFormErrors = document.querySelectorAll( '.form-error' );
 
   for( var i = 0; i < arrFormErrors.length; i++ ) {
-    console.log( arrFormErrors[ i ] );
     arrFormErrors[ i ].classList.remove( 'form-error' );
   }
 

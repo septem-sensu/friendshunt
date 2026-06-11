@@ -425,8 +425,6 @@ window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
   objPost.playerId        = strPlayerId;
   objPost.timestamp       = new Date().getTime();
 
-  console.log( 'speedHunt' );
-
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 };
 
