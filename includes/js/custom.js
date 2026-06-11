@@ -49,6 +49,9 @@ window[ appAlias ].methods.cStartGame = function( objElement ) {
     } );
   }
 
+  window[ appAlias ].methods.cPlayMessagePiep();
+  window[ appAlias ].methods.cTriggerMessageVibration();
+
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost , 'proccessResponse' );
 };
 
@@ -765,6 +768,62 @@ window[ appAlias ].methods.gameplay.cMapInfoLayerClose = function() {
 
   return;
 };
+
+/**
+ * This Function is playing the Piep Message Sound.
+ *
+ * @function
+ * @public
+ * @name       cPlayMessagePiep
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cPlayMessagePiep();
+ *
+*/
+window[ appAlias ].methods.cPlayMessagePiep = function() {
+  const objAudioCtx       = new ( window.AudioContext || window.webkitAudioContext )();
+  const intNow            = objAudioCtx.currentTime;
+  const objOsc1           = objAudioCtx.createOscillator();
+  const objGain1          = objAudioCtx.createGain();
+
+  objOsc1.type            = 'sine';
+  objOsc1.frequency.value = 1200;
+
+  objGain1.gain.setValueAtTime( 0.2, intNow );
+  objGain1.gain.exponentialRampToValueAtTime( 0.001, intNow + 0.1 );
+  objOsc1.connect( objGain1 );
+  objGain1.connect( objAudioCtx.destination );
+  objOsc1.start( intNow );
+  objOsc1.stop( intNow + 0.1 );
+
+  const intStartSound2    = intNow + 0.15;
+  const objOsc2           = objAudioCtx.createOscillator();
+  const objGain2          = objAudioCtx.createGain();
+
+  objOsc2.type            = 'sine';
+  objOsc2.frequency.value = 800;
+
+  objGain2.gain.setValueAtTime( 0.2, intStartSound2 );
+  objGain2.gain.exponentialRampToValueAtTime( 0.001, intStartSound2 + 0.4 );
+  objOsc2.connect( objGain2 );
+  objGain2.connect( objAudioCtx.destination ) ;
+  objOsc2.start( intStartSound2 );
+  objOsc2.stop( intStartSound2 + 0.4 );
+
+  return;
+};
+
+window[ appAlias ].methods.cTriggerMessageVibration = function() {
+  if ( 'vibrate' in navigator ) navigator.vibrate( [ 200, 100, 200 ] );
+
+  return;
+};
+
+
+
 
 
 

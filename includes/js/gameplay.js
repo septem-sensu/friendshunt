@@ -133,6 +133,8 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
 
 /**
  * This Function is the Track Callback Function and set the Posistion from the Game Player to the Map.
+ * The Function is a important Function to call other Functions like set State Line, set new Messages,
+ * check the Game Rules and check System Messages and so on.
  *
  * @function
  * @public
@@ -181,6 +183,20 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
   return;
 };
 
+/**
+ * This Function is checking the System-Messages and show the System Message Layer if a new Message in the Ajax Response.
+ *
+ * @function
+ * @public
+ * @name       checkSystemMessages
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.checkSystemMessages();
+ *
+*/
 window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
   var objGameSettings             = window[ appAlias ].gameSettings;
   var arrSystemMessages           = window[ appAlias ].gameplayState.systemMessages;
@@ -194,6 +210,7 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
   for( var i = 0; i < arrSystemMessages.length; i++ ) {
     if( ! arrSystemMessages[ i ].for.includes( window[ appAlias ].gameplayRole ) ) continue;
     if( objSystemMessagesDontShow[ arrSystemMessages[ i ].id ] ) continue;
+    if( arrSystemMessages[ i ].showMessageOnlyOne ) objSystemMessagesDontShow[ arrSystemMessages[ i ].id ] = true;
 
     var objNewSystemMessage       = document.createElement( 'div' );
     var strMessage                = '';
@@ -210,7 +227,7 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
 
     strMessage                   += arrSystemMessages[ i ].message;
     strMessage                   += strApplies;
-    strMessage                   += '<input type="checkbox" name="dontShow" value="' + arrSystemMessages[ i ].id + '" /><span class="game-info-small">Nicht mehr anzeigen</span>';
+    strMessage                   += ! arrSystemMessages[ i ].showMessageOnlyOne ? '<input type="checkbox" name="dontShow" value="' + arrSystemMessages[ i ].id + '" /><span class="game-info-small">Nicht mehr anzeigen</span>' : '';
 
     objNewSystemMessage.innerHTML = strMessage;
     boolShowLayer                 = true;
@@ -221,6 +238,9 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
 
   if( ! boolShowLayer ) return;
 
+  window[ appAlias ].methods.cPlayMessagePiep();
+  window[ appAlias ].methods.cTriggerMessageVibration();
+
   objSystemMessageLayer.classList.remove( 'hidden' );
   objSystemMessageLayer.style.height = ( window.innerHeight - 137 ) + 'px';
 
@@ -229,6 +249,20 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
   return;
 };
 
+/**
+ * This Function save the no show Message on a Window Variable from the Checkboxes and closed the Message Layer.
+ *
+ * @function
+ * @public
+ * @name       closeSystemMessagesLayer
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.closeSystemMessagesLayer();
+ *
+*/
 window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
   var arrDontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
 
@@ -587,6 +621,9 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
 
   if( strLastMessageId != window[ appAlias ].lastMessageId ) {
     window[ appAlias ].lastMessageId = strLastMessageId;
+
+    window[ appAlias ].methods.cPlayMessagePiep();
+    window[ appAlias ].methods.cTriggerMessageVibration();
 
     if( document.querySelector( '#game-message-layer' ).classList.contains( 'hidden' ) ) document.querySelector( '.icon-new-message' ).classList.remove( 'hidden' );
   }

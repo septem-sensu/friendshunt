@@ -627,6 +627,7 @@ window[ appAlias ].listener.formatDateTime = function() {
  *
 */
 window[ appAlias ].listener.enterKey = function() {
+  // Login
   var objInputLoginName     = document.querySelector( 'input#name' );
   var objInputLoginPassword = document.querySelector( 'input#password' );
   var objLoginSubmit        = document.querySelector( 'button.event-login' );
@@ -651,6 +652,22 @@ window[ appAlias ].listener.enterKey = function() {
     } );
   }
 
+  // Messages
+  var objInputMessage  = document.querySelector( 'input#new-game-message' );
+  var objButtonMessage = document.querySelector( 'button.new-gamplay-message-button' );
+
+  if( objButtonMessage != null && objInputMessage != null ) {
+    objInputMessage.addEventListener( 'keydown', function( objEvent ) {
+      if ( objEvent.key === 'Enter' ) {
+        if( this.value.length < 1 ) return;
+
+        objEvent.preventDefault();
+        window[ appAlias ].methods.gameplay.sendNewMessage();
+      }
+
+      return;
+    } );
+  }
 
 
   return;
