@@ -243,7 +243,23 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
 
   for( var i = 0; i < arrGames.length; i++ ) {
     var strContentContainer        = document.createElement( 'div' );
+    var strGameStart               = arrGames[ i ].start;
+    var intGameDuration            = parseInt( arrGames[ i ].duration );
+    var intGameStartTimestamp      = ( new Date(strGameStart).getTime() ) / 1000;
+    var intGameEndTimestamp        = intGameStartTimestamp + intGameDuration * 60 * 60;
+    var strGameEnd                 = window[ appAlias ].methods.cTimestampToDateTimeString( intGameEndTimestamp );
+    var intNowTimestamp            = Date.now() / 1000;
     var strContentContainerContent = '';
+    var strGameStartCssClass       = '';
+    var strAddGameStartText        = '';
+
+    if( intNowTimestamp > intGameStartTimestamp && intNowTimestamp < intGameEndTimestamp ) {
+      strGameStartCssClass = ' success-text';
+      strAddGameStartText  = ' - Spiel läuft gerade.';
+    } else if( intNowTimestamp > intGameEndTimestamp ) {
+      strGameStartCssClass = ' danger-text';
+      strAddGameStartText  = ' - Spiel ist beendet.'
+    }
 
     strContentContainerContent    += '<table class="w-100p"><tr>';
     strContentContainerContent    += '<td class="align-top align-left">';
@@ -259,7 +275,9 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainerContent    += '<table><tr><td><span class="bold">Name:</span></td><td><span class="bold">' + arrGames[ i ].name + '</span></td></tr>';
     strContentContainerContent    += '<tr><td class="align-top">Titel:</td><td class="align-top">' + arrGames[ i ].title + '</td></tr>';
     strContentContainerContent    += '<tr><td class="pr-10 align-top">Beschreibung:</td><td class="align-top">' + arrGames[ i ].description  + '</td></tr>';
-    strContentContainerContent    += '<tr><td class="pr-10 bold align-top">Start:</td><td class="bold align-top">' + window[ appAlias ].methods.TimeStringToTimeString( arrGames[ i ].start )  + '</td></tr></table>';
+    strContentContainerContent    += '<tr><td class="pr-10 bold align-top">Start:</td><td class="bold align-top' + strGameStartCssClass + '">' + window[ appAlias ].methods.TimeStringToTimeString( strGameStart ) + ' Uhr'  + strAddGameStartText + '</td></tr>';
+    strContentContainerContent    += '<tr><td class="pr-10 align-top">Ende:</td><td class="align-top">' + window[ appAlias ].methods.cTimestampToDateTimeString( intGameEndTimestamp ) + ' Uhr</td></tr></table>';
+
     strContentContainerContent    += '<input type="hidden" name="game-id" value="' + arrGames[ i ].id + '">';
     strContentContainer.innerHTML  = strContentContainerContent;
 
@@ -489,6 +507,28 @@ window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
   } );
 
   return strFormattedDate;
+};
+
+/**
+ * This Function converts a PHP Timestamp to a human readable format.
+ *
+ * @function
+ * @public
+ * @name       cTimestampToDateTimeString
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {number}   intTimestamp           The PHP Timestamp
+ * @return     {string}   strFormattedDateTime   The formatted date-time String
+ * @example    strFormattedDateTime = friendshunt.methods.cTimestampToDateTimeString( intTimestamp );
+ *
+*/
+window[ appAlias ].methods.cTimestampToDateTimeString = function ( intTimestamp ) {
+  const objDateTime = new Date( intTimestamp * 1000 );
+  const pad         = (num) => String( num ).padStart( 2, '0' );
+
+  return `${pad(objDateTime.getDate())}.${pad(objDateTime.getMonth() + 1)}.${objDateTime.getFullYear()}, ` + `${pad(objDateTime.getHours())}:${pad(objDateTime.getMinutes())}`;
 };
 
 /**
