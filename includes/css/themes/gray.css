@@ -1,8 +1,7 @@
 :root {
-  --backgroundColorBody: #000000;
-  --backgroundColorContent: #0a0d14;
-  --backgroundColorContentContainer: #121824;
-  --backgroundColorContentAlternate: rgb(256,256,256,0.1);
+  --backgroundColorBody: #111115;
+  --backgroundColorContent: #191920;
+  --backgroundColorContentContainer: rgba(255, 255, 255, 0.1);
 
   --backgroundColorPrimary: #286090;
   --backgroundColorSuccess: #449d44;
@@ -19,14 +18,10 @@
   --borderColorInput: #ccc;
   --backgroundColorInput: #fff;
 
-  --textColorContent: rgb(226, 232, 240);
+  --textColorContent: rgb(238, 238, 238);
   --textColorHeadline: rgb(238, 238, 238);
   --textColorLink: rgb(238, 238, 238);
 
   --colorInput: #555;
   --fontSizeForms: 14px;
-
-
-
-  --border-color: #1f2a3f;
 }

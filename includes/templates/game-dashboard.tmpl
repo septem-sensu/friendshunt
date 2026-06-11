@@ -5,7 +5,7 @@
 
 <input type="hidden" name="resetForm" value="1" />
 <div class="content-container first-child" >
-  <h1 class="align-left float-left">Game Dashboard</h1>
+  <h1 class="align-left float-left">Dashboard</h1>
   <div class="align-right">
     <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
   </div>
@@ -23,7 +23,7 @@
         <p class="bold mb-10">{{Game::name}}</p>
         <p>{{Game::title}}</p>
         <p>{{Game::description}}</p>
-        <p class="bold mt-5 mb-2">Start: <span class="format-date-time">{{Game::start}}</span></p>
+        <p class="bold mt-5">Start: <span class="format-date-time">{{Game::start}}</span></p>
         <p>Dauer: {{Game::duration}} Stunden</p>
         <button type="button" class="w-160 mt-10 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button>
       </td>
@@ -50,51 +50,61 @@
 
 <div class="content-container">
   <h2 class="align-left mb-15">Spiel Einstellungen</h2>
-  <table>
-    <tr>
-      <td style="width: 170px;">Start des Spiels:</td>
+  <table class="w-100p" cellspacing="0">
+    <tr class="background-alternate">
+      <td class="pl-7" style="width: 170px;">Start des Spiels:</td>
       <td class="align-right format-date-time">{{Game::start}}</td>
-      <td></td>
+      <td class="pr-7"></td>
     </tr>
     <tr>
-      <td>Dauer des Spiels:</td>
+      <td class="pl-7">Dauer des Spiels:</td>
       <td class="align-right">{{Game::duration}}</td>
-      <td class="align-right pl-10"> Stunden</td>
+      <td class="align-right pl-10 pr-7"> Stunden</td>
     </tr>
-    <tr>
-      <td>Tracking Intervall:</td>
+    <tr class="background-alternate">
+      <td class="pl-7">Tracking Intervall:</td>
       <td class="align-right">{{Game::trackInterval}}</td>
-      <td class="align-right pl-10"> Sekunden</td>
+      <td class="align-right pl-10 pr-7"> Sekunden</td>
     </tr>
     <tr>
-      <td>Silent Hunt Intervall:</td>
+      <td class="pl-7">Silent Hunt Intervall:</td>
       <td class="align-right">{{Game::pingInterval}}</td>
-      <td class="align-right pl-10"> Minuten</td>
+      <td class="align-right pl-10 pr-7"> Minuten</td>
     </tr>
-    <tr>
-      <td>Speed Hunt Intervall:</td>
+    <tr class="background-alternate">
+      <td class="pl-7">Speed Hunt Intervall:</td>
       <td class="align-right">{{Game::speedPingInterval}}</td>
-      <td class="align-right pl-10"> Minuten</td>
+      <td class="align-right pl-10 pr-7"> Minuten</td>
     </tr>
     <tr>
-      <td>Start Position:</td>
+      <td class="pl-7">Spielfeld Größe:</td>
+      <td class="align-right">{{Game::playingFieldSize}}</td>
+      <td class="align-right pl-10 pr-7"> Meter</td>
+    </tr>
+    <tr class="background-alternate">
+      <td class="pl-7">Spielfeld Position:</td>
+      <td class="align-right">{{Game::playingFieldCenterPosition}}</td>
+      <td class="pr-7"></td>
+    </tr>
+    <tr>
+      <td class="pl-7">Start Position:</td>
       <td class="align-right">{{Game::startPosition}}</td>
-      <td></td>
+      <td class="pr-7"></td>
     </tr>
-    <tr>
-      <td>Exit Position:</td>
+    <tr class="background-alternate">
+      <td class="pl-7">Exit Position:</td>
       <td class="align-right">{{Game::exitPosition}}</td>
-      <td></td>
+      <td class="pr-7"></td>
     </tr>
     <tr>
-      <td>Mitspieler anzeigen:</td>
+      <td class="pl-7">Mitspieler anzeigen:</td>
       <td class="align-right">{{Translate::Game::showPlayer}}</td>
-      <td></td>
+      <td class="pr-7"></td>
     </tr>
-    <tr>
-      <td>Spielernamen anzeigen:</td>
+    <tr class="background-alternate">
+      <td class="pl-7">Spielernamen anzeigen:</td>
       <td class="align-right">{{Translate::Game::showNames}}</td>
-      <td></td>
+      <td class="pr-7"></td>
     </tr>
   </table>
 </div>

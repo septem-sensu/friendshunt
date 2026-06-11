@@ -264,20 +264,19 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
     strContentContainerContent    += '<table class="w-100p"><tr>';
     strContentContainerContent    += '<td class="align-top align-left">';
     strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button></div>';
-    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-160 mt-5 event-delete-game primary">Dashboard</button></div>';
-    strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 warning mt-5 hidden game-archive-button" onclick="javascript: window[ appAlias ].methods.cArchiveGame( this );">Spiel archivieren</button></div>';
-    strContentContainerContent    += '<div class="w-100p hidden game-delete-button"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-160 mt-5 event-delete-game danger">Spiel löschen</button></div>';
+    strContentContainerContent    += '<div class="w-100p"><button onclick="javascript: document.location.href=\'?view=gameDashboard&id=' + arrGames[ i ].id + '&class=game\' " type="button" class="w-160 mt-4 event-delete-game primary">Dashboard</button></div>';
+    strContentContainerContent    += '<div class="w-100p"><button type="button" class="w-160 warning mt-4 hidden game-archive-button" onclick="javascript: window[ appAlias ].methods.cArchiveGame( this );">Spiel archivieren</button></div>';
+    strContentContainerContent    += '<div class="w-100p hidden game-delete-button"><button onclick="javascript: window[ appAlias ].methods.cDeleteGame( this );" type="button" class="w-160 mt-4 event-delete-game danger">Spiel löschen</button></div>';
     strContentContainerContent    += '</td>';
     strContentContainerContent    += '<td class="w-160 align-top align-right">';
     strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image" src="includes/files/game/' + arrGames[ i ].id + '/' + arrGames[ i ].avatar + '" />';
     strContentContainerContent    += '</td>';
     strContentContainerContent    += '</tr></table>';
-    strContentContainerContent    += '<table><tr><td><span class="bold">Name:</span></td><td><span class="bold">' + arrGames[ i ].name + '</span></td></tr>';
-    strContentContainerContent    += '<tr><td class="align-top">Titel:</td><td class="align-top">' + arrGames[ i ].title + '</td></tr>';
+    strContentContainerContent    += '<table><tr><td class="h-30"><span class="bold">Name:</span></td><td class="h-30"><span class="bold">' + arrGames[ i ].name + '</span></td></tr>';
+    strContentContainerContent    += '<tr><td class="align-top h-20">Titel:</td><td class="align-top h-20">' + arrGames[ i ].title + '</td></tr>';
     strContentContainerContent    += '<tr><td class="pr-10 align-top">Beschreibung:</td><td class="align-top">' + arrGames[ i ].description  + '</td></tr>';
-    strContentContainerContent    += '<tr><td class="pr-10 bold align-top">Start:</td><td class="bold align-top' + strGameStartCssClass + '">' + window[ appAlias ].methods.TimeStringToTimeString( strGameStart ) + ' Uhr'  + strAddGameStartText + '</td></tr>';
-    strContentContainerContent    += '<tr><td class="pr-10 align-top">Ende:</td><td class="align-top">' + window[ appAlias ].methods.cTimestampToDateTimeString( intGameEndTimestamp ) + ' Uhr</td></tr></table>';
-
+    strContentContainerContent    += '<tr><td class="pr-10 bold align-top h-20">Start:</td><td class="bold align-top h-20' + strGameStartCssClass + '">' + window[ appAlias ].methods.TimeStringToTimeString( strGameStart ) + ' Uhr'  + strAddGameStartText + '</td></tr>';
+    strContentContainerContent    += '<tr><td class="pr-10 align-top h-20">Ende:</td><td class="align-top h-20">' + window[ appAlias ].methods.cTimestampToDateTimeString( intGameEndTimestamp ) + ' Uhr</td></tr></table>';
     strContentContainerContent    += '<input type="hidden" name="game-id" value="' + arrGames[ i ].id + '">';
     strContentContainer.innerHTML  = strContentContainerContent;
 

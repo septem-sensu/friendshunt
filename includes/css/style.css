@@ -4,7 +4,7 @@
 }
 
 body {
-  font-family: "Segoe UI", sans-serif, arial !important;
+  font-family: "Segoe UI", sans-serif, arial;
   background-color: var(--backgroundColorBody);
   text-align: center;
   color: var(--textColorContent);
@@ -28,6 +28,10 @@ textarea {
 a {
   text-decoration: none;
   color: var(--textColorLink);
+}
+
+.background-alternate {
+  background-color: var(--backgroundColorContentAlternate);
 }
 
 .content {
@@ -128,6 +132,8 @@ a {
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 body .content-container.first-child {
