@@ -119,6 +119,22 @@ class GeoMaps {
   }
 
 /**
+ * This Method remove a Marker from the Map.
+ *
+ * @public
+ * @param     {string}  id        The Game Player Id to remove from Map
+ * @return    {void}
+ *
+ * @example   objGeoMaps.removeMarker( id );
+ *
+ */
+  removeMarker( id ) {
+    if( this.marker[ id ] ) this.marker[ id ].remove();
+
+    return;
+  }
+
+/**
  * This Method set a Marker with Popup interactive with click on the Map.
  *
  * @public

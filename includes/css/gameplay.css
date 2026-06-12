@@ -73,6 +73,7 @@ body, html {
     margin-right: 5px;
   }
 
+  body #game-capture-container,
   body #game-system-message-container {
     width: 360px;
   }
@@ -332,6 +333,37 @@ body, html {
   margin-left: 0px !important;
   margin-right: 0px !important;
 }
+
+#game-capture-container {
+  position: fixed;
+  top: 58px;
+  background-color: var(--backgroundColorContent);
+  width: 560px;
+  height: 200px;
+  padding: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  overflow: hidden;
+  z-index: 5000;
+  margin-left: 11px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#game-capture-ok-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+}
+
+#game-capture-container input[type="checkbox"] {
+  position: relative;
+  top: 1px;
+  margin-right: 7px;
+}
+
+
 
 #game-system-message-container {
   position: fixed;

@@ -198,12 +198,16 @@ window[ appAlias ].methods.cProccessResponseAddHunterToGame = function( objRespo
   var arrMethods = objResponseObject.result.methods;
 
   if( objResponseObject.result.methode != 'addHunterToGame' ) return;
+
   if( document.querySelector( '#' + objResponseObject.result.player.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' ) ) != null ) {
     window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
+
     return;
   }
+
   if( typeof objResponseObject.result.playerObject != 'object' || objResponseObject.result.playerObject == null ) {
     window[ appAlias ].methods.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
+
     return;
   }
 
@@ -855,6 +859,20 @@ window[ appAlias ].methods.cPlayMessagePiep = function() {
   return;
 };
 
+/**
+ * This Function is playing a vibration (not on Iphone).
+ *
+ * @function
+ * @public
+ * @name       cTriggerMessageVibration
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.cTriggerMessageVibration();
+ *
+*/
 window[ appAlias ].methods.cTriggerMessageVibration = function() {
   if ( 'vibrate' in navigator ) navigator.vibrate( [ 200, 100, 200 ] );
 

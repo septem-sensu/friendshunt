@@ -24,6 +24,11 @@
   <input id="game-images-upload" type="file" name="pictures[]">
 </div>
 
+<div id="game-capture-container" class="hidden">
+  <div id="game-capture-hunter-container"></div>
+  <button onclick="javascript: window[ appAlias ].methods.gameplay.sendCaptured();" id="game-capture-ok-button" type="button" class="danger">✔ Gefangen genommen</button>
+</div>
+
 <div id="game-system-message-container" class="hidden">
   <div id="game-system-messages"></div>
   <button onclick="javascript: window[ appAlias ].methods.gameplay.closeSystemMessagesLayer();" id="game-system-messages-ok-button" type="button" class="success">✔ Gelesen</button>

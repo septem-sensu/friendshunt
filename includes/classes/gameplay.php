@@ -58,6 +58,9 @@ class Gameplay extends Game {
   protected object $gameSettings;
   protected object $messages;
   protected object $gameplayRoles;
+  protected bool   $isRunning;
+  protected int    $startTimestamp;
+  protected int    $endTimestamp;
 
 /**
  * This Method is the Constructor for this Class
@@ -138,6 +141,9 @@ class Gameplay extends Game {
     $this->gameplayRoles->player      = 'Spieler';
     $this->gameplayRoles->hunter      = 'Jäger';
     $this->gameplayRoles->management  = 'Spielleitung';
+    $this->startTimestamp             = Presentation::stringToTimestamp( $this->gameSettings->start );
+    $this->endTimestamp               = $this->startTimestamp + ( $this->gameSettings->duration * 60 * 60 );
+    $this->isRunning                  = time() > $this->startTimestamp && time() < $this->endTimestamp ? true : false;
 
     $this->transferStatistics();
 
@@ -165,11 +171,9 @@ class Gameplay extends Game {
     $arrSpeedHunts             = isset( $this->gameplayObject->speedHunts ) ? $this->gameplayObject->speedHunts : [];
     $arrCaptured               = isset( $this->gameplayObject->captured ) ? $this->gameplayObject->captured : [];
     $intTimestampNow           = time();
-    $intTimestampStart         = Presentation::stringToTimestamp( $this->gameSettings->start );
-    $intTimestampEnd           = $intTimestampStart + ( $this->gameSettings->duration * 60 * 60 );
     $intViolationOfTheRulesAll = 0;
 
-    if( $intTimestampNow < $intTimestampEnd ) return;
+    if( $intTimestampNow < $this->endTimestamp ) return;
 
     foreach( $arrGameplayRoles as $strGamplayRoleId => $strGameplayRoleName ) {
       $arrPlayerGameplayObjects = $this->gameplayObject->$strGamplayRoleId;
@@ -295,6 +299,8 @@ class Gameplay extends Game {
  *
 */
   private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField ) : void {
+    if( ! $this->isRunning ) return;
+
     $objTracking                     = new stdClass();
     $objTracking->lat                = $floatLat;
     $objTracking->lng                = $floatLng;
@@ -326,6 +332,7 @@ class Gameplay extends Game {
     $objGameConfiguration->playerIds     = [];
     $objGameConfiguration->hunterIds     = [];
     $objGameConfiguration->managementIds = [];
+    $objGameConfiguration->hunter        = [];
 
     unset( $objGameConfiguration->player );
     unset( $objGameConfiguration->hunter );
@@ -333,11 +340,18 @@ class Gameplay extends Game {
     unset( $objGameConfiguration->silentHunt );
     unset( $objGameConfiguration->speedHunts );
 
+    $objGameConfiguration->hunter = [];
+
     for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
       array_push( $objGameConfiguration->playerIds, $this->gameplayObject->player[ $i ]->id );
     }
 
     for( $i = 0; $i < count( $this->gameplayObject->hunter ); $i++ ) {
+      $objHunter       = new stdClass();
+      $objHunter->id   = $this->gameplayObject->hunter[ $i ]->id;
+      $objHunter->name = $this->gameplayObject->hunter[ $i ]->name;
+
+      array_push( $objGameConfiguration->hunter, $objHunter );
       array_push( $objGameConfiguration->hunterIds, $this->gameplayObject->hunter[ $i ]->id );
     }
 
@@ -531,15 +545,12 @@ class Gameplay extends Game {
 */
   private function silentHunt( object $objState ) : object {
     $intSilentHuntInterval = $this->gameSettings->pingInterval * 60;
-    $intStartTimestamp     = Presentation::stringToTimestamp( $this->gameSettings->start );
-    $intDurationSec        = $this->gameSettings->duration * 60 * 60;
-    $intEndTimestamp       = $intStartTimestamp + $intDurationSec;
     $intNowTimestamp       = time();
 
     if( ! isset( $this->gameplayObject->silentHunt ) ) {
       $objSilentHunt                = new stdClass();
       $objSilentHunt->tracking      = new stdClass();
-      $objSilentHunt->nextTimestamp = $intStartTimestamp + $intSilentHuntInterval;
+      $objSilentHunt->nextTimestamp = $this->startTimestamp + $intSilentHuntInterval;
 
       for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
         $strPlayerId                            = $this->gameplayObject->player[ $i ]->id;
@@ -553,7 +564,7 @@ class Gameplay extends Game {
     }
 
     if( $this->gameplayObject->silentHunt->nextTimestamp > $intNowTimestamp ) {
-      if( $this->gameplayObject->silentHunt->nextTimestamp > $intEndTimestamp ) {
+      if( $this->gameplayObject->silentHunt->nextTimestamp > $this->endTimestamp ) {
         $objState->nextSilentHunt        = '';
         $objState->nextSilentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr.';
       } else {
@@ -581,26 +592,24 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method checks the Rules and set a System Message by violation of the rules.
+ * This Method checks the Rules and set the System Messages.
  *
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
- * @example    $objState = $this->checkRules( $objState );
- * @example    $objState = $objGameplay->checkRules( $objState );
+ * @example    $objState = $this->checkRulesAndAddSystemMessages( $objState );
+ * @example    $objState = $objGameplay->checkRulesAndAddSystemMessages( $objState );
  *
 */
-  public function checkRules( object $objState ) : object {
+  private function checkRulesAndAddSystemMessages( object $objState ) : object {
     if( ! isset( $objState->systemMessages ) ) $objState->systemMessages = [];
 
-    $intStartTimestamp = Presentation::stringToTimestamp( $this->gameSettings->start );
-    $intEndTimestamp   = $intStartTimestamp + ( $this->gameSettings->duration * 60 * 60 );
     $intNowTimestamp   = time();
+    $arrCaptured       = $this->gameSettings->captured;
 
-
-    if( $intNowTimestamp > $intStartTimestamp && $intNowTimestamp <  $intStartTimestamp +  600 ) {
+    if( $intNowTimestamp > $this->startTimestamp && $intNowTimestamp <  $this->startTimestamp + 600 ) {
       $objSystemMessage                     = new stdClass();
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
       $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $intNowTimestamp ) . ')</p>';
@@ -611,7 +620,7 @@ class Gameplay extends Game {
       $objSystemMessage->timestamp          = $intNowTimestamp;
 
       array_push( $objState->systemMessages, $objSystemMessage );
-    } else if( $intNowTimestamp > $intEndTimestamp && $intNowTimestamp <  $intEndTimestamp +  3600 ) {
+    } else if( $intNowTimestamp > $this->endTimestamp && $intNowTimestamp <  $this->endTimestamp +  3600 ) {
       $arrExitMeetLocation                  = [ 'in der Kneipe', 'im Biergarten', 'in der Gaststätte', 'im Wirtshaus', 'im Café', 'in der Bar' ];
 
       foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
@@ -673,6 +682,31 @@ class Gameplay extends Game {
       }
     }
 
+    for( $i = 0; $i < count( $arrCaptured ); $i++ ) {
+      if( $intNowTimestamp > $arrCaptured[ $i ]->timestamp + 1200 ) continue;
+
+      $strPlayerId        = $arrCaptured[ $i ]->playerId;
+      $objPlayer          = new Player( $strPlayerId );
+
+      $objSystemMessage                     = new stdClass();
+      $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+      $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $arrCaptured[ $i ]->timestamp ) . ')</p>';
+      $objSystemMessage->message           .= '<p class="danger-text bold">ERWISCHT UND GEFANGEN</p>';
+      $objSystemMessage->message           .= '<p class="danger-text">' .$objPlayer->get( 'name' ) . ' wurde leider erwischt und gefangen.</p>';
+      $objSystemMessage->message           .= '<p class="danger-text">Herzlichen Glückwunsch der Hunter-Taskforce.</p>';
+      $objSystemMessage->applies            = $strPlayerId;
+      $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
+      $objSystemMessage->appliesRole        = 'player';
+      $objSystemMessage->appliesRoleName    = 'Spieler';
+      $objSystemMessage->cssClass           = 'danger-text';
+      $objSystemMessage->appliesCount       = $i + 1;
+      $objSystemMessage->showMessageOnlyOne = false;
+      $objSystemMessage->id                 = 'caputured_' . $strPlayerId;
+      $objSystemMessage->timestamp          = $arrCaptured[ $i ]->timestamp;
+
+      array_push( $objState->systemMessages, $objSystemMessage );
+    }
+
     return $objState;
   }
 
@@ -689,17 +723,16 @@ class Gameplay extends Game {
  *
 */
   private function getGameplayState( object $objState ) : object {
-    $intStartTimestamp        = Presentation::stringToTimestamp( $this->gameSettings->start );
-    $intDurationSec           = $this->gameSettings->duration * 60 * 60;
-    $intEndTimestamp          = $intStartTimestamp + $intDurationSec;
     $intNowTimestamp          = time();
-    $objState->timestampStart = $intStartTimestamp;
-    $objState->timestampEnd   = $intEndTimestamp;
+    $objState->timestampStart = $this->startTimestamp;
+    $objState->timestampEnd   = $this->endTimestamp;
+    $objState->capturedPlayer = $this->gameSettings->captured;
+    $objState->isRunning      = $this->isRunning;
 
-    if( $intStartTimestamp > $intNowTimestamp ) {
+    if( $this->startTimestamp > $intNowTimestamp ) {
       $objState->gameState        = 'stopped';
-      $objState->gameStateMessage = 'Das Spiel startet am ' . Presentation::timestampToString( $intStartTimestamp ) . ' Uhr.';
-    } else if( $intEndTimestamp < $intNowTimestamp ) {
+      $objState->gameStateMessage = 'Das Spiel startet am ' . Presentation::timestampToString( $this->startTimestamp ) . ' Uhr.';
+    } else if( $this->endTimestamp < $intNowTimestamp ) {
       $objState->gameState        = 'stopped';
       $objState->gameStateMessage = 'Das Spiel ist schon beendet.';
     } else {
@@ -754,6 +787,41 @@ class Gameplay extends Game {
     $objState->speedHuntState->state             = 'available';
 
     return $objState;
+  }
+
+/**
+ * This Method set a Player as captured.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ * @example    $objRequestObject = $this->captured( $objRequestObject );
+ * @example    $objRequestObject = $objGameplay->captured( $objRequestObject );
+ *
+*/
+  public function captured( object $objRequestObject ) : object {
+    $objCaptured             = new stdClass();
+
+    $objCaptured->timestamp  = time();
+    $objCaptured->playerId   = $objRequestObject->playerId;
+    $objCaptured->hunterIds  = $objRequestObject->hunterIds;
+
+    if( ! isset( $this->gameplayObject->captured ) ) $this->gameplayObject->captured = [];
+
+    array_push( $this->gameplayObject->captured, $objCaptured );
+
+    if( isset( $this->gameplayObject->speedHunt ) && $this->gameplayObject->speedHunt->playerId == $objRequestObject->playerId ) {
+      $this->gameplayObject->lastSpeedHunt = time();
+
+      array_push( $this->gameplayObject->speedHunts, $this->gameplayObject->speedHunt );
+      unset( $this->gameplayObject->speedHunt );
+    }
+
+    $this->saveGameplay();
+
+    return $objRequestObject;
   }
 
 /**
@@ -830,7 +898,7 @@ class Gameplay extends Game {
     $objState                    = $this->getGameplayState( $objState );
     $objState                    = $this->silentHunt( $objState );
     $objState                    = $this->getGameplaySpeedHunt( $objState );
-    $objState                    = $this->checkRules( $objState );
+    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
 
     $objRequestObject->positions = $this->getAllPlayerPositions();
     $objRequestObject->state     = $objState;

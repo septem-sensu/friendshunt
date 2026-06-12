@@ -777,6 +777,20 @@ window[ appAlias ].listener.clickOpenMapInLayer = function() {
   return;
 }
 
+/**
+ * This Function register the Event Listener to calc in span Html Tags with Css Classes.
+ *
+ * @function
+ * @public
+ * @name       calcHtmlTags
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.listener.calcHtmlTags();
+ *
+*/
 window[ appAlias ].listener.calcHtmlTags = function() {
   var arrTags = document.querySelectorAll( 'span.js-calc' );
 
@@ -802,8 +816,12 @@ window[ appAlias ].listener.calcHtmlTags = function() {
 
 
 
+  return;
+};
 
-}
+
+
+
 
 
 window.addEventListener( 'load', function() {

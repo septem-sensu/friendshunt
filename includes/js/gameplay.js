@@ -21,6 +21,7 @@ window[ appAlias ].gameplayState          = window[ appAlias ].gameplayState || 
 window[ appAlias ].systemMessagesDontShow = window[ appAlias ].systemMessagesDontShow || {};
 window[ appAlias ].stepCount              = window[ appAlias ].stepCount || 0;
 window[ appAlias ].outOfPlayingField      = window[ appAlias ].outOfPlayingField || false;
+window[ appAlias ].capturedPlayerIds      = window[ appAlias ].capturedPlayerIds || [];
 
 /**
  * This Function init the Gameplay, starts the Game Player Tracking, the Step Counter and used the Wake Lock API.
@@ -149,8 +150,9 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
  *
 */
 window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
-  var arrGameplayRoles   = [ 'player', 'hunter', 'management' ];
-  var strSpeedHuntPlayer = '';
+  var arrGameplayRoles     = [ 'player', 'hunter', 'management' ];
+  var strSpeedHuntPlayer   = '';
+
 
   if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
     for( var i = 0; i < objResponse.result.positions.player.length; i++ ) {
@@ -165,11 +167,18 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
     }
   }
 
+  for( var i = 0; i < window[ appAlias ].gameplayState.capturedPlayer.length; i++ ) {
+    window[ appAlias ].capturedPlayerIds.push( window[ appAlias ].gameplayState.capturedPlayer[ i ].playerId );
+    window[ appAlias ].tracker.geoMapsObject.removeMarker( window[ appAlias ].gameplayState.capturedPlayer[ i ].playerId );
+  }
+
   for( var k = 0; k < arrGameplayRoles.length; k++ ) {
     for( var i = 0; i < objResponse.result.positions[  arrGameplayRoles[ k ] ].length; i++ ) {
       if( objResponse.result.positions[  arrGameplayRoles[ k ] ][ i ].position.length < 1 ) continue;
 
       var objTracking     = objResponse.result.positions[  arrGameplayRoles[ k ] ][ i ];
+
+      if( window[ appAlias ].capturedPlayerIds.includes( objTracking.id ) ) continue;
 
       window[ appAlias ].methods.gameplay.setPosition( arrGameplayRoles[ k ], objTracking, objResponse.result, i + 1, strSpeedHuntPlayer );
     }
@@ -179,6 +188,55 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
   window[ appAlias ].methods.gameplay.setMessages();
   window[ appAlias ].methods.gameplay.checkRules();
   window[ appAlias ].methods.gameplay.checkSystemMessages();
+
+  return;
+};
+
+/**
+ * This Function hide and unhide the Capture Layer of the Gamplay Page.
+ *
+ * @function
+ * @public
+ * @name       showCaptureLayer
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.showCaptureLayer();
+ *
+*/
+window[ appAlias ].methods.gameplay.showCaptureLayer = function() {
+  var arrHunter             = window[ appAlias ].gameSettings.hunter;
+  var objCaptureLayer       = document.querySelector( '#game-capture-container' );
+  var objCaptureLayerInner  = document.querySelector( '#game-capture-hunter-container' );
+  var strContent            = '';
+
+  strContent               += '<div class="content-container">';
+  strContent               += '<div>';
+  strContent               += '<h2 class="align-left float-left">Gefangen</h2>';
+  strContent               += '<button class="success float-right" onclick="javascript: document.querySelector(\'#game-capture-container\').classList.add(\'hidden\')">Doch nicht</button>';
+  strContent               += '<div class="clear-both"></div>';
+  strContent               += '</div>';
+  strContent               += '<p class="align-left mt-10">Von wem wurdest du erwischt und gefangen?</p>';
+  strContent               += '</div>';
+
+  objCaptureLayerInner.innerHTML = strContent;
+
+  for( var i = 0; i < arrHunter.length; i++ ) {
+    var objNewHunterDiv       = document.createElement( 'div' );
+    var strHunterContent      = '';
+    strHunterContent         += '<div class="content-container">';
+    strHunterContent         += '<p class="align-left"><input type="checkbox" name="hunterId" value="' + arrHunter[ i ].id + '" /> ' + arrHunter[ i ].id + '</p>';
+    strHunterContent         += '</div>';
+
+    objNewHunterDiv.innerHTML = strHunterContent;
+
+    objCaptureLayerInner.append( objNewHunterDiv );
+  }
+
+  objCaptureLayer.classList.remove( 'hidden' );
+  objCaptureLayer.style.height = ( window.innerHeight - 137 ) + 'px';
 
   return;
 };
@@ -277,6 +335,47 @@ window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
 }
 
 /**
+ * This Function send the Ajax Request to the Server with captured Player Id and the Hunter Ids from the Checkboxes and closed the Capture Layer.
+ *
+ * @function
+ * @public
+ * @name       sendCaptured
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @return     {void}
+ * @example    friendshunt.methods.gameplay.sendCaptured();
+ *
+*/
+window[ appAlias ].methods.gameplay.sendCaptured = function() {
+  var arrHunterIds        = document.querySelectorAll( 'input[name="hunterId"]' );
+  var objPost             = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
+
+  objPost.gameplayMethode = 'captured';
+  objPost.hunterIds       = [];
+  objPost.playerId        = window[ appAlias ].playerId;
+
+  for( var i = 0; i < arrHunterIds.length; ++i ) {
+    if( ! arrHunterIds[ i ].checked ) continue;
+    objPost.hunterIds.push( arrHunterIds[ i ].value )
+  }
+
+  if( objPost.hunterIds.length < 1 ) {
+    document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
+    return;
+  }
+
+  window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+
+  window[ appAlias ].tracker.geoMapsObject.removeMarker( window[ appAlias ].playerId );
+
+  document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
+
+  return;
+}
+
+/**
  * This Function checks the Game Rules and set the window Variable of the Game.
  *
  * @function
@@ -291,6 +390,9 @@ window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
  *
 */
 window[ appAlias ].methods.gameplay.checkRules = function() {
+  if( window[ appAlias ].capturedPlayerIds.includes( window[ appAlias ].playerId ) ) return;
+  if( ! window[ appAlias ].gameplayState.isRunning ) return;
+
   var floatPlayerDistance = window[ appAlias ].tracker.geoMapsObject.getDistance( 'playingFieldCenterPosition', window[ appAlias ].playerId );
 
   if( floatPlayerDistance > parseInt( window[ appAlias ].gameSettings.playingFieldSize ) + 50 ) {
@@ -370,20 +472,26 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   var strMyGameRole       = objResult.gameRole;
   var strMarkerContent    = '';
   var strSpeedHuntMessage = '';
+  var strCapturedMessage  = '';
 
   if( objSpeedHuntState.speedHuntCount > 0 ) {
     strSpeedHuntMessage = ' Ping ' + objSpeedHuntState.speedHuntCount + ' von ' + objSpeedHuntState.speedHuntCountMax + '.';
   }
 
   if( strGameplayRole == 'player' ) {
-    if( strMyGameRole == 'player' && objGameSettings.showPlayer == 0 && objTracking.id != window[ appAlias ].playerId ) return;
     if( strMyGameRole == 'player' ) {
+      if( objGameSettings.showPlayer == 0 && objTracking.id != window[ appAlias ].playerId ) return;
+
       strMarkerContent   += '<p class="bold">' + objTracking.name + '</p>';
 
       if( objSpeedHuntState.speedHuntCount > 0 ) {
         strMarkerContent   += '<p>' + objSpeedHuntState.message + strSpeedHuntMessage + '</p>';
       } else {
         strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
+      }
+
+      if( objTracking.id == window[ appAlias ].playerId ) {
+        strCapturedMessage = '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].methods.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>';
       }
     } else if( strMyGameRole == 'hunter' ) {
       $strPlayerName = objGameSettings.showNames == '1' ? objTracking.name : 'Spieler ' + intPlayerCount;
@@ -430,6 +538,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
 
   strMarkerContent   += '<p>Letztes Tracking: ' + window[ appAlias ].methods.gameplay.timestampToDateTimeString( objLastPosition.timestamp, 'time' ) + ' Uhr</p>';
   strMarkerContent   += '<p>Genauigkeit: ' + objLastPosition.precision + ' Meter</p>';
+  strMarkerContent   += strCapturedMessage;
 
   window[ appAlias ].tracker.geoMapsObject.setMarker( objTracking.id, strGameplayRole, arrColors[ intPlayerCount ], objLastPosition.lat, objLastPosition.lng, strMarkerContent );
 
