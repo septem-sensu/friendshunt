@@ -336,6 +336,11 @@ Search.appendIndex(
             "summary": "This\u0020static\u0020Method\u0020save\u0020all\u0020Game\u0020Data\u0020for\u0020a\u0020new\u0020Game\u0020in\u0020a\u0020encrypted\u0020JSON\u0020File.",
             "url": "classes/Game.html#method_saveNewGame"
         },                {
+            "fqsen": "\\Game\u003A\u003AremovePlayerProperties\u0028\u0029",
+            "name": "removePlayerProperties",
+            "summary": "This\u0020static\u0020Method\u0020converts\u0020a\u0020Player\u0020Object\u0020in\u0020a\u0020serialized\u0020Object\u0020and\u0020removes\u0020all\u0020not\u0020used\u0020Properties\u0020in\u0020the\u0020Game\u0020from\u0020the\u0020Object.",
+            "url": "classes/Game.html#method_removePlayerProperties"
+        },                {
             "fqsen": "\\Game\u003A\u003AaddPlayerToGame\u0028\u0029",
             "name": "addPlayerToGame",
             "summary": "This\u0020static\u0020Method\u0020add\u0020a\u0020Player\u0020to\u0020a\u0020new\u0020Game\u0020and\u0020set\u0020the\u0020Template\u0020Variables\u0020for\u0020the\u0020Template\u0020Engine.",
@@ -365,6 +370,11 @@ Search.appendIndex(
             "name": "gameplay",
             "summary": "This\u0020Method\u0020controlls\u0020the\u0020Gameplay\u0020and\u0020redirect\u0020the\u0020Requests\u0020to\u0020the\u0020Gameplay\u0020Object.",
             "url": "classes/Game.html#method_gameplay"
+        },                {
+            "fqsen": "\\Game\u003A\u003AGAMEROLES",
+            "name": "GAMEROLES",
+            "summary": "",
+            "url": "classes/Game.html#constant_GAMEROLES"
         },                {
             "fqsen": "\\Game\u003A\u003A\u0024name",
             "name": "name",
@@ -486,6 +496,16 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020is\u0020the\u0020init\u0020the\u0020Gameplay,\u0020set\u0020all\u0020Properties\u0020and\u0020create\u0020the\u0020Directories\u0020and\u0020Files\u0020for\u0020the\u0020Game.",
             "url": "classes/Gameplay.html#method_init"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003AtransferStatistics\u0028\u0029",
+            "name": "transferStatistics",
+            "summary": "This\u0020Method\u0020generate\u0020the\u0020Statistics\u0020and\u0020set\u0020the\u0020Gameplay\u0020Values\u0020at\u0020the\u0020Player\u0020Objects.",
+            "url": "classes/Gameplay.html#method_transferStatistics"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003AsetStatisticProperty\u0028\u0029",
+            "name": "setStatisticProperty",
+            "summary": "This\u0020Method\u0020is\u0020a\u0020Helper\u0020Methode\u0020and\u0020set\u0020the\u0020Property\u0020Values\u0020to\u0020the\u0020Set\u0020Object\u0020for\u0020the\u0020Player\u0020Object.",
+            "url": "classes/Gameplay.html#method_setStatisticProperty"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003AaddTracking\u0028\u0029",
             "name": "addTracking",
             "summary": "This\u0020Method\u0020save\u0020the\u0020Tracking\u0020and\u0020the\u0020Steps\u0020that\u0020have\u0020been\u0020run\u0020since\u0020the\u0020last\u0020Tracking.",
@@ -531,10 +551,10 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020controlls\u0020a\u0020silent\u0020Hunt\u0020from\u0020the\u0020Current\u0020Player\u0020and\u0020added\u0020to\u0020the\u0020Response\u0020State\u0020Object.",
             "url": "classes/Gameplay.html#method_silentHunt"
         },                {
-            "fqsen": "\\Gameplay\u003A\u003AcheckRules\u0028\u0029",
-            "name": "checkRules",
-            "summary": "This\u0020Method\u0020checks\u0020the\u0020Rules\u0020and\u0020set\u0020a\u0020System\u0020Message\u0020by\u0020violation\u0020of\u0020the\u0020rules.",
-            "url": "classes/Gameplay.html#method_checkRules"
+            "fqsen": "\\Gameplay\u003A\u003AcheckRulesAndAddSystemMessages\u0028\u0029",
+            "name": "checkRulesAndAddSystemMessages",
+            "summary": "This\u0020Method\u0020checks\u0020the\u0020Rules\u0020and\u0020set\u0020the\u0020System\u0020Messages.",
+            "url": "classes/Gameplay.html#method_checkRulesAndAddSystemMessages"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AgetGameplayState\u0028\u0029",
             "name": "getGameplayState",
@@ -545,6 +565,11 @@ Search.appendIndex(
             "name": "getGameplaySpeedHunt",
             "summary": "This\u0020Method\u0020added\u0020the\u0020Speed\u0020Hunt\u0020Informations\u0020to\u0020the\u0020Gameplay\u0020State\u0020Object\u0020for\u0020the\u0020current\u0020Player\u0020for\u0020the\u0020Response.",
             "url": "classes/Gameplay.html#method_getGameplaySpeedHunt"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003Acaptured\u0028\u0029",
+            "name": "captured",
+            "summary": "This\u0020Method\u0020set\u0020a\u0020Player\u0020as\u0020captured.",
+            "url": "classes/Gameplay.html#method_captured"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AspeedHunt\u0028\u0029",
             "name": "speedHunt",
@@ -560,6 +585,11 @@ Search.appendIndex(
             "name": "message",
             "summary": "This\u0020Method\u0020controlls\u0020a\u0020new\u0020Message\u0020from\u0020the\u0020current\u0020Player\u0020and\u0020adds\u0020the\u0020Message\u0020Queue\u0020for\u0020the\u0020Response.",
             "url": "classes/Gameplay.html#method_message"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003ASTATISTICPROPERTIES",
+            "name": "STATISTICPROPERTIES",
+            "summary": "",
+            "url": "classes/Gameplay.html#constant_STATISTICPROPERTIES"
         },                {
             "fqsen": "\\Gameplay\u003A\u003A\u0024gameplayObject",
             "name": "gameplayObject",
@@ -600,6 +630,21 @@ Search.appendIndex(
             "name": "gameplayRoles",
             "summary": "",
             "url": "classes/Gameplay.html#property_gameplayRoles"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024isRunning",
+            "name": "isRunning",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_isRunning"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024startTimestamp",
+            "name": "startTimestamp",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_startTimestamp"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024endTimestamp",
+            "name": "endTimestamp",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_endTimestamp"
         },                {
             "fqsen": "\\Player",
             "name": "Player",
@@ -710,6 +755,111 @@ Search.appendIndex(
             "name": "description",
             "summary": "",
             "url": "classes/Player.html#property_description"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerCountSteps",
+            "name": "asPlayerCountSteps",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerCountSteps"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterCountSteps",
+            "name": "asHunterCountSteps",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterCountSteps"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementCountSteps",
+            "name": "asManagementCountSteps",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementCountSteps"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerDistance",
+            "name": "asPlayerDistance",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerDistance"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterDistance",
+            "name": "asHunterDistance",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterDistance"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementDistance",
+            "name": "asManagementDistance",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementDistance"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerCountGames",
+            "name": "asPlayerCountGames",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerCountGames"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterCountGames",
+            "name": "asHunterCountGames",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterCountGames"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementCountGames",
+            "name": "asManagementCountGames",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementCountGames"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerTime",
+            "name": "asPlayerTime",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerTime"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterTime",
+            "name": "asHunterTime",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterTime"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementTime",
+            "name": "asManagementTime",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementTime"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerViolationOfTheRules",
+            "name": "asPlayerViolationOfTheRules",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerViolationOfTheRules"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterViolationOfTheRules",
+            "name": "asHunterViolationOfTheRules",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterViolationOfTheRules"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementViolationOfTheRules",
+            "name": "asManagementViolationOfTheRules",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementViolationOfTheRules"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerSpeedHunts",
+            "name": "asPlayerSpeedHunts",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerSpeedHunts"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterSpeedHunts",
+            "name": "asHunterSpeedHunts",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterSpeedHunts"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementSpeedHunts",
+            "name": "asManagementSpeedHunts",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementSpeedHunts"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerCaptured",
+            "name": "asPlayerCaptured",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerCaptured"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterCaptured",
+            "name": "asHunterCaptured",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterCaptured"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementCaptured",
+            "name": "asManagementCaptured",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementCaptured"
         },                {
             "fqsen": "\\Presentation",
             "name": "Presentation",

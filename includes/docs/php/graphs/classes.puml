@@ -91,6 +91,7 @@ class Game {
   +addGamePlayDataToGame()
   +deleteGame()
   +saveNewGame()
+  +removePlayerProperties()
   +addPlayerToGame()
   +addHunterToGame()
   +addManagementToGame()
@@ -108,8 +109,13 @@ class Gameplay {
   +gameSettings
   +messages
   +gameplayRoles
+  +isRunning
+  +startTimestamp
+  +endTimestamp
   +__construct()
   +init()
+  +transferStatistics()
+  +setStatisticProperty()
   +addTracking()
   +getGameSettings()
   +calcDistance()
@@ -119,9 +125,10 @@ class Gameplay {
   +saveGameplay()
   +saveMessages()
   +silentHunt()
-  +checkRules()
+  +checkRulesAndAddSystemMessages()
   +getGameplayState()
   +getGameplaySpeedHunt()
+  +captured()
   +speedHunt()
   +track()
   +message()
@@ -136,6 +143,27 @@ class Player {
   +games
   +title
   +description
+  +asPlayerCountSteps
+  +asHunterCountSteps
+  +asManagementCountSteps
+  +asPlayerDistance
+  +asHunterDistance
+  +asManagementDistance
+  +asPlayerCountGames
+  +asHunterCountGames
+  +asManagementCountGames
+  +asPlayerTime
+  +asHunterTime
+  +asManagementTime
+  +asPlayerViolationOfTheRules
+  +asHunterViolationOfTheRules
+  +asManagementViolationOfTheRules
+  +asPlayerSpeedHunts
+  +asHunterSpeedHunts
+  +asManagementSpeedHunts
+  +asPlayerCaptured
+  +asHunterCaptured
+  +asManagementCaptured
   +newPlayer()
   +addGamesToTemplate()
   +checkLogin()

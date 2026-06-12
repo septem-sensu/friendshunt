@@ -276,7 +276,7 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
     var strCssClass               = typeof arrSystemMessages[ i ].cssClass == 'string' ? ' class="' + arrSystemMessages[ i ].cssClass + '"' : '';
 
     if( typeof arrSystemMessages[ i ].applies == 'string' && arrSystemMessages[ i ].applies != '' ) {
-      if( window[ appAlias ].gameplayRole == 'hunter' && objGameSettings.showNames != '1' && arrSystemMessages[ i ].$objSystemMessage.appliesRole == 'player' ) {
+      if( window[ appAlias ].gameplayRole == 'hunter' && objGameSettings.showNames != '1' && arrSystemMessages[ i ].appliesRole == 'player' ) {
         strApplies = '<p' + strCssClass + '>Betrifft: Spieler ' + arrSystemMessages[ i ].appliesCount + '</p>';
       } else {
         strApplies = '<p' + strCssClass + '>Betrifft: ' + arrSystemMessages[ i ].appliesName + '</p>';

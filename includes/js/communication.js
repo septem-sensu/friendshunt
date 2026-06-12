@@ -231,12 +231,12 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
     window[ appAlias ].methods.setFields( objResponse.result );
 
     if( objResponse.result.methode && objResponse.result.methode == 'gameplay' && objResponse.result.callback ) {
+      if( window[ appAlias ].debug ) console.log( 'Object Ajax-Response: ', objResponse.result );
       window[ appAlias ].lastMessageId    = window[ appAlias ].lastMessageId || '';
       window[ appAlias ].gameplayState    = typeof objResponse.result.state == 'object' && objResponse.result.state != null ? objResponse.result.state : {};
       window[ appAlias ].gameplayMessages = typeof objResponse.result.messages == 'object' && objResponse.result.messages != null ? objResponse.result.messages : [];
       if( typeof objResponse.result.gameRole == 'string' ) window[ appAlias ].gameplayRole = objResponse.result.gameRole;
       window[ appAlias ].methods.gameplay[ objResponse.result.callback ]( objResponse );
-      if( window[ appAlias ].debug ) console.log( 'Object Ajax-Response: ', objResponse.result );
     }
   }
 
