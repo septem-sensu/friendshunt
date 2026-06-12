@@ -424,6 +424,9 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
 
   if( window[ appAlias ].gameplayState.gameState == 'stopped' ) {
     $strStateLine += window[ appAlias ].gameplayState.gameStateMessage + ' ';
+
+    document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-stop.png';
+    document.querySelector( '#game-state-icon-container' ).removeAttribute( 'onclick' );
   } else {
     if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
       if( window[ appAlias ].gameplayRole != 'hunter' ) $strStateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">';
@@ -436,6 +439,7 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
     $strStateLine += window[ appAlias ].gameplayState.nextSilentHuntMessage + ' ';
 
     document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-play.png';
+    document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();' );
   }
 
   document.querySelector( '#game-scrolling-info-text' ).innerHTML = $strStateLine;

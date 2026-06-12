@@ -9,7 +9,9 @@
 <script src="includes/js/gameplay.js"></script>
 
 <div class="game-menu-top">
-  <img id="icon-game-state-stop" class="icon-game-state-stop" src="includes/images/icon-stop.png" alt="Spiel läuft nicht" />
+  <div id="game-state-icon-container" class="pointer" onclick="javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();">
+    <img id="icon-game-state-stop" class="icon-game-state-stop" src="includes/images/icon-stop.png" alt="Spiel läuft nicht" />
+  </div>
   <div id="game-scrolling-info-text-container">
     <div id="game-scrolling-info-text"></div>
   </div>

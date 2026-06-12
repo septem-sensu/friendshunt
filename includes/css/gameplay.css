@@ -272,6 +272,9 @@ body, html {
   max-width: 480px;
   margin-left: auto;
   color: #fff;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border-bottom-right-radius: 0px;
 }
 
 .game-message-from-other {
@@ -284,6 +287,9 @@ body, html {
   padding: 5px;
   padding-bottom: 1px;
   max-width: 480px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border-bottom-left-radius: 0px;
 }
 
 .game-message-from-me div p,

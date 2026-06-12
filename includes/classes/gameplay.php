@@ -766,6 +766,23 @@ class Gameplay extends Game {
       $objState->speedHuntState->message           = 'Es läuft ein Speedhunt.';
       $objState->speedHuntState->state             = 'running';
 
+      if( ! isset( $objState->systemMessages ) ) $objState->systemMessages = [];
+
+      $intLastPingTimestamp                 = count( $this->gameplayObject->speedHunt->timestamps ) > 0 ? end( $this->gameplayObject->speedHunt->timestamps ) : time();
+
+      $objSystemMessage                     = new stdClass();
+      $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+      $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $intLastPingTimestamp ) . ')</p>';
+      $objSystemMessage->message           .= '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
+      $objSystemMessage->message           .= '<p class="danger-text">Aktuell läuft ein Speedhunt auf einen Spieler.</p>';
+      $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $this->gameplayObject->speedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
+      $objSystemMessage->cssClass           = 'danger-text';
+      $objSystemMessage->showMessageOnlyOne = false;
+      $objSystemMessage->id                 = 'speedhunt_' . $this->gameplayObject->speedHunt->playerId . '_' . $intLastPingTimestamp;
+      $objSystemMessage->timestamp          = $intLastPingTimestamp;
+
+      array_push( $objState->systemMessages, $objSystemMessage );
+
       return $objState;
     }
 
@@ -871,6 +888,8 @@ class Gameplay extends Game {
     $objState                    = $this->getGameplayState( $objState );
     $objState                    = $this->silentHunt( $objState );
     $objState                    = $this->getGameplaySpeedHunt( $objState );
+    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
+
     $objRequestObject->state     = $objState;
     $objRequestObject->settings  = $this->gameSettings;
     $objRequestObject->gameRole  = $this->currentPlayerGameRole;
@@ -922,7 +941,11 @@ class Gameplay extends Game {
  *
 */
   public function message( object $objRequestObject ) : object {
-    if( $objRequestObject->message == '' ) return $objRequestObject;
+    if( $objRequestObject->message == '' ) {
+      $objRequestObject->messages = $this->messages->messages;
+
+      return $objRequestObject;
+    }
 
     $objMessage             = new stdClass();
     $objMessage->message    = $objRequestObject->message;
