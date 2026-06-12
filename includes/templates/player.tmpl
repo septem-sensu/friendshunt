@@ -12,7 +12,7 @@
     <tr>
       <td class="align-top">
         <p class="bold mb-5">{{Player::name}}</p>
-        <p>{{Player::email}}</p>
+        <p><a href="mailto:{{Player::email}}">✉ {{Player::email}}</a></p>
         <p>{{Translate::Player::role}}</p>
         <p>{{Player::title}}</p>
         <p>{{Player::description}}</p>
@@ -32,6 +32,125 @@
   <p class="align-right"><button data-link="index.php?view=gameEdit&fields=Game" type="button" class="event-link success w-160 hidden new-game-button">Neues Spiel</button></p>
 </div>
 <div id="game-content-container"></div>
+<div class="content-container minh-30">
+  <h2 class="align-left">Dashboard</h2>
+</div>
+<div class="player-dashboard-container">
+  <div class="card card-mobile-full">
+    <div class="card-title">Als Spieler</div>
+    <div class="card-content-flex">
+      <span>Spiele</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asPlayerCountGames}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Zeit</span>
+      <span><span class="js-calc js-calc-set-default-int">{{Player::asPlayerTime}}</span> Stunden</span>
+    </div>
+    <div class="card-content-flex">
+      <span class="danger-text">Gefangen</span>
+      <span class="danger-text js-calc js-calc-set-default-int">{{Player::asPlayerCaptured}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Speed Hunts</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asPlayerSpeedHunts}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span class="danger-text">Regelbrüche</span>
+      <span class="danger-text js-calc js-calc-set-default-int">{{Player::asPlayerViolationOfTheRules}}</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Als Jäger</div>
+    <div class="card-content-flex">
+      <span>Spiele</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asHunterCountGames}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Zeit</span>
+      <span><span class="js-calc js-calc-set-default-int">{{Player::asHunterTime}}</span> Stunden</span>
+    </div>
+    <div class="card-content-flex">
+      <span class="success-text">Gefangen</span>
+      <span class="success-text js-calc js-calc-set-default-int">{{Player::asHunterCaptured}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Speed Hunts</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asHunterSpeedHunts}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span class="danger-text">Regelbrüche</span>
+      <span class="danger-text js-calc js-calc-set-default-int">{{Player::asHunterViolationOfTheRules}}</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Als Spielleitung</div>
+    <div class="card-content-flex">
+      <span>Spiele</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asManagementCountGames}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Zeit</span>
+      <span><span class="js-calc js-calc-set-default-int">{{Player::asManagementTime}}</span> Stunden</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Gefangen</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asManagementCaptured}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Speed Hunts</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asManagementSpeedHunts}}</span>
+    </div>
+    <div class="card-content-flex">
+      <span class="danger-text">Regelbrüche</span>
+      <span class="danger-text js-calc js-calc-set-default-int">{{Player::asManagementViolationOfTheRules}}</span>
+    </div>
+  </div>
+
+  <div class="card card-mobile-full">
+    <div class="card-title">Distanzen als Spieler</div>
+    <div class="card-content-flex">
+      <span>Distanz</span>
+      <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asPlayerDistance}}</span> km</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Schritte</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asHunterPlayerSteps}}</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Distanzen als Jäger</div>
+    <div class="card-content-flex">
+      <span>Distanz</span>
+      <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asHunterDistance}}</span> km</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Schritte</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asHunterCountSteps}}</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Distanzen als Spielleitung</div>
+    <div class="card-content-flex">
+      <span>Distanz</span>
+      <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asManagementDistance}}</span> km</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Schritte</span>
+      <span class="js-calc js-calc-set-default-int">{{Player::asManagementCountSteps}}</span>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
 <script>
   window[ appAlias ].methods.unhideGameDeleteButtons = function() {
     var strRole             = '{{Player::role}}';

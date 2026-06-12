@@ -24,6 +24,8 @@ include_once ( __DIR__ . '/../classes/gameplay.php' );
 */
 class Game extends BaseObject {
 
+  const GAMEROLES = [ 'player' => 'Spieler', 'hunter' => 'Hunter', 'management' => 'Spielleitung' ];
+
 /* Class Properties */
   protected string $name;
   protected string $title;
@@ -188,53 +190,27 @@ class Game extends BaseObject {
  *
 */
   public function deleteGame( object $objRequestObject ) : object {
+    $arrGameRoles     = $this::GAMEROLES;
     $strClass         = $objRequestObject->class;
     $strId            = $objRequestObject->id;
     $objGame          = new $strClass( $strId );
-    $arrPlayerIds     = $objGame->get( 'player' );
-    $arrHunterIds     = $objGame->get( 'hunter' );
-    $arrManagementIds = $objGame->get( 'management' );
 
-    for( $i = 0; $i < count( $arrPlayerIds ); $i++ ) {
-      $objPlayer   = new Player( $arrPlayerIds[ $i ] );
-      $arrGames    = $objPlayer->get( 'games' );
-      $arrGames    = isset( $arrGames ) ? $arrGames : [];
-      $arrGamesNew = [];
+    foreach( $arrGameRoles as $strRoleId => $strRoleName ) {
+      $arrPlayerIds = $objGame->get( $strRoleId );
 
-      for( $j = 0; $j < count( $arrGames ); $j++ ) {
-        if( $arrGames[ $j ] == $strId ) continue;
-        array_push( $arrGamesNew, $arrGames[ $j ] );
+      for( $i = 0; $i < count( $arrPlayerIds ); $i++ ) {
+        $objPlayer   = new Player( $arrPlayerIds[ $i ] );
+        $arrGames    = $objPlayer->get( 'games' );
+        $arrGames    = isset( $arrGames ) ? $arrGames : [];
+        $arrGamesNew = [];
+
+        for( $j = 0; $j < count( $arrGames ); $j++ ) {
+          if( $arrGames[ $j ] == $strId ) continue;
+          array_push( $arrGamesNew, $arrGames[ $j ] );
+        }
+
+        $objPlayer->set( 'games', $arrGamesNew );
       }
-
-      $objPlayer->set( 'games', $arrGamesNew );
-    }
-
-    for( $i = 0; $i < count( $arrHunterIds ); $i++ ) {
-      $objPlayer   = new Player( $arrHunterIds[ $i ] );
-      $arrGames    = $objPlayer->get( 'games' );
-      $arrGames    = isset( $arrGames ) ? $arrGames : [];
-      $arrGamesNew = [];
-
-      for( $j = 0; $j < count( $arrGames ); $j++ ) {
-        if( $arrGames[ $j ] == $strId ) continue;
-        array_push( $arrGamesNew, $arrGames[ $j ] );
-      }
-
-      $objPlayer->set( 'games', $arrGamesNew );
-    }
-
-    for( $i = 0; $i < count( $arrManagementIds ); $i++ ) {
-      $objPlayer   = new Player( $arrManagementIds[ $i ] );
-      $arrGames    = $objPlayer->get( 'games' );
-      $arrGames    = isset( $arrGames ) ? $arrGames : [];
-      $arrGamesNew = [];
-
-      for( $j = 0; $j < count( $arrGames ); $j++ ) {
-        if( $arrGames[ $j ] == $strId ) continue;
-        array_push( $arrGamesNew, $arrGames[ $j ] );
-      }
-
-      $objPlayer->set( 'games', $arrGamesNew );
     }
 
     $this->deleteDirectory( __DIR__ . '/../files/game/' . $strId . '/' );
@@ -256,11 +232,9 @@ class Game extends BaseObject {
  *
 */
   public static function saveNewGame( object $objRequestObject ) : object {
+    $arrGameRoles                             = Game::GAMEROLES;
     $strGameId                                = uniqid( 'game_', true );
     $objGame                                  = new Game( $strGameId );
-    $arrPlayer                                = $objRequestObject->player;
-    $arrHunter                                = $objRequestObject->hunter;
-    $arrManagement                            = $objRequestObject->management;
 
     $objRequestObject->redirect               = 'index.php?view=player';
     $strGameplayPath                          = __DIR__ . '/../files/game/' . $strGameId . '/';
@@ -268,6 +242,8 @@ class Game extends BaseObject {
     $objGameplay->player                      = [];
     $objGameplay->hunter                      = [];
     $objGameplay->management                  = [];
+    $objGameplay->speedHunts                  = [];
+    $objGameplay->captured                    = [];
     $objGameplay->name                        = $objRequestObject->name;
     $objGameplay->title                       = $objRequestObject->title;
     $objGameplay->description                 = $objRequestObject->description;
@@ -283,63 +259,31 @@ class Game extends BaseObject {
     $objGameplay->trackInterval               = $objRequestObject->trackInterval;
     $objGameplay->playingFieldCenterPosition  = $objRequestObject->playingFieldCenterPosition;
     $objGameplay->playingFieldSize            = $objRequestObject->playingFieldSize;
+    $objGameplay->violationsOfTheRules        = new stdClass();
+    $objGameplay->isTransfered                = false;
 
     $objGameplay->creationDate                = date( "Y-m-d H:i:s" );
 
-    for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
-      $objPlayer           = new Player( $arrPlayer[ $i ] );
-      $arrGames            = $objPlayer->get( 'games' );
-      $arrGames            = isset( $arrGames ) ? $arrGames : [];
-      $objSerializedPlayer = $objPlayer->serializeObject();
+    foreach( $arrGameRoles as $strRoleId => $strRoleName ) {
+      $arrPlayer = $objRequestObject->$strRoleId;
 
-      $objPlayer->set( 'id', $arrPlayer[ $i ] );
+      for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
+        $objPlayer           = new Player( $arrPlayer[ $i ] );
+        $arrGames            = $objPlayer->get( 'games' );
+        $arrGames            = isset( $arrGames ) ? $arrGames : [];
+        $objSerializedPlayer = Game::removePlayerProperties( $objPlayer );
 
-      unset( $objSerializedPlayer->games );
-      unset( $objSerializedPlayer->password );
+        $objPlayer->set( 'id', $arrPlayer[ $i ] );
 
-      array_push( $objGameplay->player, $objSerializedPlayer );
+        unset( $objSerializedPlayer->games );
+        unset( $objSerializedPlayer->password );
 
-      if( ! in_array( $strGameId, $arrGames ) ) {
-        array_push( $arrGames, $strGameId );
-        $objPlayer->set( 'games', $arrGames );
-      }
-    }
+        array_push( $objGameplay->$strRoleId, $objSerializedPlayer );
 
-    for( $i = 0; $i < count( $arrHunter ); $i++ ) {
-      $objPlayer           = new Player( $arrHunter[ $i ] );
-      $arrGames            = $objPlayer->get( 'games' );
-      $arrGames            = isset( $arrGames ) ? $arrGames : [];
-      $objSerializedPlayer = $objPlayer->serializeObject();
-
-      $objPlayer->set( 'id', $arrHunter[ $i ] );
-
-      unset( $objSerializedPlayer->games );
-      unset( $objSerializedPlayer->password );
-
-      array_push( $objGameplay->hunter, $objSerializedPlayer );
-
-      if( ! in_array( $strGameId, $arrGames ) ) {
-        array_push( $arrGames, $strGameId );
-        $objPlayer->set( 'games', $arrGames );
-      }
-    }
-
-    for( $i = 0; $i < count( $arrManagement ); $i++ ) {
-      $objPlayer           = new Player( $arrManagement[ $i ] );
-      $arrGames            = $objPlayer->get( 'games' );
-      $arrGames            = isset( $arrGames ) ? $arrGames : [];
-      $objSerializedPlayer = $objPlayer->serializeObject();
-
-      $objPlayer->set( 'id', $arrManagement[ $i ] );
-
-      unset( $objSerializedPlayer->games );
-      unset( $objSerializedPlayer->password );
-
-      array_push( $objGameplay->management, $objSerializedPlayer );
-
-      if( ! in_array( $strGameId, $arrGames ) ) {
-        array_push( $arrGames, $strGameId );
-        $objPlayer->set( 'games', $arrGames );
+        if( ! in_array( $strGameId, $arrGames ) ) {
+          array_push( $arrGames, $strGameId );
+          $objPlayer->set( 'games', $arrGames );
+        }
       }
     }
 
@@ -354,6 +298,45 @@ class Game extends BaseObject {
     $objGame->set( 'id', $strGameId );
 
     return $objRequestObject;
+  }
+
+/**
+ * This static Method converts a Player Object in a serialized Object and removes all not used Properties in the Game from the Object.
+ *
+ * @access     public
+ * @since      2026-06-05
+ * @version    0.1.0
+ * @param      Player   $objPlayer    The Player Object
+ * @return     object   $objPlayer    The cleaned, serialized Player Object
+ * @example    objPlayer = Game::removePlayerProperties( $objPlayer );
+ * @example    objPlayer = $this::removePlayerProperties( $objPlayer );
+ *
+*/
+  public static function removePlayerProperties( Player $objPlayer ) : object {
+    $objPlayer = $objPlayer->serializeObject();
+
+    unset( $objPlayer->games );
+    unset( $objPlayer->password );
+    unset( $objPlayer->asPlayerCountSteps );
+    unset( $objPlayer->asHunterCountSteps );
+    unset( $objPlayer->asManagementCountSteps );
+    unset( $objPlayer->asPlayerDistance );
+    unset( $objPlayer->asHunterDistance );
+    unset( $objPlayer->asManagementDistance );
+    unset( $objPlayer->asPlayerCountGames );
+    unset( $objPlayer->asHunterCountGames );
+    unset( $objPlayer->asManagementCountGames );
+    unset( $objPlayer->asPlayerTime );
+    unset( $objPlayer->asHunterTime );
+    unset( $objPlayer->asManagementTime );
+    unset( $objPlayer->asPlayerViolationOfTheRules );
+    unset( $objPlayer->asHunterViolationOfTheRules );
+    unset( $objPlayer->asPlayerSpeedHunts );
+    unset( $objPlayer->asHunterSpeedHunts );
+    unset( $objPlayer->asPlayerCaptured );
+    unset( $objPlayer->asHunterCaptured );
+
+    return $objPlayer;
   }
 
 /**

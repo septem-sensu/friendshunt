@@ -29,10 +29,31 @@ class Player extends BaseObject {
   protected string $role;
   protected string $email;
   protected string $image;
-  protected array  $games = [];
+  protected array  $games                    = [];
   protected string $title;
   protected string $description;
 
+  protected int $asPlayerCountSteps              = 0;
+  protected int $asHunterCountSteps              = 0;
+  protected int $asManagementCountSteps          = 0;
+  protected int $asPlayerDistance                = 0;
+  protected int $asHunterDistance                = 0;
+  protected int $asManagementDistance            = 0;
+  protected int $asPlayerCountGames              = 0;
+  protected int $asHunterCountGames              = 0;
+  protected int $asManagementCountGames          = 0;
+  protected int $asPlayerTime                    = 0;
+  protected int $asHunterTime                    = 0;
+  protected int $asManagementTime                = 0;
+  protected int $asPlayerViolationOfTheRules     = 0;
+  protected int $asHunterViolationOfTheRules     = 0;
+  protected int $asManagementViolationOfTheRules = 0;
+  protected int $asPlayerSpeedHunts              = 0;
+  protected int $asHunterSpeedHunts              = 0;
+  protected int $asManagementSpeedHunts          = 0;
+  protected int $asPlayerCaptured                = 0;
+  protected int $asHunterCaptured                = 0;
+  protected int $asManagementCaptured            = 0;
 /**
  * This static Method add a new Player to the App.
  *

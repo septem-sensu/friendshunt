@@ -777,7 +777,33 @@ window[ appAlias ].listener.clickOpenMapInLayer = function() {
   return;
 }
 
+window[ appAlias ].listener.calcHtmlTags = function() {
+  var arrTags = document.querySelectorAll( 'span.js-calc' );
 
+  for( var i = 0; i < arrTags.length; i++ ) {
+    var objTag = arrTags[ i ];
+
+    if( objTag.classList.contains( 'js-calc-set-default-int' ) ) {
+      if( objTag.innerHTML == '' ) objTag.innerHTML = '0';
+    }
+
+    if( objTag.classList.contains( 'js-calc-m-km' ) ) {
+      objTag.innerHTML = objTag.innerHTML / 1000;
+    }
+
+    if( objTag.classList.contains( 'js-calc-round' ) ) {
+      objTag.innerHTML = Math.ceil( objTag.innerHTML );
+    }
+
+    if( objTag.classList.contains( 'js-calc-custom-round' ) ) {
+      objTag.innerHTML = ( Math.ceil( objTag.innerHTML * 10 ) ) / 10;
+    }
+  }
+
+
+
+
+}
 
 
 window.addEventListener( 'load', function() {
@@ -801,6 +827,7 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.setupButton();
   window[ appAlias ].listener.deleteGameplayImageButton();
   window[ appAlias ].listener.clickOpenMapInLayer();
+  window[ appAlias ].listener.calcHtmlTags();
 
   return;
 } );

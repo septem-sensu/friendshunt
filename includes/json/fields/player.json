@@ -86,5 +86,173 @@
     "unit": "",
     "minLength": 0,
     "position": 900
+  },
+  "asPlayerCountSteps": {
+    "nameDe": "Schritte als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 1000
+  },
+  "asHunterCountSteps": {
+    "nameDe": "Schritte als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 1100
+  },
+  "asManagementCountSteps": {
+    "nameDe": "Schritte als Spielleitung",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "km",
+    "position": 1200
+  },
+  "asPlayerDistance": {
+    "nameDe": "Distanz als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "km",
+    "position": 1300
+  },
+  "asHunterDistance": {
+    "nameDe": "Distanz als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 1400
+  },
+  "asManagementDistance": {
+    "nameDe": "Distanz als Spielleitung",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "km",
+    "position": 1500
+  },
+  "asPlayerCountGames": {
+    "nameDe": "Spiele als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 1600
+  },
+  "asHunterCountGames": {
+    "nameDe": "Spiele als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 1700
+  },
+  "asManagementCountGames": {
+    "nameDe": "Spiele als Spielleitung",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 1800
+  },
+  "asPlayerTime": {
+    "nameDe": "Zeit als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "Stunden",
+    "position": 1900
+  },
+  "asHunterTime": {
+    "nameDe": "Zeit als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "Stunden",
+    "position": 2000
+  },
+  "asManagementTime": {
+    "nameDe": "Zeit als Spielleitung",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2100
+  },
+  "asPlayerViolationOfTheRules": {
+    "nameDe": "Regelverstöße als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2200
+  },
+  "asHunterViolationOfTheRules": {
+    "nameDe": "Regelverstöße als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2300
+  },
+  "asManagementViolationOfTheRules": {
+    "nameDe": "Regelverstöße als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2300
+  },
+  "asPlayerSpeedHunts": {
+    "nameDe": "Speedhunts als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2500
+  },
+  "asHunterSpeedHunts": {
+    "nameDe": "Speedhunts als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2600
+  },
+  "asManagementSpeedHunts": {
+    "nameDe": "Speedhunts als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2600
+  },
+  "asPlayerCaptured": {
+    "nameDe": "Gefangen als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2700
+  },
+  "asHunterCaptured": {
+    "nameDe": "Gefangen als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2800
+  },
+  "asManagementCaptured": {
+    "nameDe": "Gefangen als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 2800
   }
 }

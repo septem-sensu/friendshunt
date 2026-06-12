@@ -317,8 +317,8 @@ window[ appAlias ].methods.cAddGameplayDataToTemplate = function() {
       strContentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + $objGameplayData[ $arrMembers[ i ] ][ j ].email + '/' + $objGameplayData[ $arrMembers[ i ] ][ j ].image + '" />';
       strContentContainerContent    += '</td><td class="align-top">';
       strContentContainerContent    += '<p class="bold mb-10">' + $objGameplayData[ $arrMembers[ i ] ][ j ].name + '</p>';
-      strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].email + '</p>';
-      strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].role + '</p>';
+      strContentContainerContent    += '<p><a href="mailto:' + $objGameplayData[ $arrMembers[ i ] ][ j ].email + '">✉ ' + $objGameplayData[ $arrMembers[ i ] ][ j ].email + '</a></p>';
+      strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].role.charAt(0).toUpperCase() + $objGameplayData[ $arrMembers[ i ] ][ j ].role.slice(1); + '</p>';
       strContentContainerContent    += '<p>' + $objGameplayData[ $arrMembers[ i ] ][ j ].title + '</p>';
       strContentContainerContent    += '</td></tr></table>';
       strContentContainerContent    += '</div>';
