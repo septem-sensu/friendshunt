@@ -3,7 +3,7 @@
 <table>
   <tr>
     <td><br /><img src="includes/images/favicons/friendshunt-app-icon-180x180.png" alt="Friends-Hunt App - Logo Icon" width="150" /><br /><br /></td>
-    <td><b>Friends-Hunt</b> ist eine selbst-hostbare Progressive Web App (PWA) für Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Wegpunkte und Intervalle machen dein Smartphone zur mobilen Einsatzzentrale.</td>
+    <td><b>Friends-Hunt</b> ist eine selbst-hostbare Progressive Web App (PWA) für Reallife-Geo-Games im Stil bekannter YouTube-Formate. Präzise GPS-Wegpunkte und Intervalle machen dein Smartphone zur mobilen Einsatzzentrale.</td>
   </tr>
 </table>
 
@@ -38,7 +38,7 @@
 
 Ein oder mehrere **Spieler (Gejagte)** versuchen, sich in einem definierten Gebiet unentdeckt zu bewegen und rechtzeitig eine Flucht-Zone zu erreichen. Die **Jäger (Hunter)** versuchen, sie anhand zeitversetzter GPS-Signale aufzuspüren. Die **Spielleitung (optional)** behält die Kontrolle über das Regelwerk und dirigiert das Event im Hintergrund.
 
-- **Die Gejagten:** Bewegen sich strategisch von Start- zu Exit-Positionen und versuchen, den Hunter unter Ausnutzung von Gelände zu entkommen.
+- **Die Gejagten:** Bewegen sich strategisch von Start- zu Exit-Positionen und versuchen, den Huntern unter Ausnutzung von Gelände zu entkommen.
 - **Die Jäger - (Hunter):** Verfolgen die Positionen der Spieler zeitversetzt auf der Karte. Ein Intervall-Wechsel fordert schnelles Reagieren und clevere Wege.
 - **Die Spielleitung (optional):** Behält über das integrierte Nachrichtensystem die Kontrolle und kann Spielern oder Jägern Hinweise zukommen lassen.
 
@@ -48,10 +48,10 @@ Ein oder mehrere **Spieler (Gejagte)** versuchen, sich in einem definierten Gebi
 
 * 🗺️ **OpenStreetMap-Integration:** Vektorkarten via Leaflet – völlig ohne teure API-Kosten.
 * 🛡️ **Zero-Database (JSON):** Keine Datenbank erforderlich! Alle Spielzustände werden in JSON-Dateien verwaltet.
-* 🔐 **Militärische Sicherheit:** Die JSON-Dateien werden serverseitig via **AES-256-CBC** verschlüsselt abgelegt.
+* 🔐 **Sicherheit:** Die JSON-Dateien werden serverseitig via **AES-256-CBC** verschlüsselt abgelegt.
 * 👣 **Integrierter Schrittzähler:** Auswertungen der Laufleistung nach dem Spiel direkt über GPS-Distanzberechnungen (Haversine-Formel).
 * 💬 **Nachrichtensystem:** Kommunikation zwischen Spielleitung, Jägern und Spielern.
-* 📦 **Archiv-Funktion:** Abgelaufene Runden können nach dem Spiel in ein Archiv verschoben und stehen für Statistiken im Wirtshaus bereit.
+* 📦 **Archiv-Funktion:** Abgelaufene Runden können nach dem Spiel in ein Archiv verschoben werden und stehen für Statistiken im Wirtshaus bereit.
 
 ---
 
