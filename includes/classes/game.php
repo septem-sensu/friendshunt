@@ -233,6 +233,7 @@ class Game extends BaseObject {
 */
   public static function saveNewGame( object $objRequestObject ) : object {
     $arrGameRoles                             = Game::GAMEROLES;
+    $arrStatisticProperties                   = Gameplay::STATISTICPROPERTIES;
     $strGameId                                = uniqid( 'game_', true );
     $objGame                                  = new Game( $strGameId );
 
@@ -277,6 +278,12 @@ class Game extends BaseObject {
 
         unset( $objSerializedPlayer->games );
         unset( $objSerializedPlayer->password );
+
+        for( $j = 0; $j < count( $arrStatisticProperties ); $j++ ) {
+          $strStatisticProperty = $arrStatisticProperties[ $j ];
+
+          unset( $objSerializedPlayer->$strStatisticProperty );
+        }
 
         array_push( $objGameplay->$strRoleId, $objSerializedPlayer );
 
@@ -509,7 +516,8 @@ class Game extends BaseObject {
  *
 */
   public function gameplay( object $objRequestObject ) : object {
-    $objPlayer        = new Player( $objRequestObject->playerId );
+    $strPlayerId      = isset( $objRequestObject->playerId ) ? $objRequestObject->playerId : Player::getPlayerIdFromCookie();
+    $objPlayer        = new Player( $strPlayerId );
     $objGameplay      = new Gameplay( $this->id, $objPlayer );
     $strMethode       = $objRequestObject->gameplayMethode;
     $objRequestObject = $objGameplay->$strMethode( $objRequestObject );

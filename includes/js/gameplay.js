@@ -41,7 +41,6 @@ window[ appAlias ].methods.gameplay.init = function() {
   window[ appAlias ].tracker.geoTrackerObject = new GeoTracker();
   window[ appAlias ].tracker.geoTrackerObject.getCurrentPosition( 'setMap' );
   window[ appAlias ].tracker.geoTrackerObject.startIntervalTracking( 'track' );
-  window[ appAlias ].tracker.geoTrackerObject.startPedometer();
   window[ appAlias ].tracker.geoTrackerObject.startWakeLock();
 
   return;

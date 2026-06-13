@@ -26,6 +26,12 @@
   <input id="game-images-upload" type="file" name="pictures[]">
 </div>
 
+<div class="game-permission-pedometer">
+  <h2 class="mb-20">Schrittzähler</h2>
+  <p>Kein Sensor, keine Schritte, kein Ruhm im Wirtshaus! Gib bitte kurz die Bewegungssensoren frei, damit wir prüfen können, ob du wirklich rennst oder heimlich Bus fährst.</p>
+  <button onclick="window[ appAlias ].tracker.geoTrackerObject.checkPedometerSensor(); document.querySelector( '.game-permission-pedometer' ).remove();" class="success mt-25">Schrittzähler aktivieren</button>
+</div>
+
 <div id="game-capture-container" class="hidden">
   <div id="game-capture-hunter-container"></div>
   <button onclick="javascript: window[ appAlias ].methods.gameplay.sendCaptured();" id="game-capture-ok-button" type="button" class="danger">✔ Gefangen genommen</button>

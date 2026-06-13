@@ -132,6 +132,8 @@ class Gameplay {
   +speedHunt()
   +track()
   +message()
+  +stopped()
+  +statistic()
 }
 
 class Player {
@@ -164,6 +166,12 @@ class Player {
   +asPlayerCaptured
   +asHunterCaptured
   +asManagementCaptured
+  +asPlayerCountMessages
+  +asHunterCountMessages
+  +asManagementCountMessages
+  +asPlayerCountMessagesAll
+  +asHunterCountMessagesAll
+  +asManagementCountMessagesAll
   +newPlayer()
   +addGamesToTemplate()
   +checkLogin()

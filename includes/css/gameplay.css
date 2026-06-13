@@ -78,6 +78,26 @@ body, html {
     width: 360px;
   }
 
+  body .game-permission-pedometer {
+    width: 338px;
+    left: calc(50% - 189px);
+  }
+
+}
+
+.game-permission-pedometer {
+  position: absolute;
+  top: 60px;
+  width: 539px;
+  height: 200px;
+  background-color: var(--backgroundColorContent);
+  z-index: 4000;
+  border-radius: 10px;
+  left: calc(50% - 289px);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 35px;
+  padding-bottom: 10px;
 }
 
 #map {

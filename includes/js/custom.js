@@ -42,13 +42,6 @@ window[ appAlias ].methods.cStartGame = function( objElement ) {
 
   objPost.id        = objElement.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
 
-  // Berechtigung für iOS (Safari) anfordern – muss durch einen Klick getriggert werden!
-  if ( typeof DeviceMotionEvent.requestPermission === 'function' ) {
-    DeviceMotionEvent.requestPermission().then( strPermissionState => {
-      if ( strPermissionState === 'granted' ) objGeoTracker.startPedometer();
-    } );
-  }
-
   window[ appAlias ].methods.cPlayMessagePiep();
   window[ appAlias ].methods.cTriggerMessageVibration();
 
@@ -531,7 +524,7 @@ window[ appAlias ].methods.cTimestampToDateTimeString = function ( intTimestamp 
   const objDateTime = new Date( intTimestamp * 1000 );
   const pad         = (num) => String( num ).padStart( 2, '0' );
 
-  return `${pad(objDateTime.getDate())}.${pad(objDateTime.getMonth() + 1)}.${objDateTime.getFullYear()}, ` + `${pad(objDateTime.getHours())}:${pad(objDateTime.getMinutes())}`;
+  return `${pad(objDateTime.getDate())}.${pad(objDateTime.getMonth() + 1)}.${objDateTime.getFullYear()} ` + `${pad(objDateTime.getHours())}:${pad(objDateTime.getMinutes())}`;
 };
 
 /**
@@ -878,6 +871,78 @@ window[ appAlias ].methods.cTriggerMessageVibration = function() {
 
   return;
 };
+
+/**
+ * This Function start the Debug Console.
+ *
+ * @function
+ * @public
+ * @name       log
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {mixed}   mixContent  The Message to log in the Debug Console
+ * @return     {void}
+ * @example    friendshunt.log.log();
+ *
+*/
+window[ appAlias ].methods.log = function( mixContent ) {
+  var objDebugConsole = document.querySelector( '#debug-console' );
+
+  if( objDebugConsole == null ) {
+    var strContent     = '';
+
+    objDebugConsole    = document.createElement( 'div' );
+    objDebugConsole.id = 'debug-console';
+
+    strContent        += '<div id="#debug-console-button-bar" class="align-center">';
+    strContent        += '<button onclick="javascript: document.querySelector(\'#debug-console\').classList.add(\'hidden\');" class="info w-140 mr-5 mt-5 mb-5">Schließen</button>';
+    strContent        += '<button onclick="javascript: document.querySelector(\'#debug-console\').remove();" class="warning w-140 ml-5 mt-5 mb-5">Entfernen</button>';
+    strContent        += '</div>';
+    strContent        += '<div id="#debug-console-content"></div>';
+
+    objDebugConsole.innerHTML = strContent;
+    document.querySelector( 'body' ).prepend( objDebugConsole );
+  }
+
+  if( typeof mixContent == 'object' ) {
+    if( mixContent == null ) return;
+    mixContent = JSON.stringify( mixContent );
+  } else if( mixContent == 'clear' ) {
+    objDebugConsole.innerHTML = '<p>Debug Console</p>';
+  } else if( mixContent == 'hide' ) {
+    objDebugConsole.classList.add( 'hidden' );
+  } else if( mixContent == 'unhide' ) {
+    objDebugConsole.classList.remove( 'hidden' );
+  }
+
+  objDebugConsole.innerHTML   += '<p>> ' + mixContent + '</p>';
+  objDebugConsole.style.height = ( window.innerHeight - 200 ) + 'px';
+
+  objDebugConsole.scrollTo( { 'top': objDebugConsole.scrollHeight, 'behavior': 'smooth' } );
+
+  return;
+};
+
+/**
+ * This Function start the Debug Console.
+ *
+ * @function
+ * @public
+ * @name       log
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ * @param      {mixed}   mixContent  The Message to log in the Debug Console
+ * @return     {void}
+ * @example    window.log();
+ *
+*/
+window.log = function( mixContent ) {
+  window[ appAlias ].methods.log( mixContent );
+}
 
 
 

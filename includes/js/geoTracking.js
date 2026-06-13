@@ -205,20 +205,51 @@ class GeoTracker {
  *
  */
   startPedometer() {
-    window.addEventListener( 'devicemotion', ( event ) => {
-      const acc = event.accelerationIncludingGravity;
+    if( this.debug ) window.log( 'Pedo gestartet' );
 
-      // Die Gesamt-Beschleunigung in allen 3 Achsen (X, Y, Z) berechnen
-      const totalAcceleration = Math.sqrt( acc.x * acc.x + acc.y * acc.y + acc.z * acc.z );
+    this.lastPulse = Date.now();
 
-      // Ein typischer Schritt erzeugt eine Erschütterung (Wert über ca. 12 m/s²)
-      // Das 'letzterImpuls'-Zeitfenster verhindert, dass ein Schritt doppelt gezählt wird
-      if ( totalAcceleration > 12 && ( Date.now() - letzterImpuls > 300 ) ) {
+    window.addEventListener( 'devicemotion', ( objEvent ) => {
+      const objAcc = objEvent.accelerationIncludingGravity;
+
+      if ( !objAcc || objAcc.x === null ) return;
+
+      const totalAcceleration = Math.sqrt( objAcc.x * objAcc.x + objAcc.y * objAcc.y + objAcc.z * objAcc.z );
+
+      if ( totalAcceleration > 12 && ( Date.now() - this.lastPulse > 300 ) ) {
         this.stepCount++;
+
+        if( this.debug ) window.log( 'Schritte: ' + this.stepCount );
+
         this.lastPulse = Date.now();
-        if( this.debug ) console.log( 'Schritte: ' + this.stepCount );
+        if ( this.debug ) console.log( 'Schritte: ' + this.stepCount );
       }
-    });
+    } );
+
+    return;
+  }
+
+/**
+ * This Method checked the Permission and start the Pedometer to count the steps.
+ *
+ * @public
+ * @return    {void}
+ *
+ * @example   objGeoTracker.checkPedometerSensor();
+ *
+ */
+  checkPedometerSensor() {
+    if ( typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function' ) {
+      DeviceMotionEvent.requestPermission().then( permissionState => {
+        if ( permissionState === 'granted' ) {
+          this.startPedometer();
+        } else {
+          alert( "Ohne Bewegungssensor funktioniert der Schrittzähler leider nicht." );
+        }
+      } ).catch( console.error );
+    } else {
+      this.startPedometer();
+    }
 
     return;
   }

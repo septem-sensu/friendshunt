@@ -180,3 +180,23 @@ button[disabled] {
   width: 184px !important;
   height: 184px !important;
 }
+
+#debug-console {
+  position: sticky !important;
+  top: 100px !important;
+  text-align: left !important;
+  z-index: 9000 !important;
+  width: 350px !important;
+  height: calc(100vh - 100px);
+  background-color: #003 !important;
+  color: #fff !important;
+  margin: 0 auto !important;
+  font-size: 16px !important;
+  overflow: hidden !important;
+  padding: 5px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}

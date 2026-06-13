@@ -29,7 +29,7 @@ class Player extends BaseObject {
   protected string $role;
   protected string $email;
   protected string $image;
-  protected array  $games                    = [];
+  protected array  $games                        = [];
   protected string $title;
   protected string $description;
 
@@ -54,6 +54,13 @@ class Player extends BaseObject {
   protected int $asPlayerCaptured                = 0;
   protected int $asHunterCaptured                = 0;
   protected int $asManagementCaptured            = 0;
+  protected int $asPlayerCountMessages           = 0;
+  protected int $asHunterCountMessages           = 0;
+  protected int $asManagementCountMessages       = 0;
+  protected int $asPlayerCountMessagesAll        = 0;
+  protected int $asHunterCountMessagesAll        = 0;
+  protected int $asManagementCountMessagesAll    = 0;
+
 /**
  * This static Method add a new Player to the App.
  *

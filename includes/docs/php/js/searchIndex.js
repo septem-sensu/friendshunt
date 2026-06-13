@@ -586,6 +586,16 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020controlls\u0020a\u0020new\u0020Message\u0020from\u0020the\u0020current\u0020Player\u0020and\u0020adds\u0020the\u0020Message\u0020Queue\u0020for\u0020the\u0020Response.",
             "url": "classes/Gameplay.html#method_message"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003Astopped\u0028\u0029",
+            "name": "stopped",
+            "summary": "This\u0020Method\u0020set\u0020the\u0020requirered\u0020Response\u0020Object\u0020if\u0020the\u0020Game\u0020is\u0020stopped.",
+            "url": "classes/Gameplay.html#method_stopped"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003Astatistic\u0028\u0029",
+            "name": "statistic",
+            "summary": "This\u0020Method\u0020returns\u0020all\u0020Gameplay\u0020Data\u0020with\u0020Tracking\u0020Data\u0020and\u0020Messages\u0020for\u0020Statistics.",
+            "url": "classes/Gameplay.html#method_statistic"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003ASTATISTICPROPERTIES",
             "name": "STATISTICPROPERTIES",
             "summary": "",
@@ -860,6 +870,36 @@ Search.appendIndex(
             "name": "asManagementCaptured",
             "summary": "",
             "url": "classes/Player.html#property_asManagementCaptured"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerCountMessages",
+            "name": "asPlayerCountMessages",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerCountMessages"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterCountMessages",
+            "name": "asHunterCountMessages",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterCountMessages"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementCountMessages",
+            "name": "asManagementCountMessages",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementCountMessages"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerCountMessagesAll",
+            "name": "asPlayerCountMessagesAll",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerCountMessagesAll"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterCountMessagesAll",
+            "name": "asHunterCountMessagesAll",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterCountMessagesAll"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementCountMessagesAll",
+            "name": "asManagementCountMessagesAll",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementCountMessagesAll"
         },                {
             "fqsen": "\\Presentation",
             "name": "Presentation",

@@ -253,6 +253,54 @@
     "type": "number",
     "mandatory": false,
     "unit": "",
-    "position": 2800
+    "position": 2900
+  },
+  "asPlayerCountMessages": {
+    "nameDe": "Anzahl Nachrichten als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 3000
+  },
+  "asHunterCountMessages": {
+    "nameDe": "Anzahl Nachrichten als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 3100
+  },
+  "asManagementCountMessages": {
+    "nameDe": "Anzahl Nachrichten als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 3200
+  },
+  "asPlayerCountMessagesAll": {
+    "nameDe": "Anzahl aller Nachrichten als Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 3000
+  },
+  "asHunterCountMessagesAll": {
+    "nameDe": "Anzahl aller Nachrichten als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 3100
+  },
+  "asManagementCountMessagesAll": {
+    "nameDe": "Anzahl aller Nachrichten als Jäger",
+    "element": "input",
+    "type": "number",
+    "mandatory": false,
+    "unit": "",
+    "position": 3200
   }
 }

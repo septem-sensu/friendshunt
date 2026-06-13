@@ -115,6 +115,10 @@ a {
   margin-top: 5px;
 }
 
+.card-full {
+  grid-column: span 3;
+}
+
 .card-title {
   font-family: var(--font-tactical);
   font-size: 15px;
