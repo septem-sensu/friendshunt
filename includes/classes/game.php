@@ -19,6 +19,7 @@ include_once ( __DIR__ . '/../classes/gameplay.php' );
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
  * @since       2026-06-05
  * @version     0.1.0
+ *
  * @example     $objGame = new Game( $strGameId );
  *
 */
@@ -55,8 +56,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strFileName    The File Name of the Image
  * @return     void
+ *
  * @example    Game::addGameImage( $strFileName );
  * @example    $this::addGameImage( $strFileName );
  *
@@ -81,8 +84,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = $this->deleteGameImage( $objRequestObject );
  * @example    objRequestObject = $objGame->deleteGameImage( $objRequestObject );
  *
@@ -114,8 +119,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strFileName    The Avatar File Name of the Image
  * @return     void
+ *
  * @example    Game::avatarFileUploaded( $strFileName );
  * @example    $this::avatarFileUploaded( $strFileName );
  *
@@ -145,8 +152,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = $this->startGame( $objRequestObject );
  * @example    objRequestObject = $objGame->startGame( $objRequestObject );
  *
@@ -163,8 +172,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = $this->addGamePlayDataToGame( $objRequestObject );
  * @example    objRequestObject = $objGame->addGamePlayDataToGame( $objRequestObject );
  *
@@ -183,8 +194,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = $this->deleteGame( $objRequestObject );
  * @example    objRequestObject = $objGame->deleteGame( $objRequestObject );
  *
@@ -225,8 +238,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = Game::saveNewGame( $objRequestObject );
  * @example    objRequestObject = $this::saveNewGame( $objRequestObject );
  *
@@ -313,8 +328,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      Player   $objPlayer    The Player Object
  * @return     object   $objPlayer    The cleaned, serialized Player Object
+ *
  * @example    objPlayer = Game::removePlayerProperties( $objPlayer );
  * @example    objPlayer = $this::removePlayerProperties( $objPlayer );
  *
@@ -352,8 +369,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = Game::addPlayerToGame( $objRequestObject );
  * @example    objRequestObject = $this::addPlayerToGame( $objRequestObject );
  *
@@ -381,8 +400,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = Game::addHunterToGame( $objRequestObject );
  * @example    objRequestObject = $this::addHunterToGame( $objRequestObject );
  *
@@ -410,8 +431,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = Game::addManagementToGame( $objRequestObject );
  * @example    objRequestObject = $this::addManagementToGame( $objRequestObject );
  *
@@ -439,8 +462,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objController    The Controler Object
  * @return     object   $objController    The Controler Object
+ *
  * @example    objController = Game::setPlayerIdToTemplate( $objController );
  * @example    objController = $this::setPlayerIdToTemplate( $objController );
  *
@@ -469,8 +494,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = $this->archiveGame( $objRequestObject );
  * @example    objRequestObject = $objGame->archiveGame( $objRequestObject );
  *
@@ -509,8 +536,10 @@ class Game extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
+ *
  * @example    objRequestObject = $this->gameplay( $objRequestObject );
  * @example    objRequestObject = $objGame->gameplay( $objRequestObject );
  *

@@ -21,6 +21,7 @@ include_once ( __DIR__ . '/../classes/game.php' );
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
  * @since       2026-06-05
  * @version     0.1.0
+ *
  * @example     $objController = new Controller();
  *
 */
@@ -62,7 +63,9 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->init();
  * @example    $objController->init();
  *
@@ -94,7 +97,9 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     Presentation   $objPresentation  The Presentation Object
+ *
  * @example    $objPresentation = $this->getPresentationObject();
  * @example    $objPresentation = $objController->getPresentationObject();
  *
@@ -109,7 +114,9 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     object   $objViewObject  The current View Object
+ *
  * @example    $objViewObject = $this->getViewObject();
  * @example    $objViewObject = $objController->getViewObject();
  *
@@ -124,7 +131,9 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     string   $strResultType  The Result Type (json or content)
+ *
  * @example    $strResultType = $this->getResultType();
  * @example    $strResultType = $objController->getResultType();
  *
@@ -139,8 +148,10 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objObject The Object to set
  * @return     void
+ *
  * @example    $this->setObject( objObject );
  * @example    $objController->setObject( objObject );
  *
@@ -157,8 +168,10 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strRole  The current User System Role
  * @return     void
+ *
  * @example    $this->setRole( strRole );
  * @example    $this->objController( strRole );
  *
@@ -177,7 +190,9 @@ class Controller {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     mixed    $mixResult    The Result of the Response
+ *
  * @example    $mixResult = $this->execute();
  * @example    $mixResult = $objController->execute();
  *
@@ -200,7 +215,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->checkRole();
  * @example    $objController->checkRole();
  *
@@ -225,7 +242,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     string    $strContent    The Response Content
+ *
  * @example    $strContent = $this->view();
  * @example    $strContent = $objController->view();
  *
@@ -254,7 +273,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     string    $strJsonContent    The Json Content
+ *
  * @example    $strJsonContent = $this->json();
  * @example    $strJsonContent = $objController->json();
  *
@@ -286,7 +307,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     object    $objObject    The Result Object
+ *
  * @example    $objObject = $this->savePostData();
  * @example    $objObject = $objController->savePostData();
  *
@@ -329,9 +352,11 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strClass     The Class Name of the Method
  * @param      string   $strMethode   The Methode to check
  * @return     bool     $boolAllowed  True if the User is allowed to call this Method
+ *
  * @example    $boolAllowed = $this->checkPermissions( strClass, strMethode );
  * @example    $boolAllowed = $objController->checkPermissions( strClass, strMethode );
  *
@@ -358,7 +383,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->responseData();
  * @example    $objController->responseData();
  *
@@ -391,7 +418,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     string   $strContent   The Content for the Response
+ *
  * @example    $strContent = $this->renderView();
  * @example    $strContent = $objController->renderView();
  *
@@ -431,7 +460,9 @@ class Controller {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->executeActions();
  * @example    $objController->executeActions();
  *

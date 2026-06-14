@@ -31,14 +31,15 @@ window[ appAlias ].methods.gameplay = window[ appAlias ].methods.gameplay || {};
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
- * @param      {object}   objElement  ...
+ *
+ * @param      {object}   objElement  The Element are clicked
  * @return     {void}
+ *
  * @example    friendshunt.methods.cStartGame( objElement );
  *
 */
 window[ appAlias ].methods.cStartGame = function( objElement ) {
   var objPost       = { 'class': 'Game', 'methode': 'startGame' };
-  var objGeoTracker = new GeoTracker();
 
   objPost.id        = objElement.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
 
@@ -58,10 +59,12 @@ window[ appAlias ].methods.cStartGame = function( objElement ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objPlayer                   The Player
  * @param      {string}   strInputName                The Input Name
  * @return     {string}   strContentContainerContent  The Content to set in the Html Content
- * @example    strContentContainerContent = friendshunt.methods.cGetPlayerInfoHtml( objPlayer, strInputName );
+ *
+ * @example    var strContentContainerContent = friendshunt.methods.cGetPlayerInfoHtml( objPlayer, strInputName );
  *
 */
 window[ appAlias ].methods.cGetPlayerInfoHtml = function( objPlayer, strInputName ) {
@@ -94,8 +97,10 @@ window[ appAlias ].methods.cGetPlayerInfoHtml = function( objPlayer, strInputNam
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponseObject    The Response Object after the Ajax Request
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponseAddManagementToGame( objResponseObject );
  *
 */
@@ -138,8 +143,10 @@ window[ appAlias ].methods.cProccessResponseAddManagementToGame = function( objR
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponseObject    The Response Object after the Ajax Request
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponseAddPlayerToGame( objResponseObject );
  *
 */
@@ -182,8 +189,10 @@ window[ appAlias ].methods.cProccessResponseAddPlayerToGame = function( objRespo
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponseObject    The Response Object after the Ajax Request is done
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponseAddHunterToGame( objResponseObject );
  *
 */
@@ -230,7 +239,9 @@ window[ appAlias ].methods.cProccessResponseAddHunterToGame = function( objRespo
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cAddGamesToTemplate();
  *
 */
@@ -297,7 +308,9 @@ window[ appAlias ].methods.cAddGamesToTemplate = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cAddGameplayDataToTemplate();
  *
 */
@@ -338,7 +351,9 @@ window[ appAlias ].methods.cAddGameplayDataToTemplate = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cAddGameImagesContent();
  *
 */
@@ -386,8 +401,10 @@ window[ appAlias ].methods.cAddGameImagesContent = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
  * @return     {void}
+ *
  * @example    friendshunt.methods.cArchiveGame( objElement );
  *
 */
@@ -411,8 +428,10 @@ window[ appAlias ].methods.cArchiveGame = function( objElement ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponse    The Response Object after the Ajax Request is done
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponseArchiveGame( objResponse );
  *
 */
@@ -436,8 +455,10 @@ window[ appAlias ].methods.cProccessResponseArchiveGame = function( objResponse 
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
  * @return     {void}
+ *
  * @example    friendshunt.methods.cDeleteGame( objElement );
  *
 */
@@ -461,8 +482,10 @@ window[ appAlias ].methods.cDeleteGame = function( objElement ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponse    The Response Object after the Ajax Request is done
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponseArchiveGame( objResponse );
  *
 */
@@ -486,8 +509,10 @@ window[ appAlias ].methods.cProccessResponseDeleteGame = function( objResponse )
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {string}   strTime           The unformated date-time String
  * @return     {string}   strFormattedDate  The formatted date-time String
+ *
  * @todo       Rename this Function (Lower Camel Case)
  * @example    strFormattedDate = friendshunt.methods.TimeStringToTimeString( strTime );
  *
@@ -515,8 +540,10 @@ window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {number}   intTimestamp           The PHP Timestamp
  * @return     {string}   strFormattedDateTime   The formatted date-time String
+ *
  * @example    strFormattedDateTime = friendshunt.methods.cTimestampToDateTimeString( intTimestamp );
  *
 */
@@ -537,7 +564,9 @@ window[ appAlias ].methods.cTimestampToDateTimeString = function ( intTimestamp 
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cCloseFullImage();
  *
 */
@@ -559,7 +588,9 @@ window[ appAlias ].methods.cCloseFullImage = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cGetPlayerList();
  *
 */
@@ -580,8 +611,10 @@ window[ appAlias ].methods.cGetPlayerList = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponseObject    The Response Object after the Ajax Request is done
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponsePlayerList( objResponseObject );
  *
 */
@@ -620,8 +653,10 @@ window[ appAlias ].methods.cProccessResponsePlayerList = function( objResponseOb
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objElement    The Button was clicked or touched to detect the Player Id
  * @return     {void}
+ *
  * @example    friendshunt.methods.cDeletePlayerFromApp( objElement );
  *
 */
@@ -643,7 +678,9 @@ window[ appAlias ].methods.cDeletePlayerFromApp = function( objElement ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cGetGameArchiveList();
  *
 */
@@ -664,8 +701,10 @@ window[ appAlias ].methods.cGetGameArchiveList = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponseObject    The Response Object after the Ajax Request is done
  * @return     {void}
+ *
  * @example    friendshunt.methods.cProccessResponseGameArchiveList( objResponseObject );
  *
 */
@@ -705,8 +744,10 @@ window[ appAlias ].methods.cProccessResponseGameArchiveList = function( objRespo
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
  * @return     {void}
+ *
  * @example    friendshunt.methods.cBringBackArchiveGame( objElement );
  *
 */
@@ -728,8 +769,10 @@ window[ appAlias ].methods.cBringBackArchiveGame = function( objElement ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objElement    The Button was clicked or touched to detect the Game Id
  * @return     {void}
+ *
  * @example    friendshunt.methods.cDeleteArchiveGame( objElement );
  *
 */
@@ -752,11 +795,13 @@ window[ appAlias ].methods.cDeleteArchiveGame = function( objElement ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {number}   floatTrackLat         The Latitude Coordinate (float)
  * @param      {number}   floatTrackLng         The Longitude Coordinate (float)
  * @param      {number}   floatTrackPrecision   The Precision in Meters (int)
  * @param      {object}   objTrackMessage       The Message of the Geo Tracker Methode
  * @return     {void}
+ *
  * @example    friendshunt.methods.cShowMapInInfoLayer( floatTrackLat, floatTrackLng, floatTrackPrecision, objTrackMessage );
  *
 */
@@ -794,7 +839,9 @@ window[ appAlias ].methods.gameplay.cShowMapInInfoLayer = function( floatTrackLa
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cMapInfoLayerClose();
  *
 */
@@ -815,7 +862,9 @@ window[ appAlias ].methods.gameplay.cMapInfoLayerClose = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cPlayMessagePiep();
  *
 */
@@ -862,7 +911,9 @@ window[ appAlias ].methods.cPlayMessagePiep = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.cTriggerMessageVibration();
  *
 */
@@ -882,8 +933,10 @@ window[ appAlias ].methods.cTriggerMessageVibration = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {mixed}   mixContent  The Message to log in the Debug Console
  * @return     {void}
+ *
  * @example    friendshunt.log.log();
  *
 */
@@ -935,8 +988,10 @@ window[ appAlias ].methods.log = function( mixContent ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {mixed}   mixContent  The Message to log in the Debug Console
  * @return     {void}
+ *
  * @example    window.log();
  *
 */

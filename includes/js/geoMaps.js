@@ -33,7 +33,6 @@ class GeoMaps {
     this.map          = null;
     this.debug        = window[ appAlias ].debug ? true : false;
 
-
     return;
   }
 
@@ -41,6 +40,7 @@ class GeoMaps {
  * This Method is the default getter of the Class.
  *
  * @public
+ *
  * @param     {string}   property   The Property to get
  * @return    {mixed}    value      The Value of the Property
  *
@@ -55,6 +55,7 @@ class GeoMaps {
  * This Method is the default setter of the Class.
  *
  * @public
+ *
  * @param     {string}   property   The Property to set
  * @param     {mixed}    value      The Value to set
  * @return    {void}
@@ -72,6 +73,7 @@ class GeoMaps {
  * This Method set the Map in the Page.
  *
  * @public
+ *
  * @param     {number}  lat         The current Latidude
  * @param     {number}  lng         The current Langidude
  * @return    {object}  objMap      The Leaflet Map Object
@@ -96,6 +98,7 @@ class GeoMaps {
  * This Method set a Marker with Popup on the Map.
  *
  * @public
+ *
  * @param     {string}  id        The Game Player Id
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
@@ -122,6 +125,7 @@ class GeoMaps {
  * This Method remove a Marker from the Map.
  *
  * @public
+ *
  * @param     {string}  id        The Game Player Id to remove from Map
  * @return    {void}
  *
@@ -138,6 +142,7 @@ class GeoMaps {
  * This Method set a Marker with Popup interactive with click on the Map.
  *
  * @public
+ *
  * @param     {string}  id        The Game Player Id
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
@@ -174,6 +179,7 @@ class GeoMaps {
  * This Method set a circle on the Map.
  *
  * @public
+ *
  * @param     {string}  id        The Game Player Id
  * @param     {number}  lat       The Latidude of the Center of the Circle
  * @param     {number}  lng       The Langidude of the Center of the Circle
@@ -206,6 +212,7 @@ class GeoMaps {
  * This Method set a circle on the Map interactive with click to the Map.
  *
  * @public
+ *
  * @param     {string}  id              The Game Player Id
  * @param     {number}  size            The Radius of the Circle
  * @param     {string}  color           The Color of the Circle edge
@@ -261,6 +268,7 @@ class GeoMaps {
  * This Method is a Helper Method to bind Event Listener for Drag and Drop to set the circle radius on the Map interactive.
  *
  * @public
+ *
  * @param     {string}  id              The Game Player Id
  * @param     {number}  selectorRadius  The Selector of a input Fiel to set the radius
  * @return    {void}
@@ -365,6 +373,7 @@ class GeoMaps {
  * This Method return the Position Object of a Id.
  *
  * @public
+ *
  * @param     {string}  id            The Id
  * @return    {object}  objPosition   The Leaflet Position Object
  *
@@ -379,6 +388,7 @@ class GeoMaps {
  * This Method return the calculated distance between two Ids in Meters.
  *
  * @public
+ *
  * @param     {string}  id1             The Id1
  * @param     {string}  id2             The Id2
  * @return    {number}  floatDistance   The distance between two Ids in Meters
@@ -397,6 +407,7 @@ class GeoMaps {
  * This Method returns a Icon Vector Object for the Game Player Role.
  *
  * @public
+ *
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
  * @return    {string}  strImage  The Vector Object Image

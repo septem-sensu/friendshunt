@@ -33,7 +33,9 @@ window[ appAlias ].capturedPlayerIds      = window[ appAlias ].capturedPlayerIds
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.init();
  *
 */
@@ -42,6 +44,9 @@ window[ appAlias ].methods.gameplay.init = function() {
   window[ appAlias ].tracker.geoTrackerObject.getCurrentPosition( 'setMap' );
   window[ appAlias ].tracker.geoTrackerObject.startIntervalTracking( 'track' );
   window[ appAlias ].tracker.geoTrackerObject.startWakeLock();
+
+  window[ appAlias ].tracker.geoBatteryObject = new BatteryTracker();
+  window[ appAlias ].tracker.geoBatteryObject.init();
 
   return;
 };
@@ -56,11 +61,13 @@ window[ appAlias ].methods.gameplay.init = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {number}   lat         The Latitude Coordinate (float)
  * @param      {number}   lng         The Longitude Coordinate (float)
  * @param      {number}   precision   The Precision in Meters (int)
  * @param      {object}   message     The Message of the Geo Tracker Methode
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.setMap( lat, lng, precision, message );
  *
 */
@@ -92,7 +99,8 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
 };
 
 /**
- * This Function generate the Ajax Request to track the Game Player with the current Position Coordinates.
+ * This Function generate the Ajax Request to track the Game Player with the current Position Coordinates,
+ * steps taken and the Battery State.
  *
  * @function
  * @public
@@ -101,17 +109,20 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {number}   lat         The Latitude Coordinate (float)
  * @param      {number}   lng         The Longitude Coordinate (float)
  * @param      {number}   precision   The Precision in Meters (int)
  * @param      {object}   message     The Message of the Geo Tracker Methode
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.track( lat, lng, precision, message );
  *
 */
 window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, message ) {
-  var objPost      = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
-  var intStepCount = window[ appAlias ].tracker.geoTrackerObject.get( 'stepCount' );
+  var objPost         = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
+  var intStepCount    = window[ appAlias ].tracker.geoTrackerObject.get( 'stepCount' );
+  var objBatteryState = window[ appAlias ].tracker.geoBatteryObject.getBatteryData();
 
   window[ appAlias ].stepCount = window[ appAlias ].stepCount + intStepCount;
 
@@ -124,6 +135,8 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
   objPost.message              = message;
   objPost.steps                = intStepCount;
   objPost.outOfPlayingField    = window[ appAlias ].outOfPlayingField;
+  objPost.batteryLevel         = objBatteryState.supported ? objBatteryState.level : 0;
+  objPost.batteryIsCharging    = objBatteryState.supported ? objBatteryState.charging : false;
   objPost.timestamp            = new Date().getTime();
 
   window[ appAlias ].tracker.geoTrackerObject.set( 'stepCount', 0 );
@@ -143,8 +156,10 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponse   The Response Object from the Ajax Request
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.setPositions( objResponse );
  *
 */
@@ -201,7 +216,9 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.showCaptureLayer();
  *
 */
@@ -250,7 +267,9 @@ window[ appAlias ].methods.gameplay.showCaptureLayer = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.checkSystemMessages();
  *
 */
@@ -316,7 +335,9 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.closeSystemMessagesLayer();
  *
 */
@@ -343,7 +364,9 @@ window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.sendCaptured();
  *
 */
@@ -384,7 +407,9 @@ window[ appAlias ].methods.gameplay.sendCaptured = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.checkRules();
  *
 */
@@ -414,7 +439,9 @@ window[ appAlias ].methods.gameplay.checkRules = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.setStateLine();
  *
 */
@@ -457,12 +484,14 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {string}   strGameplayRole      The Gameplay Role of the Player
  * @param      {object}   objTracking          The Tracking Object of the Player to set in the Map
  * @param      {object}   objResult            The Result Object from the Ajax Call
  * @param      {number}   intPlayerCount       The Player Number for set with no Names
  * @param      {string}   strSpeedHuntPlayer   The Player at run a Speed Hunt
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );
  *
 */
@@ -558,8 +587,10 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {string}   strPlayerId   The Player Id being hunted
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.speedHunt( strPlayerId );
  *
 */
@@ -584,10 +615,12 @@ window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {string}   strTimestamp          The Timestamp
  * @param      {string}   strFormat             The Result Format ( date -> only Date, time -> only Time and datetime -> full Datetime )
  * @return     {string}   strFormatedDateTime   The formated, human readable DateTime String
- * @example    strFormatedDateTime = friendshunt.methods.gameplay.timestampToDateTimeString( strTimestamp, strFormat );
+ *
+ * @example    var strFormatedDateTime = friendshunt.methods.gameplay.timestampToDateTimeString( strTimestamp, strFormat );
  *
 */
 window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTimestamp, strFormat ) {
@@ -612,7 +645,9 @@ window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTim
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.showMessageLayer();
  *
 */
@@ -643,7 +678,9 @@ window[ appAlias ].methods.gameplay.showMessageLayer = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.sendNewMessage();
  *
 */
@@ -670,7 +707,9 @@ window[ appAlias ].methods.gameplay.sendNewMessage = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.setMessages();
  *
 */

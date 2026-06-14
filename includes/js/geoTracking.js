@@ -26,8 +26,8 @@ class GeoTracker {
  */
   constructor() {
     this.options = {
-      enableHighAccuracy: false, // GPS statt WLAN-Tracking
-      timeout: 10000,            // Maximal 10 Sekunden auf das Signal warten
+      enableHighAccuracy: true,  // GPS statt WLAN-Tracking
+      timeout: 20000,            // Maximal 20 Sekunden auf das Signal warten
       maximumAge: 0              // Keinen alten Cache-Wert nutzen, sondern live abfragen
     }
 
@@ -45,6 +45,7 @@ class GeoTracker {
  * This Method is the default getter of the Class.
  *
  * @public
+ *
  * @param     {string}   property   The Property to get
  * @return    {mixed}    value      The Value of the Property
  *
@@ -59,6 +60,7 @@ class GeoTracker {
  * This Method is the default setter of the Class.
  *
  * @public
+ *
  * @param     {string}   property   The Property to set
  * @param     {mixed}    value      The Value to set
  * @return    {void}
@@ -76,6 +78,7 @@ class GeoTracker {
  * This Method get the current Position, called the Callback Function and hand over the Position Data.
  *
  * @public
+ *
  * @param     {string}   callbackSuccess   The Property to set
  * @return    {void}
  *
@@ -83,7 +86,7 @@ class GeoTracker {
  *
  */
   getCurrentPosition( callbackSuccess ) {
-    if ("geolocation" in navigator) {
+    if("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition (
         ( position ) => {
           const lat       = position.coords.latitude;
@@ -123,6 +126,7 @@ class GeoTracker {
  * This Method start the interval Tracking and get periodically the current Position, called the Callback Function and hand over the Position Data.
  *
  * @public
+ *
  * @param     {string}   callbackSuccess   The Property to set
  * @return    {void}
  *
@@ -142,6 +146,7 @@ class GeoTracker {
  * This Method stop the interval Tracking.
  *
  * @public
+ *
  * @return    {void}
  *
  * @example   objGeoTracker.stopIntervalTracking();
@@ -159,6 +164,7 @@ class GeoTracker {
  *
  * @async
  * @public
+ *
  * @return    {void}
  *
  * @example   objGeoTracker.startWakeLock();
@@ -179,6 +185,7 @@ class GeoTracker {
  * This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
  *
  * @public
+ *
  * @return    {void}
  *
  * @example   objGeoTracker.stopWakeLock();
@@ -199,6 +206,7 @@ class GeoTracker {
  * This Method start the Pedometer to count the steps.
  *
  * @public
+ *
  * @return    {void}
  *
  * @example   objGeoTracker.startPedometer();
@@ -212,17 +220,18 @@ class GeoTracker {
     window.addEventListener( 'devicemotion', ( objEvent ) => {
       const objAcc = objEvent.accelerationIncludingGravity;
 
-      if ( !objAcc || objAcc.x === null ) return;
+      if( !objAcc || objAcc.x === null ) return;
 
       const totalAcceleration = Math.sqrt( objAcc.x * objAcc.x + objAcc.y * objAcc.y + objAcc.z * objAcc.z );
 
-      if ( totalAcceleration > 12 && ( Date.now() - this.lastPulse > 300 ) ) {
+      if( totalAcceleration > 12 && ( Date.now() - this.lastPulse > 300 ) ) {
         this.stepCount++;
 
         if( this.debug ) window.log( 'Schritte: ' + this.stepCount );
+        if( this.debug ) console.log( 'Schritte: ' + this.stepCount );
 
         this.lastPulse = Date.now();
-        if ( this.debug ) console.log( 'Schritte: ' + this.stepCount );
+
       }
     } );
 
@@ -233,15 +242,16 @@ class GeoTracker {
  * This Method checked the Permission and start the Pedometer to count the steps.
  *
  * @public
+ *
  * @return    {void}
  *
  * @example   objGeoTracker.checkPedometerSensor();
  *
  */
   checkPedometerSensor() {
-    if ( typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function' ) {
+    if( typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function' ) {
       DeviceMotionEvent.requestPermission().then( permissionState => {
-        if ( permissionState === 'granted' ) {
+        if( permissionState === 'granted' ) {
           this.startPedometer();
         } else {
           alert( "Ohne Bewegungssensor funktioniert der Schrittzähler leider nicht." );
@@ -258,6 +268,7 @@ class GeoTracker {
  * This Method calculate the Distance between two Points on the Earth's surface with the Haversine-Formula.
  *
  * @public
+ *
  * @param     {number}  lat1       The Latidude of Waypoint 1 (float)
  * @param     {number}  lng1       The Langidude of Waypoint 1 (float)
  * @param     {number}  lat2       The Latidude of Waypoint 2 (float)

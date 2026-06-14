@@ -19,6 +19,7 @@ include_once ( __DIR__ . '/../classes/game.php' );
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
  * @since       2026-06-05
  * @version     0.1.0
+ *
  * @example     $objGameplay = new Gameplay( $strGameId, $objCurrentPlayer );
  *
 */
@@ -74,9 +75,11 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strObjectId    Object Id of the Game
  * @param      player   $objCurrentPlayer    Object Id of the Game
  * @return     void
+ *
  * @example    $objGameplay = new Gameplay( $strObjectId, objCurrentPlayer );
  *
 */
@@ -95,7 +98,9 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->init();
  * @example    $objGameplay->init();
  *
@@ -163,7 +168,9 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->transferStatistics();
  * @example    $objGameplay->transferStatistics();
  *
@@ -280,11 +287,13 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object   $objSetObject   The Set Object for the Player Object
  * @param      string   $strRoleName    The Gameplay Role Name
  * @param      string   $strProperty    The Part of the Property Name
  * @param      float    $floatValue     The Value to set
  * @return     object   $objSetObject   The Result Object with new seted Property
+ *
  * @example    objSetObject = $this->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
  * @example    objSetObject = $objGameplay->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
  *
@@ -306,23 +315,29 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      float   $floatLat               The Tracking coordinates
  * @param      float   $floatLng               The Tracking coordinates
  * @param      int     $intPrecision           The Precision of the Tracking coordinates
  * @param      int     $intSteps               The count of Steps that have been run since the last Tracking
  * @param      bool    $boolOutOfPlayingField  The count of Steps that have been run since the last Tracking
+ * @param      int     $intBatteryLevel        The current Battery Level
+ * @param      bool    $boolBatteryIsCharching The is the Battery current charging
  * @return     void
- * @example    $this->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField );
- * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField );
+ *
+ * @example    $this->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField, $intBatteryLevel, $boolBatteryIsCharching );
+ * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField, $intBatteryLevel, $boolBatteryIsCharching );
  *
 */
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField ) : void {
+  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField, int $intBatteryLevel, bool $boolBatteryIsCharching ) : void {
     $objTracking                     = new stdClass();
     $objTracking->lat                = $floatLat;
     $objTracking->lng                = $floatLng;
     $objTracking->precision          = $intPrecision;
     $objTracking->steps              = $intSteps;
     $objTracking->outOfPlayingField  = $boolOutOfPlayingField;
+    $objTracking->batteryLevel       = $intBatteryLevel;
+    $objTracking->batteryIsCharching = $boolBatteryIsCharching;
     $objTracking->timestamp          = time();
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
@@ -338,7 +353,9 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     object $objGameSettings  The Game Settings Object
+ *
  * @example    $objGameSettings = $this->getGameSettings();
  * @example    $objGameSettings = $objGameplay->getGameSettings();
  *
@@ -384,11 +401,13 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      float   $floatLat1        The Tracking coordinates from Point 1
  * @param      float   $floatLng1        The Tracking coordinates from Point 1
  * @param      float   $floatLat2        The Tracking coordinates from Point 2
  * @param      float   $floatLng2        The Tracking coordinates from Point 2
  * @return     float   $floatDistance    The Distance in Meters from Point 1 to Point 2
+ *
  * @example    $floatDistance = $this->calcDistance( $floatLat1, $floatLng1, $floatLat2, $floatLng2 );
  * @example    $floatDistance = $objGameplay->calcDistance( $floatLat1, $floatLng1, $floatLat2, $floatLng2 );
  *
@@ -411,8 +430,10 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      mixed    $mixPlayer       Player Object or Player Id
  * @return     object   $objDistances    The Distances and Steps from a Player for a full Game
+ *
  * @example    $objDistances = $this->calcPlayerDistances( $mixPlayer );
  * @example    $objDistances = $objGameplay->calcPlayerDistances( $mixPlayer );
  *
@@ -451,7 +472,9 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     object   $objPositions    Standard Object with the Position Coordinates from all Players
+ *
  * @example    $objPositions = $this->getAllPlayerPositions();
  * @example    $objPositions = $objGameplay->getAllPlayerPositions();
  *
@@ -494,9 +517,11 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      Player     $objPlayer       Player Object
  * @param      int        $intCount        Count of the last Trackings do you get
  * @return     object     $objPositions    Standard Object with the Position Coordinates from one Player
+ *
  * @example    $objPositions = $this->getPlayerPosition( $objPlayer, $intCount );
  * @example    $objPositions = $objGameplay->getPlayerPosition( $objPlayer, $intCount );
  *
@@ -519,7 +544,9 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->saveGameplay();
  * @example    $objGameplay->saveGameplay();
  *
@@ -536,7 +563,9 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->saveMessages();
  * @example    $objGameplay->saveMessages();
  *
@@ -553,8 +582,10 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
+ *
  * @example    $objState = $this->silentHunt( $objState );
  * @example    $objState = $objGameplay->silentHunt( $objState );
  *
@@ -613,8 +644,10 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
+ *
  * @example    $objState = $this->checkRulesAndAddSystemMessages( $objState );
  * @example    $objState = $objGameplay->checkRulesAndAddSystemMessages( $objState );
  *
@@ -732,8 +765,10 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
+ *
  * @example    $objState = $this->getGameplayState( $objState );
  * @example    $objState = $objGameplay->getGameplayState( $objState );
  *
@@ -765,8 +800,10 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
+ *
  * @example    $objState = $this->getGameplaySpeedHunt( $objState );
  * @example    $objState = $objGameplay->getGameplaySpeedHunt( $objState );
  *
@@ -828,8 +865,10 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->captured( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->captured( $objRequestObject );
  *
@@ -865,8 +904,10 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->speedHunt( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->speedHunt( $objRequestObject );
  *
@@ -923,8 +964,10 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->track( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->track( $objRequestObject );
  *
@@ -932,7 +975,7 @@ class Gameplay extends Game {
   public function track( object $objRequestObject ) : object {
     if( ! $this->isRunning ) return $this->stopped( $objRequestObject );
 
-    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ), $objRequestObject->outOfPlayingField );
+    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ), $objRequestObject->outOfPlayingField, intval( $objRequestObject->batteryLevel ), $objRequestObject->batteryIsCharging );
 
     $objState                    = new stdClass();
     $objState                    = $this->getGameplayState( $objState );
@@ -955,8 +998,10 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->message( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->message( $objRequestObject );
  *
@@ -992,8 +1037,10 @@ class Gameplay extends Game {
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->stopped( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->stopped( $objRequestObject );
  *
@@ -1026,8 +1073,10 @@ class Gameplay extends Game {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->statistic( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->statistic( $objRequestObject );
  *

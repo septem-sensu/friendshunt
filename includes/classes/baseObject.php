@@ -15,6 +15,7 @@ declare( strict_types = 1 );
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
  * @since       2026-06-05
  * @version     0.1.0
+ *
  * @example     $objFriendsHunt = new BaseObject( $strId );
  *
 */
@@ -35,8 +36,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strObjectId    Object Id
  * @return     void
+ *
  * @example    $objBaseObject = new BasObject( $strObjectId );
  *
 */
@@ -59,8 +62,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string  $strClassname   Classname
  * @return     object  $objAllFields   The Fields Object with all Properties
+ *
  * @example    $objAllFields = BaseObject::fields( $strProperty );
  * @example    $objAllFields = $this::fields( $strProperty );
  *
@@ -77,7 +82,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->fillObject();
  * @example    $objBaseObject->fillObject();
  *
@@ -101,7 +108,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     string  $strId   The Id from the Object
+ *
  * @example    $strId = $this->id();
  * @example    $strId = $objBaseObject->id();
  *
@@ -116,8 +125,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string  $strProperty   Property
  * @return     mixed   $value         Value of Property
+ *
  * @example    $value = $this->get( $strProperty );
  * @example    $value = $objBaseObject->get( $strProperty );
  *
@@ -134,9 +145,11 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      mixed    $mixProperty    Property
  * @param      mixed    $mixValue       Value of Property
  * @return     void
+ *
  * @example    $this->set( $mixProperty, $mixValue );
  * @example    $objBaseObject->set( $mixProperty, $mixValue );
 */
@@ -168,7 +181,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->deleteObject();
  * @example    $objBaseObject->deleteObject();
  *
@@ -190,7 +205,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     void
+ *
  * @example    $this->saveObject();
  * @example    $objBaseObject->saveObject();
  *
@@ -216,8 +233,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object    $objRequestObject     Request Object
  * @return     object    $objRequestObject     Request Object
+ *
  * @example    $objRequestObject = $this->saveRequestObject( $objRequestObject );
  * @example    $objRequestObject = $objBaseObject->saveRequestObject( $objRequestObject );
  *
@@ -252,8 +271,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strPrefix   Perfix of the GUID
  * @return     string   $strId       The generated GUID
+ *
  * @example    $strId = $this->newId( $strPrefix );
  * @example    $strId = $objBaseObject->newId( $strPrefix );
  *
@@ -269,8 +290,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strClassName   The Class Name
  * @return     object   $objObjects     The Main Config Object of Friends Hunt
+ *
  * @example    $objObjects = BaseObject::getObjects( $strClassName );
  * @example    $objObjects = $this::getObjects( $strClassName );
  *
@@ -286,7 +309,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     object   $objConfig    The Main Config Object of Friends Hunt
+ *
  * @example    $objConfig = BaseObject::getConfig();
  * @example    $objConfig = $this::getConfig();
  *
@@ -301,8 +326,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strContent  String to test
  * @return     bool     $boolResult  Is the String a Json
+ *
  * @example    $boolResult = BaseObject::isJson( $strContent );
  * @example    $boolResult = $this::isJson( $strContent );
  *
@@ -319,7 +346,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     array  $arrCryptKeys  The crypt passphrases Keys
+ *
  * @example    $arrCryptKeys = BaseObject::getCryptKeys( $strContent );
  * @example    $arrCryptKeys = $this::getCryptKeys( $strContent );
  *
@@ -342,8 +371,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strContent  String to encrypt
  * @return     string   $strContent  The encrypted Content String
+ *
  * @example    $strContent = BaseObject::isJson( $strContent );
  * @example    $strContent = $this::isJson( $strContent );
  *
@@ -359,8 +390,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strContent   String to be encrypted
  * @return     string   $strContent   Encrypted String
+ *
  * @example    $strContent = BaseObject::enCrypte( $strContent );
  * @example    $strContent = $this::enCrypte( $strContent );
  *
@@ -383,8 +416,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strContent   Encrypted String
  * @return     string   $strContent   String to be decrypted
+ *
  * @example    $strContent = BaseObject::deCrypte( $strContent );
  * @example    $strContent = $this::deCrypte( $strContent );
  *
@@ -407,9 +442,11 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strFile     Filepath and Filename to be encrypted json String saved
  * @param      object   $objObject   Object to be changed, encrypted and saved
  * @return     void
+ *
  * @example    BaseObject::saveFileEnCrypted( $strFile, $objObject );
  * @example    $this::saveFileEnCrypted( $strFile, $objObject );
  *
@@ -440,8 +477,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string    $strFile     Filepath and Filename to the encrypted json File
  * @return     object    $objObject   The decrypted Object from the encrypted json File
+ *
  * @example    $objObject = BaseObject::loadFileDeCrypted( $strFile );
  * @example    $objObject = $this::loadFileDeCrypted( $strFile );
  *
@@ -471,7 +510,9 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     object    $objObject   The cleaned Standard Class Object
+ *
  * @example    $objObject = $this->serializeObject();
  * @example    $objObject = $objBaseObject->serializeObject();
  *
@@ -498,9 +539,11 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      array    $arrArray     The Array to remove a Element from
  * @param      int      $intIndex     The Index of the Element to remove
  * @return     array    $arrArray     The Array without the Element.
+ *
  * @example    $arrArray = BaseObject::removeFromArray( $arrArray, $intIndex );
  * @example    $arrArray = $this::removeFromArray( $arrArray, $intIndex );
  *
@@ -523,9 +566,11 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object    $objObject     The Object to clean up
  * @param      object    $objFields     The Class Field Object with the Property Informations
  * @return     object    $objObject     The cleaned Object
+ *
  * @example    $objObject = BaseObject::cleanObject( $objObject, $objFields );
  * @example    $objObject = $this::cleanObject( $objObject, $objFields );
  *
@@ -550,8 +595,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string   $strPath        Path to Direrctory to be deleted
  * @return     bool     $boolSucsess    Is deleted
+ *
  * @example    $boolSucsess = $this->deleteDirectory( $strPath );
  * @example    $boolSucsess = $objBaseObject->deleteDirectory( $strPath );
  *
@@ -574,8 +621,10 @@ class BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      int      $intLength        The length of the random result String
  * @return     string   $strRandomString  The result random String with a defined length
+ *
  * @example    $strRandomString = $this::generateRandomString( $intLength );
  * @example    $strRandomString = BaseObject::generateRandomString( $intLength );
  *

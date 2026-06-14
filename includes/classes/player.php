@@ -18,6 +18,7 @@ include_once ( __DIR__ . '/../classes/presentation.php' );
  * @copyright   2026 Markus Götz <info@septem-sensu.de>
  * @since       2026-06-05
  * @version     0.1.0
+ *
  * @example     $objPlayer = new Player( $strPlayerId );
  *
 */
@@ -67,8 +68,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objNewPlayerRequestObject    The Request Object
  * @return     object     $objNewPlayerRequestObject    The Request Object
+ *
  * @example    $objNewPlayerRequestObject = Player::newPlayer( $objNewPlayerRequestObject );
  * @example    $objNewPlayerRequestObject = $this::newPlayer( $objNewPlayerRequestObject );
  *
@@ -114,8 +117,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->addGamesToTemplate( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->addGamesToTemplate( $objRequestObject );
  *
@@ -143,8 +148,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      mixed     $objController    The Controller Object
  * @return     bool      $boolLoginTrue    The Login
+ *
  * @example    $boolLoginTrue = Player::checkLogin( $objController );
  * @example    $boolLoginTrue = $this::checkLogin( $objController );
  *
@@ -185,7 +192,9 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @return     mixed   $strPlayerId | null    The PlayerId from the Cookie if available
+ *
  * @example    $strPlayerId = Player::getPlayerIdFromCookie();
  * @example    $strPlayerId = $this::getPlayerIdFromCookie();
  *
@@ -203,8 +212,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objLoginObject    The Request Object
  * @return     object     $objLoginObject    The Request Object
+ *
  * @example    $objLoginObject = Player::login( $objLoginObject );
  * @example    $objLoginObject = $this::login( $objLoginObject );
  *
@@ -251,8 +262,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      string     $strFileName    The Avatar Image File Name after Upload
  * @return     void
+ *
  * @example    Player::avatarFileUploaded( $strFileName );
  * @example    $this::avatarFileUploaded( $strFileName );
  *
@@ -283,8 +296,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->deletePlayer( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->deletePlayer( $objRequestObject );
  *
@@ -308,8 +323,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->deletePlayerFromApp( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->deletePlayerFromApp( $objRequestObject );
  *
@@ -337,8 +354,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->setup( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->setup( $objRequestObject );
  *
@@ -397,8 +416,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->getPlayerList( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->getPlayerList( $objRequestObject );
  *
@@ -415,8 +436,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->getGameArchiveList( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->getGameArchiveList( $objRequestObject );
  *
@@ -443,8 +466,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->backFromArchiveGame( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->backFromArchiveGame( $objRequestObject );
  *
@@ -503,8 +528,10 @@ class Player extends BaseObject {
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
+ *
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
+ *
  * @example    $objRequestObject = $this->deleteArchiveGame( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->deleteArchiveGame( $objRequestObject );
  *

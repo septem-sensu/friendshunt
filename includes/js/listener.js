@@ -29,7 +29,9 @@ window[ appAlias ].tracker    = window[ appAlias ].tracker || {};
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.loginButtons();
  *
 */
@@ -57,7 +59,9 @@ window[ appAlias ].listener.loginButtons = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.newPlayerButtons();
  *
 */
@@ -89,7 +93,9 @@ window[ appAlias ].listener.newPlayerButtons = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.saveObject();
  *
 */
@@ -119,7 +125,9 @@ window[ appAlias ].listener.saveObject = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.addPlayerToGame();
  *
 */
@@ -155,7 +163,9 @@ window[ appAlias ].listener.addPlayerToGame = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.addHunterToGame();
  *
 */
@@ -191,7 +201,9 @@ window[ appAlias ].listener.addHunterToGame = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.addManagementToGame();
  *
 */
@@ -227,7 +239,9 @@ window[ appAlias ].listener.addManagementToGame = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.deletePlayer();
  *
 */
@@ -255,7 +269,9 @@ window[ appAlias ].listener.deletePlayer = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.saveNewGame();
  *
 */
@@ -325,7 +341,9 @@ window[ appAlias ].listener.saveNewGame = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.changePlayerPassword();
  *
 */
@@ -364,7 +382,9 @@ window[ appAlias ].listener.changePlayerPassword = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.uploadAvatar();
  *
 */
@@ -411,7 +431,9 @@ window[ appAlias ].listener.uploadAvatar = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.zoomImageListenter();
  *
 */
@@ -446,7 +468,9 @@ window[ appAlias ].listener.zoomImageListenter = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.uploadGameImages();
  *
 */
@@ -487,7 +511,9 @@ window[ appAlias ].listener.uploadGameImages = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.uploadAvatarOpenDialog();
  *
 */
@@ -514,7 +540,9 @@ window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.uploadGameImagesOpenDialog();
  *
 */
@@ -541,7 +569,9 @@ window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.links();
  *
 */
@@ -570,7 +600,9 @@ window[ appAlias ].listener.links = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.resetForms();
  *
 */
@@ -597,7 +629,9 @@ window[ appAlias ].listener.resetForms = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.formatDateTime();
  *
 */
@@ -622,7 +656,9 @@ window[ appAlias ].listener.formatDateTime = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.enterKey();
  *
 */
@@ -684,7 +720,9 @@ window[ appAlias ].listener.enterKey = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.setupButton();
  *
 */
@@ -719,7 +757,9 @@ window[ appAlias ].listener.setupButton = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.deleteGameplayImageButton();
  *
 */
@@ -750,7 +790,9 @@ window[ appAlias ].listener.deleteGameplayImageButton = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.clickOpenMapInLayer();
  *
 */
@@ -787,7 +829,9 @@ window[ appAlias ].listener.clickOpenMapInLayer = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.listener.calcHtmlTags();
  *
 */

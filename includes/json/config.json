@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "appAlias": "friends-hunt",
-  "appName": "Friends Hunt",
+  "appName": "Friends Hunt - Die Jagd beginnt",
   "cookieName": "friends-hunt",
   "defaultView": "login",
   "defaultLoginView": "player",

@@ -27,7 +27,9 @@ window[ appAlias ].methods.statistics = window[ appAlias ].methods.statistics ||
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.getGameStatistics();
  *
 */
@@ -49,8 +51,10 @@ window[ appAlias ].methods.statistics.getGameStatistics = function() {
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponse   The Response Object of the Ajax Request
  * @return     {void}
+ *
  * @example    friendshunt.methods.gameplay.generateGameStatistics( objResponse );
  *
 */
@@ -80,8 +84,10 @@ window[ appAlias ].methods.gameplay.generateGameStatistics = function( objRespon
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
+ *
  * @example    friendshunt.methods.statistics.addGameOverviewContainer( objStatistics );
  *
 */
@@ -145,9 +151,11 @@ window[ appAlias ].methods.statistics.addGameOverviewContainer = function( objSt
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @param      {object}   objResponse     The Response Object of the Ajax Request
  * @return     {void}
+ *
  * @example    friendshunt.methods.statistics.addSpeedHuntsContainer( objStatistics, objResponse );
  *
 */
@@ -196,8 +204,10 @@ window[ appAlias ].methods.statistics.addSpeedHuntsContainer = function( objStat
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
+ *
  * @example    friendshunt.methods.statistics.addMessagesContainer( objStatistics );
  *
 */
@@ -243,9 +253,11 @@ window[ appAlias ].methods.statistics.addMessagesContainer = function( objStatis
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @param      {object}   objResponse     The Response Object of the Ajax Request
  * @return     {void}
+ *
  * @example    friendshunt.methods.statistics.addViolationsOfTheRules( objStatistics, objResponse );
  *
 */
@@ -302,8 +314,10 @@ window[ appAlias ].methods.statistics.addViolationsOfTheRules = function( objSta
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
+ *
  * @example    friendshunt.methods.statistics.addCapturedContainer( objStatistics );
  *
 */
@@ -341,8 +355,10 @@ window[ appAlias ].methods.statistics.addCapturedContainer = function( objStatis
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
+ *
  * @example    friendshunt.methods.statistics.addPlayerDistancesContainers( objStatistics );
  *
 */
@@ -410,9 +426,11 @@ window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( o
  * @access     public
  * @since      2026-06-06
  * @version    0.1.0
+ *
  * @param      {object}   objResponse    The Response Object of the Ajax Request
  * @param      {string}   strSelector    The Css-Selector for the Statistic Container for to add Statistics to the Game Dashboard
  * @return     {object}   objStatistic   The Statistic Object width all important Values from Ajax Request
+ *
  * @example    var objStatistic = friendshunt.methods.statistics.gameStatistic( objResponse, objStatistics );
  *
 */
@@ -505,4 +523,3 @@ window[ appAlias ].methods.statistics.gameStatistic = function( objResponse, str
 
   return objStatistic;
 };
-

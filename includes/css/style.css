@@ -101,6 +101,23 @@ a {
 
 }
 
+.card td {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.card table {
+  border-collapse: collapse;
+}
+
+.card th {
+  border-bottom: 2px solid var(--border-color);
+  padding-top: 1px;
+  padding-bottom: 5px;
+  color: var(--cardHeadlineColor);
+  font-weight: 400 !important;
+}
+
 .card {
   background-color: var(--backgroundColorContentContainer);
   border: 1px solid var(--border-color);
