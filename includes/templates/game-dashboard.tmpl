@@ -23,7 +23,7 @@
         <p class="bold mb-10">{{Game::name}}</p>
         <p>{{Game::title}}</p>
         <p>{{Game::description}}</p>
-        <p class="bold mt-5">Start: <span class="format-date-time">{{Game::start}}</span></p>
+        <p class="bold mt-5">Start: <span class="js-calc js-calc-datetime">{{Game::start}}</span></p>
         <p>Dauer: {{Game::duration}} Stunden</p>
         <button type="button" class="w-160 mt-10 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button>
       </td>
@@ -53,7 +53,7 @@
   <table class="w-100p" cellspacing="0">
     <tr class="background-alternate">
       <td class="pl-7" style="width: 170px;">Start des Spiels:</td>
-      <td class="align-right format-date-time">{{Game::start}}</td>
+      <td class="align-right"><span class="js-calc js-calc-datetime">{{Game::start}}</span> Uhr</td>
       <td class="pr-7"></td>
     </tr>
     <tr>

@@ -36,7 +36,7 @@ window[ appAlias ].capturedPlayerIds      = window[ appAlias ].capturedPlayerIds
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.init();
+ * @example    window[ appAlias ].methods.gameplay.init();
  *
 */
 window[ appAlias ].methods.gameplay.init = function() {
@@ -68,7 +68,7 @@ window[ appAlias ].methods.gameplay.init = function() {
  * @param      {object}   message     The Message of the Geo Tracker Methode
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.setMap( lat, lng, precision, message );
+ * @example    window[ appAlias ].methods.gameplay.setMap( lat, lng, precision, message );
  *
 */
 window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, message ) {
@@ -80,10 +80,10 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
   var arrExitPosition   = window[ appAlias ].gameSettings.exitPosition.split( ',' );
   var arrFieldCenter    = window[ appAlias ].gameSettings.playingFieldCenterPosition.split( ',' );
 
-  strContentStart      += '<p>Spielstart: ' + window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start ) + '</p>';
-  strContentStart      += '<p>Spielende: ' + window[ appAlias ].gameSettings.end + '</p>';
-  strContentExit       += '<p>Spielstart: ' + window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start ) + '</p>';
-  strContentExit       += '<p>Spielende: ' + window[ appAlias ].gameSettings.end + '</p>';
+  strContentStart      += '<p>Spielstart: ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameSettings.start ) + ' Uhr</p>';
+  strContentStart      += '<p>Spielende: ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameSettings.end ) + ' Uhr</p>';
+  strContentExit       += '<p>Spielstart: ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameSettings.start ) + ' Uhr</p>';
+  strContentExit       += '<p>Spielende: ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameSettings.end ) + ' Uhr</p>';
 
   window[ appAlias ].tracker.geoMapsObject = new GeoMaps();
 
@@ -116,7 +116,7 @@ window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, mess
  * @param      {object}   message     The Message of the Geo Tracker Methode
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.track( lat, lng, precision, message );
+ * @example    window[ appAlias ].methods.gameplay.track( lat, lng, precision, message );
  *
 */
 window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, message ) {
@@ -160,7 +160,7 @@ window[ appAlias ].methods.gameplay.track = function( lat, lng, precision, messa
  * @param      {object}   objResponse   The Response Object from the Ajax Request
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.setPositions( objResponse );
+ * @example    window[ appAlias ].methods.gameplay.setPositions( objResponse );
  *
 */
 window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
@@ -219,7 +219,7 @@ window[ appAlias ].methods.gameplay.setPositions = function( objResponse ) {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.showCaptureLayer();
+ * @example    window[ appAlias ].methods.gameplay.showCaptureLayer();
  *
 */
 window[ appAlias ].methods.gameplay.showCaptureLayer = function() {
@@ -270,7 +270,7 @@ window[ appAlias ].methods.gameplay.showCaptureLayer = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.checkSystemMessages();
+ * @example    window[ appAlias ].methods.gameplay.checkSystemMessages();
  *
 */
 window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
@@ -301,6 +301,7 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
       }
     }
 
+    strMessage                   += '<p class="game-info-small">(' + window[ appAlias ].methods.timestampPhpToString( arrSystemMessages[ i ].timestamp ) + ')</p>';
     strMessage                   += arrSystemMessages[ i ].message;
     strMessage                   += strApplies;
     strMessage                   += ! arrSystemMessages[ i ].showMessageOnlyOne ? '<input type="checkbox" name="dontShow" value="' + arrSystemMessages[ i ].id + '" /><span class="game-info-small">Nicht mehr anzeigen</span>' : '';
@@ -338,7 +339,7 @@ window[ appAlias ].methods.gameplay.checkSystemMessages = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.closeSystemMessagesLayer();
+ * @example    window[ appAlias ].methods.gameplay.closeSystemMessagesLayer();
  *
 */
 window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
@@ -367,7 +368,7 @@ window[ appAlias ].methods.gameplay.closeSystemMessagesLayer = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.sendCaptured();
+ * @example    window[ appAlias ].methods.gameplay.sendCaptured();
  *
 */
 window[ appAlias ].methods.gameplay.sendCaptured = function() {
@@ -410,7 +411,7 @@ window[ appAlias ].methods.gameplay.sendCaptured = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.checkRules();
+ * @example    window[ appAlias ].methods.gameplay.checkRules();
  *
 */
 window[ appAlias ].methods.gameplay.checkRules = function() {
@@ -442,33 +443,46 @@ window[ appAlias ].methods.gameplay.checkRules = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.setStateLine();
+ * @example    window[ appAlias ].methods.gameplay.setStateLine();
  *
 */
 window[ appAlias ].methods.gameplay.setStateLine = function() {
-  $strStateLine = '';
+  var strStateLine = '';
+  var intTimeStampNow = Date.now() / 1000;
 
   if( window[ appAlias ].gameplayState.gameState == 'stopped' ) {
-    $strStateLine += window[ appAlias ].gameplayState.gameStateMessage + ' ';
+    if( intTimeStampNow < window[ appAlias ].gameSettings.start ) {
+      strStateLine += 'Das Spiel Startet am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameSettings.start ) + ' Uhr. ';
+    } else {
+      strStateLine += 'Das Spiel ist beendet. ';
+    }
 
     document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-stop.png';
     document.querySelector( '#game-state-icon-container' ).removeAttribute( 'onclick' );
   } else {
     if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
-      if( window[ appAlias ].gameplayRole != 'hunter' ) $strStateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">';
-      $strStateLine += window[ appAlias ].gameplayState.speedHuntState.message + ' Ping ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCount + ' von ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCountMax + '.';
-      if( window[ appAlias ].gameplayRole != 'hunter' ) $strStateLine += '</span> ';
+      if( window[ appAlias ].gameplayRole != 'hunter' ) strStateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">';
+      strStateLine += 'Es läuft ein Speedhunt. Ping ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCount + ' von ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCountMax + '.';
+      if( window[ appAlias ].gameplayRole != 'hunter' ) strStateLine += '</span> ';
     } else {
-      $strStateLine += window[ appAlias ].gameplayState.speedHuntState.message + ' ';
+      if( typeof window[ appAlias ].gameplayState.speedHuntState.next != 'undefined' ) {
+        strStateLine += 'Der nächste Speedhunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+      } else {
+        strStateLine += 'Speedhunt ist verfügbar. ';
+      }
     }
 
-    $strStateLine += window[ appAlias ].gameplayState.nextSilentHuntMessage + ' ';
+    if( window[ appAlias ].gameplayState.nextSilentHunt > window[ appAlias ].gameSettings.end ) {
+      strStateLine += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+    } else {
+      strStateLine += 'Der nächste Silent Hunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.nextSilentHunt ) + ' Uhr. ';
+    }
 
     document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-play.png';
     document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();' );
   }
 
-  document.querySelector( '#game-scrolling-info-text' ).innerHTML = $strStateLine;
+  document.querySelector( '#game-scrolling-info-text' ).innerHTML = strStateLine;
 
   return;
 }
@@ -492,19 +506,36 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
  * @param      {string}   strSpeedHuntPlayer   The Player at run a Speed Hunt
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );
+ * @example    window[ appAlias ].methods.gameplay.setPosition( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer );
  *
 */
 window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer ) {
-  var arrColors           = [ '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
-  var objLastPosition     = objTracking.position.at( -1 );
-  var objGameSettings     = window[ appAlias ].gameSettings;
-  var objGameState        = window[ appAlias ].gameplayState;
-  var objSpeedHuntState   = objGameState.speedHuntState;
-  var strMyGameRole       = objResult.gameRole;
-  var strMarkerContent    = '';
-  var strSpeedHuntMessage = '';
-  var strCapturedMessage  = '';
+  var arrColors            = [ '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
+  var objLastPosition      = objTracking.position.at( -1 );
+  var objGameSettings      = window[ appAlias ].gameSettings;
+  var objGameState         = window[ appAlias ].gameplayState;
+  var objSpeedHuntState    = objGameState.speedHuntState;
+  var strMyGameRole        = objResult.gameRole;
+  var strMarkerContent     = '';
+  var strSpeedHuntMessage  = '';
+  var strCapturedMessage   = '';
+  var strSilentHuntMessage = '';
+
+  if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
+    objSpeedHuntState.message = 'Es läuft ein Speedhunt.'
+  } else {
+    if( typeof window[ appAlias ].gameplayState.speedHuntState.next != 'undefined' ) {
+      objSpeedHuntState.message = 'Der nächste Speedhunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+    } else {
+      objSpeedHuntState.message = 'Speedhunt ist verfügbar. ';
+    }
+  }
+
+  if( window[ appAlias ].gameplayState.nextSilentHunt > window[ appAlias ].gameSettings.end ) {
+    strSilentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+  } else {
+    strSilentHuntMessage += 'Der nächste Silent Hunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.nextSilentHunt ) + ' Uhr. ';
+  }
 
   if( objSpeedHuntState.speedHuntCount > 0 ) {
     strSpeedHuntMessage = ' Ping ' + objSpeedHuntState.speedHuntCount + ' von ' + objSpeedHuntState.speedHuntCountMax + '.';
@@ -526,29 +557,29 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
         strCapturedMessage = '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].methods.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>';
       }
     } else if( strMyGameRole == 'hunter' ) {
-      $strPlayerName = objGameSettings.showNames == '1' ? objTracking.name : 'Spieler ' + intPlayerCount;
+      strPlayerName = objGameSettings.showNames == '1' ? objTracking.name : 'Spieler ' + intPlayerCount;
 
       if( objSpeedHuntState.speedHuntCount == -1 ) {
-        strMarkerContent   += '<p class="bold">' + $strPlayerName + '</p>';
+        strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
         strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
       } else if( objSpeedHuntState.speedHuntCount == 0 ) {
-        strMarkerContent   += '<p class="bold pointer" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
-        strMarkerContent   += $strPlayerName;
+        strMarkerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
+        strMarkerContent   += strPlayerName;
         strMarkerContent   += '</p>';
         strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
       } else {
         if( objTracking.id == objSpeedHuntState.playerId ) {
-          strMarkerContent   += '<p class="bold pointer" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
-          strMarkerContent   += $strPlayerName;
+          strMarkerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
+          strMarkerContent   += strPlayerName;
           strMarkerContent   += '</p>';
         } else {
-          strMarkerContent   += '<p class="bold">' + $strPlayerName + '</p>';
+          strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
         }
 
         strMarkerContent   += '<p>' + objSpeedHuntState.message.slice(0, -1) + ' auf ' + strSpeedHuntPlayer + '.' + strSpeedHuntMessage + '</p>';
       }
     } else {
-      strMarkerContent   += '<p class="bold">' + $strPlayerName + '</p>';
+      strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
 
       if( objSpeedHuntState.speedHuntCount > 0 ) {
         strMarkerContent   += '<p>' + objSpeedHuntState.message.slice(0, -1) + ' auf ' + objSpeedHuntState.playerName + '.' + strSpeedHuntMessage + '</p>';
@@ -557,7 +588,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
       }
     }
 
-    strMarkerContent   += '<p>' + window[ appAlias ].gameplayState.nextSilentHuntMessage + '</p>';
+    strMarkerContent   += '<p>' + strSilentHuntMessage + '</p>';
     strMarkerContent   += '<p>Rolle: Spieler</p>';
   } else if( strGameplayRole == 'hunter' ) {
     if( strMyGameRole == 'player' ) return;
@@ -591,7 +622,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
  * @param      {string}   strPlayerId   The Player Id being hunted
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.speedHunt( strPlayerId );
+ * @example    window[ appAlias ].methods.gameplay.speedHunt( strPlayerId );
  *
 */
 window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
@@ -620,7 +651,7 @@ window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
  * @param      {string}   strFormat             The Result Format ( date -> only Date, time -> only Time and datetime -> full Datetime )
  * @return     {string}   strFormatedDateTime   The formated, human readable DateTime String
  *
- * @example    var strFormatedDateTime = friendshunt.methods.gameplay.timestampToDateTimeString( strTimestamp, strFormat );
+ * @example    var strFormatedDateTime = window[ appAlias ].methods.gameplay.timestampToDateTimeString( strTimestamp, strFormat );
  *
 */
 window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTimestamp, strFormat ) {
@@ -648,7 +679,7 @@ window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTim
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.showMessageLayer();
+ * @example    window[ appAlias ].methods.gameplay.showMessageLayer();
  *
 */
 window[ appAlias ].methods.gameplay.showMessageLayer = function() {
@@ -681,7 +712,7 @@ window[ appAlias ].methods.gameplay.showMessageLayer = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.sendNewMessage();
+ * @example    window[ appAlias ].methods.gameplay.sendNewMessage();
  *
 */
 window[ appAlias ].methods.gameplay.sendNewMessage = function() {
@@ -710,7 +741,7 @@ window[ appAlias ].methods.gameplay.sendNewMessage = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.setMessages();
+ * @example    window[ appAlias ].methods.gameplay.setMessages();
  *
 */
 window[ appAlias ].methods.gameplay.setMessages = function() {

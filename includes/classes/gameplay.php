@@ -152,7 +152,7 @@ class Gameplay extends Game {
     $this->gameplayRoles->player      = 'Spieler';
     $this->gameplayRoles->hunter      = 'Jäger';
     $this->gameplayRoles->management  = 'Spielleitung';
-    $this->startTimestamp             = Presentation::stringToTimestamp( $this->gameSettings->start );
+    $this->startTimestamp             = $this->gameSettings->start;
     $this->endTimestamp               = $this->startTimestamp + ( $this->gameSettings->duration * 60 * 60 );
     $this->isRunning                  = time() > $this->startTimestamp && time() < $this->endTimestamp ? true : false;
 
@@ -252,8 +252,6 @@ class Gameplay extends Game {
           if( $strPlayerId != $arrMessages[ $j ]->playerId ) continue;
           $intCountMessages++;
         }
-
-        Presentation::logToFile( $intCountMessages, true, 'test.log' );
 
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'CountSteps', $intSteps );
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'Distance', $intDistance );
@@ -612,15 +610,12 @@ class Gameplay extends Game {
 
     if( $this->gameplayObject->silentHunt->nextTimestamp > $intNowTimestamp ) {
       if( $this->gameplayObject->silentHunt->nextTimestamp > $this->endTimestamp ) {
-        $objState->nextSilentHunt        = '';
-        $objState->nextSilentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr.';
+        $objState->nextSilentHunt        = $this->gameplayObject->silentHunt->nextTimestamp;
       } else {
-        $objState->nextSilentHunt        = Presentation::timestampToString( $this->gameplayObject->silentHunt->nextTimestamp );
-        $objState->nextSilentHuntMessage = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . ' Uhr.';
+        $objState->nextSilentHunt        = $this->gameplayObject->silentHunt->nextTimestamp;
       }
     } else if( $objState->timestampEnd < $intNowTimestamp ) {
       $objState->nextSilentHunt             = '';
-      $objState->nextSilentHuntMessage      = 'Es gibt keinen Silent Hunt. Das Spiel ist beendet.';
     } else if( $intNowTimestamp > $this->gameplayObject->silentHunt->nextTimestamp ) {
       for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
         $strPlayerId  = $this->gameplayObject->player[ $i ]->id;
@@ -629,8 +624,7 @@ class Gameplay extends Game {
       }
 
       $this->gameplayObject->silentHunt->nextTimestamp = $this->gameplayObject->silentHunt->nextTimestamp + $intSilentHuntInterval;
-      $objState->nextSilentHunt                        = Presentation::timestampToString( $this->gameplayObject->silentHunt->nextTimestamp );
-      $objState->nextSilentHuntMessage                 = 'Der nächste Silent Hunt ist am ' . $objState->nextSilentHunt . ' Uhr.';
+      $objState->nextSilentHunt                        = $this->gameplayObject->silentHunt->nextTimestamp;
 
       $this->saveGameplay();
     }
@@ -661,8 +655,7 @@ class Gameplay extends Game {
     if( $intNowTimestamp > $this->startTimestamp && $intNowTimestamp <  $this->startTimestamp + 600 ) {
       $objSystemMessage                     = new stdClass();
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-      $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $intNowTimestamp ) . ')</p>';
-      $objSystemMessage->message           .= '<p class="bold success-text">💥 DIE JAGD ERÖFFNET 💥</p>';
+      $objSystemMessage->message            = '<p class="bold success-text">💥 DIE JAGD ERÖFFNET 💥</p>';
       $objSystemMessage->message           .= '<p>Lagezentrum online. Satellitenverbindung steht. Die Spielleitung begrüßt die Hunter-Taskforce und die Gejagten. Der Countdown läuft unerbittlich – die Jagd ist offiziell eröffnet! Möge die Ausdauer mit euch sein.</p>';
       $objSystemMessage->showMessageOnlyOne = true;
       $objSystemMessage->id                 = 'gameStartMessage';
@@ -682,8 +675,7 @@ class Gameplay extends Game {
 
       $objSystemMessage                     = new stdClass();
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-      $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $intNowTimestamp ) . ')</p>';
-      $objSystemMessage->message           .= '<p class="bold success-text">🏁 SPIEL BEENDET! - SAMMELN AM EXIT POINT 🏁</p>';
+      $objSystemMessage->message            = '<p class="bold success-text">🏁 SPIEL BEENDET! - SAMMELN AM EXIT POINT 🏁</p>';
       $objSystemMessage->message           .= '<p>FINALE! Die Satellitenortung wurde abgeschaltet. Alle Einheiten – egal ob Jäger oder Gejagte – stellen das Tracking ein und rücken unverzüglich zur finalen Exit Zone (Wir treffen uns ' . $arrExitMeetLocation[ rand( 0, count( $arrExitMeetLocation ) - 1 ) ] . '.) vor. Zeit für das Debriefing!</p>';
       $objSystemMessage->showMessageOnlyOne = true;
       $objSystemMessage->id                 = 'gameEndMessage';
@@ -707,8 +699,7 @@ class Gameplay extends Game {
 
         $objSystemMessage                     = new stdClass();
         $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-        $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $objPosition->position[ 0 ]->timestamp ) . ')</p>';
-        $objSystemMessage->message           .= '<p class="danger-text bold">REGELVERSTOSS</p>';
+        $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
         $objSystemMessage->message           .= '<p class="danger-text">Ein ' . $strGameplayRoleName .' hat das Spielfeld verlassen.</p>';
         $objSystemMessage->message           .= $strGameplayRole == 'player' ? '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>' : '<p class="danger-text">' . $objPlayer->get( 'name' ) . ' muss ein Bier ausgeben.<p>';
         $objSystemMessage->applies            = $strPlayerId;
@@ -739,8 +730,7 @@ class Gameplay extends Game {
 
       $objSystemMessage                     = new stdClass();
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-      $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $arrCaptured[ $i ]->timestamp ) . ')</p>';
-      $objSystemMessage->message           .= '<p class="danger-text bold">ERWISCHT UND GEFANGEN</p>';
+      $objSystemMessage->message            = '<p class="danger-text bold">ERWISCHT UND GEFANGEN</p>';
       $objSystemMessage->message           .= '<p class="danger-text">' .$objPlayer->get( 'name' ) . ' wurde leider erwischt und gefangen.</p>';
       $objSystemMessage->message           .= '<p class="danger-text">Herzlichen Glückwunsch der Hunter-Taskforce.</p>';
       $objSystemMessage->applies            = $strPlayerId;
@@ -782,13 +772,10 @@ class Gameplay extends Game {
 
     if( $this->startTimestamp > $intNowTimestamp ) {
       $objState->gameState        = 'stopped';
-      $objState->gameStateMessage = 'Das Spiel startet am ' . Presentation::timestampToString( $this->startTimestamp ) . ' Uhr.';
     } else if( $this->endTimestamp < $intNowTimestamp ) {
       $objState->gameState        = 'stopped';
-      $objState->gameStateMessage = 'Das Spiel ist schon beendet.';
     } else {
       $objState->gameState        = 'running';
-      $objState->gameStateMessage = 'Das Spiel läuft gerade.';
     }
 
     return $objState;
@@ -816,7 +803,6 @@ class Gameplay extends Game {
       $objState->speedHuntState->speedHuntCountMax = $this->gameplayObject->speedPingCount;
       $objState->speedHuntState->playerId          = $this->gameplayObject->speedHunt->playerId;
       $objState->speedHuntState->playerName        = $this->gameplayObject->speedHunt->playerName;
-      $objState->speedHuntState->message           = 'Es läuft ein Speedhunt.';
       $objState->speedHuntState->state             = 'running';
 
       if( ! isset( $objState->systemMessages ) ) $objState->systemMessages = [];
@@ -825,8 +811,7 @@ class Gameplay extends Game {
 
       $objSystemMessage                     = new stdClass();
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-      $objSystemMessage->message            = '<p class="game-info-small">(' . Presentation::timestampToString( $intLastPingTimestamp ) . ')</p>';
-      $objSystemMessage->message           .= '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
+      $objSystemMessage->message            = '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
       $objSystemMessage->message           .= '<p class="danger-text">Aktuell läuft ein Speedhunt auf einen Spieler.</p>';
       $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $this->gameplayObject->speedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
       $objSystemMessage->cssClass           = 'danger-text';
@@ -839,21 +824,20 @@ class Gameplay extends Game {
       return $objState;
     }
 
-    $intLastSpeedhunt = isset( $this->gameplayObject->lastSpeedHunt ) ? $this->gameplayObject->lastSpeedHunt : Presentation::stringToTimestamp( $this->gameplayObject->start );
+    $intLastSpeedhunt = isset( $this->gameplayObject->lastSpeedHunt ) ? $this->gameplayObject->lastSpeedHunt : $this->gameplayObject->start;
     $intNextSpeedhunt = intval( $intLastSpeedhunt ) + ( intval( $this->gameplayObject->speedPingInterval ) * 60 );
 
     if( $intNextSpeedhunt > time() ) {
       $objState->speedHuntState->speedHuntCount    = -1;
       $objState->speedHuntState->speedHuntCountMax = -1;
-      $objState->speedHuntState->message           = 'Der nächste Speedhunt ist am ' . Presentation::timestampToString( $intNextSpeedhunt )  . ' Uhr verfügbar.';
       $objState->speedHuntState->state             = 'not available';
+      $objState->speedHuntState->next              = $intNextSpeedhunt;
 
       return $objState;
     }
 
     $objState->speedHuntState->speedHuntCount    = 0;
     $objState->speedHuntState->speedHuntCountMax = $this->gameplayObject->speedPingCount;
-    $objState->speedHuntState->message           = 'Speedhunt ist verfügbar.';
     $objState->speedHuntState->state             = 'available';
 
     return $objState;
@@ -1053,7 +1037,6 @@ class Gameplay extends Game {
     $objState->speedHuntState                    = new stdClass();
     $objState->speedHuntState->speedHuntCount    = 0;
     $objState->speedHuntState->speedHuntCountMax = $this->gameplayObject->speedPingCount;
-    $objState->speedHuntState->message           = '';
     $objState->speedHuntState->state             = 'not available';
 
     $objState->systemMessages                    = [];

@@ -41,7 +41,7 @@ window[ appAlias ].debug           = false;
  * @param      {string}   strId             The Server-side Id of the Object for the Ajax Request
  * @return     {object}   objRequestObject  The prepared Ajax Request Object
  *
- * @example    var objRequestObject = friendshunt.methods.newJsonRequestObject( strClass, strMethode, strId );
+ * @example    var objRequestObject = window[ appAlias ].methods.newJsonRequestObject( strClass, strMethode, strId );
  *
 */
 window[ appAlias ].methods.newJsonRequestObject = function( strClass, strMethode, strId ) {
@@ -88,7 +88,7 @@ window[ appAlias ].methods.newJsonRequestObject = function( strClass, strMethode
  * @param      {string}   strCallback         The Callback Function by the Ajax Response to Call
  * @return     {void}
  *
- * @example    friendshunt.methods.request( strMethode, objGetParams, objPostParams, strCallback );
+ * @example    window[ appAlias ].methods.request( strMethode, objGetParams, objPostParams, strCallback );
  *
 */
 window[ appAlias ].methods.request = function( strMethode, objGetParams, objPostParams, strCallback ) {
@@ -118,7 +118,7 @@ window[ appAlias ].methods.request = function( strMethode, objGetParams, objPost
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.manageRequestQueue();
+ * @example    window[ appAlias ].methods.manageRequestQueue();
  *
 */
 window[ appAlias ].methods.manageRequestQueue = function() {
@@ -146,7 +146,7 @@ window[ appAlias ].methods.manageRequestQueue = function() {
  * @param      {object}  objRequest  The prepared Ajax Request Object for fire to Server with all Parameters
  * @return     {void}
  *
- * @example    friendshunt.methods._request( objRequest );
+ * @example    window[ appAlias ].methods._request( objRequest );
  *
 */
 window[ appAlias ].methods._request = function( objRequest ) {
@@ -223,7 +223,7 @@ window[ appAlias ].methods._request = function( objRequest ) {
  * @param      {object}  objResponse  The Response Object from the Server
  * @return     {void}
  *
- * @example    friendshunt.methods.proccessResponse( objResponse );
+ * @example    window[ appAlias ].methods.proccessResponse( objResponse );
  *
 */
 window[ appAlias ].methods.proccessResponse = function( objResponse ) {
@@ -273,7 +273,7 @@ window[ appAlias ].methods.proccessResponse = function( objResponse ) {
  * @return     {void}
  *
  * @todo       Manage Form Errors...
- * @example    friendshunt.methods.setFields( objObject );
+ * @example    window[ appAlias ].methods.setFields( objObject );
  *
 */
 window[ appAlias ].methods.setFields = function( objObject ) {
@@ -308,7 +308,7 @@ window[ appAlias ].methods.setFields = function( objObject ) {
  * @param      {string}  strRedirect  The Redirect Url
  * @return     {void}
  *
- * @example    friendshunt.methods.manageRedirects( strRedirect );
+ * @example    window[ appAlias ].methods.manageRedirects( strRedirect );
  *
 */
 window[ appAlias ].methods.manageRedirects = function( strRedirect ) {

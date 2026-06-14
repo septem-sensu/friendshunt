@@ -419,8 +419,8 @@ class Presentation {
  * @param      mixed     $intLength        The Length of the shorted String
  * @return     string    $strShortedText   The Shorted Text
  *
- * @example    $strShortedText = $this->logToFile( $strText, $boolPoints, intLength );
- * @example    $strShortedText = $objPresentation->logToFile( $strText, $boolPoints, intLength );
+ * @example    $strShortedText = $this->shortText( $strText, $boolPoints, intLength );
+ * @example    $strShortedText = $objPresentation->shortText( $strText, $boolPoints, intLength );
  *
 */
   public function shortText( string $strText, bool $boolPoints, int $intLength ) : string {

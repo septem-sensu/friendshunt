@@ -34,7 +34,7 @@ class Game extends BaseObject {
   protected array  $player;
   protected array  $hunter;
   protected array  $management;
-  protected string $start;
+  protected int    $start;
   protected int    $duration;
   protected string $avatar;
   protected int    $pingInterval;
@@ -478,7 +478,7 @@ class Game extends BaseObject {
       $objPlayer            = new Player( $strPlayerId );
       $objGameplay          = new Gameplay( $strGameId, $objPlayer );
       $objGameSettings      = $objGameplay->getGameSettings();
-      $objGameSettings->end = Presentation::timestampToString( Presentation::stringToTimestamp( $objGameSettings->start ) + ( $objGameSettings->duration * 60 * 60 ) );
+      $objGameSettings->end = $objGameSettings->start + ( $objGameSettings->duration * 60 * 60 );
 
       $objController->getPresentationObject()->assignTemplateVar( 'gameSettings', 'Gameplay', null, json_encode( $objGameSettings ) );;
     }

@@ -32,7 +32,7 @@ window[ appAlias ].tracker    = window[ appAlias ].tracker || {};
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.loginButtons();
+ * @example    window[ appAlias ].listener.loginButtons();
  *
 */
 window[ appAlias ].listener.loginButtons = function() {
@@ -62,7 +62,7 @@ window[ appAlias ].listener.loginButtons = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.newPlayerButtons();
+ * @example    window[ appAlias ].listener.newPlayerButtons();
  *
 */
 window[ appAlias ].listener.newPlayerButtons = function() {
@@ -96,7 +96,7 @@ window[ appAlias ].listener.newPlayerButtons = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.saveObject();
+ * @example    window[ appAlias ].listener.saveObject();
  *
 */
 window[ appAlias ].listener.saveObject = function() {
@@ -128,7 +128,7 @@ window[ appAlias ].listener.saveObject = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.addPlayerToGame();
+ * @example    window[ appAlias ].listener.addPlayerToGame();
  *
 */
 window[ appAlias ].listener.addPlayerToGame = function() {
@@ -166,7 +166,7 @@ window[ appAlias ].listener.addPlayerToGame = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.addHunterToGame();
+ * @example    window[ appAlias ].listener.addHunterToGame();
  *
 */
 window[ appAlias ].listener.addHunterToGame = function() {
@@ -204,7 +204,7 @@ window[ appAlias ].listener.addHunterToGame = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.addManagementToGame();
+ * @example    window[ appAlias ].listener.addManagementToGame();
  *
 */
 window[ appAlias ].listener.addManagementToGame = function() {
@@ -242,7 +242,7 @@ window[ appAlias ].listener.addManagementToGame = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.deletePlayer();
+ * @example    window[ appAlias ].listener.deletePlayer();
  *
 */
 window[ appAlias ].listener.deletePlayer = function() {
@@ -272,7 +272,7 @@ window[ appAlias ].listener.deletePlayer = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.saveNewGame();
+ * @example    window[ appAlias ].listener.saveNewGame();
  *
 */
 window[ appAlias ].listener.saveNewGame = function() {
@@ -288,7 +288,7 @@ window[ appAlias ].listener.saveNewGame = function() {
     objPost.name                        = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
     objPost.title                       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
     objPost.description                 = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
-    objPost.start                       = document.querySelector('#start') != null ? document.querySelector('#start').value : null;
+    objPost.start                       = document.querySelector('#start') != null ? window[ appAlias ].methods.stringToPhpTimestamp( document.querySelector('#start').value ) : null;
     objPost.duration                    = document.querySelector('#duration') != null ? document.querySelector('#duration').value : null;
     objPost.pingInterval                = document.querySelector('#pingInterval') != null ? document.querySelector('#pingInterval').value : null;
     objPost.speedPingInterval           = document.querySelector('#speedPingInterval') != null ? document.querySelector('#speedPingInterval').value : null;
@@ -344,7 +344,7 @@ window[ appAlias ].listener.saveNewGame = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.changePlayerPassword();
+ * @example    window[ appAlias ].listener.changePlayerPassword();
  *
 */
 window[ appAlias ].listener.changePlayerPassword = function() {
@@ -385,7 +385,7 @@ window[ appAlias ].listener.changePlayerPassword = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.uploadAvatar();
+ * @example    window[ appAlias ].listener.uploadAvatar();
  *
 */
 window[ appAlias ].listener.uploadAvatar = function() {
@@ -434,7 +434,7 @@ window[ appAlias ].listener.uploadAvatar = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.zoomImageListenter();
+ * @example    window[ appAlias ].listener.zoomImageListenter();
  *
 */
 window[ appAlias ].listener.zoomImageListenter = function() {
@@ -471,7 +471,7 @@ window[ appAlias ].listener.zoomImageListenter = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.uploadGameImages();
+ * @example    window[ appAlias ].listener.uploadGameImages();
  *
 */
 window[ appAlias ].listener.uploadGameImages = function() {
@@ -514,7 +514,7 @@ window[ appAlias ].listener.uploadGameImages = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.uploadAvatarOpenDialog();
+ * @example    window[ appAlias ].listener.uploadAvatarOpenDialog();
  *
 */
 window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
@@ -543,7 +543,7 @@ window[ appAlias ].listener.uploadAvatarOpenDialog = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.uploadGameImagesOpenDialog();
+ * @example    window[ appAlias ].listener.uploadGameImagesOpenDialog();
  *
 */
 window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
@@ -572,7 +572,7 @@ window[ appAlias ].listener.uploadGameImagesOpenDialog = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.links();
+ * @example    window[ appAlias ].listener.links();
  *
 */
 window[ appAlias ].listener.links = function() {
@@ -603,7 +603,7 @@ window[ appAlias ].listener.links = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.resetForms();
+ * @example    window[ appAlias ].listener.resetForms();
  *
 */
 window[ appAlias ].listener.resetForms = function() {
@@ -632,9 +632,10 @@ window[ appAlias ].listener.resetForms = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.formatDateTime();
+ * @example    window[ appAlias ].listener.formatDateTime();
  *
 */
+
 window[ appAlias ].listener.formatDateTime = function() {
   var arrFormateTags = document.querySelectorAll( '.format-date-time' );
 
@@ -659,7 +660,7 @@ window[ appAlias ].listener.formatDateTime = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.enterKey();
+ * @example    window[ appAlias ].listener.enterKey();
  *
 */
 window[ appAlias ].listener.enterKey = function() {
@@ -723,7 +724,7 @@ window[ appAlias ].listener.enterKey = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.setupButton();
+ * @example    window[ appAlias ].listener.setupButton();
  *
 */
 window[ appAlias ].listener.setupButton = function() {
@@ -760,7 +761,7 @@ window[ appAlias ].listener.setupButton = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.deleteGameplayImageButton();
+ * @example    window[ appAlias ].listener.deleteGameplayImageButton();
  *
 */
 window[ appAlias ].listener.deleteGameplayImageButton = function() {
@@ -793,7 +794,7 @@ window[ appAlias ].listener.deleteGameplayImageButton = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.clickOpenMapInLayer();
+ * @example    window[ appAlias ].listener.clickOpenMapInLayer();
  *
 */
 window[ appAlias ].listener.clickOpenMapInLayer = function() {
@@ -832,7 +833,7 @@ window[ appAlias ].listener.clickOpenMapInLayer = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.listener.calcHtmlTags();
+ * @example    window[ appAlias ].listener.calcHtmlTags();
  *
 */
 window[ appAlias ].listener.calcHtmlTags = function() {
@@ -856,6 +857,11 @@ window[ appAlias ].listener.calcHtmlTags = function() {
     if( objTag.classList.contains( 'js-calc-custom-round' ) ) {
       objTag.innerHTML = ( Math.ceil( objTag.innerHTML * 10 ) ) / 10;
     }
+
+    if( objTag.classList.contains( 'js-calc-datetime' ) ) {
+      objTag.innerHTML = window[ appAlias ].methods.timestampPhpToString( objTag.innerHTML );
+    }
+
   }
 
 
@@ -884,7 +890,7 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.saveNewGame();
   window[ appAlias ].listener.deletePlayer();
   window[ appAlias ].listener.zoomImageListenter();
-  window[ appAlias ].listener.formatDateTime();
+  //window[ appAlias ].listener.formatDateTime();
   window[ appAlias ].listener.enterKey();
   window[ appAlias ].listener.setupButton();
   window[ appAlias ].listener.deleteGameplayImageButton();

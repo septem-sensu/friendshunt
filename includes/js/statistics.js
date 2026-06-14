@@ -30,7 +30,7 @@ window[ appAlias ].methods.statistics = window[ appAlias ].methods.statistics ||
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.getGameStatistics();
+ * @example    window[ appAlias ].methods.gameplay.getGameStatistics();
  *
 */
 window[ appAlias ].methods.statistics.getGameStatistics = function() {
@@ -55,7 +55,7 @@ window[ appAlias ].methods.statistics.getGameStatistics = function() {
  * @param      {object}   objResponse   The Response Object of the Ajax Request
  * @return     {void}
  *
- * @example    friendshunt.methods.gameplay.generateGameStatistics( objResponse );
+ * @example    window[ appAlias ].methods.gameplay.generateGameStatistics( objResponse );
  *
 */
 window[ appAlias ].methods.gameplay.generateGameStatistics = function( objResponse ) {
@@ -88,7 +88,7 @@ window[ appAlias ].methods.gameplay.generateGameStatistics = function( objRespon
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
  *
- * @example    friendshunt.methods.statistics.addGameOverviewContainer( objStatistics );
+ * @example    window[ appAlias ].methods.statistics.addGameOverviewContainer( objStatistics );
  *
 */
 window[ appAlias ].methods.statistics.addGameOverviewContainer = function( objStatistics ) {
@@ -156,7 +156,7 @@ window[ appAlias ].methods.statistics.addGameOverviewContainer = function( objSt
  * @param      {object}   objResponse     The Response Object of the Ajax Request
  * @return     {void}
  *
- * @example    friendshunt.methods.statistics.addSpeedHuntsContainer( objStatistics, objResponse );
+ * @example    window[ appAlias ].methods.statistics.addSpeedHuntsContainer( objStatistics, objResponse );
  *
 */
 window[ appAlias ].methods.statistics.addSpeedHuntsContainer = function( objStatistics, objResponse ) {
@@ -208,7 +208,7 @@ window[ appAlias ].methods.statistics.addSpeedHuntsContainer = function( objStat
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
  *
- * @example    friendshunt.methods.statistics.addMessagesContainer( objStatistics );
+ * @example    window[ appAlias ].methods.statistics.addMessagesContainer( objStatistics );
  *
 */
 window[ appAlias ].methods.statistics.addMessagesContainer = function( objStatistics ) {
@@ -258,7 +258,7 @@ window[ appAlias ].methods.statistics.addMessagesContainer = function( objStatis
  * @param      {object}   objResponse     The Response Object of the Ajax Request
  * @return     {void}
  *
- * @example    friendshunt.methods.statistics.addViolationsOfTheRules( objStatistics, objResponse );
+ * @example    window[ appAlias ].methods.statistics.addViolationsOfTheRules( objStatistics, objResponse );
  *
 */
 window[ appAlias ].methods.statistics.addViolationsOfTheRules = function( objStatistics, objResponse ) {
@@ -318,7 +318,7 @@ window[ appAlias ].methods.statistics.addViolationsOfTheRules = function( objSta
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
  *
- * @example    friendshunt.methods.statistics.addCapturedContainer( objStatistics );
+ * @example    window[ appAlias ].methods.statistics.addCapturedContainer( objStatistics );
  *
 */
 window[ appAlias ].methods.statistics.addCapturedContainer = function( objStatistics ) {
@@ -359,7 +359,7 @@ window[ appAlias ].methods.statistics.addCapturedContainer = function( objStatis
  * @param      {object}   objStatistics   The Statistic Object with all important Values
  * @return     {void}
  *
- * @example    friendshunt.methods.statistics.addPlayerDistancesContainers( objStatistics );
+ * @example    window[ appAlias ].methods.statistics.addPlayerDistancesContainers( objStatistics );
  *
 */
 window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( objStatistics ) {
@@ -431,7 +431,7 @@ window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( o
  * @param      {string}   strSelector    The Css-Selector for the Statistic Container for to add Statistics to the Game Dashboard
  * @return     {object}   objStatistic   The Statistic Object width all important Values from Ajax Request
  *
- * @example    var objStatistic = friendshunt.methods.statistics.gameStatistic( objResponse, objStatistics );
+ * @example    var objStatistic = window[ appAlias ].methods.statistics.gameStatistic( objResponse, objStatistics );
  *
 */
 window[ appAlias ].methods.statistics.gameStatistic = function( objResponse, strSelector ) {

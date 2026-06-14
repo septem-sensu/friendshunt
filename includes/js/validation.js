@@ -31,7 +31,7 @@ window[ appAlias ].formErrors = window[ appAlias ].formErrors || [];
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.validateFields();
+ * @example    window[ appAlias ].methods.validateFields();
  *
 */
 window[ appAlias ].methods.validateFields = function() {
@@ -71,7 +71,7 @@ window[ appAlias ].methods.validateFields = function() {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods._validateFieldSetFormError();
+ * @example    window[ appAlias ].methods._validateFieldSetFormError();
  *
 */
 window[ appAlias ].methods._validateFieldSetFormError = function() {
@@ -100,7 +100,7 @@ window[ appAlias ].methods._validateFieldSetFormError = function() {
  * @param      {string}   strKey            The Form Field Key of the Field Definition.
  * @return     {boolean}  boolFormIsValide  The validation result (true = Field Value is Valide, false = Field Value is not Valide).
  *
- * @example    var boolFormIsValide = friendshunt.methods._validateField( strKey );
+ * @example    var boolFormIsValide = window[ appAlias ].methods._validateField( strKey );
  *
 */
 window[ appAlias ].methods._validateField = function( strKey, objForm ) {
@@ -152,7 +152,7 @@ window[ appAlias ].methods._validateField = function( strKey, objForm ) {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods._validateFields();
+ * @example    window[ appAlias ].methods._validateFields();
  *
 */
 window[ appAlias ].methods._validateFields = function() {
@@ -200,7 +200,7 @@ window[ appAlias ].methods._validateFields = function() {
  * @param      {string}   strPassword             The Passowrd Form Field Value.
  * @return     {boolean}  boolFormFieldIsValide   The validation result (true = Field Value is Valide, false = Field Value is not Valide).
  *
- * @example    var boolFormFieldIsValide = friendshunt.methods._validatePassword( strPassword );
+ * @example    var boolFormFieldIsValide = window[ appAlias ].methods._validatePassword( strPassword );
  *
 */
 window[ appAlias ].methods._validatePassword = function( strPassword ) {
@@ -241,7 +241,7 @@ window[ appAlias ].methods._validatePassword = function( strPassword ) {
  * @param      {string}   strEmail               The E-Mail Address Form Field Value.
  * @return     {boolean}  boolFormFieldIsValide  The validation result (true = Field Value is Valide, false = Field Value is not Valide).
  *
- * @example    var boolFormFieldIsValide = friendshunt.methods._validateEmail( strEmail );
+ * @example    var boolFormFieldIsValide = window[ appAlias ].methods._validateEmail( strEmail );
  *
 */
 window[ appAlias ].methods._validateEmail = function( strEmail ) {
@@ -262,7 +262,7 @@ window[ appAlias ].methods._validateEmail = function( strEmail ) {
  * @param      {array}   arrFormErrors   The Array with the Form Field Errors.
  * @return     {void}
  *
- * @example    friendshunt.methods.manageFormErrors( arrFormErrors );
+ * @example    window[ appAlias ].methods.manageFormErrors( arrFormErrors );
  *
 */
 window[ appAlias ].methods.manageFormErrors = function( arrFormErrors ) {
@@ -288,7 +288,7 @@ window[ appAlias ].methods.manageFormErrors = function( arrFormErrors ) {
  *
  * @return     {void}
  *
- * @example    friendshunt.methods.resetFormErrors();
+ * @example    window[ appAlias ].methods.resetFormErrors();
  *
 */
 window[ appAlias ].methods.resetFormErrors = function() {
