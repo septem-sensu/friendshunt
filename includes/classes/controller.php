@@ -78,11 +78,16 @@ class Controller {
     $this->response->object   = new stdClass();
     $this->response->result   = new stdClass();
     $this->response->errors   = [];
-
     $this->resultType         = isset( $_GET[ 'result' ] ) && $_GET[ 'result' ] != '' ? $_GET[ 'result' ] : 'content';
     $this->viewName           = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : $this->config->defaultView;
     $this->objectId           = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : '';
     $this->objectId           = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
+
+    if( ! file_exists( BaseObject::FILEPATHJSON . 'views/' . $this->viewName . '.json' ) ) {
+      header( 'Location: index.php?view=' . $this->config->defaultView );
+      return;
+    }
+
     $this->viewObject         = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'views/' . $this->viewName . '.json' );
     $this->className          = $this->viewObject->class;
     $this->templates          = $this->viewObject->templates;
