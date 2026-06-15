@@ -298,6 +298,7 @@ window[ appAlias ].listener.saveNewGame = function() {
     objPost.trackInterval               = document.querySelector('#trackInterval') != null ? document.querySelector('#trackInterval').value : null;
     objPost.showPlayer                  = document.querySelector('#showPlayer') != null ? document.querySelector('#showPlayer').value : null;
     objPost.showNames                   = document.querySelector('#showNames') != null ? document.querySelector('#showNames').value : null;
+    objPost.sanctionForVehicleUse       = document.querySelector('#sanctionForVehicleUse') != null ? document.querySelector('#sanctionForVehicleUse').value : null;
     objPost.playingFieldCenterPosition  = document.querySelector('#playingFieldCenterPosition') != null ? document.querySelector('#playingFieldCenterPosition').value : null;
     objPost.playingFieldSize            = document.querySelector('#playingFieldSize') != null ? document.querySelector('#playingFieldSize').value : null;
 

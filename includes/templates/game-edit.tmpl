@@ -81,6 +81,13 @@
       <option value="1">Ja</option>
       <option value="0">Nein</option>
     </select>
+    <label class="minw-200" for="sanctionForVehicleUse">Sanktion bei Fahrzeugnutzung (Spieler)*</label>
+    <select class="mb-10 mt-5 w-375 align-right" name="sanctionForVehicleUse" id="sanctionForVehicleUse">
+      <option value="{{Game::sanctionForVehicleUse}}">{{Translate::Game::sanctionForVehicleUse}}</option>
+      <option value="1">Ja</option>
+      <option value="0">Nein</option>
+    </select>
+
   </div>
 
   <div id="game-content-container"></div>

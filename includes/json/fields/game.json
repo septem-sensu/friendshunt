@@ -172,6 +172,18 @@
     "unit": "",
     "position": 1800
   },
+  "sanctionForVehicleUse": {
+    "nameDe": "Sanktion bei Fahrzeugnutzung (Spieler)",
+    "element": "select",
+    "type": "text",
+    "options": {
+      "1": "Ja",
+      "0": "Nein"
+    },
+    "mandatory": true,
+    "unit": "",
+    "position": 1800
+  },
   "trackInterval": {
     "nameDe": "Tracking Intervall",
     "element": "input",

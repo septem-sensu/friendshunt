@@ -510,6 +510,8 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
 */
 window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer ) {
   var arrColors            = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
+  var strAffectedColor     = '#ff0000';
+  var arrAffectedPlayer    = [];
   var objLastPosition      = objTracking.position.at( -1 );
   var objGameSettings      = window[ appAlias ].gameSettings;
   var objGameState         = window[ appAlias ].gameplayState;
@@ -541,6 +543,11 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
     strSpeedHuntMessage = ' Ping ' + objSpeedHuntState.speedHuntCount + ' von ' + objSpeedHuntState.speedHuntCountMax + '.';
   }
 
+  for( var i = 0; i < window[ appAlias ].gameplayState.systemMessages.length; i++ ) {
+    if( window[ appAlias ].gameplayState.systemMessages.type != 'violationoftherules' ) continue;
+    arrAffectedPlayer.push( window[ appAlias ].gameplayState.systemMessages.applies );
+  }
+
   if( strGameplayRole == 'player' ) {
     if( strMyGameRole == 'player' ) {
       if( objGameSettings.showPlayer == 0 && objTracking.id != window[ appAlias ].playerId ) return;
@@ -559,6 +566,8 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
     } else if( strMyGameRole == 'hunter' ) {
       strPlayerName = objGameSettings.showNames == '1' ? objTracking.name : 'Spieler ' + intPlayerCount;
 
+      if( arrAffectedPlayer.includes( objTracking.id ) ) strMarkerColor = strAffectedColor;
+
       if( objSpeedHuntState.speedHuntCount == -1 ) {
         strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
         strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
@@ -572,7 +581,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
           strMarkerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
           strMarkerContent   += strPlayerName;
           strMarkerContent   += '</p>';
-          strMarkerColor      = '#ff0000';
+          strMarkerColor      = strAffectedColor;
         } else {
           strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
         }
@@ -582,7 +591,11 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
     } else {
       strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
 
+      if( arrAffectedPlayer.includes( objTracking.id ) ) strMarkerColor = strAffectedColor;
+
       if( objSpeedHuntState.speedHuntCount > 0 ) {
+        if( objTracking.id == objSpeedHuntState.playerId ) strMarkerColor = strAffectedColor;
+
         strMarkerContent   += '<p>' + objSpeedHuntState.message.slice(0, -1) + ' auf ' + objSpeedHuntState.playerName + '.' + strSpeedHuntMessage + '</p>';
       } else {
         strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';

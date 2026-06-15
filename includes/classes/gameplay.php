@@ -690,8 +690,11 @@ class Gameplay extends Game {
     $intNowTimestamp   = time();
     $arrCaptured       = $this->gameSettings->captured;
 
+    // Welcoming and bidding farewell to the players
     if( $intNowTimestamp > $this->startTimestamp && $intNowTimestamp <  $this->startTimestamp + 600 ) {
       $objSystemMessage                     = new stdClass();
+      $objSystemMessage->type               = 'friendliness';
+      $objSystemMessage->subType            = 'welcoming';
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
       $objSystemMessage->message            = '<p class="bold success-text">💥 DIE JAGD ERÖFFNET 💥</p>';
       $objSystemMessage->message           .= '<p>Lagezentrum online. Satellitenverbindung steht. Die Spielleitung begrüßt die Hunter-Taskforce und die Gejagten. Der Countdown läuft unerbittlich – die Jagd ist offiziell eröffnet! Möge die Ausdauer mit euch sein.</p>';
@@ -712,6 +715,8 @@ class Gameplay extends Game {
       }
 
       $objSystemMessage                     = new stdClass();
+      $objSystemMessage->type               = 'friendliness';
+      $objSystemMessage->subType            = 'saygoodbye';
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
       $objSystemMessage->message            = '<p class="bold success-text">🏁 SPIEL BEENDET! - SAMMELN AM EXIT POINT 🏁</p>';
       $objSystemMessage->message           .= '<p>FINALE! Die Satellitenortung wurde abgeschaltet. Alle Einheiten – egal ob Jäger oder Gejagte – stellen das Tracking ein und rücken unverzüglich zur finalen Exit Zone (Wir treffen uns ' . $arrExitMeetLocation[ rand( 0, count( $arrExitMeetLocation ) - 1 ) ] . '.) vor. Zeit für das Debriefing!</p>';
@@ -731,42 +736,106 @@ class Gameplay extends Game {
         $objPosition        = $this->getPlayerPosition( $objPlayer, 1 );
 
         if( count( $objPosition->position ) < 1 ) continue;
-        if( ! $objPosition->position[ 0 ]->outOfPlayingField ) continue;
 
-        $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objPosition;
+        // Violations Of The Rules - Out of Playfield
+        if( $objPosition->position[ 0 ]->outOfPlayingField ) {
 
-        $objSystemMessage                     = new stdClass();
-        $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-        $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
-        $objSystemMessage->message           .= '<p class="danger-text">Ein ' . $strGameplayRoleName .' hat das Spielfeld verlassen.</p>';
-        $objSystemMessage->message           .= $strGameplayRole == 'player' ? '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>' : '<p class="danger-text">' . $objPlayer->get( 'name' ) . ' muss ein Bier ausgeben.<p>';
-        $objSystemMessage->applies            = $strPlayerId;
-        $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
-        $objSystemMessage->appliesRole        = $strGameplayRole;
-        $objSystemMessage->appliesRoleName    = $strGameplayRoleName;
-        $objSystemMessage->cssClass           = 'danger-text';
-        $objSystemMessage->appliesCount       = $i + 1;
-        $objSystemMessage->showMessageOnlyOne = false;
-        $objSystemMessage->id                 = 'outOfPlayingField_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
-        $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
+          $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objPosition;
 
-        array_push( $objState->systemMessages, $objSystemMessage );
+          $objSystemMessage                     = new stdClass();
+          $objSystemMessage->type               = 'violationoftherules';
+          $objSystemMessage->subType            = 'outofplayfield';
+          $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+          $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Ein ' . $strGameplayRoleName . ' hat das Spielfeld verlassen.</p>';
+          $objSystemMessage->message           .= $strGameplayRole == 'player' ? '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>' : '<p class="danger-text">' . $objPlayer->get( 'name' ) . ' muss ein Bier ausgeben.<p>';
+          $objSystemMessage->applies            = $strPlayerId;
+          $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
+          $objSystemMessage->appliesRole        = $strGameplayRole;
+          $objSystemMessage->appliesRoleName    = $strGameplayRoleName;
+          $objSystemMessage->cssClass           = 'danger-text';
+          $objSystemMessage->appliesCount       = $i + 1;
+          $objSystemMessage->showMessageOnlyOne = false;
+          $objSystemMessage->id                 = 'outOfPlayingField_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
+          $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
 
-        if( ! isset( $this->gameplayObject->violationsOfTheRules->$strPlayerId ) ) $this->gameplayObject->violationsOfTheRules->$strPlayerId = [];
+          array_push( $objState->systemMessages, $objSystemMessage );
 
-        array_push( $this->gameplayObject->violationsOfTheRules->$strPlayerId, $objPosition->position[ 0 ]->timestamp );
+          if( ! isset( $this->gameplayObject->violationsOfTheRules->$strPlayerId ) ) $this->gameplayObject->violationsOfTheRules->$strPlayerId = [];
 
-        $this->saveGameplay();
+          array_push( $this->gameplayObject->violationsOfTheRules->$strPlayerId, $objPosition->position[ 0 ]->timestamp );
+
+          $this->saveGameplay();
+        }
+
+        // Violations Of The Rules - Vehicle used
+        if( $objPosition->position[ 0 ]->isDrived && $this->gameplayRoles == 'player' && $this->gameSettings->sanctionForVehicleUse == '1' ) {
+
+          $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objPosition;
+
+          $objSystemMessage                     = new stdClass();
+          $objSystemMessage->type               = 'violationoftherules';
+          $objSystemMessage->subType            = 'vehicleused';
+          $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+          $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Ein Spieler hat unerlaubt ein Fahrzeug benutzt.</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>';
+          $objSystemMessage->applies            = $strPlayerId;
+          $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
+          $objSystemMessage->appliesRole        = 'player';
+          $objSystemMessage->appliesRoleName    = 'Spieler';
+          $objSystemMessage->cssClass           = 'danger-text';
+          $objSystemMessage->appliesCount       = $i + 1;
+          $objSystemMessage->showMessageOnlyOne = false;
+          $objSystemMessage->id                 = 'usedVehicle_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
+          $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
+
+          array_push( $objState->systemMessages, $objSystemMessage );
+
+          if( ! isset( $this->gameplayObject->violationsOfTheRules->$strPlayerId ) ) $this->gameplayObject->violationsOfTheRules->$strPlayerId = [];
+
+          array_push( $this->gameplayObject->violationsOfTheRules->$strPlayerId, $objPosition->position[ 0 ]->timestamp );
+
+          $this->saveGameplay();
+        }
+
+        // Speed Hunt is Running
+        if( isset( $this->gameplayObject->speedHunt ) && $this->gameplayObject->speedHunt->playerId == $strPlayerId ) {
+          $intLastPingTimestamp                 = count( $this->gameplayObject->speedHunt->timestamps ) > 0 ? end( $this->gameplayObject->speedHunt->timestamps ) : time();
+
+          $objSystemMessage                     = new stdClass();
+          $objSystemMessage->type               = 'speedhunt';
+          $objSystemMessage->subType            = 'isrunning';
+          $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+          $objSystemMessage->message            = '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Aktuell läuft ein Speedhunt auf einen Spieler.</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $this->gameplayObject->speedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
+          $objSystemMessage->applies            = $this->gameplayObject->speedHunt->playerId;
+          $objSystemMessage->appliesName        = $this->gameplayObject->speedHunt->playerName;
+          $objSystemMessage->appliesRole        = 'player';
+          $objSystemMessage->appliesRoleName    = 'Spieler';
+          $objSystemMessage->cssClass           = 'danger-text';
+          $objSystemMessage->appliesCount       = $i + 1;
+          $objSystemMessage->showMessageOnlyOne = false;
+          $objSystemMessage->id                 = 'speedhunt_' . $this->gameplayObject->speedHunt->playerId . '_' . $intLastPingTimestamp;
+          $objSystemMessage->timestamp          = $intLastPingTimestamp;
+
+          array_push( $objState->systemMessages, $objSystemMessage );
+        }
+
       }
     }
 
+    // A Player was captured
     for( $i = 0; $i < count( $arrCaptured ); $i++ ) {
       if( $intNowTimestamp > $arrCaptured[ $i ]->timestamp + 1200 ) continue;
 
-      $strPlayerId        = $arrCaptured[ $i ]->playerId;
-      $objPlayer          = new Player( $strPlayerId );
+      $strPlayerId                          = $arrCaptured[ $i ]->playerId;
+      $objPlayer                            = new Player( $strPlayerId );
 
       $objSystemMessage                     = new stdClass();
+      $objSystemMessage->type               = 'message';
+      $objSystemMessage->subType            = 'captured';
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
       $objSystemMessage->message            = '<p class="danger-text bold">ERWISCHT UND GEFANGEN</p>';
       $objSystemMessage->message           .= '<p class="danger-text">' .$objPlayer->get( 'name' ) . ' wurde leider erwischt und gefangen.</p>';
@@ -842,22 +911,6 @@ class Gameplay extends Game {
       $objState->speedHuntState->playerId          = $this->gameplayObject->speedHunt->playerId;
       $objState->speedHuntState->playerName        = $this->gameplayObject->speedHunt->playerName;
       $objState->speedHuntState->state             = 'running';
-
-      if( ! isset( $objState->systemMessages ) ) $objState->systemMessages = [];
-
-      $intLastPingTimestamp                 = count( $this->gameplayObject->speedHunt->timestamps ) > 0 ? end( $this->gameplayObject->speedHunt->timestamps ) : time();
-
-      $objSystemMessage                     = new stdClass();
-      $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-      $objSystemMessage->message            = '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
-      $objSystemMessage->message           .= '<p class="danger-text">Aktuell läuft ein Speedhunt auf einen Spieler.</p>';
-      $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $this->gameplayObject->speedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
-      $objSystemMessage->cssClass           = 'danger-text';
-      $objSystemMessage->showMessageOnlyOne = false;
-      $objSystemMessage->id                 = 'speedhunt_' . $this->gameplayObject->speedHunt->playerId . '_' . $intLastPingTimestamp;
-      $objSystemMessage->timestamp          = $intLastPingTimestamp;
-
-      array_push( $objState->systemMessages, $objSystemMessage );
 
       return $objState;
     }
