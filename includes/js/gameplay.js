@@ -72,7 +72,6 @@ window[ appAlias ].methods.gameplay.init = function() {
  *
 */
 window[ appAlias ].methods.gameplay.setMap = function( lat, lng, precision, message ) {
-  var strSpielstart     = window[ appAlias ].methods.TimeStringToTimeString( window[ appAlias ].gameSettings.start );
   var intSpielstart     = window[ appAlias ].gameSettings.start;
   var strContentStart   = '<p class="bold">Startposition des Spiels</p>';
   var strContentExit    = '<p class="bold">Exitpunkt des Spiels</p>';
@@ -510,7 +509,7 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
  *
 */
 window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer ) {
-  var arrColors            = [ '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#ff0000', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
+  var arrColors            = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
   var objLastPosition      = objTracking.position.at( -1 );
   var objGameSettings      = window[ appAlias ].gameSettings;
   var objGameState         = window[ appAlias ].gameplayState;
@@ -520,6 +519,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   var strSpeedHuntMessage  = '';
   var strCapturedMessage   = '';
   var strSilentHuntMessage = '';
+  var strMarkerColor       = arrColors[ intPlayerCount ];
 
   if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
     objSpeedHuntState.message = 'Es läuft ein Speedhunt.'
@@ -572,6 +572,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
           strMarkerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
           strMarkerContent   += strPlayerName;
           strMarkerContent   += '</p>';
+          strMarkerColor      = '#ff0000';
         } else {
           strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
         }
@@ -603,7 +604,7 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   strMarkerContent   += '<p>Genauigkeit: ' + objLastPosition.precision + ' Meter</p>';
   strMarkerContent   += strCapturedMessage;
 
-  window[ appAlias ].tracker.geoMapsObject.setMarker( objTracking.id, strGameplayRole, arrColors[ intPlayerCount ], objLastPosition.lat, objLastPosition.lng, strMarkerContent );
+  window[ appAlias ].tracker.geoMapsObject.setMarker( objTracking.id, strGameplayRole, strMarkerColor, objLastPosition.lat, objLastPosition.lng, strMarkerContent );
 
   return;
 };
@@ -625,13 +626,14 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
  * @example    window[ appAlias ].methods.gameplay.speedHunt( strPlayerId );
  *
 */
-window[ appAlias ].methods.gameplay.speedHunt = function( strPlayerId ) {
+window[ appAlias ].methods.gameplay.speedHunt = function( strSpeedHuntPlayerId ) {
   var objPost = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
 
-  objPost.gameplayMethode = 'speedHunt';
-  objPost.callback        = 'setPositions';
-  objPost.playerId        = strPlayerId;
-  objPost.timestamp       = new Date().getTime();
+  objPost.gameplayMethode   = 'speedHunt';
+  objPost.callback          = 'setPositions';
+  objPost.playerId          = window[ appAlias ].playerId;
+  objPost.speedHuntPlayerId = strSpeedHuntPlayerId
+  objPost.timestamp         = new Date().getTime();
 
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
 };

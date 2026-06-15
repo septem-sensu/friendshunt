@@ -619,34 +619,6 @@ window[ appAlias ].listener.resetForms = function() {
 };
 
 /**
- * This Function register the Event Listener for format Date Time and process the Functions by Click Event.
- * The Event Listener registered at Pageload Ready.
- *
- * @function
- * @public
- * @name       formatDateTime
- * @memberof   friendshunt
- * @access     public
- * @since      2026-06-06
- * @version    0.1.0
- *
- * @return     {void}
- *
- * @example    window[ appAlias ].listener.formatDateTime();
- *
-*/
-
-window[ appAlias ].listener.formatDateTime = function() {
-  var arrFormateTags = document.querySelectorAll( '.format-date-time' );
-
-  for( var i = 0; i < arrFormateTags.length; i++ ) {
-    arrFormateTags[ i ].innerHTML = window[ appAlias ].methods.TimeStringToTimeString( arrFormateTags[ i ].innerHTML );
-  }
-
-  return;
-};
-
-/**
  * This Function register the Event Listener for press the Enter Key.
  * The Event Listener registered at Pageload Ready.
  *
@@ -890,7 +862,6 @@ window.addEventListener( 'load', function() {
   window[ appAlias ].listener.saveNewGame();
   window[ appAlias ].listener.deletePlayer();
   window[ appAlias ].listener.zoomImageListenter();
-  //window[ appAlias ].listener.formatDateTime();
   window[ appAlias ].listener.enterKey();
   window[ appAlias ].listener.setupButton();
   window[ appAlias ].listener.deleteGameplayImageButton();

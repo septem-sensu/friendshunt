@@ -117,6 +117,7 @@ class Gameplay {
   +transferStatistics()
   +setStatisticProperty()
   +addTracking()
+  +isDrived()
   +getGameSettings()
   +calcDistance()
   +calcPlayerDistances()
@@ -172,6 +173,9 @@ class Player {
   +asPlayerCountMessagesAll
   +asHunterCountMessagesAll
   +asManagementCountMessagesAll
+  +asPlayerDistanceDrived
+  +asHunterDistanceDrived
+  +asManagementDistanceDrived
   +newPlayer()
   +addGamesToTemplate()
   +checkLogin()

@@ -499,61 +499,6 @@ window[ appAlias ].methods.cProccessResponseDeleteGame = function( objResponse )
 };
 
 /**
- * This Function formats a date-time string to a human readable format.
- *
- * @function
- * @public
- * @name       TimeStringToTimeString
- * @memberof   friendshunt
- * @access     public
- * @since      2026-06-06
- * @version    0.1.0
- *
- * @param      {string}   strTime           The unformated date-time String
- * @return     {string}   strFormattedDate  The formatted date-time String
- *
- * @todo       Rename this Function (Lower Camel Case)
- * @example    strFormattedDate = window[ appAlias ].methods.TimeStringToTimeString( strTime );
- *
-*/
-window[ appAlias ].methods.TimeStringToTimeString = function( strTime ) {
-  const objDateTimer     = new Date( strTime );
-  const strFormattedDate = objDateTimer.toLocaleString( 'de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  } );
-
-  return strFormattedDate;
-};
-
-/**
- * This Function converts a PHP Timestamp to a human readable format.
- *
- * @function
- * @public
- * @name       cTimestampToDateTimeString
- * @memberof   friendshunt
- * @access     public
- * @since      2026-06-06
- * @version    0.1.0
- *
- * @param      {number}   intTimestamp           The PHP Timestamp
- * @return     {string}   strFormattedDateTime   The formatted date-time String
- *
- * @example    strFormattedDateTime = window[ appAlias ].methods.cTimestampToDateTimeString( intTimestamp );
- *
-*/
-window[ appAlias ].methods.cTimestampToDateTimeString = function ( intTimestamp ) {
-  const objDateTime = new Date( intTimestamp * 1000 );
-  const pad         = (num) => String( num ).padStart( 2, '0' );
-
-  return `${pad(objDateTime.getDate())}.${pad(objDateTime.getMonth() + 1)}.${objDateTime.getFullYear()} ` + `${pad(objDateTime.getHours())}:${pad(objDateTime.getMinutes())}`;
-};
-
-/**
  * This Function close the Image Zoom Layer.
  *
  * @function
@@ -719,7 +664,7 @@ window[ appAlias ].methods.cProccessResponseGameArchiveList = function( objRespo
     strContentContainerContent    += '</td><td class="align-top">';
     strContentContainerContent    += '<p class="bold mb-10">' + objArchiveGames[ strGameId ].name + '</p>';
     strContentContainerContent    += '<p>' + objArchiveGames[ strGameId ].title + '</p>';
-    strContentContainerContent    += '<p class="bold mt-5 mb-5">Start: <span class="format-date-time">' + objArchiveGames[ strGameId ].start + '</span></p>';
+    strContentContainerContent    += '<p class="bold mt-5 mb-5">Start: ' + window[ appAlias ].methods.timestampPhpToString( objArchiveGames[ strGameId ].start ) + '</p>';
     strContentContainerContent    += '<p>Dauer: ' + objArchiveGames[ strGameId ].duration + ' Stunden</p>';
     strContentContainerContent    += '<p><button data-game-id="' + strGameId + '" onclick="javascript: window[ appAlias ].methods.cBringBackArchiveGame( this );" type="button" class="w-160 mt-10 primary">Zurück holen</button></p>';
     strContentContainerContent    += '<p><button data-game-id="' + strGameId + '" onclick="javascript: window[ appAlias ].methods.cDeleteArchiveGame( this );" type="button" class="w-160 mt-4 danger">Löschen</button></p>';

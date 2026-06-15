@@ -511,6 +511,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020save\u0020the\u0020Tracking\u0020and\u0020the\u0020Steps\u0020that\u0020have\u0020been\u0020run\u0020since\u0020the\u0020last\u0020Tracking.",
             "url": "classes/Gameplay.html#method_addTracking"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003AisDrived\u0028\u0029",
+            "name": "isDrived",
+            "summary": "This\u0020Method\u0020checks\u0020whether\u0020the\u0020Player\u0020covered\u0020the\u0020last\u0020distance\u0020by\u0020driving\u0020or\u0020running.",
+            "url": "classes/Gameplay.html#method_isDrived"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003AgetGameSettings\u0028\u0029",
             "name": "getGameSettings",
             "summary": "This\u0020Method\u0020return\u0020the\u0020Game\u0020Settings.",
@@ -900,6 +905,21 @@ Search.appendIndex(
             "name": "asManagementCountMessagesAll",
             "summary": "",
             "url": "classes/Player.html#property_asManagementCountMessagesAll"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerDistanceDrived",
+            "name": "asPlayerDistanceDrived",
+            "summary": "",
+            "url": "classes/Player.html#property_asPlayerDistanceDrived"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterDistanceDrived",
+            "name": "asHunterDistanceDrived",
+            "summary": "",
+            "url": "classes/Player.html#property_asHunterDistanceDrived"
+        },                {
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementDistanceDrived",
+            "name": "asManagementDistanceDrived",
+            "summary": "",
+            "url": "classes/Player.html#property_asManagementDistanceDrived"
         },                {
             "fqsen": "\\Presentation",
             "name": "Presentation",

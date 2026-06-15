@@ -61,6 +61,9 @@ class Player extends BaseObject {
   protected int $asPlayerCountMessagesAll        = 0;
   protected int $asHunterCountMessagesAll        = 0;
   protected int $asManagementCountMessagesAll    = 0;
+  protected int $asPlayerDistanceDrived          = 0;
+  protected int $asHunterDistanceDrived          = 0;
+  protected int $asManagementDistanceDrived      = 0;
 
 /**
  * This static Method add a new Player to the App.

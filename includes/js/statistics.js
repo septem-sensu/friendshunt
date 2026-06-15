@@ -65,7 +65,7 @@ window[ appAlias ].methods.gameplay.generateGameStatistics = function( objRespon
   objStatistics      = window[ appAlias ].methods.statistics.gameStatistic( objResponse, '.player-dashboard-container' );
 
   window[ appAlias ].methods.statistics.addPlayerDistancesContainers( objStatistics );
-  window[ appAlias ].methods.statistics.addViolationsOfTheRules( objStatistics, objResponse );
+  window[ appAlias ].methods.statistics.addOutOfPlayfield( objStatistics );
   window[ appAlias ].methods.statistics.addMessagesContainer( objStatistics );
   window[ appAlias ].methods.statistics.addSpeedHuntsContainer( objStatistics, objResponse );
   window[ appAlias ].methods.statistics.addCapturedContainer( objStatistics );
@@ -104,6 +104,11 @@ window[ appAlias ].methods.statistics.addGameOverviewContainer = function( objSt
   strContent    += '</div>';
 
   strContent    += '<div class="card-content-flex">';
+  strContent    += '<span>Gefahren</span>';
+  strContent    += '<span>' + objStatistics.drived + ' km</span>';
+  strContent    += '</div>';
+
+  strContent    += '<div class="card-content-flex">';
   strContent    += '<span>Schritte</span>';
   strContent    += '<span>' + objStatistics.steps + '</span>';
   strContent    += '</div>';
@@ -114,8 +119,8 @@ window[ appAlias ].methods.statistics.addGameOverviewContainer = function( objSt
   strContent    += '</div>';
 
   strContent    += '<div class="card-content-flex">';
-  strContent    += '<span class="warning-text">Regelbrüches</span>';
-  strContent    += '<span class="warning-text">' + objStatistics.outOfPlayfield + '</span>';
+  strContent    += '<span class="warning-text">Spielfeld verlassen</span>';
+  strContent    += '<span class="warning-text">' + objStatistics.outOfPlayfield.length + '</span>';
   strContent    += '</div>';
 
   strContent    += '<div class="card-content-flex">';
@@ -181,8 +186,8 @@ window[ appAlias ].methods.statistics.addSpeedHuntsContainer = function( objStat
 
     strContent     += '<td class="align-left pr-10' + strCssClass + '">' + arrSpeedHunts[ i ].playerName + '</td>';
     strContent     += '<td class="align-right pr-10">' + arrSpeedHunts[ i ].timestamps.length + '</td>';
-    strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.cTimestampToDateTimeString( arrSpeedHunts[ i ].timestamps[ 0 ] ) + '</td>';
-    strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.cTimestampToDateTimeString( arrSpeedHunts[ i ].timestamps[ arrSpeedHunts[ i ].timestamps.length -1 ] ) + '</td>';
+    strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.timestampPhpToString( arrSpeedHunts[ i ].timestamps[ 0 ] ) + '</td>';
+    strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.timestampPhpToString( arrSpeedHunts[ i ].timestamps[ arrSpeedHunts[ i ].timestamps.length -1 ] ) + '</td>';
   }
 
   strContent    += '</tbody>';
@@ -212,29 +217,54 @@ window[ appAlias ].methods.statistics.addSpeedHuntsContainer = function( objStat
  *
 */
 window[ appAlias ].methods.statistics.addMessagesContainer = function( objStatistics ) {
-  var strContent  = '';
+  var strContent    = '';
+  var intBatteryMin = 100;
+  var intBatteryMax = 0;
 
   strContent     += '<div class="card card-full">';
-  strContent     += '<div class="card-title">Nachrichten Übersicht</div>';
+  strContent     += '<div class="card-title">Nachrichten & Akku Übersicht</div>';
   strContent     += '<table class="w-100p">';
   strContent     += '<thead><tr>';
   strContent     += '<th class="align-left pr-10">Name</th>';
   strContent     += '<th class="align-right pr-10">Anzahl</th>';
-  strContent     += '<th class="align-right pr-10">Anzahl Zeichen</th>';
+  strContent     += '<th class="align-right pr-10">Zeichen</th>';
+  strContent     += '<th class="align-right pr-10">Akku Min / Max</th>';
+  strContent     += '<th class="align-right pr-10">Geladen</th>';
   strContent     += '</tr></thead>';
   strContent     += '<tbody>';
 
   for( var strPlayerId in objStatistics.names ) {
-    var strCssClass = objStatistics.names[ strPlayerId ].captured ? ' danger-text' : '';
+    var strCssClass         = objStatistics.names[ strPlayerId ].captured ? ' danger-text' : '';
+    var strCssClassBattery  = 'success-text';
+    var strCharched         = objStatistics.names[ strPlayerId ].batteryCharged ? 'Ja' : 'Nein';
+    var strCssClassCharched = objStatistics.names[ strPlayerId ].batteryCharged ? 'info-text' : 'warning-text';
 
-    strContent     += '<tr>';
-    strContent     += '<td class="align-left pr-10' + strCssClass + '">' + objStatistics.names[ strPlayerId ].name + '</td>';
-    strContent     += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].messages + '</td>';
-    strContent     += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].messageSize + '</td>';
-    strContent     += '</tr>';
+    intBatteryMin           = intBatteryMin > objStatistics.names[ strPlayerId ].batteryMin ? objStatistics.names[ strPlayerId ].batteryMin : intBatteryMin;
+    intBatteryMax           = intBatteryMax < objStatistics.names[ strPlayerId ].batteryMax ? objStatistics.names[ strPlayerId ].batteryMax : intBatteryMax;
+
+    strCssClassBattery      = objStatistics.names[ strPlayerId ].batteryMin < 70 ? 'info-text' : strCssClassBattery;
+    strCssClassBattery      = objStatistics.names[ strPlayerId ].batteryMin < 40 ? 'warning-text' : strCssClassBattery;
+    strCssClassBattery      = objStatistics.names[ strPlayerId ].batteryMin < 20 ? 'danger-text' : strCssClassBattery;
+
+    strContent             += '<tr>';
+    strContent             += '<td class="align-left pr-10' + strCssClass + '">' + objStatistics.names[ strPlayerId ].name + '</td>';
+    strContent             += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].messages + '</td>';
+    strContent             += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].messageSize + '</td>';
+    strContent             += '<td class="align-right pr-10 ' + strCssClassBattery + '">' + objStatistics.names[ strPlayerId ].batteryMin + '% / ' + objStatistics.names[ strPlayerId ].batteryMax + '%</td>';
+    strContent             += '<td class="align-right pr-10 ' + strCssClassCharched + '">' + strCharched + '</td>';
+    strContent             += '</tr>';
   }
 
   strContent    += '</tbody>';
+
+  strContent    += '<tfoot><tr>';
+  strContent    += '<th class="align-left pr-10"></th>';
+  strContent    += '<th class="align-right pr-10">' + objStatistics.messages + '</th>';
+  strContent    += '<th class="align-right pr-10">' + objStatistics.messageSize + '</th>';
+  strContent    += '<th class="align-right pr-10">' + intBatteryMin + '% / ' + intBatteryMax + '%</th>';
+  strContent    += '<th class="align-right pr-10"></th>';
+  strContent    += '</tr></tfoot>';
+
   strContent    += '</table>'
   strContent    += '</div>';
 
@@ -261,38 +291,32 @@ window[ appAlias ].methods.statistics.addMessagesContainer = function( objStatis
  * @example    window[ appAlias ].methods.statistics.addViolationsOfTheRules( objStatistics, objResponse );
  *
 */
-window[ appAlias ].methods.statistics.addViolationsOfTheRules = function( objStatistics, objResponse ) {
+window[ appAlias ].methods.statistics.addOutOfPlayfield = function( objStatistics ) {
   var boolShow                = false;
-  var objViolationsOfTheRules = objResponse.gameplay.violationsOfTheRules;
   var strContent              = '';
 
   strContent                 += '<div class="card card-full">';
-  strContent                 += '<div class="card-title">Regelbrüche (Verwarnungen)</div>';
+  strContent                 += '<div class="card-title">Regelbruch - Spielfeld verlassen</div>';
   strContent                 += '<table class="w-100p">';
   strContent                 += '<thead><tr>';
   strContent                 += '<th class="align-left pr-10">Name</th>';
-  strContent                 += '<th class="align-right pr-10">Zeit</th>';
-  strContent                 += '<th class="align-right pr-10">Grund</th>';
+  strContent                 += '<th class="align-right pr-10">Start</th>';
+  strContent                 += '<th class="align-right pr-10">Ende</th>';
   strContent                 += '</tr></thead>';
   strContent                 += '<tbody>';
 
-  for( var strPlayerId in objViolationsOfTheRules ) {
-    var arrTimestamps = [];
+  for( var i = 0; i < objStatistics.outOfPlayfield.length; i++ ) {
+    var strCssClass = objStatistics.names[ objStatistics.outOfPlayfield[ i ].playerId ].captured ? ' danger-text' : '';
+    var strEnd      = typeof objStatistics.outOfPlayfield[ i ].end != 'undefined' ? window[ appAlias ].methods.timestampPhpToString( objStatistics.outOfPlayfield[ i ].end ) : '--';
 
-    boolShow          = true;
-    for( var i = 0; i < objViolationsOfTheRules[ strPlayerId ].length; i++ ) {
-      if( arrTimestamps.includes( objViolationsOfTheRules[ strPlayerId ][ i ] ) ) continue;
+    boolShow        = true;
 
-      arrTimestamps.push( objViolationsOfTheRules[ strPlayerId ][ i ] );
+    strContent     += '<tr>';
+    strContent     += '<td class="align-left pr-10' + strCssClass + '">' + objStatistics.names[ objStatistics.outOfPlayfield[ i ].playerId ].name + '</td>';
+    strContent     += '<td class="align-right pr-10 danger-text">' + window[ appAlias ].methods.timestampPhpToString( objStatistics.outOfPlayfield[ i ].start ) + '</td>';
+    strContent     += '<td class="align-right pr-10 info-text">' + strEnd + '</td>';
+    strContent     += '</tr>';
 
-      var strCssClass = objStatistics.names[ strPlayerId ].captured ? ' danger-text' : '';
-
-      strContent     += '<tr>';
-      strContent     += '<td class="align-left pr-10' + strCssClass + '">' + objStatistics.names[ strPlayerId ].name + '</td>';
-      strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.cTimestampToDateTimeString( objViolationsOfTheRules[ strPlayerId ][ i ] ) + ' Uhr</td>';
-      strContent     += '<td class="align-right pr-10 danger-text">Spielfeld verlassen</td>';
-      strContent     += '</tr>';
-    }
   }
 
   strContent    += '</tbody>';
@@ -329,7 +353,7 @@ window[ appAlias ].methods.statistics.addCapturedContainer = function( objStatis
     strContent  += '<div class="card-title">Ausgeschieden</div>';
     strContent  += '<div class="align-left">';
     strContent  += '<p class="align-left mb-10 danger-text bold">' + objStatistics.names[ objStatistics.captured[ i ].playerId ].name + '</p>';
-    strContent  += '<p class="align-left mb-10">' + window[ appAlias ].methods.cTimestampToDateTimeString( objStatistics.captured[ i ].timestamp ) + ' Uhr</p>';
+    strContent  += '<p class="align-left mb-10">' + window[ appAlias ].methods.timestampPhpToString( objStatistics.captured[ i ].timestamp ) + ' Uhr</p>';
     strContent  += '<p class="align-left bold mb-5 info-text">Jäger:</p>';
 
     for( var j = 0; j < objStatistics.captured[ i ].hunterIds.length; j++ ) {
@@ -364,8 +388,11 @@ window[ appAlias ].methods.statistics.addCapturedContainer = function( objStatis
 */
 window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( objStatistics ) {
   for( var strRole in objStatistics.roles ) {
-    var strContent = '';
-    var boolShow   = false;
+    var strContent        = '';
+    var boolShow          = false;
+    var intStepAll        = 0;
+    var floatDistanceAll  = 0;
+    var floatDrivedAll    = 0;
 
     strContent    += '<div class="card card-full">';
     strContent    += '<div class="card-title">Distanzen als ' + objStatistics.roles[ strRole ] + '</div>';
@@ -374,7 +401,7 @@ window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( o
     strContent    += '<th class="align-left pr-10">Name</th>';
     strContent    += '<th class="align-right pr-10">Schritte</th>';
     strContent    += '<th class="align-right pr-10">Distanz</th>';
-    strContent    += '<th class="align-right pr-10">Speed Hunts</th>';
+    strContent    += '<th class="align-right pr-10">Gefahren</th>';
     strContent    += '<th class="align-right">Status</th>';
     strContent    += '</tr></thead>';
     strContent    += '<tbody>';
@@ -384,17 +411,20 @@ window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( o
 
       var strCssClass = objStatistics.names[ strPlayerId ].captured ? ' danger-text' : '';
 
-      boolShow     = true;
+      boolShow          = true;
+      intStepAll       += objStatistics.names[ strPlayerId ].steps;
+      floatDistanceAll += objStatistics.names[ strPlayerId ].distance;
+      floatDrivedAll   += objStatistics.names[ strPlayerId ].drived;
 
-      strContent  += '<tr>';
-      strContent  += '<td class="align-left pr-10' + strCssClass + '">' + objStatistics.names[ strPlayerId ].name + '</td>';
-      strContent  += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].steps + '</td>';
-      strContent  += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].distance + ' km</td>';
+      strContent       += '<tr>';
+      strContent       += '<td class="align-left pr-10' + strCssClass + '">' + objStatistics.names[ strPlayerId ].name + '</td>';
+      strContent       += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].steps + '</td>';
+      strContent       += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].distance + ' km</td>';
 
-      if( objStatistics.names[ strPlayerId ].speedHunts > 0 ) {
-        strContent  += '<td class="align-right warning-text pr-10">' + objStatistics.names[ strPlayerId ].speedHunts + '</td>';
+      if( objStatistics.names[ strPlayerId ].role == 'player' ) {
+        strContent  += '<td class="align-right warning-text pr-10">' + objStatistics.names[ strPlayerId ].drived + ' km</td>';
       } else {
-        strContent  += '<td class="align-right pr-10">--</td>';
+        strContent  += '<td class="align-right pr-10">' + objStatistics.names[ strPlayerId ].drived + ' km</td>';
       }
 
       if( objStatistics.names[ strPlayerId ].captured ) {
@@ -407,6 +437,15 @@ window[ appAlias ].methods.statistics.addPlayerDistancesContainers = function( o
     }
 
     strContent    += '</tbody>';
+
+    strContent    += '<tfoot><tr>';
+    strContent    += '<th class="align-left pr-10"></th>';
+    strContent    += '<th class="align-right pr-10">' + intStepAll + '</th>';
+    strContent    += '<th class="align-right pr-10">' + floatDistanceAll + ' km</th>';
+    strContent    += '<th class="align-right pr-10">' + floatDrivedAll + ' km</th>';
+    strContent    += '<th class="align-right"></th>';
+    strContent    += '</tr></tfoot>';
+
     strContent    += '</table>'
     strContent    += '</div>';
 
@@ -441,8 +480,9 @@ window[ appAlias ].methods.statistics.gameStatistic = function( objResponse, str
     'names': {},
     'captured': [],
     'steps': 0,
-    'outOfPlayfield': 0,
+    'outOfPlayfield': [],
     'distance': 0,
+    'drived': 0,
     'messages': 0,
     'messageSize': 0,
     'speedHunts': 0,
@@ -460,10 +500,14 @@ window[ appAlias ].methods.statistics.gameStatistic = function( objResponse, str
         'captured': null,
         'steps': 0,
         'distance': 0,
+        'drived': 0,
         'messages': 0,
         'messageSize': 0,
-        'outOfPlayfield': 0,
-        'speedHunts': 0
+        'outOfPlayfield': [],
+        'speedHunts': 0,
+        'batteryMin': 100,
+        'batteryMax': 0,
+        'batteryCharged': false
       };
     }
   }
@@ -473,15 +517,42 @@ window[ appAlias ].methods.statistics.gameStatistic = function( objResponse, str
     var objTrackings = objResponse.positions[ strRole ];
 
     for( var strPlayerId in objTrackings ) {
-      var arrTracking       = objResponse.positions[ strRole ][ strPlayerId ];
-      var intCountSteps     = 0;
-      var intDistance       = 0;
-      var intOutOfPlayfield = 0;
+      var arrTracking           = objResponse.positions[ strRole ][ strPlayerId ];
+      var intCountSteps         = 0;
+      var intDistance           = 0;
+      var intDrived             = 0;
+      var intBatteryMin         = 100;
+      var intBatteryMax         = 0;
+      var boolBassteryIsCharged = false;
+      var boolOutOfPlayfield    = false;
 
       for( var i = 0; i < arrTracking.length; i++ ) {
-        intCountSteps      += arrTracking[ i ].steps;
+        intCountSteps         += arrTracking[ i ].steps;
+        intBatteryMin          = intBatteryMin > arrTracking[ i ].batteryLevel ? arrTracking[ i ].batteryLevel : intBatteryMin;
+        intBatteryMax          = intBatteryMax < arrTracking[ i ].batteryLevel ? arrTracking[ i ].batteryLevel : intBatteryMax;
+        boolBassteryIsCharged  = arrTracking[ i ].batteryIsCharching ? true : boolBassteryIsCharged;
 
-        if( arrTracking[ i ].outOfPlayingField ) intOutOfPlayfield += 1;
+        if( strRole != 'management' ) {
+          if( boolOutOfPlayfield == false && arrTracking[ i ].outOfPlayingField == true ) {
+            objStatistic.names[ strPlayerId ].outOfPlayfield.push( { 'start': arrTracking[ i ].timestamp, 'playerId': strPlayerId } );
+            objStatistic.outOfPlayfield.push( { 'start': arrTracking[ i ].timestamp, 'playerId': strPlayerId } );
+
+            boolOutOfPlayfield = true;
+          } else if( boolOutOfPlayfield == true && arrTracking[ i ].outOfPlayingField == false ) {
+            var intOutOfPlayfieldLengthPlayer = objStatistic.names[ strPlayerId ].outOfPlayfield.length - 1;
+            var intOutOfPlayfieldLength       = objStatistic.outOfPlayfield.length - 1;
+
+            objStatistic.names[ strPlayerId ].outOfPlayfield[ intOutOfPlayfieldLengthPlayer ].end = arrTracking[ i ].timestamp;
+            objStatistic.outOfPlayfield[ intOutOfPlayfieldLength ].end                            = arrTracking[ i ].timestamp;
+
+            boolOutOfPlayfield = false;
+          }
+        }
+
+        if( arrTracking[ i ].isDrived && i > 0 ) {
+          intDrived += objGeoTracker.calcDistance( arrTracking[ i ].lat, arrTracking[ i ].lng, arrTracking[ i - 1 ].lat, arrTracking[ i - 1 ].lng );
+        }
+
         if( i > arrTracking.length - 2 ) continue;
 
         intDistance += objGeoTracker.calcDistance( arrTracking[ i ].lat, arrTracking[ i ].lng, arrTracking[ i + 1 ].lat, arrTracking[ i + 1 ].lng );
@@ -489,15 +560,20 @@ window[ appAlias ].methods.statistics.gameStatistic = function( objResponse, str
 
       objStatistic.steps                               += intCountSteps;
       objStatistic.distance                            += intDistance;
-      objStatistic.outOfPlayfield                      += intOutOfPlayfield;
+      objStatistic.drived                              += intDrived;
 
       objStatistic.names[ strPlayerId ].steps           = intCountSteps;
       objStatistic.names[ strPlayerId ].distance        = ( Math.ceil( intDistance / 100 ) ) / 10;
-      objStatistic.names[ strPlayerId ].outOfPlayfield  = intOutOfPlayfield;
+      objStatistic.names[ strPlayerId ].drived          = ( Math.ceil( intDrived / 100 ) ) / 10;
+
+      objStatistic.names[ strPlayerId ].batteryMin      = Math.round( intBatteryMin );
+      objStatistic.names[ strPlayerId ].batteryMax      = Math.round( intBatteryMax );
+      objStatistic.names[ strPlayerId ].batteryCharged  = boolBassteryIsCharged;
     }
   }
 
-  objStatistic.distance = ( Math.ceil( objStatistic.distance / 100 ) ) / 10
+  objStatistic.distance = ( Math.ceil( objStatistic.distance / 100 ) ) / 10;
+  objStatistic.drived   = ( Math.ceil( objStatistic.drived / 100 ) ) / 10;
 
   // messages
   for( var i = 0; i < objResponse.messages.length; i++ ) {

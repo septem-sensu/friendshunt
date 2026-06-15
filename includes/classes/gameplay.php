@@ -52,7 +52,10 @@ class Gameplay extends Game {
     'asManagementCountMessages',
     'asPlayerCountMessagesAll',
     'asHunterCountMessagesAll',
-    'asManagementCountMessagesAll'
+    'asManagementCountMessagesAll',
+    'asPlayerDistanceDrived',
+    'asHunterDistanceDrived',
+    'asManagementDistanceDrived'
   ];
 
 
@@ -200,6 +203,7 @@ class Gameplay extends Game {
         $objPlaySetObject       = new stdClass();
         $intSteps               = 0;
         $intDistance            = 0;
+        $intDistanceDrived      = 0;
         $intViolationOfTheRules = 0;
         $intCountSpeedHunts     = 0;
         $intCountCaptured       = 0;
@@ -218,6 +222,10 @@ class Gameplay extends Game {
           if( isset( $arrTracking[ $j ]->outOfPlayingField ) && $arrTracking[ $j ]->outOfPlayingField && $strGamplayRoleId != 'management' ) {
             $intViolationOfTheRules++;
             $intViolationOfTheRulesAll++;
+          }
+
+          if( $arrTracking[ $j ]->isDrived ) {
+            $intDistanceDrived += $this->calcDistance( $arrTracking[ $j ]->lat, $arrTracking[ $j ]->lng, $arrTracking[ $j - 1 ]->lat, $arrTracking[ $j - 1 ]->lng );
           }
 
           if( $j > count( $arrTracking ) - 2 ) continue;
@@ -262,6 +270,7 @@ class Gameplay extends Game {
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'Captured', $intCountCaptured );
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'CountMessages', $intCountMessages );
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'CountMessagesAll', $intCountMessagesAll );
+        $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'DistanceDrived', $intDistanceDrived );
 
         foreach( $objPlaySetObject as $strProperty => $floatValue ) {
           $objPlaySetObject->$strProperty = intval( $floatValue );
@@ -336,6 +345,7 @@ class Gameplay extends Game {
     $objTracking->outOfPlayingField  = $boolOutOfPlayingField;
     $objTracking->batteryLevel       = $intBatteryLevel;
     $objTracking->batteryIsCharching = $boolBatteryIsCharching;
+    $objTracking->isDrived           = $this->isDrived( $floatLat, $floatLng );
     $objTracking->timestamp          = time();
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
@@ -343,6 +353,34 @@ class Gameplay extends Game {
     $this->saveFileEncrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
 
     return;
+  }
+
+/**
+ * This Method checks whether the Player covered the last distance by driving or running.
+ * If the speed between the last position and the current position was greater than 15 km/h, then the Player was being driven.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ *
+ * @param      float   $floatLat               The current Tracking coordinates
+ * @param      float   $floatLng               The current Tracking coordinates
+ * @return     bool    $boolIsDrived           Is the Player the distance drived or not
+ *
+ * @example    $boolIsDrive = $this->isDrived( $floatLat, $floatLng );
+ * @example    $boolIsDrive = $objGameplay->isDrived( $floatLat, $floatLng );
+ *
+*/
+  private function isDrived( float $floatLat, float $floatLng ) : bool {
+    if( count( $this->currentPlayerTracking->tracking ) < 1 ) return false;
+
+    $arrLastPosition   = array_slice( $this->currentPlayerTracking->tracking, -1 );
+    $floatTime         = ( $arrLastPosition[ 0 ]->timestamp - time() ) / 60 / 60;
+    $floatDistance     = $this->calcDistance( $floatLat, $floatLng, $arrLastPosition[ 0 ]->lat, $arrLastPosition[ 0 ]->lng ) / 1000;
+
+    if( $floatTime == 0 ) return false;
+
+    return $floatDistance / $floatTime > 15 ? true : false;
   }
 
 /**
@@ -900,24 +938,34 @@ class Gameplay extends Game {
     if( ! $this->isRunning ) return $this->stopped( $objRequestObject );
     if( ! isset( $this->gameplayObject->speedHunts ) ) $this->gameplayObject->speedHunts = [];
     if( ! isset( $this->gameplayObject->speedHunt ) ) {
-      $objPlayer                                   = new Player( $objRequestObject->playerId );
+      $objPlayer                                   = new Player( $objRequestObject->speedHuntPlayerId );
       $this->gameplayObject->speedHunt             = new stdClass();
       $this->gameplayObject->speedHunt->timestamps = [];
-      $this->gameplayObject->speedHunt->playerId   = $objRequestObject->playerId;
+      $this->gameplayObject->speedHunt->playerId   = $objRequestObject->speedHuntPlayerId;
       $this->gameplayObject->speedHunt->playerName = $objPlayer->get( 'name' );
     }
 
     array_push( $this->gameplayObject->speedHunt->timestamps, time() );
 
-    $intSpeedHuntCount                                        = count( $this->gameplayObject->speedHunt->timestamps );
-    $strPlayerId                                              = $this->gameplayObject->speedHunt->playerId;
-    $objPlayer                                                = new Player( $strPlayerId );
-    $objRequestObject->positions                              = new stdClass();
-    $objTracking                                              = $this->getPlayerPosition( $objPlayer, 1 );
-    $objRequestObject->positions->player                      = [ $objTracking ];
-    $objRequestObject->positions->hunter                      = [];
-    $objRequestObject->positions->management                  = [];
-    $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objTracking;
+    $intSpeedHuntCount                                                  = count( $this->gameplayObject->speedHunt->timestamps );
+    $strSpeedHuntPlayerId                                               = $this->gameplayObject->speedHunt->playerId;
+    $objPlayer                                                          = new Player( $strSpeedHuntPlayerId );
+    $objRequestObject->positions                                        = new stdClass();
+    $objTracking                                                        = $this->getPlayerPosition( $objPlayer, 1 );
+    $objRequestObject->positions->player                                = [ $objTracking ];
+    $objRequestObject->positions->hunter                                = [];
+    $objRequestObject->positions->management                            = [];
+    $this->gameplayObject->silentHunt->tracking->$strSpeedHuntPlayerId  = $objTracking;
+
+    $objState                    = new stdClass();
+    $objState                    = $this->getGameplayState( $objState );
+    $objState                    = $this->silentHunt( $objState );
+    $objState                    = $this->getGameplaySpeedHunt( $objState );
+    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
+    $objRequestObject->state     = $objState;
+    $objRequestObject->settings  = $this->gameSettings;
+    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
+    $objRequestObject->messages  = $this->messages->messages;
 
     if( $intSpeedHuntCount >= $this->gameplayObject->speedPingCount ) {
       $this->gameplayObject->lastSpeedHunt = time();
@@ -927,17 +975,6 @@ class Gameplay extends Game {
     }
 
     $this->saveGameplay();
-
-    $objState                    = new stdClass();
-    $objState                    = $this->getGameplayState( $objState );
-    $objState                    = $this->silentHunt( $objState );
-    $objState                    = $this->getGameplaySpeedHunt( $objState );
-    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
-
-    $objRequestObject->state     = $objState;
-    $objRequestObject->settings  = $this->gameSettings;
-    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
-    $objRequestObject->messages  = $this->messages->messages;
 
     return $objRequestObject;
   }

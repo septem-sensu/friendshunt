@@ -44,7 +44,7 @@
     </div>
     <div class="card-content-flex">
       <span>Zeit</span>
-      <span><span class="js-calc js-calc-set-default-int">{{Player::asPlayerTime}}</span> Stunden</span>
+      <span><span class="js-calc js-calc-set-default-int">{{Player::asPlayerTime}}</span> Std</span>
     </div>
     <div class="card-content-flex">
       <span class="danger-text">Gefangen</span>
@@ -72,7 +72,7 @@
     </div>
     <div class="card-content-flex">
       <span>Zeit</span>
-      <span><span class="js-calc js-calc-set-default-int">{{Player::asHunterTime}}</span> Stunden</span>
+      <span><span class="js-calc js-calc-set-default-int">{{Player::asHunterTime}}</span> Std</span>
     </div>
     <div class="card-content-flex">
       <span class="success-text">Gefangen</span>
@@ -100,7 +100,7 @@
     </div>
     <div class="card-content-flex">
       <span>Zeit</span>
-      <span><span class="js-calc js-calc-set-default-int">{{Player::asManagementTime}}</span> Stunden</span>
+      <span><span class="js-calc js-calc-set-default-int">{{Player::asManagementTime}}</span> Std</span>
     </div>
     <div class="card-content-flex">
       <span>Gefangen</span>
@@ -127,6 +127,10 @@
       <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asPlayerDistance}}</span> km</span>
     </div>
     <div class="card-content-flex">
+      <span class="warning-text">Gefahren</span>
+      <span class="warning-text"><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asPlayerDistanceDrived}}</span> km</span>
+    </div>
+    <div class="card-content-flex">
       <span>Schritte</span>
       <span class="js-calc js-calc-set-default-int">{{Player::asHunterPlayerSteps}}</span>
     </div>
@@ -139,6 +143,10 @@
       <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asHunterDistance}}</span> km</span>
     </div>
     <div class="card-content-flex">
+      <span>Gefahren</span>
+      <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asHunterDistanceDrived}}</span> km</span>
+    </div>
+    <div class="card-content-flex">
       <span>Schritte</span>
       <span class="js-calc js-calc-set-default-int">{{Player::asHunterCountSteps}}</span>
     </div>
@@ -149,6 +157,10 @@
     <div class="card-content-flex">
       <span>Distanz</span>
       <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asManagementDistance}}</span> km</span>
+    </div>
+    <div class="card-content-flex">
+      <span>Gefahren</span>
+      <span><span class="js-calc js-calc-set-default-int js-calc-m-km js-calc-custom-round">{{Player::asManagementDistanceDrived}}</span> km</span>
     </div>
     <div class="card-content-flex">
       <span>Schritte</span>
