@@ -810,8 +810,6 @@ class Gameplay extends Game {
           $objSystemMessage->message            = '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
           $objSystemMessage->message           .= '<p class="danger-text">Aktuell läuft ein Speedhunt auf einen Spieler.</p>';
           $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $this->gameplayObject->speedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
-          $objSystemMessage->applies            = $this->gameplayObject->speedHunt->playerId;
-          $objSystemMessage->appliesName        = $this->gameplayObject->speedHunt->playerName;
           $objSystemMessage->appliesRole        = 'player';
           $objSystemMessage->appliesRoleName    = 'Spieler';
           $objSystemMessage->cssClass           = 'danger-text';
@@ -906,6 +904,7 @@ class Gameplay extends Game {
     $objState->speedHuntState = new stdClass();
 
     if( isset( $this->gameplayObject->speedHunt ) ) {
+      Presentation::logToFile( strval( count(  $this->gameplayObject->speedHunt->timestamps ) ), true, 'test.log' );
       $objState->speedHuntState->speedHuntCount    = count(  $this->gameplayObject->speedHunt->timestamps );
       $objState->speedHuntState->speedHuntCountMax = $this->gameplayObject->speedPingCount;
       $objState->speedHuntState->playerId          = $this->gameplayObject->speedHunt->playerId;

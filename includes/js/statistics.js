@@ -184,10 +184,12 @@ window[ appAlias ].methods.statistics.addSpeedHuntsContainer = function( objStat
   for( var i = 0; i < arrSpeedHunts.length; i++ ) {
     var strCssClass = objStatistics.names[ arrSpeedHunts[ i ].playerId ].captured ? ' danger-text' : '';
 
+    strContent     += '<tr>';
     strContent     += '<td class="align-left pr-10' + strCssClass + '">' + arrSpeedHunts[ i ].playerName + '</td>';
     strContent     += '<td class="align-right pr-10">' + arrSpeedHunts[ i ].timestamps.length + '</td>';
     strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.timestampPhpToString( arrSpeedHunts[ i ].timestamps[ 0 ] ) + '</td>';
     strContent     += '<td class="align-right pr-10">' + window[ appAlias ].methods.timestampPhpToString( arrSpeedHunts[ i ].timestamps[ arrSpeedHunts[ i ].timestamps.length -1 ] ) + '</td>';
+    strContent     += '</tr>';
   }
 
   strContent    += '</tbody>';
