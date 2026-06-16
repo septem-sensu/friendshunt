@@ -974,6 +974,33 @@ window[ appAlias ].methods.gameplay.replay = function() {
   var arrCaptured      = [];
   var objSpeedhunts    = {};
 
+  console.log('TEST');
+
+ var objPlayer = new ReplayPlayer( window[ appAlias ].gameplayReplay.trackings );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return;
+
+
+
   if( objReplayButton != null ) {
     objReplayButton.classList.remove( 'success' );
     objReplayButton.classList.add( 'danger' );

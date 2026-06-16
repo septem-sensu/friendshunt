@@ -8,6 +8,7 @@
 <script src="includes/js/geoMaps.js"></script>
 <script src="includes/js/batteryTracking.js"></script>
 <script src="includes/js/gameplay.js"></script>
+<script src="includes/js/replayPlayer.js"></script>
 
 <div class="game-menu-top">
   <div id="game-state-icon-container" class="pointer" onclick="javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();">
@@ -42,3 +43,28 @@
   <div id="game-system-messages"></div>
   <button onclick="javascript: window[ appAlias ].methods.gameplay.closeSystemMessagesLayer();" id="game-system-messages-ok-button" type="button" class="success">✔ Gelesen</button>
 </div>
+
+
+<div class="replay-panel">
+  <!-- Obere Reihe: Zeitleiste (Slider) & Uhrzeit -->
+  <div class="replay-timeline-row">
+    <input type="range" id="replay-slider" min="0" max="100" value="0" step="1">
+    <span id="replay-clock">00:00:00</span>
+  </div>
+
+  <!-- Untere Reihe: Steuerungs-Buttons -->
+  <div class="replay-controls-row">
+    <div class="playback-buttons">
+      <button id="btn-replay-play" class="btn-tactical">[ PLAY ]</button>
+      <button id="btn-replay-pause" class="btn-tactical btn-active">[ PAUSE ]</button>
+    </div>
+
+    <div class="speed-buttons">
+      <button class="btn-speed btn-active" data-speed="10">10x</button>
+      <button class="btn-speed" data-speed="20">20x</button>
+      <button class="btn-speed" data-speed="40">40x</button>
+      <button class="btn-speed" data-speed="80">80x</button>
+    </div>
+  </div>
+</div>
+
