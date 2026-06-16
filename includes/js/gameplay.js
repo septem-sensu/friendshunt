@@ -870,6 +870,8 @@ window[ appAlias ].methods.gameplay.gameReplay = function() {
 */
 window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
   objResponse      = objResponse.result;
+  $arrSpeedHunts   = objResponse.gameplay.speedHunts;
+  $arrCaptured     = objResponse.gameplay.captured;
 
   if( window[ appAlias ].debug ) console.log( 'generateReplay Response: ', objResponse );
 
@@ -900,6 +902,7 @@ window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
       intPlayerCounter++;
 
       for( var i = 0; i < arrTracking.length; i++ ) {
+        arrTracking[ i ].type        = 'tracking';
         arrTracking[ i ].role        = strRole;
         arrTracking[ i ].roleName    = objReplay.roles[ strRole ];
         arrTracking[ i ].playerId    = strPlayerId;
@@ -910,6 +913,31 @@ window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
       }
     }
   }
+
+  for( var i = 0; i < $arrSpeedHunts.length; i++ ) {
+    for( var j = 0; j < $arrSpeedHunts[ i ].timestamps.length; j++ ) {
+      objReplay.trackings.push( {
+        'type': 'speedhunt',
+        'role': objReplay.names[ $arrSpeedHunts[ i ].playerId ].role,
+        'roleName': objReplay.names[ $arrSpeedHunts[ i ].playerId ].roleName,
+        'playerId': $arrSpeedHunts[ i ].playerId,
+        'playerName': $arrSpeedHunts[ i ].playerName,
+        'timestamp': $arrSpeedHunts[ i ].timestamps[ j ]
+      } );
+    }
+  }
+
+  for( var i = 0; i < $arrCaptured.length; i++ ) {
+    objReplay.trackings.push( {
+      'type': 'capture',
+      'role': objReplay.names[ $arrCaptured[ i ].playerId ].role,
+      'roleName': objReplay.names[ $arrCaptured[ i ].playerId ].roleName,
+      'playerId': $arrCaptured[ i ].playerId,
+      'playerName': objReplay.names[ $arrCaptured[ i ].playerId ].name,
+      'timestamp':$arrCaptured[ i ].timestamp
+    } );
+  }
+
 
   objReplay.trackings.sort( function( objA, objB ) {
     return objA.timestamp - objB.timestamp;
@@ -939,11 +967,12 @@ window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
  *
 */
 window[ appAlias ].methods.gameplay.replay = function() {
-  var intReplaySpeed   = 400;
   var arrColors        = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
   var arrTrackings     = window[ appAlias ].gameplayReplay.trackings;
   var objReplayButton  = document.querySelector( '#gameplay-button-replay' );
   var intTrackingIndex = 0;
+  var arrCaptured      = [];
+  var objSpeedhunts    = {};
 
   if( objReplayButton != null ) {
     objReplayButton.classList.remove( 'success' );
@@ -965,18 +994,44 @@ window[ appAlias ].methods.gameplay.replay = function() {
       return;
     }
 
-    window[ appAlias ].tracker.geoMapsObject.setMarker(
-      arrTrackings[ intTrackingIndex ].playerId,
-      arrTrackings[ intTrackingIndex ].role,
-      arrColors[ arrTrackings[ intTrackingIndex ].playerCount ],
-      arrTrackings[ intTrackingIndex ].lat,
-      arrTrackings[ intTrackingIndex ].lng,
-      ''
-    );
+    if( arrTrackings[ intTrackingIndex ].type == 'tracking' ) {
+      if( ! arrCaptured.includes( arrTrackings[ intTrackingIndex ].playerId ) ) {;
+        var strColor    = arrColors[ arrTrackings[ intTrackingIndex ].playerCount ];
+        var strCssClass = '';
+
+        if( typeof objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] == 'number' ) {
+          objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] = objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] - 1;
+          if( objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] <= 0 ) delete objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ];
+
+          strColor    = '#ff0000';
+          strCssClass = 'game-marker-alarm';
+        }
+
+        window[ appAlias ].tracker.geoMapsObject.setMarker(
+          arrTrackings[ intTrackingIndex ].playerId,
+          arrTrackings[ intTrackingIndex ].role,
+          strColor,
+          arrTrackings[ intTrackingIndex ].lat,
+          arrTrackings[ intTrackingIndex ].lng,
+          '',
+          arrTrackings[ intTrackingIndex ].playerName,
+          strCssClass
+        );
+      }
+    }
+
+    if( arrTrackings[ intTrackingIndex ].type == 'capture' ) {
+      window[ appAlias ].tracker.geoMapsObject.removeMarker( arrTrackings[ intTrackingIndex ].playerId );
+      arrCaptured( arrTrackings[ intTrackingIndex ].playerId );
+    }
+
+    if( arrTrackings[ intTrackingIndex ].type == 'speedhunt' ) {
+      objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] = 5;
+    }
 
     intTrackingIndex++;
 
-  }, intReplaySpeed );
+  }, window[ appAlias ].gameSettings.replaySpeed );
 
   return;
 };

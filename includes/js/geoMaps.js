@@ -105,13 +105,17 @@ class GeoMaps {
  * @param     {number}  lat       The Latidude of the Game Player
  * @param     {number}  lng       The Langidude of the Game Player
  * @param     {string}  content   The Content of the Popup
+ * @param     {string}  name      The Text at the Icon
+ * @param     {string}  cssclass  The css Class for the Icon
  * @return    {void}
  *
- * @example   objGeoMaps.setMarker( id, role, color, lat, lng, content );
+ * @example   objGeoMaps.setMarker( id, role, color, lat, lng, content, name );
  *
  */
-  setMarker( id, role, color, lat, lng, content ) {
-    const icon   = this.getIcon( role, color );
+  setMarker( id, role, color, lat, lng, content, name, cssclass ) {
+    const icon   = this.getIcon( role, color, name );
+
+    if( cssclass && cssclass != '' ) icon.classList.add( cssclass );
 
     if( this.marker[ id ] ) this.marker[ id ].remove();
 
@@ -171,6 +175,28 @@ class GeoMaps {
 
       return;
     } );
+
+    return;
+  }
+
+/**
+ * This Method set a new Icon on the Marker.
+ *
+ * @public
+ *
+ * @param     {string}  id        The Game Player Id (Marker Id)
+ * @param     {string}  role      The Game Player Role (player, hunter or management)
+ * @param     {string}  color     The Game Player Color
+ * @param     {string}  name      The Text at the Icon
+ * @return    {void}
+ *
+ * @example   objGeoMaps.setIcon( id, role, color, name );
+ *
+ */
+  setIcon( id, role, color, name ) {
+    const icon = this.getIcon( role, color, name );
+
+    this.marker[ id ].setIcon( icon );
 
     return;
   }
@@ -476,14 +502,16 @@ class GeoMaps {
  *
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
+ * @param     {string}  name      The Text at the Icon
  * @return    {string}  strImage  The Vector Object Image
  *
- * @example   strImage = objGeoMaps.getIcon( role, color );
+ * @example   strImage = objGeoMaps.getIcon( role, color, name );
  *
  */
-  getIcon( role, color ) {
-    let svgContent = "";
-    const size = 30;
+  getIcon( role, color, name ) {
+    let svgContent = '';
+    const size     = 30;
+    var content    = '';
 
     switch ( role ) {
       case 'hunter': // Ein Fadenkreuz / Visier für die Jäger
@@ -540,8 +568,17 @@ class GeoMaps {
         svgContent = `<svg width="${size}" height="${size}"><circle cx="18" cy="18" r="8" fill="${color}"/></svg>`;
     }
 
+    if( name && name != '' ) {
+      content += '<div class="tactical-marker-wrapper">';
+      content += svgContent;
+      content += '<span class="marker-label" style="color: ' + color + ';">' + name + '</span>';
+      content += '</div>';
+    } else {
+      content += svgContent;
+    }
+
     return L.divIcon( {
-      html: svgContent,
+      html: content,
       className: 'tactical-marker',
       iconSize: [size, size],
       iconAnchor: [size / 2, size / 2], // Zentriert das Icon exakt auf der Koordinate

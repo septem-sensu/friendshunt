@@ -163,6 +163,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: visible !important;
 }
 
 .tactical-marker svg {
@@ -172,6 +173,34 @@ body, html {
 
 .tactical-marker svg:hover {
   transform: scale(1.2);
+}
+
+.tactical-marker-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Wir zentrieren das SVG oben und lassen den Text nach unten fließen */
+    justify-content: flex-start;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+/* 3. Dein Namens-Tag (Exakt nach deinem Styleguide) */
+.marker-label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+
+    /* Absolute Positionierung unterhalb des 36px großen SVGs */
+    position: absolute;
+    top: 30px; /* Schiebt den Text exakt 2 Pixel unter den Marker-Rand */
+    left: 50%;
+    transform: translateX(-50%); /* Zentriert den Namen mathematisch exakt in der Mitte */
+
+    /* Der bewährte taktische Schatten für perfekte Lesbarkeit auf der OSM-Karte */
+    /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
 }
 
 .game-menu-top {
