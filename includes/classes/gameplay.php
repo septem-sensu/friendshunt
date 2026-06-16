@@ -904,7 +904,6 @@ class Gameplay extends Game {
     $objState->speedHuntState = new stdClass();
 
     if( isset( $this->gameplayObject->speedHunt ) ) {
-      Presentation::logToFile( strval( count(  $this->gameplayObject->speedHunt->timestamps ) ), true, 'test.log' );
       $objState->speedHuntState->speedHuntCount    = count(  $this->gameplayObject->speedHunt->timestamps );
       $objState->speedHuntState->speedHuntCountMax = $this->gameplayObject->speedPingCount;
       $objState->speedHuntState->playerId          = $this->gameplayObject->speedHunt->playerId;

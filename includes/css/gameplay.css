@@ -2,11 +2,36 @@
   from {
     transform: translate3d(0%, 0%, 0px);
     left: 100%;
-  }	to{
+  }	to {
     transform: translate3d(-200%, 0%, 0px);
     left: 0%;
   }
 }
+
+@keyframes speedhunt-pulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.3); filter: brightness(1.5); }
+}
+
+@keyframes vehicle-alarm {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7);
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(1.25);
+    /* Erzeugt eine leuchtende Schockwelle, die sich unter dem Icon ausbreitet */
+    box-shadow: 0 0 0 15px rgba(255, 51, 51, 0);
+    border-radius: 50%;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 51, 51, 0);
+    border-radius: 50%;
+  }
+}
+
 
 body, html {
     /* Zwingt das Layout, sich an den sicheren Display-Rändern auszurichten */
@@ -83,6 +108,16 @@ body, html {
     left: calc(50% - 189px);
   }
 
+}
+
+.game-my-own-marker svg {
+  animation: speedhunt-pulse 1.0s infinite alternate;
+  filter: drop-shadow(0px 0px 12px var(--color-hunter)) !important;
+}
+
+.game-marker-alarm svg {
+  animation: vehicle-alarm 1.2s infinite;
+  filter: drop-shadow(0px 0px 15px var(--color-player)) !important;
 }
 
 .game-permission-pedometer {

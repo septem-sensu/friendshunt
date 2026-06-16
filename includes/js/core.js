@@ -110,7 +110,7 @@ window[ appAlias ].methods.timestampJsToString = function( intTimestamp, boolSec
   var strDate       = pad( objDateTime.getDate() ) + '.' + pad( objDateTime.getMonth() + 1 ) + '.' + objDateTime.getFullYear();
   var strTime       = pad( objDateTime.getHours() ) + ':' + pad( objDateTime.getMinutes() );
 
-  strTime           = boolSeconds ? strTime + pad( objDateTime.getSeconds() ) : strTime;
+  strTime           = boolSeconds ? strTime + ':' + pad( objDateTime.getSeconds() ) : strTime;
 
   if( strFormat == 'date' ) {
     return strDate;

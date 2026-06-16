@@ -99,7 +99,7 @@ class GeoMaps {
  *
  * @public
  *
- * @param     {string}  id        The Game Player Id
+ * @param     {string}  id        The Game Player Id (Marker Id)
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
  * @param     {number}  lat       The Latidude of the Game Player
@@ -143,7 +143,7 @@ class GeoMaps {
  *
  * @public
  *
- * @param     {string}  id        The Game Player Id
+ * @param     {string}  id        The Game Player Id (Marker Id)
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
  * @param     {string}  content   The Content of the Popup
@@ -176,11 +176,77 @@ class GeoMaps {
   }
 
 /**
+ * This Method add a css Class to a Marker Icon.
+ *
+ * @public
+ *
+ * @param     {string}  id        The Game Player Id (Marker Id)
+ * @param     {string}  cssClass  The css Class to add the Marker Icon
+ * @return    {void}
+ *
+ * @example   objGeoMaps.addMarkerCssClass( id, cssClass );
+ *
+ */
+  addMarkerCssClass( id, cssClass ) {
+    const icon = this.marker[ id ]._icon;
+
+    if( ! icon ) return;
+    if( icon.classList.contains( cssClass ) ) return;
+
+    icon.classList.add( cssClass );
+
+    return;
+  }
+
+/**
+ * This Method check a Marker Icon whether contains a css Class.
+ *
+ * @public
+ *
+ * @param     {string}  id         The Game Player Id (Marker Id)
+ * @param     {string}  cssClass   The css Class to remove from the Marker Icon
+ * @return    {bool}    objResult  Contains the css Class at the Marker Icon
+ *
+ * @example   objResult = objGeoMaps.containsMarkerCssClass( id, cssClass );
+ *
+ */
+  containsMarkerCssClass( id, cssClass ) {
+    const icon = this.marker[ id ]._icon;
+
+    if( ! icon ) return false;
+
+    return icon.classList.contains( cssClass ) ? true : false;
+  }
+
+/**
+ * This Method remove a css Class from a Marker Icon.
+ *
+ * @public
+ *
+ * @param     {string}  id        The Game Player Id (Marker Id)
+ * @param     {string}  cssClass  The css Class to remove from the Marker Icon
+ * @return    {void}
+ *
+ * @example   objGeoMaps.removeMarkerCssClass( id, cssClass );
+ *
+ */
+  removeMarkerCssClass( id, cssClass ) {
+    const icon = this.marker[ id ]._icon;
+
+    if( ! icon ) return;
+    if( ! icon.classList.contains( cssClass ) ) return;
+
+    icon.classList.remove( cssClass );
+
+    return;
+  }
+
+/**
  * This Method set a circle on the Map.
  *
  * @public
  *
- * @param     {string}  id        The Game Player Id
+ * @param     {string}  id        The Game Player Id (Circle Id)
  * @param     {number}  lat       The Latidude of the Center of the Circle
  * @param     {number}  lng       The Langidude of the Center of the Circle
  * @param     {number}  size      The Radius of the Circle
@@ -213,7 +279,7 @@ class GeoMaps {
  *
  * @public
  *
- * @param     {string}  id              The Game Player Id
+ * @param     {string}  id              The Game Player Id (Circle Id)
  * @param     {number}  size            The Radius of the Circle
  * @param     {string}  color           The Color of the Circle edge
  * @param     {number}  weight          The weight of the Corcle edge
@@ -269,7 +335,7 @@ class GeoMaps {
  *
  * @public
  *
- * @param     {string}  id              The Game Player Id
+ * @param     {string}  id              The Game Player Id (Circle Id)
  * @param     {number}  selectorRadius  The Selector of a input Fiel to set the radius
  * @return    {void}
  *

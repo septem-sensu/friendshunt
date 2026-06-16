@@ -471,7 +471,7 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
       }
     }
 
-    if( window[ appAlias ].gameplayState.nextSilentHunt > window[ appAlias ].gameSettings.end ) {
+    if( window[ appAlias ].gameplayState.nextSilentHunt >= window[ appAlias ].gameSettings.end ) {
       strStateLine += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
     } else {
       strStateLine += 'Der nächste Silent Hunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.nextSilentHunt ) + ' Uhr. ';
@@ -511,6 +511,7 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
 window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, objTracking, objResult, intPlayerCount, strSpeedHuntPlayer ) {
   var arrColors            = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
   var strAffectedColor     = '#ff0000';
+  var strMarkerCssClass    = null;
   var arrAffectedPlayer    = [];
   var objLastPosition      = objTracking.position.at( -1 );
   var objGameSettings      = window[ appAlias ].gameSettings;
@@ -523,87 +524,93 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   var strSilentHuntMessage = '';
   var strMarkerColor       = arrColors[ intPlayerCount ];
 
-  if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
-    objSpeedHuntState.message = 'Es läuft ein Speedhunt.'
+  // Marker Message: Speed Hunt
+  if( objSpeedHuntState.speedHuntCount > 0 ) {
+    objSpeedHuntState.message = 'Es läuft ein Speedhunt, Ping ' + objSpeedHuntState.speedHuntCount + ' von ' + objSpeedHuntState.speedHuntCountMax + '.';
   } else {
-    if( typeof window[ appAlias ].gameplayState.speedHuntState.next != 'undefined' ) {
-      objSpeedHuntState.message = 'Der nächste Speedhunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+    if( typeof objSpeedHuntState.next != 'undefined' ) {
+      if( objSpeedHuntState.next >= window[ appAlias ].gameSettings.end ) {
+        objSpeedHuntState.message = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
+      } else {
+        objSpeedHuntState.message = 'Der nächste Speedhunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+      }
     } else {
       objSpeedHuntState.message = 'Speedhunt ist verfügbar. ';
     }
-  }
-
-  if( window[ appAlias ].gameplayState.nextSilentHunt > window[ appAlias ].gameSettings.end ) {
-    strSilentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
-  } else {
-    strSilentHuntMessage += 'Der nächste Silent Hunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.nextSilentHunt ) + ' Uhr. ';
   }
 
   if( objSpeedHuntState.speedHuntCount > 0 ) {
     strSpeedHuntMessage = ' Ping ' + objSpeedHuntState.speedHuntCount + ' von ' + objSpeedHuntState.speedHuntCountMax + '.';
   }
 
-  for( var i = 0; i < window[ appAlias ].gameplayState.systemMessages.length; i++ ) {
-    if( window[ appAlias ].gameplayState.systemMessages.type != 'violationoftherules' ) continue;
-    arrAffectedPlayer.push( window[ appAlias ].gameplayState.systemMessages.applies );
+  // Marker Message: Silent Hunt
+  if( window[ appAlias ].gameplayState.nextSilentHunt >= window[ appAlias ].gameSettings.end ) {
+    strSilentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+  } else {
+    strSilentHuntMessage += 'Der nächste Silent Hunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.nextSilentHunt ) + ' Uhr. ';
   }
 
+  // Marker Message: Violation of the Rules
+  for( var i = 0; i < window[ appAlias ].gameplayState.systemMessages.length; i++ ) {
+    if( window[ appAlias ].gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
+    if( ! window[ appAlias ].gameplayState.systemMessages[ i ].applies ) continue;
+
+    arrAffectedPlayer.push( window[ appAlias ].gameplayState.systemMessages[ i ].applies );
+  }
+
+  // Marker css Class if it is me myself
+  if( objTracking.id == window[ appAlias ].playerId ) strMarkerCssClass = 'game-my-own-marker';
+
+  // Set Marker Content
   if( strGameplayRole == 'player' ) {
     if( strMyGameRole == 'player' ) {
       if( objGameSettings.showPlayer == 0 && objTracking.id != window[ appAlias ].playerId ) return;
 
       strMarkerContent   += '<p class="bold">' + objTracking.name + '</p>';
 
-      if( objSpeedHuntState.speedHuntCount > 0 ) {
-        strMarkerContent   += '<p>' + objSpeedHuntState.message + strSpeedHuntMessage + '</p>';
-      } else {
-        strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
-      }
-
-      if( objTracking.id == window[ appAlias ].playerId ) {
+      if( objTracking.id == window[ appAlias ].playerId && window[ appAlias ].gameplayState.isRunning ) {
         strCapturedMessage = '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].methods.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>';
       }
     } else if( strMyGameRole == 'hunter' ) {
       strPlayerName = objGameSettings.showNames == '1' ? objTracking.name : 'Spieler ' + intPlayerCount;
 
-      if( arrAffectedPlayer.includes( objTracking.id ) ) strMarkerColor = strAffectedColor;
+      if( arrAffectedPlayer.includes( objTracking.id ) ) {
+        strMarkerColor    = strAffectedColor;
+        strMarkerCssClass = 'game-marker-alarm';
+      }
 
       if( objSpeedHuntState.speedHuntCount == -1 ) {
         strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
-        strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
-      } else if( objSpeedHuntState.speedHuntCount == 0 ) {
+      } else if( objSpeedHuntState.speedHuntCount == 0 && window[ appAlias ].gameplayState.isRunning ) {
         strMarkerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
         strMarkerContent   += strPlayerName;
         strMarkerContent   += '</p>';
-        strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
       } else {
-        if( objTracking.id == objSpeedHuntState.playerId ) {
+        if( objTracking.id == objSpeedHuntState.playerId && window[ appAlias ].gameplayState.isRunning ) {
           strMarkerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].methods.gameplay.speedHunt(\'' + objTracking.id + '\');">';
           strMarkerContent   += strPlayerName;
           strMarkerContent   += '</p>';
           strMarkerColor      = strAffectedColor;
+          strMarkerCssClass   = 'game-marker-alarm';
         } else {
           strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
         }
-
-        strMarkerContent   += '<p>' + objSpeedHuntState.message.slice(0, -1) + ' auf ' + strSpeedHuntPlayer + '.' + strSpeedHuntMessage + '</p>';
       }
     } else {
+      strPlayerName       = objGameSettings.showNames == '1' ? objTracking.name : objTracking.name + ' (Spieler ' + intPlayerCount + ')';
       strMarkerContent   += '<p class="bold">' + strPlayerName + '</p>';
 
       if( arrAffectedPlayer.includes( objTracking.id ) ) strMarkerColor = strAffectedColor;
 
-      if( objSpeedHuntState.speedHuntCount > 0 ) {
-        if( objTracking.id == objSpeedHuntState.playerId ) strMarkerColor = strAffectedColor;
-
-        strMarkerContent   += '<p>' + objSpeedHuntState.message.slice(0, -1) + ' auf ' + objSpeedHuntState.playerName + '.' + strSpeedHuntMessage + '</p>';
-      } else {
-        strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
+      if( objSpeedHuntState.speedHuntCount > 0 && objTracking.id == objSpeedHuntState.playerId ) {
+        strMarkerColor    = strAffectedColor;
+        strMarkerCssClass = 'game-marker-alarm';
       }
     }
 
-    strMarkerContent   += '<p>' + strSilentHuntMessage + '</p>';
     strMarkerContent   += '<p>Rolle: Spieler</p>';
+    strMarkerContent   += '<p>' + objSpeedHuntState.message + '</p>';
+    strMarkerContent   += '<p>' + strSilentHuntMessage + '</p>';
   } else if( strGameplayRole == 'hunter' ) {
     if( strMyGameRole == 'player' ) return;
     strMarkerContent   += '<p class="bold">' + objTracking.name + '</p>';
@@ -613,11 +620,13 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
     strMarkerContent   += '<p>Rolle: Spielleitung</p>';
   }
 
-  strMarkerContent   += '<p>Letztes Tracking: ' + window[ appAlias ].methods.gameplay.timestampToDateTimeString( objLastPosition.timestamp, 'time' ) + ' Uhr</p>';
+  strMarkerContent   += '<p>Letztes Tracking: ' + window[ appAlias ].methods.timestampPhpToString( objLastPosition.timestamp, true ) + ' Uhr</p>';
   strMarkerContent   += '<p>Genauigkeit: ' + objLastPosition.precision + ' Meter</p>';
   strMarkerContent   += strCapturedMessage;
 
   window[ appAlias ].tracker.geoMapsObject.setMarker( objTracking.id, strGameplayRole, strMarkerColor, objLastPosition.lat, objLastPosition.lng, strMarkerContent );
+
+  if( strMarkerCssClass ) window[ appAlias ].tracker.geoMapsObject.addMarkerCssClass( objTracking.id, strMarkerCssClass );
 
   return;
 };
@@ -645,40 +654,10 @@ window[ appAlias ].methods.gameplay.speedHunt = function( strSpeedHuntPlayerId )
   objPost.gameplayMethode   = 'speedHunt';
   objPost.callback          = 'setPositions';
   objPost.playerId          = window[ appAlias ].playerId;
-  objPost.speedHuntPlayerId = strSpeedHuntPlayerId
+  objPost.speedHuntPlayerId = strSpeedHuntPlayerId;
   objPost.timestamp         = new Date().getTime();
 
   return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
-};
-
-/**
- * This Function format a Timestamp to a Human readable Format.
- *
- * @function
- * @public
- * @name       timestampToDateTimeString
- * @memberof   friendshunt
- * @access     public
- * @since      2026-06-06
- * @version    0.1.0
- *
- * @param      {string}   strTimestamp          The Timestamp
- * @param      {string}   strFormat             The Result Format ( date -> only Date, time -> only Time and datetime -> full Datetime )
- * @return     {string}   strFormatedDateTime   The formated, human readable DateTime String
- *
- * @example    var strFormatedDateTime = window[ appAlias ].methods.gameplay.timestampToDateTimeString( strTimestamp, strFormat );
- *
-*/
-window[ appAlias ].methods.gameplay.timestampToDateTimeString = function( strTimestamp, strFormat ) {
-  const objDateTime = new Date( strTimestamp * 1000 );
-
-  if( strFormat == 'date' ) {
-    return objDateTime.toLocaleDateString( 'de-DE' );
-  } else if( strFormat == 'time' ) {
-    return objDateTime.toLocaleTimeString( 'de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' } );
-  }
-
-  return objDateTime.toLocaleString( 'de-DE' );
 };
 
 /**
@@ -808,7 +787,7 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
     }
 
     strContent += objMessage.message;
-    strContent += '<p class="game-message-footer">' + strPlayerName + ' (' + window[ appAlias ].methods.gameplay.timestampToDateTimeString( objMessage.timestamp, '' ) + ')</p>';
+    strContent += '<p class="game-message-footer">' + strPlayerName + ' (' + window[ appAlias ].methods.timestampPhpToString( objMessage.timestamp ) + ')</p>';
     strContent += '</div></div>';
   }
 
@@ -827,6 +806,153 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
 
   return;
 }
+
+/**
+ * This Function get the Gameplay Tracking Data over a Ajax Request from all Players for the Game Replay and set it on a window Variable.
+ * The Callback Function of the Ajax Request is generateReplay.
+ *
+ * @function
+ * @public
+ * @name       getGameReplay
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ *
+ * @return     {void}   strFormatedDateTime   The formated, human readable DateTime String
+ *
+ * @example    window[ appAlias ].methods.gameplay.getGameReplay();
+ *
+*/
+window[ appAlias ].methods.gameplay.getGameReplay = function() {
+  if( typeof window[ appAlias ].gameplayReplay == 'object' && window[ appAlias ].gameplayReplay != null ) {
+    window[ appAlias ].methods.gameplay.replay();
+    return;
+  }
+
+  var objPost             = { 'class': 'Game', 'id': window[ appAlias ].id, 'methode': 'gameplay' };
+  objPost.gameplayMethode = 'statistic';
+  objPost.callback        = 'generateReplay';
+
+  return window[ appAlias ].methods.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, objPost, 'proccessResponse' );
+};
+
+/**
+ * This Function is the Callback Function from the getGameReplay Function and generate the Game Play Replay Object and set it on a window Variable.
+ * After the Function is done, the Function starts the Replay of the Game in the Map.
+ *
+ * @function
+ * @public
+ * @name       generateReplay
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ *
+ * @param      {object}   objResponse   The Response Object of the Ajax Request
+ * @return     {void}
+ *
+ * @example    window[ appAlias ].methods.gameplay.generateReplay( objResponse );
+ *
+*/
+window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
+  objResponse      = objResponse.result;
+
+  var objReplay    = {
+    'roles': { 'player': 'Spieler', 'hunter': 'Jäger', 'management': 'Spielleitung' },
+    'names': {},
+    'trackings': []
+  };
+
+  for( var strRole in objReplay.roles ) {
+    for( var i = 0; i < objResponse.gameplay[ strRole ].length; i++ ) {
+      objReplay.names[ objResponse.gameplay[ strRole ][ i ].id ] = {
+        'id': objResponse.gameplay[ strRole ][ i ].id,
+        'name': objResponse.gameplay[ strRole ][ i ].name,
+        'role': strRole,
+        'roleName': objReplay.roles[ strRole ]
+      };
+    }
+  }
+
+  for( var strRole in objReplay.roles ) {
+    var objTrackings     = objResponse.positions[ strRole ];
+    var intPlayerCounter = -1;
+
+    for( var strPlayerId in objTrackings ) {
+      var arrTracking = objResponse.positions[ strRole ][ strPlayerId ];
+
+      intPlayerCounter++;
+
+      for( var i = 0; i < arrTracking.length; i++ ) {
+        arrTracking[ i ].role        = strRole;
+        arrTracking[ i ].roleName    = objReplay.roles[ strRole ];
+        arrTracking[ i ].playerId    = strPlayerId;
+        arrTracking[ i ].playerName  = objReplay.names[ strPlayerId ].name;
+        arrTracking[ i ].playerCount = intPlayerCounter;
+
+        objReplay.trackings.push( arrTracking[ i ] );
+      }
+    }
+  }
+
+  objReplay.trackings.sort( function( objA, objB ) {
+    return objA.timestamp - objB.timestamp;
+  } );
+
+  window[ appAlias ].gameplayReplay = objReplay;
+
+  window[ appAlias ].methods.gameplay.replay();
+
+  return;
+};
+
+/**
+ * This Function get the Game Replay Object from the window Variable and play the Gameplay on the Map.
+ *
+ * @function
+ * @public
+ * @name       replay
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ *
+ * @return     {void}
+ *
+ * @example    window[ appAlias ].methods.gameplay.replay( objResponse );
+ *
+*/
+window[ appAlias ].methods.gameplay.replay = function() {
+  var arrColors        = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
+  var arrTrackings     = window[ appAlias ].gameplayReplay.trackings;
+  var intTrackingIndex = 0;
+
+  var objReplayTimer   = setInterval( function() {
+    if ( intTrackingIndex >= arrTrackings.length ) {
+      clearInterval( objReplayTimer );
+      console.log( 'Replay beendet.' );
+
+      objReplayTimer = null;
+
+      return;
+    }
+
+    window[ appAlias ].tracker.geoMapsObject.setMarker(
+      arrTrackings[ intTrackingIndex ].playerId,
+      arrTrackings[ intTrackingIndex ].role,
+      arrColors[ arrTrackings[ intTrackingIndex ].playerCount ],
+      arrTrackings[ intTrackingIndex ].lat,
+      arrTrackings[ intTrackingIndex ].lng,
+      ''
+    );
+
+    intTrackingIndex++;
+
+  }, 200 );
+
+  return;
+};
 
 
 
