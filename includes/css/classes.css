@@ -16,7 +16,7 @@
 
 .bold { font-weight: 600 }
 
-.hidden { display: none; }
+body .hidden { display: none; }
 
 .pointer { cursor: pointer; }
 

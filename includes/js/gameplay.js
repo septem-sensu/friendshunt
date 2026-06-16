@@ -485,15 +485,9 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
 
   // Replay Button
   if( intTimeStampNow > window[ appAlias ].gameplayState.timestampEnd && document.querySelector( '#gameplay-button-replay' ) == null ) {
-    var objReplayButton       = document.createElement( 'button' );
+    document.querySelector( '.game-permission-pedometer' ).classList.add( 'hidden' );
 
-    objReplayButton.id        = 'gameplay-button-replay';
-    objReplayButton.innerHTML = '▶&nbsp;&nbsp;Replay abspielen';
 
-    objReplayButton.setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.gameReplay();' );
-    objReplayButton.classList.add( 'success' );
-
-    document.querySelector( '.content' ).append( objReplayButton );
   }
 
   return;
@@ -974,127 +968,11 @@ window[ appAlias ].methods.gameplay.replay = function() {
   var arrCaptured      = [];
   var objSpeedhunts    = {};
 
-  console.log('TEST');
-
- var objPlayer = new ReplayPlayer( window[ appAlias ].gameplayReplay.trackings );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  var objPlayer = new ReplayPlayer( window[ appAlias ].gameplayReplay.trackings );
 
   return;
 
-
-
-  if( objReplayButton != null ) {
-    objReplayButton.classList.remove( 'success' );
-    objReplayButton.classList.add( 'danger' );
-    objReplayButton.setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.replayStop();' );
-
-    objReplayButton.innerHTML = '⏹&nbsp;&nbsp;Replay stoppen'
-  }
-
-  window[ appAlias ].tracker.gameplayReplayTimer = setInterval( function() {
-    if ( intTrackingIndex >= arrTrackings.length ) {
-      clearInterval( window[ appAlias ].tracker.gameplayReplayTimer );
-      if( window[ appAlias ].debug ) console.log( 'Replay beendet.' );
-
-      window[ appAlias ].tracker.gameplayReplayTimer = null;
-
-      window[ appAlias ].methods.gameplay.replayStop();
-
-      return;
-    }
-
-    if( arrTrackings[ intTrackingIndex ].type == 'tracking' ) {
-      if( ! arrCaptured.includes( arrTrackings[ intTrackingIndex ].playerId ) ) {;
-        var strColor    = arrColors[ arrTrackings[ intTrackingIndex ].playerCount ];
-        var strCssClass = '';
-
-        if( typeof objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] == 'number' ) {
-          objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] = objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] - 1;
-          if( objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] <= 0 ) delete objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ];
-
-          strColor    = '#ff0000';
-          strCssClass = 'game-marker-alarm';
-        }
-
-        window[ appAlias ].tracker.geoMapsObject.setMarker(
-          arrTrackings[ intTrackingIndex ].playerId,
-          arrTrackings[ intTrackingIndex ].role,
-          strColor,
-          arrTrackings[ intTrackingIndex ].lat,
-          arrTrackings[ intTrackingIndex ].lng,
-          '',
-          arrTrackings[ intTrackingIndex ].playerName,
-          strCssClass
-        );
-      }
-    }
-
-    if( arrTrackings[ intTrackingIndex ].type == 'capture' ) {
-      window[ appAlias ].tracker.geoMapsObject.removeMarker( arrTrackings[ intTrackingIndex ].playerId );
-      arrCaptured( arrTrackings[ intTrackingIndex ].playerId );
-    }
-
-    if( arrTrackings[ intTrackingIndex ].type == 'speedhunt' ) {
-      objSpeedhunts[ arrTrackings[ intTrackingIndex ].playerId ] = 5;
-    }
-
-    intTrackingIndex++;
-
-  }, window[ appAlias ].gameSettings.replaySpeed );
-
-  return;
 };
-
-/**
- * This Function stoped the replay Gameplay on the Map.
- *
- * @function
- * @public
- * @name       replayStop
- * @memberof   friendshunt
- * @access     public
- * @since      2026-06-06
- * @version    0.1.0
- *
- * @return     {void}
- *
- * @example    window[ appAlias ].methods.gameplay.replayStop( objResponse );
- *
-*/
-window[ appAlias ].methods.gameplay.replayStop = function() {
-  var objReplayButton  = document.querySelector( '#gameplay-button-replay' );
-
-  clearInterval( window[ appAlias ].tracker.gameplayReplayTimer );
-  window[ appAlias ].tracker.gameplayReplayTimer = null;
-
-  if( objReplayButton == null ) return;
-
-  objReplayButton.classList.remove( 'danger' );
-  objReplayButton.classList.add( 'success' );
-  objReplayButton.setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.gameReplay();' );
-
-  objReplayButton.innerHTML = '▶&nbsp;&nbsp;Replay abspielen'
-
-  return;
-}
 
 
 
