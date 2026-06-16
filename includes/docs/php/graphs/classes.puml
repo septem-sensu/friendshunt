@@ -84,6 +84,7 @@ class Game {
   +showNames
   +playingFieldCenterPosition
   +playingFieldSize
+  +sanctionForVehicleUse
   +addGameImage()
   +deleteGameImage()
   +avatarFileUploaded()

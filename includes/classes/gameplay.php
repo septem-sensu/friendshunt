@@ -1001,22 +1001,18 @@ class Gameplay extends Game {
     $intSpeedHuntCount                                                  = count( $this->gameplayObject->speedHunt->timestamps );
     $strSpeedHuntPlayerId                                               = $this->gameplayObject->speedHunt->playerId;
     $objPlayer                                                          = new Player( $strSpeedHuntPlayerId );
-    $objRequestObject->positions                                        = new stdClass();
-    $objTracking                                                        = $this->getPlayerPosition( $objPlayer, 1 );
-    $objRequestObject->positions->player                                = [ $objTracking ];
-    $objRequestObject->positions->hunter                                = [];
-    $objRequestObject->positions->management                            = [];
-    $this->gameplayObject->silentHunt->tracking->$strSpeedHuntPlayerId  = $objTracking;
+    $this->gameplayObject->silentHunt->tracking->$strSpeedHuntPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
 
-    $objState                    = new stdClass();
-    $objState                    = $this->getGameplayState( $objState );
-    $objState                    = $this->silentHunt( $objState );
-    $objState                    = $this->getGameplaySpeedHunt( $objState );
-    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
-    $objRequestObject->state     = $objState;
-    $objRequestObject->settings  = $this->gameSettings;
-    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
-    $objRequestObject->messages  = $this->messages->messages;
+    $objState                                                           = new stdClass();
+    $objState                                                           = $this->getGameplayState( $objState );
+    $objState                                                           = $this->silentHunt( $objState );
+    $objState                                                           = $this->getGameplaySpeedHunt( $objState );
+    $objState                                                           = $this->checkRulesAndAddSystemMessages( $objState );
+    $objRequestObject->positions                                        = $this->getAllPlayerPositions();
+    $objRequestObject->state                                            = $objState;
+    $objRequestObject->settings                                         = $this->gameSettings;
+    $objRequestObject->gameRole                                         = $this->currentPlayerGameRole;
+    $objRequestObject->messages                                         = $this->messages->messages;
 
     if( $intSpeedHuntCount >= $this->gameplayObject->speedPingCount ) {
       $this->gameplayObject->lastSpeedHunt = time();

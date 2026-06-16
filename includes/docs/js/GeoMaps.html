@@ -216,6 +216,184 @@
             
 <hr>
 <dt>
+    <h4 class="name" id="addMarkerCssClass"><span class="type-signature"></span>addMarkerCssClass(id, cssClass)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Method add a css Class to a Marker Icon.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Game Player Id (Marker Id)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cssClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The css Class to add the Marker Icon</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">objGeoMaps.addMarkerCssClass( id, cssClass );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="bindResizeEvents"><span class="type-signature"></span>bindResizeEvents(id, selectorRadius)</h4>
     
     
@@ -276,7 +454,7 @@
 
             
 
-            <td class="description last">The Game Player Id</td>
+            <td class="description last">The Game Player Id (Circle Id)</td>
         </tr>
 
     
@@ -385,6 +563,188 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">objGeoMaps.bindResizeEvents( id, selectorRadius );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="containsMarkerCssClass"><span class="type-signature"></span>containsMarkerCssClass(id, cssClass)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Method check a Marker Icon whether contains a css Class.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Game Player Id (Marker Id)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cssClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The css Class to remove from the Marker Icon</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    objResult  Contains the css Class at the Marker Icon
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">objResult = objGeoMaps.containsMarkerCssClass( id, cssClass );</pre>
 
 
     
@@ -1228,6 +1588,184 @@
             
 <hr>
 <dt>
+    <h4 class="name" id="removeMarkerCssClass"><span class="type-signature"></span>removeMarkerCssClass(id, cssClass)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Method remove a css Class from a Marker Icon.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Game Player Id (Marker Id)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cssClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The css Class to remove from the Marker Icon</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">objGeoMaps.removeMarkerCssClass( id, cssClass );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="set"><span class="type-signature"></span>set(property, value)</h4>
     
     
@@ -1466,7 +2004,7 @@
 
             
 
-            <td class="description last">The Game Player Id</td>
+            <td class="description last">The Game Player Id (Circle Id)</td>
         </tr>
 
     
@@ -1788,7 +2326,7 @@
 
             
 
-            <td class="description last">The Game Player Id</td>
+            <td class="description last">The Game Player Id (Circle Id)</td>
         </tr>
 
     
@@ -2292,7 +2830,7 @@
 
             
 
-            <td class="description last">The Game Player Id</td>
+            <td class="description last">The Game Player Id (Marker Id)</td>
         </tr>
 
     
@@ -2566,7 +3104,7 @@
 
             
 
-            <td class="description last">The Game Player Id</td>
+            <td class="description last">The Game Player Id (Marker Id)</td>
         </tr>
 
     
@@ -2802,7 +3340,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-15T13:26:09+02:00
+		on 2026-06-16T13:42:56+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

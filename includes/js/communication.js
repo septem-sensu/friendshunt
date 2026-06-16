@@ -171,7 +171,7 @@ window[ appAlias ].methods._request = function( objRequest ) {
       if( objXhr.status === 200 ) {
         window[ appAlias ].responses.push( JSON.parse( objXhr.responseText ) );
 
-        if( window[ appAlias ].responses.length > 100 ) window[ appAlias ].responses = window[ appAlias ].responses.splice( 0, 50 );
+        if( window[ appAlias ].responses.length > 20 ) window[ appAlias ].responses = window[ appAlias ].responses.splice( 0, 10 );
 
         if( typeof objRequest.callback == 'string' && objRequest.callback != '' ) {
           window[ appAlias ].methods[ objRequest.callback ]( JSON.parse( objXhr.responseText ) );

@@ -481,6 +481,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Game.html#property_playingFieldSize"
         },                {
+            "fqsen": "\\Game\u003A\u003A\u0024sanctionForVehicleUse",
+            "name": "sanctionForVehicleUse",
+            "summary": "",
+            "url": "classes/Game.html#property_sanctionForVehicleUse"
+        },                {
             "fqsen": "\\Gameplay",
             "name": "Gameplay",
             "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",

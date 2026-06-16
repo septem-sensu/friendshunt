@@ -461,7 +461,7 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
   } else {
     if( window[ appAlias ].gameplayState.speedHuntState.speedHuntCount > 0 ) {
       if( window[ appAlias ].gameplayRole != 'hunter' ) strStateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">';
-      strStateLine += 'Es läuft ein Speedhunt. Ping ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCount + ' von ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCountMax + '.';
+      strStateLine += 'Es läuft ein Speedhunt, Ping ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCount + ' von ' + window[ appAlias ].gameplayState.speedHuntState.speedHuntCountMax + '. ';
       if( window[ appAlias ].gameplayRole != 'hunter' ) strStateLine += '</span> ';
     } else {
       if( typeof window[ appAlias ].gameplayState.speedHuntState.next != 'undefined' ) {
@@ -482,6 +482,19 @@ window[ appAlias ].methods.gameplay.setStateLine = function() {
   }
 
   document.querySelector( '#game-scrolling-info-text' ).innerHTML = strStateLine;
+
+  // Replay Button
+  if( intTimeStampNow > window[ appAlias ].gameplayState.timestampEnd && document.querySelector( '#gameplay-button-replay' ) == null ) {
+    var objReplayButton       = document.createElement( 'button' );
+
+    objReplayButton.id        = 'gameplay-button-replay';
+    objReplayButton.innerHTML = '▶&nbsp;&nbsp;Replay abspielen';
+
+    objReplayButton.setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.gameReplay();' );
+    objReplayButton.classList.add( 'success' );
+
+    document.querySelector( '.content' ).append( objReplayButton );
+  }
 
   return;
 }
@@ -519,10 +532,10 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
   var objSpeedHuntState    = objGameState.speedHuntState;
   var strMyGameRole        = objResult.gameRole;
   var strMarkerContent     = '';
-  var strSpeedHuntMessage  = '';
   var strCapturedMessage   = '';
   var strSilentHuntMessage = '';
   var strMarkerColor       = arrColors[ intPlayerCount ];
+  var intTimestampNow      = Date.now() / 1000;
 
   // Marker Message: Speed Hunt
   if( objSpeedHuntState.speedHuntCount > 0 ) {
@@ -534,18 +547,18 @@ window[ appAlias ].methods.gameplay.setPosition = function( strGameplayRole, obj
       } else {
         objSpeedHuntState.message = 'Der nächste Speedhunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
       }
+    } else if( intTimestampNow > window[ appAlias ].gameSettings.end ) {
+      objSpeedHuntState.message = 'Das Spiel ist zu Ende. Es gibt keinen Speed Hunt mehr. ';
     } else {
       objSpeedHuntState.message = 'Speedhunt ist verfügbar. ';
     }
   }
 
-  if( objSpeedHuntState.speedHuntCount > 0 ) {
-    strSpeedHuntMessage = ' Ping ' + objSpeedHuntState.speedHuntCount + ' von ' + objSpeedHuntState.speedHuntCountMax + '.';
-  }
-
   // Marker Message: Silent Hunt
   if( window[ appAlias ].gameplayState.nextSilentHunt >= window[ appAlias ].gameSettings.end ) {
     strSilentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+  } else if( intTimestampNow > window[ appAlias ].gameSettings.end ) {
+    strSilentHuntMessage += 'Das Spiel ist zu Ende. Es gibt keinen Silent Hunt mehr. ';
   } else {
     strSilentHuntMessage += 'Der nächste Silent Hunt ist am ' + window[ appAlias ].methods.timestampPhpToString( window[ appAlias ].gameplayState.nextSilentHunt ) + ' Uhr. ';
   }
@@ -813,7 +826,7 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
  *
  * @function
  * @public
- * @name       getGameReplay
+ * @name       gameReplay
  * @memberof   friendshunt
  * @access     public
  * @since      2026-06-06
@@ -821,10 +834,10 @@ window[ appAlias ].methods.gameplay.setMessages = function() {
  *
  * @return     {void}   strFormatedDateTime   The formated, human readable DateTime String
  *
- * @example    window[ appAlias ].methods.gameplay.getGameReplay();
+ * @example    window[ appAlias ].methods.gameplay.gameReplay();
  *
 */
-window[ appAlias ].methods.gameplay.getGameReplay = function() {
+window[ appAlias ].methods.gameplay.gameReplay = function() {
   if( typeof window[ appAlias ].gameplayReplay == 'object' && window[ appAlias ].gameplayReplay != null ) {
     window[ appAlias ].methods.gameplay.replay();
     return;
@@ -857,6 +870,8 @@ window[ appAlias ].methods.gameplay.getGameReplay = function() {
 */
 window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
   objResponse      = objResponse.result;
+
+  if( window[ appAlias ].debug ) console.log( 'generateReplay Response: ', objResponse );
 
   var objReplay    = {
     'roles': { 'player': 'Spieler', 'hunter': 'Jäger', 'management': 'Spielleitung' },
@@ -924,16 +939,28 @@ window[ appAlias ].methods.gameplay.generateReplay = function( objResponse ) {
  *
 */
 window[ appAlias ].methods.gameplay.replay = function() {
+  var intReplaySpeed   = 400;
   var arrColors        = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
   var arrTrackings     = window[ appAlias ].gameplayReplay.trackings;
+  var objReplayButton  = document.querySelector( '#gameplay-button-replay' );
   var intTrackingIndex = 0;
 
-  var objReplayTimer   = setInterval( function() {
-    if ( intTrackingIndex >= arrTrackings.length ) {
-      clearInterval( objReplayTimer );
-      console.log( 'Replay beendet.' );
+  if( objReplayButton != null ) {
+    objReplayButton.classList.remove( 'success' );
+    objReplayButton.classList.add( 'danger' );
+    objReplayButton.setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.replayStop();' );
 
-      objReplayTimer = null;
+    objReplayButton.innerHTML = '⏹&nbsp;&nbsp;Replay stoppen'
+  }
+
+  window[ appAlias ].tracker.gameplayReplayTimer = setInterval( function() {
+    if ( intTrackingIndex >= arrTrackings.length ) {
+      clearInterval( window[ appAlias ].tracker.gameplayReplayTimer );
+      if( window[ appAlias ].debug ) console.log( 'Replay beendet.' );
+
+      window[ appAlias ].tracker.gameplayReplayTimer = null;
+
+      window[ appAlias ].methods.gameplay.replayStop();
 
       return;
     }
@@ -949,12 +976,43 @@ window[ appAlias ].methods.gameplay.replay = function() {
 
     intTrackingIndex++;
 
-  }, 200 );
+  }, intReplaySpeed );
 
   return;
 };
 
+/**
+ * This Function stoped the replay Gameplay on the Map.
+ *
+ * @function
+ * @public
+ * @name       replayStop
+ * @memberof   friendshunt
+ * @access     public
+ * @since      2026-06-06
+ * @version    0.1.0
+ *
+ * @return     {void}
+ *
+ * @example    window[ appAlias ].methods.gameplay.replayStop( objResponse );
+ *
+*/
+window[ appAlias ].methods.gameplay.replayStop = function() {
+  var objReplayButton  = document.querySelector( '#gameplay-button-replay' );
 
+  clearInterval( window[ appAlias ].tracker.gameplayReplayTimer );
+  window[ appAlias ].tracker.gameplayReplayTimer = null;
+
+  if( objReplayButton == null ) return;
+
+  objReplayButton.classList.remove( 'danger' );
+  objReplayButton.classList.add( 'success' );
+  objReplayButton.setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.gameReplay();' );
+
+  objReplayButton.innerHTML = '▶&nbsp;&nbsp;Replay abspielen'
+
+  return;
+}
 
 
 

@@ -108,6 +108,18 @@ body, html {
     left: calc(50% - 189px);
   }
 
+  body #gameplay-button-replay {
+    left: calc(50% - 185px);
+  }
+
+}
+
+#gameplay-button-replay {
+  position: fixed;
+  top: 58px;
+  left: calc(50% - 289px);
+  z-index: 4000;
+  width: 170px;
 }
 
 .game-my-own-marker svg {
@@ -252,7 +264,7 @@ body, html {
   position: relative;
   animation: moveTicker 20s linear infinite;
   font-size: 19px;
-  top: -2px;
+  top: 0px;
   opacity: 0.8;
 }
 
