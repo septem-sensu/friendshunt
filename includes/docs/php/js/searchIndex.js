@@ -193,7 +193,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller\u003A\u003Aexecute\u0028\u0029",
             "name": "execute",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020Main\u0020Methode\u0020of\u0020the\u0020Controler\u0020Class\u0020and\u0020controls\u0020the\u0020Requests\u0020and\u0020the\u0020Response.",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020Main\u0020Method\u0020of\u0020the\u0020Controler\u0020Class\u0020and\u0020controls\u0020the\u0020Requests\u0020and\u0020the\u0020Response.",
             "url": "classes/Controller.html#method_execute"
         },                {
             "fqsen": "\\Controller\u003A\u003AcheckRole\u0028\u0029",
@@ -203,12 +203,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller\u003A\u003Aview\u0028\u0029",
             "name": "view",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020View\u0020Methode\u0020for\u0020the\u0020Response\u0020Content.",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020View\u0020Method\u0020for\u0020the\u0020Response\u0020Content.",
             "url": "classes/Controller.html#method_view"
         },                {
             "fqsen": "\\Controller\u003A\u003Ajson\u0028\u0029",
             "name": "json",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020JSON\u0020View\u0020Methode\u0020for\u0020the\u0020Json\u0020Content.",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020JSON\u0020View\u0020Method\u0020for\u0020the\u0020Json\u0020Content.",
             "url": "classes/Controller.html#method_json"
         },                {
             "fqsen": "\\Controller\u003A\u003AsavePostData\u0028\u0029",
@@ -218,7 +218,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller\u003A\u003AcheckPermissions\u0028\u0029",
             "name": "checkPermissions",
-            "summary": "This\u0020Method\u0020checked\u0020the\u0020System\u0020Role\u0020of\u0020the\u0020current\u0020User\u0020for\u0020a\u0020Methode\u0020in\u0020a\u0020Class.",
+            "summary": "This\u0020Method\u0020checked\u0020the\u0020System\u0020Role\u0020of\u0020the\u0020current\u0020User\u0020for\u0020a\u0020Method\u0020in\u0020a\u0020Class.",
             "url": "classes/Controller.html#method_checkPermissions"
         },                {
             "fqsen": "\\Controller\u003A\u003AresponseData\u0028\u0029",
@@ -363,7 +363,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Game\u003A\u003AarchiveGame\u0028\u0029",
             "name": "archiveGame",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020Game\u0020Archive\u0020Methode\u0020and\u0020moved\u0020all\u0020Files\u0020in\u0020the\u0020Archive\u0020Folder.",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020Game\u0020Archive\u0020Method\u0020and\u0020moved\u0020all\u0020Files\u0020in\u0020the\u0020Archive\u0020Folder.",
             "url": "classes/Game.html#method_archiveGame"
         },                {
             "fqsen": "\\Game\u003A\u003Agameplay\u0028\u0029",
@@ -508,7 +508,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay\u003A\u003AsetStatisticProperty\u0028\u0029",
             "name": "setStatisticProperty",
-            "summary": "This\u0020Method\u0020is\u0020a\u0020Helper\u0020Methode\u0020and\u0020set\u0020the\u0020Property\u0020Values\u0020to\u0020the\u0020Set\u0020Object\u0020for\u0020the\u0020Player\u0020Object.",
+            "summary": "This\u0020Method\u0020is\u0020a\u0020Helper\u0020Method\u0020and\u0020set\u0020the\u0020Property\u0020Values\u0020to\u0020the\u0020Set\u0020Object\u0020for\u0020the\u0020Player\u0020Object.",
             "url": "classes/Gameplay.html#method_setStatisticProperty"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AaddTracking\u0028\u0029",
@@ -713,7 +713,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Player\u003A\u003Asetup\u0028\u0029",
             "name": "setup",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020Setup\u0020Routine\u0020for\u0020the\u0020App.\u0020The\u0020Methode\u0020genedoes\u0020the\u0020following\u003A\n\u002D\u0020creates\u0020the\u0020dataPlayer.json\u0020file\u0020with\u0020the\u0020Admininistrator\u0020Data\u0020from\u0020the\u0020Setup\u0020Form\n\u002D\u0020creates\u0020the\u0020dataGame.json\n\u002D\u0020creates\u0020the\u0020Player\u0020File\u0020Directory\u0020and\u0020copies\u0020the\u0020default\u0020Avatar\u0020in\u0020the\u0020Directory\n\u002D\u0020set\u0020the\u0020Prephases\u0020in\u0020the\u0020PHP\u0020Config\u0020Package",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020Setup\u0020Routine\u0020for\u0020the\u0020App.\u0020The\u0020Method\u0020genedoes\u0020the\u0020following\u003A\n\u002D\u0020creates\u0020the\u0020dataPlayer.json\u0020file\u0020with\u0020the\u0020Admininistrator\u0020Data\u0020from\u0020the\u0020Setup\u0020Form\n\u002D\u0020creates\u0020the\u0020dataGame.json\n\u002D\u0020creates\u0020the\u0020Player\u0020File\u0020Directory\u0020and\u0020copies\u0020the\u0020default\u0020Avatar\u0020in\u0020the\u0020Directory\n\u002D\u0020set\u0020the\u0020Prephases\u0020in\u0020the\u0020PHP\u0020Config\u0020Package",
             "url": "classes/Player.html#method_setup"
         },                {
             "fqsen": "\\Player\u003A\u003AgetPlayerList\u0028\u0029",

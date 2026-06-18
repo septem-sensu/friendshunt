@@ -31,12 +31,13 @@ class GeoTracker {
       maximumAge: 0              // Keinen alten Cache-Wert nutzen, sondern live abfragen
     }
 
-    this.trackInterval = typeof window[ appAlias ].gameSettings == 'object' && typeof window[ appAlias ].gameSettings.trackInterval != 'undefined' ? window[ appAlias ].gameSettings.trackInterval * 1000 : 60000;
-    this.stepCount     = 0;
-    this.lastPulse     = 0;
-    this.wakeLock      = null;
-    this.debug         = window[ appAlias ].debug ? true : false;
-    this.caller        = null;
+    this.trackInterval      = typeof window[ appAlias ].gameSettings == 'object' && typeof window[ appAlias ].gameSettings.trackInterval != 'undefined' ? window[ appAlias ].gameSettings.trackInterval * 1000 : 60000;
+    this.stepCount          = 0;
+    this.lastPulse          = 0;
+    this.wakeLock           = null;
+    this.debug              = window[ appAlias ].debug ? true : false;
+    this.caller             = null;
+    this.intervalTrackingId = null
 
     return;
   }
@@ -96,7 +97,9 @@ class GeoTracker {
           if( this.debug ) console.log(`Erfolg! Breitengrad: ${lat}, Längengrad: ${lng}`);
           if( this.debug ) console.log(`Genauigkeit: ${precision} Meter`);
 
-          window[ appAlias ].methods.gameplay[ callbackSuccess ]( lat, lng, precision, {} );
+          callbackSuccess( lat, lng, precision, {} );
+
+          //window[ appAlias ].methods.gameplay[ callbackSuccess ]( lat, lng, precision, {} );
         },
         ( error ) => {
             // Fehlerbehandlung (z.B. wenn der Nutzer die Freigabe abgelehnt hat)
@@ -134,10 +137,13 @@ class GeoTracker {
  *
  */
   startIntervalTracking( callbackSuccess ) {
-    if( typeof window[ appAlias ].tracker.intervalTrackingId != 'undefined' && window[ appAlias ].tracker.intervalTrackingId != null ) return;
+    //if( typeof window[ appAlias ].tracker.intervalTrackingId != 'undefined' && window[ appAlias ].tracker.intervalTrackingId != null ) return;
     if( this.debug ) console.log( 'Tracking läuft... Intervall: ' + this.trackInterval + ' ms' );
 
-    window[ appAlias ].tracker.intervalTrackingId = setInterval( () => this.getCurrentPosition( callbackSuccess ), this.trackInterval );
+    this.intervalTrackingId = setInterval(
+      this.getCurrentPosition.bind(this, callbackSuccess),
+      this.trackInterval
+    );
 
     return;
   }
@@ -213,7 +219,7 @@ class GeoTracker {
  *
  */
   startPedometer() {
-    if( this.debug ) window.log( 'Pedo gestartet' );
+    if( this.debug ) Utils.log( 'Pedo gestartet' );
 
     this.lastPulse = Date.now();
 
@@ -227,7 +233,7 @@ class GeoTracker {
       if( totalAcceleration > 12 && ( Date.now() - this.lastPulse > 300 ) ) {
         this.stepCount++;
 
-        if( this.debug ) window.log( 'Schritte: ' + this.stepCount );
+        if( this.debug ) Utils.log( 'Schritte: ' + this.stepCount );
         if( this.debug ) console.log( 'Schritte: ' + this.stepCount );
 
         this.lastPulse = Date.now();

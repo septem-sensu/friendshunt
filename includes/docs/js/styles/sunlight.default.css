@@ -344,7 +344,7 @@
 }#toc {
   position: absolute !important;
   left: calc(50% - 520px - 182px);
-  top: 800px !important;               /* Position of the Methods Menu on the Left Side */
+  top: 700px !important;               /* Position of the Methods Menu on the Left Side */
   width: 320px !important;
   height: unset !important;
   max-height: unset !important;
@@ -392,6 +392,7 @@ body {
   color: #cccccc !important;
   padding-bottom: 30px;
   margin-bottom: 30px;
+  margin-left: 250px;
 }
 
 #main::before {
@@ -414,7 +415,7 @@ body {
   content: '➠' !important;
   position: absolute;
   top: -18px;
-  left: calc(50% - 875px + 364px + 20px);
+  left: 233px;
   font-family: fontello;
   height: 30px;
   background-color: rgb(107, 159, 209);

@@ -491,7 +491,7 @@ class Game extends BaseObject {
   }
 
 /**
- * This Method is the Game Archive Methode and moved all Files in the Archive Folder.
+ * This Method is the Game Archive Method and moved all Files in the Archive Folder.
  *
  * @access     public
  * @since      2026-06-05
@@ -550,8 +550,8 @@ class Game extends BaseObject {
     $strPlayerId      = isset( $objRequestObject->playerId ) ? $objRequestObject->playerId : Player::getPlayerIdFromCookie();
     $objPlayer        = new Player( $strPlayerId );
     $objGameplay      = new Gameplay( $this->id, $objPlayer );
-    $strMethode       = $objRequestObject->gameplayMethode;
-    $objRequestObject = $objGameplay->$strMethode( $objRequestObject );
+    $strMethod        = $objRequestObject->gameplayMethod;
+    $objRequestObject = $objGameplay->$strMethod( $objRequestObject );
 
     return $objRequestObject;
   }

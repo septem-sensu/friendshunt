@@ -15,6 +15,17 @@
  *
  */
 class BatteryTracker {
+
+/**
+ * This method is the constructor of the class.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   var batteryTracker = new BatteryTracker();
+ *
+ */
   constructor() {
     this.batteryLevel = null;
     this.isCharging   = false;

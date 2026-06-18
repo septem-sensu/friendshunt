@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: GeoTracker</title>
+	<title>Documentation Class: Utils</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,16 +65,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: GeoTracker</h1>
+	<h1 class="page-title">Class: Utils</h1>
 <section>
 
 <header>
     
         <h2>
-        GeoTracker
+        Utils
         </h2>
         
-            <div class="class-description">Geo Tracker Class for the Friends Hunt App.This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.The Class is for handling Position Tracking, Step Counting and Calculte Distances.The Class can start inverval Tracking and used the Wake Lock API.</div>
+            <div class="class-description">The Utils class only contains static methods to make work easier.</div>
         
     
 </header>
@@ -86,16 +86,12 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="GeoTracker"><span class="type-signature"></span>new GeoTracker()</h4>
+    <h4 class="name" id="Utils"><span class="type-signature"></span>new Utils()</h4>
     
     
 </dt>
 <dd>
 
-    
-    <div class="description">
-        This Method is the Constructor for this Class.
-    </div>
     
 
     
@@ -122,7 +118,7 @@
 	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
 	<dd class="tag-since">
 		<ul class="dummy">
-			<li>2026-06-05</li>
+			<li>2026-06-18</li>
 		</ul>
 	</dd>
 	
@@ -181,7 +177,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var objGeoTracker = new GeoTracker();</pre>
+    <pre class="sunlight-highlight-javascript">var guid = Utils.guid();</pre>
 
 
     
@@ -209,7 +205,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="calcDistance"><span class="type-signature"></span>calcDistance(lat1, lng1, lat2, lng2)</h4>
+    <h4 class="name" id=".closeFullImage"><span class="type-signature">&lt;static> </span>closeFullImage()</h4>
     
     
 </dt>
@@ -217,7 +213,219 @@
 
     
     <div class="description">
-        This Method calculate the Distance between two Points on the Earth's surface with the Haversine-Formula.
+        This static method closes the full screen view layer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">Utils.closeFullImage();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".guid"><span class="type-signature">&lt;static> </span>guid()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method creates a GUID.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    guid  A GUID
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var guid = Utils.guid();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".log"><span class="type-signature">&lt;static> </span>log(mixContent)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method displays a console on the screen to display data, which can be very useful on mobile devices.
     </div>
     
 
@@ -252,13 +460,13 @@
 
         <tr>
             
-                <td class="name"><code>lat1</code></td>
+                <td class="name"><code>mixContent</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">mixed</span>
 
 
 
@@ -269,20 +477,362 @@
 
             
 
-            <td class="description last">The Latidude of Waypoint 1 (float)</td>
+            <td class="description last">The content to be displayed in the console</td>
         </tr>
 
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">Utils.log( mixContent );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".playMessagePiep"><span class="type-signature">&lt;static> </span>playMessagePiep()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method plays a New Message tone.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">Utils.playMessagePiep();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".s4"><span class="type-signature">&lt;static> </span>s4()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method generates a random string.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    randomString  A random string
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">var randomString = Utils.s4();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id=".stringToJsTimestamp"><span class="type-signature">&lt;static> </span>stringToJsTimestamp(dateTimeString)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This static method converts a datetime string into a JavaScript timestamp.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>lng1</code></td>
+                <td class="name"><code>dateTimeString</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -293,55 +843,7 @@
 
             
 
-            <td class="description last">The Langidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lat2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Latidude of Waypoint 2 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 2 (float)</td>
+            <td class="description last">The date time string</td>
         </tr>
 
     
@@ -405,7 +907,7 @@
     
             
 <div class="param-desc">
-    distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
+    timestamp        The JavaScript Timestamp
 </div>
 
 
@@ -429,7 +931,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );</pre>
+    <pre class="sunlight-highlight-javascript">var timestamp = Utils.stringToJsTimestamp( dateTimeString );</pre>
 
 
     
@@ -439,7 +941,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="checkPedometerSensor"><span class="type-signature"></span>checkPedometerSensor()</h4>
+    <h4 class="name" id=".stringToPhpTimestamp"><span class="type-signature">&lt;static> </span>stringToPhpTimestamp(dateTimeString)</h4>
     
     
 </dt>
@@ -447,111 +949,7 @@
 
     
     <div class="description">
-        This Method checked the Permission and start the Pedometer to count the steps.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.checkPedometerSensor();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="get"><span class="type-signature"></span>get(property)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method is the default getter of the Class.
+        This static method converts a datetime string into a Php timestamp.
     </div>
     
 
@@ -586,7 +984,7 @@
 
         <tr>
             
-                <td class="name"><code>property</code></td>
+                <td class="name"><code>dateTimeString</code></td>
             
 
             <td class="type">
@@ -603,7 +1001,7 @@
 
             
 
-            <td class="description last">The Property to get</td>
+            <td class="description last">The date time string</td>
         </tr>
 
     
@@ -667,7 +1065,7 @@
     
             
 <div class="param-desc">
-    value      The Value of the Property
+    timestamp        The Php Timestamp
 </div>
 
 
@@ -678,7 +1076,7 @@
     </dt>
     <dd>
         
-<span class="param-type">mixed</span>
+<span class="param-type">number</span>
 
 
 
@@ -691,7 +1089,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var value = objGeoTracker.stepCount( property );</pre>
+    <pre class="sunlight-highlight-javascript">var timestamp = Utils.stringToPhpTimestamp( dateTimeString );</pre>
 
 
     
@@ -701,7 +1099,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getCurrentPosition"><span class="type-signature"></span>getCurrentPosition(callbackSuccess)</h4>
+    <h4 class="name" id=".timestampJsToString"><span class="type-signature">&lt;static> </span>timestampJsToString(timestamp, seconds, format)</h4>
     
     
 </dt>
@@ -709,7 +1107,7 @@
 
     
     <div class="description">
-        This Method get the current Position, called the Callback Function and hand over the Position Data.
+        This static method converts a JavaScript timestamp into a human-readable format.
     </div>
     
 
@@ -744,7 +1142,55 @@
 
         <tr>
             
-                <td class="name"><code>callbackSuccess</code></td>
+                <td class="name"><code>timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The JavaScript Timestamp</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>seconds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Should the seconds be returned for the time with true or false</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>format</code></td>
             
 
             <td class="type">
@@ -761,7 +1207,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The return format, date for just the date, time for just the time, or datetime for both the date and time</td>
         </tr>
 
     
@@ -824,6 +1270,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    dateTimeString  The date time string
+</div>
+
 
 
 <dl>
@@ -832,7 +1282,7 @@
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">string</span>
 
 
 
@@ -845,7 +1295,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.getCurrentPosition( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">var dateTimeString = Utils.timestampJsToString( timestamp, seconds, format );</pre>
 
 
     
@@ -855,7 +1305,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="set"><span class="type-signature"></span>set(property, value)</h4>
+    <h4 class="name" id=".timestampPhpToString"><span class="type-signature">&lt;static> </span>timestampPhpToString(timestamp, seconds, format)</h4>
     
     
 </dt>
@@ -863,7 +1313,7 @@
 
     
     <div class="description">
-        This Method is the default setter of the Class.
+        This static method converts a Php timestamp into a human-readable format.
     </div>
     
 
@@ -898,7 +1348,55 @@
 
         <tr>
             
-                <td class="name"><code>property</code></td>
+                <td class="name"><code>timestamp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Php Timestamp</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>seconds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Should the seconds be returned for the time with true or false</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>format</code></td>
             
 
             <td class="type">
@@ -915,31 +1413,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">mixed</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to set</td>
+            <td class="description last">The return format, date for just the date, time for just the time, or datetime for both the date and time</td>
         </tr>
 
     
@@ -1002,6 +1476,10 @@
     <h5>Returns:</h5>
     
             
+<div class="param-desc">
+    dateTimeString  The date time string
+</div>
+
 
 
 <dl>
@@ -1010,164 +1488,10 @@
     </dt>
     <dd>
         
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.set( property, value );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="startIntervalTracking"><span class="type-signature"></span>startIntervalTracking(callbackSuccess)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method start the interval Tracking and get periodically the current Position, called the Callback Function and hand over the Position Data.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>callbackSuccess</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">string</span>
 
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Property to set</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
     </dd>
 </dl>
 
@@ -1177,7 +1501,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startIntervalTracking( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">var dateTimeString = Utils.timestampPhpToString( timestamp, seconds, format );</pre>
 
 
     
@@ -1187,7 +1511,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="startPedometer"><span class="type-signature"></span>startPedometer()</h4>
+    <h4 class="name" id=".triggerMessageVibration"><span class="type-signature">&lt;static> </span>triggerMessageVibration()</h4>
     
     
 </dt>
@@ -1195,7 +1519,7 @@
 
     
     <div class="description">
-        This Method start the Pedometer to count the steps.
+        This static method triggers a vibration on an Android phone.
     </div>
     
 
@@ -1281,319 +1605,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startPedometer();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="startWakeLock"><span class="type-signature">&lt;async> </span>startWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startWakeLock();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopIntervalTracking"><span class="type-signature"></span>stopIntervalTracking()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stop the interval Tracking.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopIntervalTracking();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopWakeLock"><span class="type-signature"></span>stopWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">Utils.triggerMessageVibration();</pre>
 
 
     

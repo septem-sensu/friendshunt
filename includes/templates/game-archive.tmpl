@@ -8,9 +8,12 @@
 
 <div id="content-container-game-archive"></div>
 
-<script>
+<script src="includes/js/geoMaps.js"></script>
+
+<script type="text/javascript">
   ( function() {
-    window[ appAlias ].methods.cGetGameArchiveList();
+    window[ appAlias ].objects.game = new Game();
+    window[ appAlias ].objects.game.getGameArchiveList();
     return;
   } )();
 </script>

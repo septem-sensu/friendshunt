@@ -1,4 +1,29 @@
+/**
+ * This class represents the ReplayPlayer class with all necessary properties, methods and event handlers.
+ * The Replay class uses the tracking data to create a replay of all players on the map at multiple speeds.
+ *
+ * @class
+ *
+ * @author    Markus Götz <info@septem-sensu.de>
+ * @version   0.1.0
+ * @since     2026-06-18
+ *
+ * @example   var replayPlayer = new ReplayPlayer( trackingData );
+ *
+ */
 class ReplayPlayer {
+
+/**
+ * This method is the constructor of the class.
+ *
+ * @public
+ *
+ * @param     {object}   trackingData   The sorted tracking data
+ * @return    {void}
+ *
+ * @example   var replayPlayer = new ReplayPlayer( trackingData );
+ *
+ */
   constructor( trackingData ) {
     this.tracking                 = trackingData;
 
@@ -20,10 +45,56 @@ class ReplayPlayer {
     this.slider.max               = this.totalDuration;
     this.slider.value             = 0;
 
-    this.initEvents();
+    this.init();
   }
 
-  initEvents() {
+/**
+ * This method is the default getter of the class.
+ *
+ * @public
+ *
+ * @param     {string}   property   The property of the value
+ * @return    {mixed}    value      The value of the property
+ *
+ * @example   var value = replayPlayer.get( property );
+ * @example   var value = this.get( property );
+ *
+ */
+  get( property ) {
+    return this[ property ];
+  }
+
+/**
+ * This method is the default setter for the class.
+ *
+ * @public
+ *
+ * @param     {string}   property   The property that you want to set
+ * @param     {mixed}    value      The value you want to set to the property
+ * @return    {void}
+ *
+ * @example   replayPlayer.set( property, value );
+ * @example   this.set( property, value );
+ *
+ */
+  set( property, value ) {
+    this[ property ] = value;
+
+    return;
+  }
+
+/**
+ * This class initializes the object and registers all required event handlers
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   replayPlayer.init();
+ * @example   this.init();
+ *
+ */
+  init() {
     document.querySelector( '#btn-replay-play' ).addEventListener( 'click', ( objEvent ) => {
       this.play();
       this.toggleButtonClass( objEvent.target, '#btn-replay-pause' );
@@ -64,6 +135,17 @@ class ReplayPlayer {
     return;
   }
 
+/**
+ * This method starts the replay on the map with all players at multiple speeds.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   replayPlayer.play();
+ * @example   this.play();
+ *
+ */
   play() {
     if( this.isPlaying ) return;
 
@@ -90,6 +172,17 @@ class ReplayPlayer {
     return;
   }
 
+/**
+ * This method pauses the replay on the map at the current location.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   replayPlayer.pause();
+ * @example   this.pause();
+ *
+ */
   pause() {
     this.isPlaying = false;
     if( this.playbackTimer ) clearInterval( this.playbackTimer );
@@ -97,6 +190,18 @@ class ReplayPlayer {
     return;
   }
 
+/**
+ * This method renders the players' positions on the map and sets the players' markers.
+ *
+ * @public
+ *
+ * @param     {number}   targetTimestamp   The timestamp of the time at which the players' markers should be placed
+ * @return    {void}
+ *
+ * @example   replayPlayer.renderTargetTime( targetTimestamp );
+ * @example   this.renderTargetTime( targetTimestamp );
+ *
+ */
   renderTargetTime( targetTimestamp ) {
     var marker = window[ appAlias ].tracker.geoMapsObject.get( 'marker' );
 
@@ -115,6 +220,21 @@ class ReplayPlayer {
     return;
   }
 
+/**
+ * This method gets the players' positions from the tracking data and calculates intermediate positions around jumping
+ * to prevent the individual positions.
+ * The method returns the position or intermediate position.
+ *
+ * @public
+ *
+ * @param     {string}   playerId          The player ID for which the position or intermediate position should be calculated
+ * @param     {number}   targetTimestamp   The timestamp of the time at which the players' markers should be placed
+ * @return    {object}   position          An object with the position or intermediate position of a player
+ *
+ * @example   position = replayPlayer.calculateIntermediatePoint( playerId, targetTimestamp );
+ * @example   position = this.calculateIntermediatePoint( playerId, targetTimestamp );
+ *
+ */
   calculateIntermediatePoint( playerId, targetTimestamp ) {
     var lastPing   = null;
     var nextPing   = null;
@@ -156,9 +276,23 @@ class ReplayPlayer {
     return { 'lat': interpolatedLat, 'lng': interpolatedLng };
   }
 
+/**
+ * This method switches the HTML button objects for playing and pausing the replay active or inactive
+ *
+ * @public
+ *
+ * @param     {object}   activeBtn          The currently active Html button object which should become inactive
+ * @param     {object}   strInactiveBtnId   The currently inactive Html button object that should become active
+ * @return    {void}
+ *
+ * @example   position = replayPlayer.toggleButtonClass( activeBtn, strInactiveBtnId );
+ * @example   position = this.toggleButtonClass( activeBtn, strInactiveBtnId );
+ *
+ */
   toggleButtonClass( activeBtn, strInactiveBtnId ) {
     activeBtn.classList.add( 'btn-active' );
     document.querySelector( strInactiveBtnId ).classList.remove( 'btn-active' );
     return;
   }
+
 }

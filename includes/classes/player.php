@@ -348,7 +348,7 @@ class Player extends BaseObject {
   }
 
 /**
- * This Method is the Setup Routine for the App. The Methode genedoes the following:
+ * This Method is the Setup Routine for the App. The Method genedoes the following:
  * - creates the dataPlayer.json file with the Admininistrator Data from the Setup Form
  * - creates the dataGame.json
  * - creates the Player File Directory and copies the default Avatar in the Directory

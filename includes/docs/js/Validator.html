@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: GeoTracker</title>
+	<title>Documentation Class: Validator</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,16 +65,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: GeoTracker</h1>
+	<h1 class="page-title">Class: Validator</h1>
 <section>
 
 <header>
     
         <h2>
-        GeoTracker
+        Validator
         </h2>
         
-            <div class="class-description">Geo Tracker Class for the Friends Hunt App.This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.The Class is for handling Position Tracking, Step Counting and Calculte Distances.The Class can start inverval Tracking and used the Wake Lock API.</div>
+            <div class="class-description">This class represents the Validator class with all properties and methods.The Validator class validates input fields as well as passwords and email addresses and throws form errors if necessary.If a button with the Css class: submit is present in a form, it will be disabled or enabled.The event handler for form validation is called when an object is instantiated.</div>
         
     
 </header>
@@ -86,7 +86,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="GeoTracker"><span class="type-signature"></span>new GeoTracker()</h4>
+    <h4 class="name" id="Validator"><span class="type-signature"></span>new Validator()</h4>
     
     
 </dt>
@@ -94,7 +94,7 @@
 
     
     <div class="description">
-        This Method is the Constructor for this Class.
+        This method is the constructor of the class.
     </div>
     
 
@@ -122,7 +122,7 @@
 	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
 	<dd class="tag-since">
 		<ul class="dummy">
-			<li>2026-06-05</li>
+			<li>2026-06-18</li>
 		</ul>
 	</dd>
 	
@@ -177,11 +177,31 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var objGeoTracker = new GeoTracker();</pre>
+    <pre class="sunlight-highlight-javascript">var validator = new Validator();</pre>
 
 
     
@@ -209,7 +229,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="calcDistance"><span class="type-signature"></span>calcDistance(lat1, lng1, lat2, lng2)</h4>
+    <h4 class="name" id="_validateEmail"><span class="type-signature"></span>_validateEmail(email)</h4>
     
     
 </dt>
@@ -217,7 +237,7 @@
 
     
     <div class="description">
-        This Method calculate the Distance between two Points on the Earth's surface with the Haversine-Formula.
+        This method checks an email address for validity and returns the result of the check.
     </div>
     
 
@@ -252,13 +272,13 @@
 
         <tr>
             
-                <td class="name"><code>lat1</code></td>
+                <td class="name"><code>email</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -269,79 +289,7 @@
 
             
 
-            <td class="description last">The Latidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lat2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Latidude of Waypoint 2 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 2 (float)</td>
+            <td class="description last">The email address</td>
         </tr>
 
     
@@ -405,7 +353,7 @@
     
             
 <div class="param-desc">
-    distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
+    isValide   The result of the check, true: is valid, false: is not valid
 </div>
 
 
@@ -416,7 +364,7 @@
     </dt>
     <dd>
         
-<span class="param-type">number</span>
+<span class="param-type">boolean</span>
 
 
 
@@ -427,9 +375,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">var floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );</pre>
+    <pre class="sunlight-highlight-javascript">var isValide = validator._validateEmail( email );</pre>
+
+    <pre class="sunlight-highlight-javascript">var isValide = this._validateEmail( email );</pre>
 
 
     
@@ -439,7 +389,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="checkPedometerSensor"><span class="type-signature"></span>checkPedometerSensor()</h4>
+    <h4 class="name" id="_validateField"><span class="type-signature"></span>_validateField(key, form)</h4>
     
     
 </dt>
@@ -447,7 +397,347 @@
 
     
     <div class="description">
-        This Method checked the Permission and start the Pedometer to count the steps.
+        This method checks the field passed with the input field name whether it meets all the guidelinesthe input field is stored (fields.json).
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the input field</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>form</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The form in which the key is located</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    formIsValide   The result of the check, true: is valid, false: is not valid
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">var formIsValide = validator._validateField( key, form );</pre>
+
+    <pre class="sunlight-highlight-javascript">var formIsValide = this._validateField( key, form );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_validateFieldSetFormError"><span class="type-signature"></span>_validateFieldSetFormError(event)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method sets or removes a FormError from the input fields of a form when typing with the keyboard or changing the field.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The triggering event</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">validator._validateFieldSetFormError( event );</pre>
+
+    <pre class="sunlight-highlight-javascript">this._validateFieldSetFormError( event );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="_validateFields"><span class="type-signature"></span>_validateFields()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method loops through all forms and their fields on the current page and validates the input.Furthermore, it switches the buttons with the Css class: Submit to disable or enable.
     </div>
     
 
@@ -531,9 +821,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.checkPedometerSensor();</pre>
+    <pre class="sunlight-highlight-javascript">validator._validateFields();</pre>
+
+    <pre class="sunlight-highlight-javascript">this._validateFields();</pre>
 
 
     
@@ -543,7 +835,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="get"><span class="type-signature"></span>get(property)</h4>
+    <h4 class="name" id="_validatePassword"><span class="type-signature"></span>_validatePassword(password)</h4>
     
     
 </dt>
@@ -551,7 +843,7 @@
 
     
     <div class="description">
-        This Method is the default getter of the Class.
+        This method is specifically for passwords and checks the password against the stored rules.
     </div>
     
 
@@ -586,7 +878,7 @@
 
         <tr>
             
-                <td class="name"><code>property</code></td>
+                <td class="name"><code>password</code></td>
             
 
             <td class="type">
@@ -603,7 +895,7 @@
 
             
 
-            <td class="description last">The Property to get</td>
+            <td class="description last">The password</td>
         </tr>
 
     
@@ -667,7 +959,167 @@
     
             
 <div class="param-desc">
-    value      The Value of the Property
+    isValide   The result of the check, true: is valid, false: is not valid
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">var isValide = validator._validatePassword( password );</pre>
+
+    <pre class="sunlight-highlight-javascript">var isValide = this._validatePassword( password );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="get"><span class="type-signature"></span>get(property)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method is the default getter of the class.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The property of the value</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    value      The value of the property
 </div>
 
 
@@ -689,9 +1141,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">var value = objGeoTracker.stepCount( property );</pre>
+    <pre class="sunlight-highlight-javascript">var value = validator.get( property );</pre>
+
+    <pre class="sunlight-highlight-javascript">var value = this.get( property );</pre>
 
 
     
@@ -701,7 +1155,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getCurrentPosition"><span class="type-signature"></span>getCurrentPosition(callbackSuccess)</h4>
+    <h4 class="name" id="manageFormErrors"><span class="type-signature"></span>manageFormErrors(formErrors)</h4>
     
     
 </dt>
@@ -709,7 +1163,7 @@
 
     
     <div class="description">
-        This Method get the current Position, called the Callback Function and hand over the Position Data.
+        This method loops through the Form Error array and sets or resets the Form Error at the input field.
     </div>
     
 
@@ -744,13 +1198,13 @@
 
         <tr>
             
-                <td class="name"><code>callbackSuccess</code></td>
+                <td class="name"><code>formErrors</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -761,7 +1215,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The array with Form Errors</td>
         </tr>
 
     
@@ -843,9 +1297,223 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.getCurrentPosition( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">validator.manageFormErrors( formErrors );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.manageFormErrors( formErrors );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="registerEventHandler"><span class="type-signature"></span>registerEventHandler()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method registers an event handler that searches the page for forms and form fieldsand this is automatically validated.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">validator.registerEventHandler();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.registerEventHandler();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="resetFormErrors"><span class="type-signature"></span>resetFormErrors()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method resets the Errors form in all input fields of all forms.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">validator.resetFormErrors();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.resetFormErrors();</pre>
 
 
     
@@ -863,7 +1531,7 @@
 
     
     <div class="description">
-        This Method is the default setter of the Class.
+        This method is the default setter for the class.
     </div>
     
 
@@ -915,7 +1583,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The property that you want to set</td>
         </tr>
 
     
@@ -939,7 +1607,7 @@
 
             
 
-            <td class="description last">The Value to set</td>
+            <td class="description last">The value you want to set to the property</td>
         </tr>
 
     
@@ -1021,9 +1689,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.set( property, value );</pre>
+    <pre class="sunlight-highlight-javascript">validator.set( property, value );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.set( property, value );</pre>
 
 
     
@@ -1033,7 +1703,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="startIntervalTracking"><span class="type-signature"></span>startIntervalTracking(callbackSuccess)</h4>
+    <h4 class="name" id="validateFields"><span class="type-signature"></span>validateFields()</h4>
     
     
 </dt>
@@ -1041,161 +1711,7 @@
 
     
     <div class="description">
-        This Method start the interval Tracking and get periodically the current Position, called the Callback Function and hand over the Position Data.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>callbackSuccess</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Property to set</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startIntervalTracking( callbackSuccess );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="startPedometer"><span class="type-signature"></span>startPedometer()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method start the Pedometer to count the steps.
+        This method goes through all forms and their input fields and attaches three to each input fieldEvent handlers. One when changing the input field, one when leaving the input field and onewhen pressing a key in the input field.
     </div>
     
 
@@ -1279,321 +1795,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startPedometer();</pre>
+    <pre class="sunlight-highlight-javascript">validator.validateFields();</pre>
 
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="startWakeLock"><span class="type-signature">&lt;async> </span>startWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startWakeLock();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopIntervalTracking"><span class="type-signature"></span>stopIntervalTracking()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stop the interval Tracking.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopIntervalTracking();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopWakeLock"><span class="type-signature"></span>stopWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">this.validateFields();</pre>
 
 
     

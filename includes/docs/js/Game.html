@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: GeoTracker</title>
+	<title>Documentation Class: Game</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,16 +65,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: GeoTracker</h1>
+	<h1 class="page-title">Class: Game</h1>
 <section>
 
 <header>
     
         <h2>
-        GeoTracker
+        Game
         </h2>
         
-            <div class="class-description">Geo Tracker Class for the Friends Hunt App.This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.The Class is for handling Position Tracking, Step Counting and Calculte Distances.The Class can start inverval Tracking and used the Wake Lock API.</div>
+            <div class="class-description">The Game class manages the individual games and contains all the required properties, methods and event handlers.This class requires the GeoTracker class, the GeoMaps class and inherits from the Base class.The Game class registers all required event handlers when instantiating.</div>
         
     
 </header>
@@ -86,7 +86,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="GeoTracker"><span class="type-signature"></span>new GeoTracker()</h4>
+    <h4 class="name" id="Game"><span class="type-signature"></span>new Game()</h4>
     
     
 </dt>
@@ -94,7 +94,7 @@
 
     
     <div class="description">
-        This Method is the Constructor for this Class.
+        This method is the constructor of the class.
     </div>
     
 
@@ -122,7 +122,7 @@
 	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
 	<dd class="tag-since">
 		<ul class="dummy">
-			<li>2026-06-05</li>
+			<li>2026-06-18</li>
 		</ul>
 	</dd>
 	
@@ -177,11 +177,31 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var objGeoTracker = new GeoTracker();</pre>
+    <pre class="sunlight-highlight-javascript">var game = new Game();</pre>
 
 
     
@@ -209,7 +229,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="calcDistance"><span class="type-signature"></span>calcDistance(lat1, lng1, lat2, lng2)</h4>
+    <h4 class="name" id="addGameImagesContent"><span class="type-signature"></span>addGameImagesContent()</h4>
     
     
 </dt>
@@ -217,237 +237,7 @@
 
     
     <div class="description">
-        This Method calculate the Distance between two Points on the Earth's surface with the Haversine-Formula.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>lat1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Latidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lat2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Latidude of Waypoint 2 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 2 (float)</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="checkPedometerSensor"><span class="type-signature"></span>checkPedometerSensor()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method checked the Permission and start the Pedometer to count the steps.
+        This method inserts the images of a game into the designated location on the dashboard.
     </div>
     
 
@@ -531,9 +321,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.checkPedometerSensor();</pre>
+    <pre class="sunlight-highlight-javascript">game.addGameImagesContent();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.addGameImagesContent();</pre>
 
 
     
@@ -543,7 +335,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="get"><span class="type-signature"></span>get(property)</h4>
+    <h4 class="name" id="addGameplayDataToTemplate"><span class="type-signature"></span>addGameplayDataToTemplate()</h4>
     
     
 </dt>
@@ -551,7 +343,7 @@
 
     
     <div class="description">
-        This Method is the default getter of the Class.
+        This method fetches the individual players from the end point and inserts them in their roles into the game dashboard in the designated places.
     </div>
     
 
@@ -560,56 +352,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>property</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Property to get</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -666,10 +408,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    value      The Value of the Property
-</div>
-
 
 
 <dl>
@@ -678,7 +416,7 @@
     </dt>
     <dd>
         
-<span class="param-type">mixed</span>
+<span class="param-type">void</span>
 
 
 
@@ -689,9 +427,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">var value = objGeoTracker.stepCount( property );</pre>
+    <pre class="sunlight-highlight-javascript">game.addGameplayDataToTemplate();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.addGameplayDataToTemplate();</pre>
 
 
     
@@ -701,7 +441,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getCurrentPosition"><span class="type-signature"></span>getCurrentPosition(callbackSuccess)</h4>
+    <h4 class="name" id="bringBackArchiveGame"><span class="type-signature"></span>bringBackArchiveGame(element)</h4>
     
     
 </dt>
@@ -709,7 +449,7 @@
 
     
     <div class="description">
-        This Method get the current Position, called the Callback Function and hand over the Position Data.
+        This method fires a request to the endpoint via the Communicator object to bring an archived game back to the dashboard.
     </div>
     
 
@@ -744,13 +484,13 @@
 
         <tr>
             
-                <td class="name"><code>callbackSuccess</code></td>
+                <td class="name"><code>element</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -761,7 +501,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The element (button) that was clicked to find out the game ID</td>
         </tr>
 
     
@@ -843,9 +583,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.getCurrentPosition( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">game.bringBackArchiveGame( element );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.bringBackArchiveGame( element);</pre>
 
 
     
@@ -855,7 +597,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="set"><span class="type-signature"></span>set(property, value)</h4>
+    <h4 class="name" id="deleteArchiveGame"><span class="type-signature"></span>deleteArchiveGame(element)</h4>
     
     
 </dt>
@@ -863,7 +605,7 @@
 
     
     <div class="description">
-        This Method is the default setter of the Class.
+        This method creates a Request object and fires it via the Communicator object to the endpoint for a gamewhich is in the archive to be deleted.
     </div>
     
 
@@ -898,13 +640,13 @@
 
         <tr>
             
-                <td class="name"><code>property</code></td>
+                <td class="name"><code>element</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -915,31 +657,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">mixed</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Value to set</td>
+            <td class="description last">The element (button) that was clicked to find out the game ID</td>
         </tr>
 
     
@@ -1021,9 +739,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.set( property, value );</pre>
+    <pre class="sunlight-highlight-javascript">game.deleteArchiveGame( element );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.deleteArchiveGame( element );</pre>
 
 
     
@@ -1033,7 +753,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="startIntervalTracking"><span class="type-signature"></span>startIntervalTracking(callbackSuccess)</h4>
+    <h4 class="name" id="getGameArchiveList"><span class="type-signature"></span>getGameArchiveList()</h4>
     
     
 </dt>
@@ -1041,7 +761,113 @@
 
     
     <div class="description">
-        This Method start the interval Tracking and get periodically the current Position, called the Callback Function and hand over the Position Data.
+        This method fires a request to the endpoint to get the data of the archived games.The response of this method is passed from the Communictor object to the proccessResponseGameArchiveList.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">game.getGameArchiveList();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.getGameArchiveList();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="proccessResponseGameArchiveList"><span class="type-signature"></span>proccessResponseGameArchiveList(response)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method prepares the response information from the getGameArchiveList request andAdds the archived games to the archive list at the designated location.
     </div>
     
 
@@ -1076,13 +902,13 @@
 
         <tr>
             
-                <td class="name"><code>callbackSuccess</code></td>
+                <td class="name"><code>response</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -1093,7 +919,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The response object from the endpoint</td>
         </tr>
 
     
@@ -1175,9 +1001,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startIntervalTracking( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">game.proccessResponseGameArchiveList( response );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.proccessResponseGameArchiveList( response );</pre>
 
 
     
@@ -1187,7 +1015,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="startPedometer"><span class="type-signature"></span>startPedometer()</h4>
+    <h4 class="name" id="registerEventListener"><span class="type-signature"></span>registerEventListener()</h4>
     
     
 </dt>
@@ -1195,7 +1023,7 @@
 
     
     <div class="description">
-        This Method start the Pedometer to count the steps.
+        This method registers all event handlers that are necessary for the class.The method is called when instantiating a Game object.The method also calls the Super method of the Base Object.
     </div>
     
 
@@ -1279,9 +1107,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startPedometer();</pre>
+    <pre class="sunlight-highlight-javascript">game.registerEventHandler();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.registerEventHandler();</pre>
 
 
     
@@ -1291,7 +1121,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="startWakeLock"><span class="type-signature">&lt;async> </span>startWakeLock()</h4>
+    <h4 class="name" id="showMapInInfoLayer"><span class="type-signature"></span>showMapInInfoLayer(lat, lng, precision, message)</h4>
     
     
 </dt>
@@ -1299,7 +1129,235 @@
 
     
     <div class="description">
-        This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
+        This method shows a game's map, markers, and board in one layer.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The latitude of a point on the map (starting point, exit point or center of the playing field)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lng</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The longitude of a point on the map (start point, exit point, or the center of the playing field)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>precision</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The precision in meters, which indicates the accuracy of the latitude and longitude</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A message (not currently used)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">game.showMapInInfoLayer();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.showMapInInfoLayer();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="startGame"><span class="type-signature"></span>startGame()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method starts a game and sends all the required information to the endpoint.The response returns the game settings and the game status.
     </div>
     
 
@@ -1383,217 +1441,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">game.startGame();</pre>
 
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopIntervalTracking"><span class="type-signature"></span>stopIntervalTracking()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stop the interval Tracking.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopIntervalTracking();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopWakeLock"><span class="type-signature"></span>stopWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">this.startGame();</pre>
 
 
     

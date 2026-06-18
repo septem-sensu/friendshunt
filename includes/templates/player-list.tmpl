@@ -9,9 +9,11 @@
 
 <div id="content-container-player"></div>
 
-<script>
+<script type="text/javascript">
   ( function() {
-    window[ appAlias ].methods.cGetPlayerList();
+    window[ appAlias ].objects.player = new Player();
+    window[ appAlias ].objects.player.getPlayerList();
+
     return;
   } )();
 </script>

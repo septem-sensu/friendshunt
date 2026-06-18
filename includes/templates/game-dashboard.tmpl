@@ -25,7 +25,7 @@
         <p>{{Game::description}}</p>
         <p class="bold mt-5">Start: <span class="js-calc js-calc-datetime">{{Game::start}}</span></p>
         <p>Dauer: {{Game::duration}} Stunden</p>
-        <button type="button" class="w-160 mt-10 info" onclick="javascript: window[ appAlias ].methods.cStartGame( this );">Spiel spielen</button>
+        <button type="button" class="w-160 mt-10 info" onclick="javascript: window[ appAlias ].objects.game.startGame();">Spiel spielen</button>
       </td>
     </tr>
   </table>
@@ -129,6 +129,8 @@
 
 <button id="geo-test-btn" style="padding: 20px; font-size: 20px;">Standort freigeben</button>
 
+<script src="includes/js/geoMaps.js"></script>
+
 <script>
   document.getElementById('geo-test-btn').addEventListener('click', () => {
     console.log("Button geklickt. Starte GPS...");
@@ -141,15 +143,18 @@
 </script>
 
 <script>
-  window[ appAlias ].systemRole = '{{Player::role}}';
-  window[ appAlias ].methods.cAddGameImagesContent();
-  window[ appAlias ].methods.cAddGameplayDataToTemplate();
+  window[ appAlias ].systemRole   = '{{Player::role}}';
+  window[ appAlias ].objects.game = new Game();
+  window[ appAlias ].objects.game.addGameImagesContent();
+  window[ appAlias ].objects.game.addGameplayDataToTemplate();
 </script>
 
-<script src="includes/js/statistics.js"></script>
+<script src="includes/js/statistic.js"></script>
 <script>
   window.addEventListener( 'load', function() {
-    window[ appAlias ].methods.statistics.getGameStatistics();
+    window[ appAlias ].objects.statistic = new Statistic( '.player-dashboard-container' );
+
+    window[ appAlias ].objects.statistic.getGameStatistics();
     return;
   } );
 </script>

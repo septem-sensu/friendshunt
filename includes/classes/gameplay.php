@@ -288,7 +288,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method is a Helper Methode and set the Property Values to the Set Object for the Player Object.
+ * This Method is a Helper Method and set the Property Values to the Set Object for the Player Object.
  * The Method is called by the transferStatistics Method.
  *
  * @access     private

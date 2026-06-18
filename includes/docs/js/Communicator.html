@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: GeoTracker</title>
+	<title>Documentation Class: Communicator</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,16 +65,16 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: GeoTracker</h1>
+	<h1 class="page-title">Class: Communicator</h1>
 <section>
 
 <header>
     
         <h2>
-        GeoTracker
+        Communicator
         </h2>
         
-            <div class="class-description">Geo Tracker Class for the Friends Hunt App.This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.The Class is for handling Position Tracking, Step Counting and Calculte Distances.The Class can start inverval Tracking and used the Wake Lock API.</div>
+            <div class="class-description">This communication class for the app. All requests go through this class.The class contains all required properties and methods.The class requires the Validator class.</div>
         
     
 </header>
@@ -86,7 +86,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="GeoTracker"><span class="type-signature"></span>new GeoTracker()</h4>
+    <h4 class="name" id="Communicator"><span class="type-signature"></span>new Communicator()</h4>
     
     
 </dt>
@@ -94,7 +94,7 @@
 
     
     <div class="description">
-        This Method is the Constructor for this Class.
+        This method is the constructor of the class.
     </div>
     
 
@@ -122,7 +122,7 @@
 	<dt class="tag-since method-doc-label method-doc-details-label">Since:</dt>
 	<dd class="tag-since">
 		<ul class="dummy">
-			<li>2026-06-05</li>
+			<li>2026-06-18</li>
 		</ul>
 	</dd>
 	
@@ -177,11 +177,31 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">var objGeoTracker = new GeoTracker();</pre>
+    <pre class="sunlight-highlight-javascript">var communicator = new Communicator();</pre>
 
 
     
@@ -209,7 +229,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="calcDistance"><span class="type-signature"></span>calcDistance(lat1, lng1, lat2, lng2)</h4>
+    <h4 class="name" id="_request"><span class="type-signature"></span>_request(request)</h4>
     
     
 </dt>
@@ -217,7 +237,7 @@
 
     
     <div class="description">
-        This Method calculate the Distance between two Points on the Earth's surface with the Haversine-Formula.
+        This method executes the actual Xhr request.All the necessary parameters are in the request object.The response of this method is passed to the processResponse method.
     </div>
     
 
@@ -252,13 +272,13 @@
 
         <tr>
             
-                <td class="name"><code>lat1</code></td>
+                <td class="name"><code>request</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">object</span>
 
 
 
@@ -269,193 +289,13 @@
 
             
 
-            <td class="description last">The Latidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng1</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 1 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lat2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Latidude of Waypoint 2 (float)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>lng2</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The Langidude of Waypoint 2 (float)</td>
+            <td class="description last">The request object with all the required information</td>
         </tr>
 
     
     </tbody>
 </table>
 
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">var floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="checkPedometerSensor"><span class="type-signature"></span>checkPedometerSensor()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method checked the Permission and start the Pedometer to count the steps.
-    </div>
-    
-
-    
-
-    
-
-    
     
 
     
@@ -531,9 +371,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.checkPedometerSensor();</pre>
+    <pre class="sunlight-highlight-javascript">communicator._request( request );</pre>
+
+    <pre class="sunlight-highlight-javascript">this._request( request );</pre>
 
 
     
@@ -551,7 +393,7 @@
 
     
     <div class="description">
-        This Method is the default getter of the Class.
+        This method is the default getter of the class and the derived class.
     </div>
     
 
@@ -603,7 +445,7 @@
 
             
 
-            <td class="description last">The Property to get</td>
+            <td class="description last">The property of the value</td>
         </tr>
 
     
@@ -667,7 +509,7 @@
     
             
 <div class="param-desc">
-    value      The Value of the Property
+    value      The value of the property
 </div>
 
 
@@ -689,9 +531,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">var value = objGeoTracker.stepCount( property );</pre>
+    <pre class="sunlight-highlight-javascript">var value = communicator.get( &#x27;maxRequestCount&#x27; );</pre>
+
+    <pre class="sunlight-highlight-javascript">var value = this.get( property );</pre>
 
 
     
@@ -701,7 +545,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getCurrentPosition"><span class="type-signature"></span>getCurrentPosition(callbackSuccess)</h4>
+    <h4 class="name" id="manageRedirects"><span class="type-signature"></span>manageRedirects(redirect)</h4>
     
     
 </dt>
@@ -709,7 +553,7 @@
 
     
     <div class="description">
-        This Method get the current Position, called the Callback Function and hand over the Position Data.
+        This method redirects to a redirect url if desired
     </div>
     
 
@@ -744,7 +588,7 @@
 
         <tr>
             
-                <td class="name"><code>callbackSuccess</code></td>
+                <td class="name"><code>redirect</code></td>
             
 
             <td class="type">
@@ -761,7 +605,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The Redirect Url</td>
         </tr>
 
     
@@ -843,9 +687,733 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.getCurrentPosition( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">communicator.manageRedirects( &#x27;?view=Game&#x27; );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.manageRedirects( redirect );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="manageRequestQueue"><span class="type-signature"></span>manageRequestQueue()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method controls the request queue.The method passes the request objects one after the other to the _request method until a current request has been processed.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">communicator.manageRequestQueue();</pre>
+
+    <pre class="sunlight-highlight-javascript">this.manageRequestQueue();</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="newJsonRequestObject"><span class="type-signature"></span>newJsonRequestObject(className, method, id)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method returns a request object for the Commicator to which you can attach further data.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>className</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The class name of the object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The method to be executed on the server</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ID of the object on which the method should be executed</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    requestObject  The finished request object for the communicator
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">var requestObject = communicator.newJsonRequestObject( &#x27;Player&#x27;, &#x27;deletePlayer&#x27;, &#x27;max@musterman.de&#x27; );</pre>
+
+    <pre class="sunlight-highlight-javascript">var requestObject = this.newJsonRequestObject( className, method, id );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="proccessResponse"><span class="type-signature"></span>proccessResponse(request, response)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method takes the response from the request, checks for errors, and forwards it to a redirect if desiredand passes the response information to the callback method.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request object that was sent to the endpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The response object that came back from the endpoint and is passed on to the callback method</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">communicator.proccessResponse( request, response );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.proccessResponse( request, response );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="request"><span class="type-signature"></span>request(method, getParams, postParams, callbackMethod)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This method receives the request objects, prepares them and pushes them into the request queue.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The method in which the data should be sent to the endpoint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>getParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">All parameters that should be appended to the Url as Url parameters</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">All parameters that should be sent as post parameters (the request object)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackMethod</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The callback method to which the response data should be passed</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">communicator.request( &#x27;POST&#x27;, {}, {}, ref.function );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.request( &#x27;method&#x27;, getParams, postParams, callbackMethod );</pre>
 
 
     
@@ -863,7 +1431,7 @@
 
     
     <div class="description">
-        This Method is the default setter of the Class.
+        This method is the default setter for the class and the derived classes.
     </div>
     
 
@@ -915,7 +1483,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The property that you want to set</td>
         </tr>
 
     
@@ -939,7 +1507,7 @@
 
             
 
-            <td class="description last">The Value to set</td>
+            <td class="description last">The value you want to set to the property</td>
         </tr>
 
     
@@ -1021,9 +1589,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.set( property, value );</pre>
+    <pre class="sunlight-highlight-javascript">communicator.set( &#x27;property&#x27;, 5 );</pre>
+
+    <pre class="sunlight-highlight-javascript">this.set( property, value );</pre>
 
 
     
@@ -1033,7 +1603,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="startIntervalTracking"><span class="type-signature"></span>startIntervalTracking(callbackSuccess)</h4>
+    <h4 class="name" id="setFields"><span class="type-signature"></span>setFields(object)</h4>
     
     
 </dt>
@@ -1041,7 +1611,7 @@
 
     
     <div class="description">
-        This Method start the interval Tracking and get periodically the current Position, called the Callback Function and hand over the Position Data.
+        The response object contains an object that is compatible with the currently accessed pagethese input Html fields are set from the object.
     </div>
     
 
@@ -1076,13 +1646,13 @@
 
         <tr>
             
-                <td class="name"><code>callbackSuccess</code></td>
+                <td class="name"><code>object</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
 
@@ -1093,7 +1663,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The object from the response from the endpoint</td>
         </tr>
 
     
@@ -1175,425 +1745,11 @@
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startIntervalTracking( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">communicator.setFields( object );</pre>
 
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="startPedometer"><span class="type-signature"></span>startPedometer()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method start the Pedometer to count the steps.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startPedometer();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="startWakeLock"><span class="type-signature">&lt;async> </span>startWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startWakeLock();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopIntervalTracking"><span class="type-signature"></span>stopIntervalTracking()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stop the interval Tracking.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopIntervalTracking();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="stopWakeLock"><span class="type-signature"></span>stopWakeLock()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">this.setFields( object );</pre>
 
 
     

@@ -329,13 +329,13 @@ body, html {
   margin-right: 3px;
 }
 
-.new-gamplay-message-button {
+.new-gameplay-message-button {
   height: 30px;
   width: 40px;
   cursor: pointer;
 }
 
-.new-gamplay-message-button img {
+.new-gameplay-message-button img {
   width: 24px;
   height: 24px;
   filter: invert(1);

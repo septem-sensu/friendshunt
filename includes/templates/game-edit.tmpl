@@ -95,7 +95,7 @@
 </form>
 
 <div id="info-layer-map" class="hidden">
-  <div id="info-layer-map-close-button" class="pointer bold" onclick="javascript: window[ appAlias ].methods.gameplay.cMapInfoLayerClose();">
+  <div id="info-layer-map-close-button" class="pointer bold">
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;">
       <circle cx="12" cy="12" r="10" />
       <line x1="15" y1="9" x2="9" y2="15" />
@@ -104,3 +104,13 @@
   </div>
   <div id="map"></div>
 </div>
+
+<script>
+window[ appAlias ].objects.player = new Player( window[ appAlias ].id );
+
+window.addEventListener( 'load', function() {
+  var game = new Game();
+
+  return;
+} );
+</script>

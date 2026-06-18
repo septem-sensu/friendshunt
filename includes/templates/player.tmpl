@@ -170,34 +170,14 @@
 
 </div>
 
-
-
-
-
 <script>
-  window[ appAlias ].methods.unhideGameDeleteButtons = function() {
-    var strRole             = '{{Player::role}}';
-    var arrDeleteButtons    = document.querySelectorAll( '.game-delete-button' );
-    var arrArchiveButtons   = document.querySelectorAll( '.game-archive-button' );
-    var objPlayerListButton = document.querySelector( '#player-list-button-container' );
-    var objNewGameButton    = document.querySelector( '.new-game-button' );
-    var objNewPlayerButton  = document.querySelector( '#new-player-button-container' );
-    var objArchiveButton    = document.querySelector( '#game-archive-button-container' );
-    if( strRole == 'administrator' ) {
-      for( var i = 0; i < arrDeleteButtons.length; i++ ) {
-        arrDeleteButtons[ i ].classList.remove( 'hidden' );
-      }
-      for( var i = 0; i < arrArchiveButtons.length; i++ ) {
-        arrArchiveButtons[ i ].classList.remove( 'hidden' );
-      }
-      if( objNewGameButton != null ) objNewGameButton.classList.remove( 'hidden' );
-      if( objNewPlayerButton != null ) objNewPlayerButton.classList.remove( 'hidden' );
-      if( objPlayerListButton != null ) objPlayerListButton.classList.remove( 'hidden' );
-      if( objArchiveButton != null ) objArchiveButton.classList.remove( 'hidden' );
-    }
-  };
   ( function() {
-    window[ appAlias ].methods.cAddGamesToTemplate();
+    window[ appAlias ].systemRole     = '{{Player::role}}';
+    window[ appAlias ].objects.player = window[ appAlias ].objects.player || new Player( window[ appAlias ].id );
+
+    window[ appAlias ].objects.player.addGamesToTemplate();
+
+    // window[ appAlias ].methods.cAddGamesToTemplate();
     return;
   } )();
 </script>

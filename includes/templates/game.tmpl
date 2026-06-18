@@ -1,9 +1,11 @@
-<script>
+<script type="text/javascript">
   window[ appAlias ].playerId     = '{{Game::playerId}}';
   window[ appAlias ].gameSettings = {{Gameplay::gameSettings}};
 </script>
+
 <input type="hidden" name="resetForm" value="1" />
 <div id="map"></div>
+
 <script src="includes/libs/leaflet/leaflet.js"></script>
 <script src="includes/js/geoMaps.js"></script>
 <script src="includes/js/batteryTracking.js"></script>
@@ -22,7 +24,7 @@
 <div class="game-menu-bottom">
   <img class="pointer icon-game-reload icons-gamplay-menu-bottom" src="includes/images/icon-reload.png" alt="Seite neu laden" onclick="javascript: window.location.reload();" />
   <img class="pointer icon-game-camera icons-gamplay-menu-bottom" src="includes/images/icon-camera.png" alt="Bild speichern" onclick="javascript: document.querySelector('#game-images-upload').click();" />
-  <img class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" onclick="javascript: window[ appAlias ].methods.gameplay.showMessageLayer()" />
+  <img id="menu-bottom-messages-button" class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" />
   <img class="icon-new-message hidden" src="includes/images/icon-new-message.png" alt="Neue Nachricht" />
   <img class="pointer icon-game-back icons-gamplay-menu-bottom" src="includes/images/icon-back.png" alt="Zurück zum Profil" onclick="javascript: window.location.href='?view=player';" />
   <input id="game-images-upload" type="file" name="pictures[]">
@@ -31,17 +33,25 @@
 <div class="game-permission-pedometer">
   <h2 class="mb-20">Schrittzähler</h2>
   <p>Kein Sensor, keine Schritte, kein Ruhm im Wirtshaus! Gib bitte kurz die Bewegungssensoren frei, damit wir prüfen können, ob du wirklich rennst oder heimlich Bus fährst.</p>
-  <button onclick="window[ appAlias ].tracker.geoTrackerObject.checkPedometerSensor(); document.querySelector( '.game-permission-pedometer' ).remove();" class="success mt-25">Schrittzähler aktivieren</button>
+  <button id="game-permission-pedometer-button" class="success mt-25">Schrittzähler aktivieren</button>
 </div>
 
 <div id="game-capture-container" class="hidden">
   <div id="game-capture-hunter-container"></div>
-  <button onclick="javascript: window[ appAlias ].methods.gameplay.sendCaptured();" id="game-capture-ok-button" type="button" class="danger">✔ Gefangen genommen</button>
+  <button id="game-capture-ok-button" type="button" class="danger">✔ Gefangen genommen</button>
 </div>
 
 <div id="game-system-message-container" class="hidden">
   <div id="game-system-messages"></div>
-  <button onclick="javascript: window[ appAlias ].methods.gameplay.closeSystemMessagesLayer();" id="game-system-messages-ok-button" type="button" class="success">✔ Gelesen</button>
+  <button id="game-system-messages-ok-button" type="button" class="success">✔ Gelesen</button>
+</div>
+
+<div id="game-message-layer" class="hidden">
+  <div id="game-message-content"></div>
+  <input type="text" name="new-gameplay-message" id="new-gameplay-message-input" />
+  <button type="button" class="new-gameplay-message-button success" id="new-gameplay-message-button">
+    <img src="includes/images/icon-message.png" />
+  </button>
 </div>
 
 
@@ -67,4 +77,8 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  window[ appAlias ].objects.gameplay = new Gameplay( window[ appAlias ].playerId, window[ appAlias ].id, window[ appAlias ].gameSettings );
+</script>
 

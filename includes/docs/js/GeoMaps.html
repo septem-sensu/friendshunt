@@ -31,16 +31,9 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
-				<a href="namespaces.list.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="friendshunt.html">friendshunt</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="BatteryTracker.html">BatteryTracker</a></li><li><a href="GeoMaps.html">GeoMaps</a></li><li><a href="GeoTracker.html">GeoTracker</a></li>
+					<li><a href="Base.html">Base</a></li><li><a href="BatteryTracker.html">BatteryTracker</a></li><li><a href="Communicator.html">Communicator</a></li><li><a href="Game.html">Game</a></li><li><a href="Gameplay.html">Gameplay</a></li><li><a href="GeoMaps.html">GeoMaps</a></li><li><a href="GeoTracker.html">GeoTracker</a></li><li><a href="Player.html">Player</a></li><li><a href="ReplayPlayer.html">ReplayPlayer</a></li><li><a href="Statistic.html">Statistic</a></li><li><a href="Utils.html">Utils</a></li><li><a href="Validator.html">Validator</a></li>
 				</ul>
 			</li>
 			
@@ -1094,7 +1087,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getIcon"><span class="type-signature"></span>getIcon(role, color)</h4>
+    <h4 class="name" id="getIcon"><span class="type-signature"></span>getIcon(role, color, name)</h4>
     
     
 </dt>
@@ -1182,6 +1175,30 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Text at the Icon</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1266,7 +1283,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">strImage = objGeoMaps.getIcon( role, color );</pre>
+    <pre class="sunlight-highlight-javascript">strImage = objGeoMaps.getIcon( role, color, name );</pre>
 
 
     
@@ -2588,6 +2605,232 @@
             
 <hr>
 <dt>
+    <h4 class="name" id="setIcon"><span class="type-signature"></span>setIcon(id, role, color, name)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        This Method set a new Icon on the Marker.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Game Player Id (Marker Id)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>role</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Game Player Role (player, hunter or management)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Game Player Color</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Text at the Icon</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">objGeoMaps.setIcon( id, role, color, name );</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
     <h4 class="name" id="setMap"><span class="type-signature"></span>setMap(lat, lng)</h4>
     
     
@@ -2770,7 +3013,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="setMarker"><span class="type-signature"></span>setMarker(id, role, color, lat, lng, content)</h4>
+    <h4 class="name" id="setMarker"><span class="type-signature"></span>setMarker(id, role, color, lat, lng, content, name, cssclass)</h4>
     
     
 </dt>
@@ -2954,6 +3197,54 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Text at the Icon</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cssclass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The css Class for the Icon</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -3034,7 +3325,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.setMarker( id, role, color, lat, lng, content );</pre>
+    <pre class="sunlight-highlight-javascript">objGeoMaps.setMarker( id, role, color, lat, lng, content, name );</pre>
 
 
     
@@ -3340,7 +3631,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-16T13:42:56+02:00
+		on 2026-06-18T20:28:46+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

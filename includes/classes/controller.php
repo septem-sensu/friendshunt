@@ -190,7 +190,7 @@ class Controller {
   }
 
 /**
- * This Method is the Main Methode of the Controler Class and controls the Requests and the Response.
+ * This Method is the Main Method of the Controler Class and controls the Requests and the Response.
  *
  * @access     public
  * @since      2026-06-05
@@ -242,7 +242,7 @@ class Controller {
   }
 
 /**
- * This Method is the View Methode for the Response Content.
+ * This Method is the View Method for the Response Content.
  *
  * @access     private
  * @since      2026-06-05
@@ -273,7 +273,7 @@ class Controller {
   }
 
 /**
- * This Method is the JSON View Methode for the Json Content.
+ * This Method is the JSON View Method for the Json Content.
  *
  * @access     private
  * @since      2026-06-05
@@ -341,8 +341,8 @@ class Controller {
 
     move_uploaded_file( $strTmpName, $strPath . $strName );
 
-    if( isset( $_POST[ 'methode' ] ) ) {
-      $_POST[ 'methode' ]( $strName );
+    if( isset( $_POST[ 'method' ] ) ) {
+      $_POST[ 'method' ]( $strName );
       $objObject->fillObject();
       $objObject = $objObject->serializeObject();
       if( isset( $strRedirect ) ) $objObject->redirect = $strRedirect;
@@ -352,25 +352,25 @@ class Controller {
   }
 
 /**
- * This Method checked the System Role of the current User for a Methode in a Class.
+ * This Method checked the System Role of the current User for a Method in a Class.
  *
  * @access     private
  * @since      2026-06-05
  * @version    0.1.0
  *
  * @param      string   $strClass     The Class Name of the Method
- * @param      string   $strMethode   The Methode to check
+ * @param      string   $strMethod   The Method to check
  * @return     bool     $boolAllowed  True if the User is allowed to call this Method
  *
- * @example    $boolAllowed = $this->checkPermissions( strClass, strMethode );
- * @example    $boolAllowed = $objController->checkPermissions( strClass, strMethode );
+ * @example    $boolAllowed = $this->checkPermissions( strClass, strMethod );
+ * @example    $boolAllowed = $objController->checkPermissions( strClass, strMethod );
  *
 */
-  private function checkPermissions( string $strClass, string $strMethode ) : bool {
+  private function checkPermissions( string $strClass, string $strMethod ) : bool {
     $objPermissions = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'dataPermissions.json' );
     $strRole         = $this->role;
 
-    if( ! in_array( $strClass . '::' . $strMethode, $objPermissions->$strRole->methods ) ) {
+    if( ! in_array( $strClass . '::' . $strMethod, $objPermissions->$strRole->methods ) ) {
       $objError           = new stdClass();
       $objError->message  = 'Zugriff verweigert';
 
@@ -402,16 +402,16 @@ class Controller {
 
     $objRequestObject->controller = $this;
     $strClassName                 = isset( $objRequestObject->class ) && $objRequestObject->class != '' ? $objRequestObject->class : null;
-    $strMethode                   = isset( $objRequestObject->methode ) && $objRequestObject->methode != '' ? $objRequestObject->methode : null;
+    $strMethod                    = isset( $objRequestObject->method ) && $objRequestObject->method != '' ? $objRequestObject->method : null;
     $strObjectId                  = isset( $objRequestObject->id ) && $objRequestObject->id != '' ? $objRequestObject->id : null;
 
-    if( ! $this->checkPermissions( $strClassName, $strMethode ) ) return;
+    if( ! $this->checkPermissions( $strClassName, $strMethod ) ) return;
 
     if( isset( $strObjectId ) ) {
       $objObject              = new $strClassName( $strObjectId );
-      $this->response->result = $objObject->$strMethode( $objRequestObject );
+      $this->response->result = $objObject->$strMethod( $objRequestObject );
     } else {
-      $this->response->result = $strClassName::$strMethode( $objRequestObject );
+      $this->response->result = $strClassName::$strMethod( $objRequestObject );
     }
 
     return;

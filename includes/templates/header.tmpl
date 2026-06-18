@@ -16,18 +16,28 @@
   <script type="text/javascript">
     var appAlias                     = '{{default::appAlias}}';
     window[ appAlias ]               = window[ appAlias ] || {};
+    window[ appAlias ].objects       = window[ appAlias ].objects || {};
+
     window[ appAlias ].id            = '{{default::id}}';
     window[ appAlias ].class         = '{{default::class}}';
     window[ appAlias ].view          = {{default::view}};
     window[ appAlias ].fields        = {{default::fields}};
     window[ appAlias ].passwordRules = {{default::passwordRules}};
   </script>
+  <script type="text/javascript" src="includes/js/base.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/game.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/player.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/communicator.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/utils.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/validator.js?v={{default::version}}"></script>
+  <script type="text/javascript" src="includes/js/geoTracking.js?v={{default::version}}"></script>
+<!--
   <script type="text/javascript" src="includes/js/core.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/communication.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/custom.js?v={{default::version}}"></script>
-  <script type="text/javascript" src="includes/js/validation.js?v={{default::version}}"></script>
-  <script type="text/javascript" src="includes/js/listener.js?v={{default::version}}"></script>
-  <script type="text/javascript" src="includes/js/geoTracking.js?v={{default::version}}"></script>
+-->
+
+
   <link rel="icon" href="includes/images/favicons/friendshunt-app-icon-16x16.png" sizes="16x16" />
   <link rel="icon" href="includes/images/favicons/friendshunt-app-icon-32x32.png" sizes="32x32" />
   <link rel="icon" href="includes/images/favicons/friendshunt-app-icon-192x192.png" sizes="192x192" />
