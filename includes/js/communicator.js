@@ -257,7 +257,7 @@ class Communicator {
     }
 
     if( typeof response.result == 'object' && response.result != null ) {
-      if( typeof response.result.formErrors == 'object' && response.result.formErrors != null ) this.validator.manageFormErrors( objResponse.result.formErrors );
+      if( typeof response.result.formErrors == 'object' && response.result.formErrors != null ) this.validator.manageFormErrors( response.result.formErrors );
       if( typeof response.result.redirect == 'string' && response.result.redirect != '' ) this.manageRedirects( response.result.redirect );
 
       this.setFields( response.result );
