@@ -158,6 +158,7 @@ class Gameplay extends Game {
     $this->startTimestamp             = $this->gameSettings->start;
     $this->endTimestamp               = $this->startTimestamp + ( $this->gameSettings->duration * 60 * 60 );
     $this->isRunning                  = time() > $this->startTimestamp && time() < $this->endTimestamp ? true : false;
+    $this->gameSettings->end          = $this->endTimestamp;
 
     $this->transferStatistics();
 
