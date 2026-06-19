@@ -103,7 +103,6 @@ class Gameplay extends Game {
       ]
     ];
 
-
     $this->init();
 
     return;
@@ -1082,7 +1081,20 @@ class Gameplay extends Game {
   public function track( object $objRequestObject ) : object {
     if( ! $this->isRunning ) return $this->stopped( $objRequestObject );
 
-    $this->addTracking( $objRequestObject->lat, $objRequestObject->lng, intval( $objRequestObject->precision ), intval( $objRequestObject->steps ), $objRequestObject->outOfPlayingField, intval( $objRequestObject->batteryLevel ), $objRequestObject->batteryIsCharging );
+    $arrCapturedIds = array_map( fn( $obj ) => $obj->playerId, $this->gameplayObject->captured );
+
+    if( ! in_array( $this->currentPlayer->id(), $arrCapturedIds ) ) {
+      Presentation::logToFile( $this->currentPlayer->id(), true, 'test.log' );
+      $this->addTracking(
+        $objRequestObject->lat,
+        $objRequestObject->lng,
+        intval( $objRequestObject->precision ),
+        intval( $objRequestObject->steps ),
+        $objRequestObject->outOfPlayingField,
+        intval( $objRequestObject->batteryLevel ),
+        $objRequestObject->batteryIsCharging
+      );
+    }
 
     $objState                    = new stdClass();
     $objState                    = $this->getGameplayState( $objState );
