@@ -282,6 +282,8 @@ class Game extends BaseObject {
 
     $objGameplay->creationDate                = date( "Y-m-d H:i:s" );
 
+    mkdir( $strGameplayPath );
+
     foreach( $arrGameRoles as $strRoleId => $strRoleName ) {
       $arrPlayer = $objRequestObject->$strRoleId;
 
@@ -290,6 +292,15 @@ class Game extends BaseObject {
         $arrGames            = $objPlayer->get( 'games' );
         $arrGames            = isset( $arrGames ) ? $arrGames : [];
         $objSerializedPlayer = Game::removePlayerProperties( $objPlayer );
+        $strProfileImage     = $objPlayer->get( 'image' );
+
+        if( isset( $strProfileImage ) && $strProfileImage != '' ) {
+          $strProfileImage     = explode( '?', $strProfileImage )[ 0 ];
+          $strProfileImagePath = __DIR__ . '/../files/player/' . $arrPlayer[ $i ] . '/' . $strProfileImage;
+          if( file_exists( $strProfileImagePath ) ) {
+            copy( $strProfileImagePath, $strGameplayPath . 'profile_image_' . $arrPlayer[ $i ] . '_' . $strProfileImage );
+          }
+        }
 
         $objPlayer->set( 'id', $arrPlayer[ $i ] );
 
@@ -313,7 +324,7 @@ class Game extends BaseObject {
 
     $objRequestObject->avatar  = 'avatar.png';
 
-    mkdir( $strGameplayPath );
+
     copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', $strGameplayPath . 'avatar.png' );
     BaseObject::saveFileEnCrypted( $strGameplayPath . 'gameplay.json', $objGameplay );
 

@@ -270,11 +270,12 @@ class Game extends Base {
 
     for( var i = 0; i < members.length; i++ ) {
       for( var j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
+        var profileImage            = 'includes/files/game/' + window[ appAlias ].id + '/profile_image_' + gameplayData[ members[ i ] ][ j ].email + '_' + gameplayData[ members[ i ] ][ j ].image;
         var contentContainer        = document.createElement( 'div' );
         var contentContainerContent = '<div class="content-container align-left">';
 
         contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
-        contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + gameplayData[ members[ i ] ][ j ].email + '/' + gameplayData[ members[ i ] ][ j ].image + '" />';
+        contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="' + profileImage + '" />';
         contentContainerContent    += '</td><td class="align-top">';
         contentContainerContent    += '<p class="bold mb-10">' + gameplayData[ members[ i ] ][ j ].name + '</p>';
         contentContainerContent    += '<p><a href="mailto:' + gameplayData[ members[ i ] ][ j ].email + '">✉ ' + gameplayData[ members[ i ] ][ j ].email + '</a></p>';
