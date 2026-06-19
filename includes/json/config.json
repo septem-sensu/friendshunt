@@ -9,7 +9,7 @@
   "defaultRole": "guest",
   "userClass": "Player",
   "setRole": "Player::checkLogin",
-  "replaySpeed": 300,
+  "showReplay": true,
   "passwordRules": {
     "passwordHasNumbers": true,
     "passwordHasSpecialCharacters": true,

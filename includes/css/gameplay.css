@@ -112,6 +112,11 @@ body, html {
     left: calc(50% - 185px);
   }
 
+  body .replay-panel {
+    width: 350px;
+    left: calc(50% - 185px);
+  }
+
 }
 
 #gameplay-button-replay {

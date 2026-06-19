@@ -399,7 +399,7 @@ class Gameplay extends Game {
 */
   public function getGameSettings() : object {
     $objGameConfiguration                = clone $this->gameplayObject;
-    $objGameConfiguration->replaySpeed   = $this->getConfig()->replaySpeed;
+    $objGameConfiguration->showReplay    = $this->getConfig()->showReplay;
     $objGameConfiguration->playerIds     = [];
     $objGameConfiguration->hunterIds     = [];
     $objGameConfiguration->managementIds = [];

@@ -51,6 +51,7 @@ class Gameplay {
     this.capturedPlayerIds      = [];
     this.gameplayMessages       = [];
     this.systemMessagesDontShow = {};
+    this.replayData             = null;
 
     this.init();
 
@@ -111,6 +112,10 @@ class Gameplay {
     this.batteryTracker.init();
 
     this.registerEventHandler();
+
+    if( Date.now() / 1000 > this.gameSettings.end && this.gameSettings.showReplay ) {
+      this.getReplayData();
+    }
 
     return;
   }
@@ -622,18 +627,15 @@ class Gameplay {
       } else {
         stateLine += 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
       }
-// Todo
+
       document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-play.png';
       document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();' );
     }
 
     document.querySelector( '#game-scrolling-info-text' ).innerHTML = stateLine;
 
-    // Replay Button
-    if( timeStampNow > this.gameplayState.timestampEnd && document.querySelector( '#gameplay-button-replay' ) == null ) {
+    if( timeStampNow > this.gameplayState.timestampEnd ) {
       document.querySelector( '.game-permission-pedometer' ).classList.add( 'hidden' );
-
-
     }
 
     return;
@@ -816,6 +818,7 @@ class Gameplay {
   showMessageLayer() {
     var messageLayer     = document.querySelector( '#game-message-layer' );
     var messageContainer = document.querySelector( '#game-message-content' );
+    var replayPanel      = document.querySelector( '.replay-panel' );
 
     if( messageLayer.classList.contains( 'hidden' ) ) {
       messageLayer.classList.remove( 'hidden' );
@@ -823,8 +826,12 @@ class Gameplay {
       messageContainer.scrollTo( { 'top': messageContainer.scrollHeight, 'behavior': 'smooth' } );
 
       messageLayer.style.height = ( window.innerHeight - 120 ) + 'px';
+
+      if( this.replayData && replayPanel ) replayPanel.classList.add( 'hidden' );
     } else {
       messageLayer.classList.add( 'hidden' );
+
+      if( this.replayData && replayPanel ) replayPanel.classList.remove( 'hidden' );
     }
 
     return;
@@ -908,6 +915,151 @@ class Gameplay {
 
       if( document.querySelector( '#game-message-layer' ).classList.contains( 'hidden' ) ) document.querySelector( '.icon-new-message' ).classList.remove( 'hidden' );
     }
+
+    return;
+  }
+
+/**
+ * This method creates a Request Object for fetching the complete tracking data for the current game and fires it to the endpoint via the Communicator Object.
+ * The callback method that processes the response is the generateReplayData method.
+ * The request is only generated if there is no tracking data on the object yet, otherwise the ReplayPlayer is instantiated using the startReplayPlayer method.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   gameplay.getReplayData();
+ * @example   this.getReplayData();
+ *
+ */
+  getReplayData() {
+    if( this.replayData ) {
+      this.startReplayPlayer();
+
+      return;
+    }
+
+    var post             = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
+
+    post.gameplayMethod  = 'statistic';
+    post.callbackMethod  = 'generateReplayData';
+
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+
+    return;
+  }
+
+/**
+ * This method is the callback method from the getReplayData method.
+ * The method creates a replay object in which the tracking of all players is in an array sorted by timestamp.
+ * After the Replay object is created, this method calls the startReplayPlayer method to start the Replay Player.
+ *
+ * @public
+ *
+ * @param     {object}   response   The response object from the endpoint with the tracking data
+ * @return    {void}
+ *
+ * @example   gameplay.generateReplayData( response );
+ * @example   this.generateReplayData( response );
+ *
+ */
+  generateReplayData( response ) {
+    response         = response.result;
+
+    var speedHunts   = response.gameplay.speedHunts;
+    var captured     = response.gameplay.captured;
+
+    if( window[ appAlias ].debug ) console.log( 'generateReplay Response: ', response );
+
+    this.replayData    = {
+      'roles': { 'player': 'Spieler', 'hunter': 'Jäger', 'management': 'Spielleitung' },
+      'names': {},
+      'trackings': []
+    };
+
+    for( var role in this.replayData.roles ) {
+      for( var i = 0; i < response.gameplay[ role ].length; i++ ) {
+        this.replayData.names[ response.gameplay[ role ][ i ].id ] = {
+          'id': response.gameplay[ role ][ i ].id,
+          'name': response.gameplay[ role ][ i ].name,
+          'role': role,
+          'roleName': this.replayData.roles[ role ]
+        };
+      }
+    }
+
+    for( var role in this.replayData.roles ) {
+      var trackings     = response.positions[ role ];
+      var playerCounter = -1;
+
+      for( var playerId in trackings ) {
+        var tracking = response.positions[ role ][ playerId ];
+
+        playerCounter++;
+
+        for( var i = 0; i < tracking.length; i++ ) {
+          tracking[ i ].type        = 'tracking';
+          tracking[ i ].role        = role;
+          tracking[ i ].roleName    = this.replayData.roles[ role ];
+          tracking[ i ].playerId    = playerId;
+          tracking[ i ].playerName  = this.replayData.names[ playerId ].name;
+          tracking[ i ].playerCount = playerCounter;
+
+          this.replayData.trackings.push( tracking[ i ] );
+        }
+      }
+    }
+
+    for( var i = 0; i < speedHunts.length; i++ ) {
+      for( var j = 0; j < speedHunts[ i ].timestamps.length; j++ ) {
+        this.replayData.trackings.push( {
+          'type': 'speedhunt',
+          'role': this.replayData.names[ speedHunts[ i ].playerId ].role,
+          'roleName': this.replayData.names[ speedHunts[ i ].playerId ].roleName,
+          'playerId': speedHunts[ i ].playerId,
+          'playerName': speedHunts[ i ].playerName,
+          'timestamp': speedHunts[ i ].timestamps[ j ]
+        } );
+      }
+    }
+
+    for( var i = 0; i < captured.length; i++ ) {
+      this.replayData.trackings.push( {
+        'type': 'capture',
+        'role': this.replayData.names[ captured[ i ].playerId ].role,
+        'roleName': this.replayData.names[ captured[ i ].playerId ].roleName,
+        'playerId': captured[ i ].playerId,
+        'playerName': this.replayData.names[ captured[ i ].playerId ].name,
+        'timestamp': captured[ i ].timestamp
+      } );
+    }
+
+    this.replayData.trackings.sort( function( objA, objB ) {
+      return objA.timestamp - objB.timestamp;
+    } );
+
+    this.startReplayPlayer();
+
+    return;
+  }
+
+/**
+ * This method instantiates the ReplayPlayer and removes the hidden Css class from the Replay Player panel.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   gameplay.startReplayPlayer();
+ * @example   this.startReplayPlayer();
+ *
+ */
+  startReplayPlayer() {
+    console.log( this.replayData )
+
+    var replayPlayer = new ReplayPlayer( this.replayData, this.geoMaps );
+
+    document.querySelector( '.replay-panel' ).classList.remove( 'hidden' );
 
     return;
   }

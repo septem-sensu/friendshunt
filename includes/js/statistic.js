@@ -282,8 +282,8 @@ class Statistic {
       content     += '<tr>';
       content     += '<td class="align-left pr-10' + cssClass + '">' + speedHunts[ i ].playerName + '</td>';
       content     += '<td class="align-right pr-10">' + speedHunts[ i ].timestamps.length + '</td>';
-      content     += '<td class="align-right pr-10">' + window[ appAlias ].methods.timestampPhpToString( speedHunts[ i ].timestamps[ 0 ] ) + '</td>';
-      content     += '<td class="align-right pr-10">' + window[ appAlias ].methods.timestampPhpToString( speedHunts[ i ].timestamps[ speedHunts[ i ].timestamps.length -1 ] ) + '</td>';
+      content     += '<td class="align-right pr-10">' + Utils.timestampPhpToString( speedHunts[ i ].timestamps[ 0 ] ) + '</td>';
+      content     += '<td class="align-right pr-10">' + Utils.timestampPhpToString( speedHunts[ i ].timestamps[ speedHunts[ i ].timestamps.length -1 ] ) + '</td>';
       content     += '</tr>';
     }
 
@@ -431,7 +431,7 @@ class Statistic {
       content  += '<div class="card-title">Ausgeschieden</div>';
       content  += '<div class="align-left">';
       content  += '<p class="align-left mb-10 danger-text bold">' + this.statistic.names[ this.statistic.captured[ i ].playerId ].name + '</p>';
-      content  += '<p class="align-left mb-10">' + window[ appAlias ].methods.timestampPhpToString( this.statistic.captured[ i ].timestamp ) + ' Uhr</p>';
+      content  += '<p class="align-left mb-10">' + Utils.timestampPhpToString( this.statistic.captured[ i ].timestamp ) + ' Uhr</p>';
       content  += '<p class="align-left bold mb-5 info-text">Jäger:</p>';
 
       for( var j = 0; j < this.statistic.captured[ i ].hunterIds.length; j++ ) {
@@ -509,12 +509,11 @@ class Statistic {
       }
 
       content    += '</tbody>';
-
       content    += '<tfoot><tr>';
       content    += '<th class="align-left pr-10"></th>';
       content    += '<th class="align-right pr-10">' + stepAll + '</th>';
-      content    += '<th class="align-right pr-10">' + distanceAll + ' km</th>';
-      content    += '<th class="align-right pr-10">' + drivedAll + ' km</th>';
+      content    += '<th class="align-right pr-10">' + ( Math.round( distanceAll * 10 ) ) / 10 + ' km</th>';
+      content    += '<th class="align-right pr-10">' + ( Math.round( drivedAll * 10 ) ) / 10 + ' km</th>';
       content    += '<th class="align-right"></th>';
       content    += '</tr></tfoot>';
 

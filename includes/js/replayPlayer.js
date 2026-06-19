@@ -8,7 +8,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var replayPlayer = new ReplayPlayer( trackingData );
+ * @example   var replayPlayer = new ReplayPlayer( replayData, geoMaps );
  *
  */
 class ReplayPlayer {
@@ -19,13 +19,16 @@ class ReplayPlayer {
  * @public
  *
  * @param     {object}   trackingData   The sorted tracking data
+ * @param     {object}   trackingData   The leaflet geoMaps Object
  * @return    {void}
  *
- * @example   var replayPlayer = new ReplayPlayer( trackingData );
+ * @example   var replayPlayer = new ReplayPlayer( replayData, geoMaps );
  *
  */
-  constructor( trackingData ) {
-    this.tracking                 = trackingData;
+  constructor( replayData, geoMaps ) {
+    this.replayData               = replayData;
+    this.tracking                 = this.replayData.trackings;
+    this.geoMaps                  = geoMaps;
 
     this.playbackTimer            = null;
     this.speedMultiplier          = 10;
@@ -203,7 +206,7 @@ class ReplayPlayer {
  *
  */
   renderTargetTime( targetTimestamp ) {
-    var marker = window[ appAlias ].tracker.geoMapsObject.get( 'marker' );
+    var marker = this.geoMaps.get( 'marker' );
 
     for( var playerId in marker ) {
       if( playerId.indexOf('@') == -1 ) continue
@@ -246,7 +249,9 @@ class ReplayPlayer {
       var ping = this.tracking[ i ];
 
       if( ping.playerId !== playerId ) continue;
-      if( ping.type !== 'tracking' ) continue;
+      if( ping.type !== 'tracking' ) {
+        continue;
+      }
 
       var pingTime = parseInt( ping.timestamp );
 
