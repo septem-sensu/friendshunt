@@ -1084,7 +1084,6 @@ class Gameplay extends Game {
     $arrCapturedIds = array_map( fn( $obj ) => $obj->playerId, $this->gameplayObject->captured );
 
     if( ! in_array( $this->currentPlayer->id(), $arrCapturedIds ) ) {
-      Presentation::logToFile( $this->currentPlayer->id(), true, 'test.log' );
       $this->addTracking(
         $objRequestObject->lat,
         $objRequestObject->lng,

@@ -53,6 +53,7 @@ class Gameplay {
     this.gameplayState          = {};
     this.gameSettings           = gameSettings;
     this.capturedPlayerIds      = [];
+    this.capturedPlayer         = {};
     this.gameplayMessages       = [];
     this.systemMessagesDontShow = {};
     this.replayData             = null;
@@ -369,6 +370,7 @@ class Gameplay {
 
     for( var i = 0; i < this.gameplayState.capturedPlayer.length; i++ ) {
       this.capturedPlayerIds.push( this.gameplayState.capturedPlayer[ i ].playerId );
+      this.capturedPlayer[ this.gameplayState.capturedPlayer[ i ].playerId ] = this.gameplayState.capturedPlayer[ i ];
     }
 
     for( var k = 0; k < gameplayRoles.length; k++ ) {
@@ -679,39 +681,44 @@ class Gameplay {
     var silentHuntMessage = '';
     var markerColor       = this.colors[ playerCount ];
     var timestampNow      = Date.now() / 1000;
+    var playerIsCaptured  = this.capturedPlayerIds.includes( tracking.id );
 
-    // Marker Message: Speed Hunt
-    if( speedHuntState.speedHuntCount > 0 ) {
-      speedHuntState.message = 'Es läuft ein Speedhunt, Ping ' + speedHuntState.speedHuntCount + ' von ' + speedHuntState.speedHuntCountMax + '.';
+    if( playerIsCaptured ) {
+      speedHuntState.message = '';
     } else {
-      if( typeof speedHuntState.next != 'undefined' ) {
-        if( speedHuntState.next >= this.gameSettings.end ) {
-          speedHuntState.message = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
-        } else {
-          speedHuntState.message = 'Der nächste Speedhunt ist am ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
-        }
-      } else if( timestampNow > this.gameSettings.end ) {
-        speedHuntState.message = 'Das Spiel ist zu Ende. Es gibt keinen Speed Hunt mehr. ';
+      // Marker Message: Speed Hunt
+      if( speedHuntState.speedHuntCount > 0 ) {
+        speedHuntState.message = 'Es läuft ein Speedhunt, Ping ' + speedHuntState.speedHuntCount + ' von ' + speedHuntState.speedHuntCountMax + '.';
       } else {
-        speedHuntState.message = 'Speedhunt ist verfügbar. ';
+        if( typeof speedHuntState.next != 'undefined' ) {
+          if( speedHuntState.next >= this.gameSettings.end ) {
+            speedHuntState.message = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
+          } else {
+            speedHuntState.message = 'Der nächste Speedhunt ist am ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+          }
+        } else if( timestampNow > this.gameSettings.end ) {
+          speedHuntState.message = 'Das Spiel ist zu Ende. Es gibt keinen Speed Hunt mehr. ';
+        } else {
+          speedHuntState.message = 'Speedhunt ist verfügbar. ';
+        }
       }
-    }
 
-    // Marker Message: Silent Hunt
-    if( this.gameplayState.nextSilentHunt >= this.gameSettings.end ) {
-      silentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
-    } else if( timestampNow > this.gameSettings.end ) {
-      silentHuntMessage += 'Das Spiel ist zu Ende. Es gibt keinen Silent Hunt mehr. ';
-    } else {
-      silentHuntMessage += 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
-    }
+      // Marker Message: Silent Hunt
+      if( this.gameplayState.nextSilentHunt >= this.gameSettings.end ) {
+        silentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+      } else if( timestampNow > this.gameSettings.end ) {
+        silentHuntMessage += 'Das Spiel ist zu Ende. Es gibt keinen Silent Hunt mehr. ';
+      } else {
+        silentHuntMessage += 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
+      }
 
-    // Marker Message: Violation of the Rules
-    for( var i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
-      if( this.gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
-      if( ! this.gameplayState.systemMessages[ i ].applies ) continue;
+      // Marker Message: Violation of the Rules
+      for( var i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
+        if( this.gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
+        if( ! this.gameplayState.systemMessages[ i ].applies ) continue;
 
-      affectedPlayer.push( this.gameplayState.systemMessages[ i ].applies );
+        affectedPlayer.push( this.gameplayState.systemMessages[ i ].applies );
+      }
     }
 
     // Marker css Class if it is me myself
@@ -724,7 +731,7 @@ class Gameplay {
 
         markerContent   += '<p class="bold">' + tracking.name + '</p>';
 
-        if( tracking.id == this.playerId && this.gameplayState.isRunning ) {
+        if( tracking.id == this.playerId && this.gameplayState.isRunning && ! playerIsCaptured ) {
           capturedMessage = '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].objects.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>';
         }
       } else if( myGameRole == 'hunter' ) {
@@ -735,7 +742,7 @@ class Gameplay {
           markerCssClass = this.markerCssClassAlarm;
         }
 
-        if( speedHuntState.speedHuntCount == -1 ) {
+        if( speedHuntState.speedHuntCount == -1 || playerIsCaptured ) {
           markerContent   += '<p class="bold">' + playerName + '</p>';
         } else if( speedHuntState.speedHuntCount == 0 && this.gameplayState.isRunning ) {
           markerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].objects.gameplay.speedHunt( \'' + tracking.id + '\' );">';
@@ -781,14 +788,13 @@ class Gameplay {
     markerContent   += capturedMessage;
 
     if( this.capturedPlayerIds.includes( tracking.id ) ) {
-      markerContent  = '';
-      markerCssClass = this.markerCssClassCaptured;
+      markerContent  += '<p class="bold">Wurde am ' + Utils.timestampPhpToString( this.capturedPlayer[ tracking.id ].timestamp ) + ' Uhr gefangen.</p>';
+      markerCssClass  = this.markerCssClassCaptured;
+
       this.geoMaps.setMarker( tracking.id, gameplayRole, this.capturedColor, lastPosition.lat, lastPosition.lng, markerContent );
     } else {
       this.geoMaps.setMarker( tracking.id, gameplayRole, markerColor, lastPosition.lat, lastPosition.lng, markerContent );
     }
-
-
 
     if( markerCssClass ) this.geoMaps.addMarkerCssClass( tracking.id, markerCssClass );
 
