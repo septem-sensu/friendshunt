@@ -91,7 +91,7 @@ class Gameplay extends Game {
   public function __construct( string $strObjectId, player $objCurrentPlayer ) {
     $this->id               = $strObjectId;
     $this->currentPlayer    = $objCurrentPlayer;
-    $this->generateTestData = true;
+    $this->generateTestData = false;
     $this->testDataSource   = [
       'curly@media-island-design.de' => [
         'latShift' => -0.0025,

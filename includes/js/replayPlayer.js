@@ -8,7 +8,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var replayPlayer = new ReplayPlayer( replayData, geoMaps );
+ * @example   var replayPlayer = new ReplayPlayer( replayData, gamePlay );
  *
  */
 class ReplayPlayer {
@@ -19,16 +19,18 @@ class ReplayPlayer {
  * @public
  *
  * @param     {object}   trackingData   The sorted tracking data
- * @param     {object}   trackingData   The leaflet geoMaps Object
+ * @param     {object}   gamePlay       The calling gameplay object
  * @return    {void}
  *
- * @example   var replayPlayer = new ReplayPlayer( replayData, geoMaps );
+ * @example   var replayPlayer = new ReplayPlayer( replayData, gamePlay );
  *
  */
-  constructor( replayData, geoMaps ) {
+  constructor( replayData, gameplay ) {
     this.replayData               = replayData;
     this.tracking                 = this.replayData.trackings;
-    this.geoMaps                  = geoMaps;
+    this.gameplay                 = gameplay;
+    this.geoMaps                  = this.gameplay.get( 'geoMaps' );
+    this.playerClassesAndColors   = {};
 
     this.playbackTimer            = null;
     this.speedMultiplier          = 10;
@@ -135,6 +137,31 @@ class ReplayPlayer {
       return;
     } );
 
+    var colors        = this.gameplay.get( 'colors' );
+    var playerCounter = {
+      'player': 1,
+      'hunter': 1,
+      'management': 1
+    };
+
+    for( var playerId in this.replayData.names ) {
+      this.replayData.names[ playerId ].color = colors[ playerCounter[ this.replayData.names[ playerId ].role ] ]
+
+      this.geoMaps.setMarker(
+        playerId,
+        this.replayData.names[ playerId ].role,
+        this.replayData.names[ playerId ].color,
+        this.replayData.names[ playerId ].firstLat,
+        this.replayData.names[ playerId ].firstLng,
+        '',
+        this.replayData.names[ playerId ].name
+      );
+
+      if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+
+      playerCounter[ this.replayData.names[ playerId ].role ]++;
+    }
+
     return;
   }
 
@@ -209,12 +236,43 @@ class ReplayPlayer {
     var marker = this.geoMaps.get( 'marker' );
 
     for( var playerId in marker ) {
-      if( playerId.indexOf('@') == -1 ) continue
+      if( playerId.indexOf( '@' ) == -1 ) continue
       if( ! marker.hasOwnProperty( playerId ) ) continue;
 
       var floatingPoint = this.calculateIntermediatePoint( playerId, targetTimestamp );
 
-      if( floatingPoint !== null ) marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
+      if( floatingPoint !== null ) {
+        marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
+
+        if( this.playerClassesAndColors[ playerId ] ) {
+          if( this.playerClassesAndColors[ playerId ][ 'speedhunt' ] ) {
+            if( this.playerClassesAndColors[ playerId ][ 'speedhunt' ] > targetTimestamp ) {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
+              //this.geoMaps.removeMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassAlarm' ) );
+              if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+            } else if( this.playerClassesAndColors[ playerId ][ 'speedhunt' ] + 300 < targetTimestamp ) {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
+              //this.geoMaps.removeMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassAlarm' ) );
+              if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+            } else {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.gameplay.get( 'affectedColor' ), this.replayData.names[ playerId ].name );
+              this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassAlarm' ) );
+            }
+          }
+
+          if( this.playerClassesAndColors[ playerId ][ 'capture' ] ) {
+            if( this.playerClassesAndColors[ playerId ][ 'capture' ] > targetTimestamp ) {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
+              //this.geoMaps.removeMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassCaptured' ) );
+            }  else {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.gameplay.get( 'capturedColor' ), this.replayData.names[ playerId ].name );
+              this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassCaptured' ) );
+            }
+          }
+
+
+        }
+      }
     }
 
     var targetTime = new Date( targetTimestamp * 1000 );
@@ -239,8 +297,8 @@ class ReplayPlayer {
  *
  */
   calculateIntermediatePoint( playerId, targetTimestamp ) {
-    var lastPing   = null;
-    var nextPing   = null;
+    var lastPing = null;
+    var nextPing = null;
 
     if( typeof this.playerIndices[ playerId ] === 'undefined' ) this.playerIndices[ playerId ] = 0;
     if( this.tracking[ this.playerIndices[ playerId ] ] && parseInt( this.tracking[ this.playerIndices[ playerId ] ].timestamp ) > targetTimestamp ) this.playerIndices[ playerId ] = 0;
@@ -249,11 +307,15 @@ class ReplayPlayer {
       var ping = this.tracking[ i ];
 
       if( ping.playerId !== playerId ) continue;
+
+      var pingTime  = parseInt( ping.timestamp );
+
       if( ping.type !== 'tracking' ) {
+        this.playerClassesAndColors[ playerId ] = this.playerClassesAndColors[ playerId ] || {};
+        this.playerClassesAndColors[ playerId ][ ping.type ] = pingTime;
+
         continue;
       }
-
-      var pingTime = parseInt( ping.timestamp );
 
       if( pingTime <= targetTimestamp ) {
         lastPing                       = ping;

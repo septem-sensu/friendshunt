@@ -120,7 +120,7 @@ class GeoMaps {
     if( this.marker[ id ] ) this.marker[ id ].remove();
 
     this.marker[ id ] = L.marker( [ lat, lng ], { icon: icon } ).addTo( this.map );
-    this.marker[ id ].bindPopup( content );
+    if( typeof content == 'string' && content != '' ) this.marker[ id ].bindPopup( content );
 
     return;
   }

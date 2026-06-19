@@ -32,6 +32,10 @@ class Gameplay {
   constructor( playerId, gameId, gameSettings ) {
     this.colors                 = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
     this.affectedColor          = '#ff0000';
+    this.capturedColor          = '#555555';
+    this.markerCssClassAlarm    = 'game-marker-alarm';
+    this.markerCssClassMyOwn    = 'game-my-own-marker';
+    this.markerCssClassCaptured = 'game-marker-captured';
 
     this.communicator           = new Communicator();
     this.validator              = this.communicator.get( 'validator' );
@@ -107,15 +111,17 @@ class Gameplay {
  */
   init() {
     this.geoTracker.getCurrentPosition( this.setMap.bind( this ) );
-    this.geoTracker.startIntervalTracking( this.track.bind( this ) );
+
+    if( Date.now() / 1000 > this.gameSettings.end ) {
+      document.querySelector( '.game-permission-pedometer' ).classList.add( 'hidden' );
+    } else {
+      this.geoTracker.startIntervalTracking( this.track.bind( this ) );
+    }
+
     this.geoTracker.startWakeLock();
     this.batteryTracker.init();
 
     this.registerEventHandler();
-
-    if( Date.now() / 1000 > this.gameSettings.end && this.gameSettings.showReplay ) {
-      this.getReplayData();
-    }
 
     return;
   }
@@ -277,6 +283,11 @@ class Gameplay {
 
     this.geoMaps.setCircle( 'playingFieldCenterPosition', fieldCenter[ 0 ], fieldCenter[ 1 ], this.gameSettings.playingFieldSize, '#ff0000', 1, '#ff0000', 0.08 );
 
+    if( Date.now() / 1000 > this.gameSettings.end && this.gameSettings.showReplay ) {
+      this.getReplayData();
+      return;
+    }
+
     this.track( lat, lng, precision, message );
 
     return;
@@ -304,7 +315,7 @@ class Gameplay {
     var stepCount    = this.geoTracker.get( 'stepCount' );
     var batteryState = this.batteryTracker.getBatteryData();
 
-    this.steps                  += stepCount;
+    this.steps               += stepCount;
 
     post.gameplayMethod       = 'track';
     post.callbackMethod       = 'setPositions';
@@ -358,7 +369,6 @@ class Gameplay {
 
     for( var i = 0; i < this.gameplayState.capturedPlayer.length; i++ ) {
       this.capturedPlayerIds.push( this.gameplayState.capturedPlayer[ i ].playerId );
-      this.geoMaps.removeMarker( this.gameplayState.capturedPlayer[ i ].playerId );
     }
 
     for( var k = 0; k < gameplayRoles.length; k++ ) {
@@ -366,8 +376,6 @@ class Gameplay {
         if( response.result.positions[  gameplayRoles[ k ] ][ i ].position.length < 1 ) continue;
 
         var tracking     = response.result.positions[  gameplayRoles[ k ] ][ i ];
-
-        if( this.capturedPlayerIds.includes( tracking.id ) ) continue;
 
         this.setPosition( gameplayRoles[ k ], tracking, response.result, i + 1, speedHuntPlayer );
       }
@@ -550,7 +558,7 @@ class Gameplay {
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
 
-    this.geoMaps.removeMarker( this.playerId );
+    // this.geoMaps.removeMarker( this.playerId );
 
     document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
 
@@ -707,7 +715,7 @@ class Gameplay {
     }
 
     // Marker css Class if it is me myself
-    if( tracking.id == this.playerId ) markerCssClass = 'game-my-own-marker';
+    if( tracking.id == this.playerId ) markerCssClass = this.markerCssClassMyOwn;
 
     // Set Marker Content
     if( gameplayRole == 'player' ) {
@@ -724,7 +732,7 @@ class Gameplay {
 
         if( affectedPlayer.includes( tracking.id ) ) {
           markerColor    = this.affectedColor;
-          markerCssClass = 'game-marker-alarm';
+          markerCssClass = this.markerCssClassAlarm;
         }
 
         if( speedHuntState.speedHuntCount == -1 ) {
@@ -739,7 +747,7 @@ class Gameplay {
             markerContent   += playerName;
             markerContent   += '</p>';
             markerColor      = this.affectedColor;
-            markerCssClass   = 'game-marker-alarm';
+            markerCssClass   = this.markerCssClassAlarm;
           } else {
             markerContent   += '<p class="bold">' + playerName + '</p>';
           }
@@ -752,7 +760,7 @@ class Gameplay {
 
         if( speedHuntState.speedHuntCount > 0 && tracking.id == speedHuntState.playerId ) {
           markerColor    = this.affectedColor;
-          markerCssClass = 'game-marker-alarm';
+          markerCssClass = this.markerCssClassAlarm;
         }
       }
 
@@ -772,7 +780,15 @@ class Gameplay {
     markerContent   += '<p>Genauigkeit: ' + lastPosition.precision + ' Meter</p>';
     markerContent   += capturedMessage;
 
-    this.geoMaps.setMarker( tracking.id, gameplayRole, markerColor, lastPosition.lat, lastPosition.lng, markerContent );
+    if( this.capturedPlayerIds.includes( tracking.id ) ) {
+      markerContent  = '';
+      markerCssClass = this.markerCssClassCaptured;
+      this.geoMaps.setMarker( tracking.id, gameplayRole, this.capturedColor, lastPosition.lat, lastPosition.lng, markerContent );
+    } else {
+      this.geoMaps.setMarker( tracking.id, gameplayRole, markerColor, lastPosition.lat, lastPosition.lng, markerContent );
+    }
+
+
 
     if( markerCssClass ) this.geoMaps.addMarkerCssClass( tracking.id, markerCssClass );
 
@@ -983,7 +999,9 @@ class Gameplay {
           'id': response.gameplay[ role ][ i ].id,
           'name': response.gameplay[ role ][ i ].name,
           'role': role,
-          'roleName': this.replayData.roles[ role ]
+          'roleName': this.replayData.roles[ role ],
+          'firstLat': null,
+          'firstLng': null
         };
       }
     }
@@ -1004,6 +1022,9 @@ class Gameplay {
           tracking[ i ].playerId    = playerId;
           tracking[ i ].playerName  = this.replayData.names[ playerId ].name;
           tracking[ i ].playerCount = playerCounter;
+
+          this.replayData.names[ playerId ].firstLat = this.replayData.names[ playerId ].firstLat == null ? tracking[ i ].lat : this.replayData.names[ playerId ].firstLat;
+          this.replayData.names[ playerId ].firstLng = this.replayData.names[ playerId ].firstLng == null ? tracking[ i ].lng : this.replayData.names[ playerId ].firstLng;
 
           this.replayData.trackings.push( tracking[ i ] );
         }
@@ -1055,9 +1076,7 @@ class Gameplay {
  *
  */
   startReplayPlayer() {
-    console.log( this.replayData )
-
-    var replayPlayer = new ReplayPlayer( this.replayData, this.geoMaps );
+    var replayPlayer = new ReplayPlayer( this.replayData, this );
 
     document.querySelector( '.replay-panel' ).classList.remove( 'hidden' );
 
