@@ -726,7 +726,7 @@ class Gameplay extends Game {
     if( ! isset( $objState->systemMessages ) ) $objState->systemMessages = [];
 
     $intNowTimestamp   = time();
-    $arrCaptured       = $this->gameSettings->captured;
+    $arrCaptured       = $this->gameplayObject->captured;
 
     // Welcoming and bidding farewell to the players
     if( $intNowTimestamp > $this->startTimestamp && $intNowTimestamp <  $this->startTimestamp + 600 ) {
@@ -734,15 +734,15 @@ class Gameplay extends Game {
       $objSystemMessage->type               = 'friendliness';
       $objSystemMessage->subType            = 'welcoming';
       $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
-      $objSystemMessage->message            = '<p class="bold success-text">💥 DIE JAGD ERÖFFNET 💥</p>';
+      $objSystemMessage->message            = '<p class="bold success-text">💥 DIE JAGD IST ERÖFFNET 💥</p>';
       $objSystemMessage->message           .= '<p>Lagezentrum online. Satellitenverbindung steht. Die Spielleitung begrüßt die Hunter-Taskforce und die Gejagten. Der Countdown läuft unerbittlich – die Jagd ist offiziell eröffnet! Möge die Ausdauer mit euch sein.</p>';
       $objSystemMessage->showMessageOnlyOne = true;
       $objSystemMessage->id                 = 'gameStartMessage';
       $objSystemMessage->timestamp          = $intNowTimestamp;
 
       array_push( $objState->systemMessages, $objSystemMessage );
-    } else if( $intNowTimestamp > $this->endTimestamp && $intNowTimestamp <  $this->endTimestamp +  3600 ) {
-      $arrExitMeetLocation                  = [ 'in der Kneipe', 'im Biergarten', 'in der Gaststätte', 'im Wirtshaus', 'im Café', 'in der Bar' ];
+    } else if( $intNowTimestamp > $this->endTimestamp && $intNowTimestamp <  $this->endTimestamp + 7200 && count( $this->gameplayObject->captured ) < count( $this->gameplayObject->player ) ) {
+      $arrExitMeetLocation = [ 'in der Kneipe', 'im Biergarten', 'in der Gaststätte', 'im Wirtshaus', 'im Café', 'in der Bar' ];
 
       foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
         $arrObjects = $this->gameplayObject->$strGameplayRole;
@@ -764,6 +764,35 @@ class Gameplay extends Game {
 
       array_push( $objState->systemMessages, $objSystemMessage );
     }
+
+    // Hunters won
+    if( count( $this->gameplayObject->captured ) >= count( $this->gameplayObject->player ) && $intNowTimestamp <  $this->endTimestamp + 7200 ) {
+      $arrExitMeetLocation = [ 'in der Kneipe', 'im Biergarten', 'in der Gaststätte', 'im Wirtshaus', 'im Café', 'in der Bar' ];
+
+      foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
+        $arrObjects = $this->gameplayObject->$strGameplayRole;
+
+        for( $i = 0; $i < count( $arrObjects ); $i++ ) {
+          array_push( $arrExitMeetLocation, 'bei ' . $arrObjects[ $i ]->name );
+        }
+      }
+
+      $objSystemMessage                     = new stdClass();
+      $objSystemMessage->type               = 'friendliness';
+      $objSystemMessage->subType            = 'win';
+      $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+      $objSystemMessage->message            = '<p class="bold success-text">🏁 MISSION ERFÜLLT! - ALLE SPIELER WURDEN GEFANGEN - SAMMELN AM EXIT POINT 🏁</p>';
+      $objSystemMessage->message           .= '<p>Totale Funkstille im Sektor! Die Hunter-Taskforce hat unerbittlich zugeschlagen und alle Zielobjekte erfolgreich eliminiert. Die Gejagten sitzen in Ketten – die Jagd ist vorbei! Jäger, tretet vor und lasst euch feiern. Gejagte... tja, die nächste Runde geht auf euch! (Wir treffen uns ' . $arrExitMeetLocation[ rand( 0, count( $arrExitMeetLocation ) - 1 ) ] . '.) vor. Zeit für das Debriefing!</p>';
+      $objSystemMessage->showMessageOnlyOne = true;
+      $objSystemMessage->id                 = 'winMessage';
+      $objSystemMessage->timestamp          = $intNowTimestamp;
+
+      array_push( $objState->systemMessages, $objSystemMessage );
+
+      $this->isRunning = false;
+    }
+
+    if( ! $this->isRunning ) return $objState;
 
     foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
       $arrObjects = $this->gameplayObject->$strGameplayRole;
@@ -912,7 +941,7 @@ class Gameplay extends Game {
     $intNowTimestamp          = time();
     $objState->timestampStart = $this->startTimestamp;
     $objState->timestampEnd   = $this->endTimestamp;
-    $objState->capturedPlayer = $this->gameSettings->captured;
+    $objState->capturedPlayer = $this->gameplayObject->captured;
     $objState->isRunning      = $this->isRunning;
 
     if( $this->startTimestamp > $intNowTimestamp ) {
@@ -973,6 +1002,36 @@ class Gameplay extends Game {
   }
 
 /**
+ * This method creates a default response and fills it with all the necessary information.
+ *
+ * @access     private
+ * @since      2026-06-20
+ * @version    0.1.0
+ *
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ *
+ * @example    $objRequestObject = $this->response( $objRequestObject );
+ * @example    $objRequestObject = $objGameplay->response( $objRequestObject );
+ *
+*/
+  private function response( object $objRequestObject ) : object {
+    $objState                    = new stdClass();
+    $objState                    = $this->getGameplayState( $objState );
+    $objState                    = $this->silentHunt( $objState );
+    $objState                    = $this->getGameplaySpeedHunt( $objState );
+    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
+
+    $objRequestObject->positions = $this->getAllPlayerPositions();
+    $objRequestObject->state     = $objState;
+    $objRequestObject->settings  = $this->gameSettings;
+    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
+    $objRequestObject->messages  = $this->messages->messages;
+
+    return $objRequestObject;
+  }
+
+/**
  * This Method set a Player as captured.
  *
  * @access     public
@@ -995,8 +1054,6 @@ class Gameplay extends Game {
     $objCaptured->playerId   = $objRequestObject->playerId;
     $objCaptured->hunterIds  = $objRequestObject->hunterIds;
 
-    if( ! isset( $this->gameplayObject->captured ) ) $this->gameplayObject->captured = [];
-
     array_push( $this->gameplayObject->captured, $objCaptured );
 
     if( isset( $this->gameplayObject->speedHunt ) && $this->gameplayObject->speedHunt->playerId == $objRequestObject->playerId ) {
@@ -1008,7 +1065,7 @@ class Gameplay extends Game {
 
     $this->saveGameplay();
 
-    return $objRequestObject;
+    return $this->response( $objRequestObject );
   }
 
 /**
@@ -1043,16 +1100,7 @@ class Gameplay extends Game {
     $objPlayer                                                          = new Player( $strSpeedHuntPlayerId );
     $this->gameplayObject->silentHunt->tracking->$strSpeedHuntPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
 
-    $objState                                                           = new stdClass();
-    $objState                                                           = $this->getGameplayState( $objState );
-    $objState                                                           = $this->silentHunt( $objState );
-    $objState                                                           = $this->getGameplaySpeedHunt( $objState );
-    $objState                                                           = $this->checkRulesAndAddSystemMessages( $objState );
-    $objRequestObject->positions                                        = $this->getAllPlayerPositions();
-    $objRequestObject->state                                            = $objState;
-    $objRequestObject->settings                                         = $this->gameSettings;
-    $objRequestObject->gameRole                                         = $this->currentPlayerGameRole;
-    $objRequestObject->messages                                         = $this->messages->messages;
+    $objRequestObject                                                   = $this->response( $objRequestObject );
 
     if( $intSpeedHuntCount >= $this->gameplayObject->speedPingCount ) {
       $this->gameplayObject->lastSpeedHunt = time();
@@ -1097,19 +1145,7 @@ class Gameplay extends Game {
       );
     }
 
-    $objState                    = new stdClass();
-    $objState                    = $this->getGameplayState( $objState );
-    $objState                    = $this->silentHunt( $objState );
-    $objState                    = $this->getGameplaySpeedHunt( $objState );
-    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
-
-    $objRequestObject->positions = $this->getAllPlayerPositions();
-    $objRequestObject->state     = $objState;
-    $objRequestObject->settings  = $this->gameSettings;
-    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
-    $objRequestObject->messages  = $this->messages->messages;
-
-    return $objRequestObject;
+    return $this->response( $objRequestObject );
   }
 
 /**
@@ -1177,6 +1213,7 @@ class Gameplay extends Game {
 
     $objState->systemMessages                    = [];
 
+    $objState                                    = $this->checkRulesAndAddSystemMessages( $objState );
     $objRequestObject->positions                 = $this->getAllPlayerPositions();
     $objRequestObject->state                     = $objState;
     $objRequestObject->settings                  = $this->gameSettings;
@@ -1201,11 +1238,16 @@ class Gameplay extends Game {
  *
 */
   public function statistic( object $objRequestObject )  : object {
-    $arrRoles = $this::GAMEROLES;
+    $arrRoles                    = $this::GAMEROLES;
+    $objState                    = new stdClass();
+    $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
 
+    $objRequestObject->state     = $objState;
     $objRequestObject->positions = new stdClass();
     $objRequestObject->messages  = $this->messages->messages;
     $objRequestObject->gameplay  = $this->gameplayObject;
+    $objRequestObject->settings  = $this->gameSettings;
+    $objRequestObject->gameRole  = $this->currentPlayerGameRole;
 
     foreach( $arrRoles as $strRoleId => $strRoleName ) {
       $objRequestObject->positions->$strRoleId = new stdClass();

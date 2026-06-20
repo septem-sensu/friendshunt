@@ -284,6 +284,7 @@ class Gameplay {
     if( gameSystemMessagesOkButton != null ) {
       gameSystemMessagesOkButton.addEventListener( 'click', ( event ) => {
         var arrDontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
+        var replayPanel         = document.querySelector( '.replay-panel' );
 
         for( var i = 0; i < arrDontShowMessages.length; ++i ) {
           if( ! arrDontShowMessages[ i ].checked ) continue;
@@ -292,6 +293,8 @@ class Gameplay {
         }
 
         document.querySelector( '#game-system-message-container' ).classList.add( 'hidden' );
+
+        if( this.replayData && replayPanel ) replayPanel.classList.remove( 'hidden' );
 
         return;
       } )
@@ -556,8 +559,9 @@ class Gameplay {
     var showLayer                = false;
     var systemMessageLayer       = document.querySelector( '#game-system-message-container' );
     var systemMessagesHtml       = document.querySelector( '#game-system-messages' );
+    var replayPanel              = document.querySelector( '.replay-panel' );
 
-    systemMessagesHtml.innerHTML     = '';
+    systemMessagesHtml.innerHTML = '';
 
     for( var i = 0; i < systemMessages.length; i++ ) {
       if( ! systemMessages[ i ].for.includes( this.gameplayRole ) ) continue;
@@ -594,35 +598,13 @@ class Gameplay {
     Utils.playMessagePiep();
     Utils.triggerMessageVibration();
 
+    if( this.replayData && replayPanel ) replayPanel.classList.add( 'hidden' );
+
     systemMessageLayer.classList.remove( 'hidden' );
+
     systemMessageLayer.style.height = ( window.innerHeight - 137 ) + 'px';
 
     systemMessagesHtml.scrollTo( { 'top': systemMessagesHtml.scrollHeight, 'behavior': 'smooth' } );
-
-    return;
-  }
-
-/**
- * This method closes the system message layer and evaluates the checkboxes of messages
- * which should no longer be displayed to the player.
- *
- * @public
- *
- * @return    {void}
- *
- * @example   gameplay.closeSystemMessagesLayer();
- * @example   this.closeSystemMessagesLayer();
- *
- */
-  closeSystemMessagesLayer() {
-    var dontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
-
-    for( var i = 0; i < dontShowMessages.length; ++i ) {
-      if( ! dontShowMessages[ i ].checked ) continue;
-      this.systemMessagesDontShow[ dontShowMessages[ i ].value ] = true;
-    }
-
-    document.querySelector( '#game-system-message-container' ).classList.add( 'hidden' );
 
     return;
   }
@@ -644,6 +626,7 @@ class Gameplay {
     var post             = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
 
     post.gameplayMethod  = 'captured';
+    post.callbackMethod  = 'setPositions';
     post.hunterIds       = [];
     post.playerId        = this.playerId;
 
@@ -657,7 +640,7 @@ class Gameplay {
       return;
     }
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
 
     document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
 
@@ -716,7 +699,7 @@ class Gameplay {
       stateLine += this.silentHuntMessage;
 
       document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-play.png';
-      document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();' );
+      document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].objects.gameplay.checkSystemMessages();' );
     } else {
       stateLine += this.stateMessage;
 
@@ -745,15 +728,10 @@ class Gameplay {
  *
  */
   setPosition( gameplayRole, tracking, playerCount ) {
-    var markerCssClass    = null;
     var lastPosition      = tracking.position.at( -1 );
     var gameState         = this.gameplayState;
     var speedHuntState    = gameState.speedHuntState;
     var markerContent     = '';
-    var markerColor       = this.colors[ playerCount ];
-
-    // Marker css Class if it is me myself
-    if( tracking.id == this.playerId ) markerCssClass = this.markerCssClassMyOwn;
 
     // Marker Content
     if( gameplayRole == 'player' ) {
@@ -849,9 +827,9 @@ class Gameplay {
  *
  */
   showMessageLayer() {
-    var messageLayer     = document.querySelector( '#game-message-layer' );
-    var messageContainer = document.querySelector( '#game-message-content' );
-    var replayPanel      = document.querySelector( '.replay-panel' );
+    var messageLayer            = document.querySelector( '#game-message-layer' );
+    var messageContainer        = document.querySelector( '#game-message-content' );
+    var replayPanel             = document.querySelector( '.replay-panel' );
 
     if( messageLayer.classList.contains( 'hidden' ) ) {
       messageLayer.classList.remove( 'hidden' );
@@ -1093,7 +1071,10 @@ class Gameplay {
  *
  */
   startReplayPlayer() {
-    var replayPlayer = new ReplayPlayer( this.replayData, this );
+    var replayPlayer        = new ReplayPlayer( this.replayData, this );
+    var systemMessageLayer  = document.querySelector( '#game-system-message-container' );
+
+    if( systemMessageLayer != null && ! systemMessageLayer.classList.contains( 'hidden' ) ) return;
 
     document.querySelector( '.replay-panel' ).classList.remove( 'hidden' );
 

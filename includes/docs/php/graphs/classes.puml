@@ -113,6 +113,8 @@ class Gameplay {
   +isRunning
   +startTimestamp
   +endTimestamp
+  +generateTestData
+  +testDataSource
   +__construct()
   +init()
   +transferStatistics()
@@ -130,6 +132,7 @@ class Gameplay {
   +checkRulesAndAddSystemMessages()
   +getGameplayState()
   +getGameplaySpeedHunt()
+  +response()
   +captured()
   +speedHunt()
   +track()

@@ -576,6 +576,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020added\u0020the\u0020Speed\u0020Hunt\u0020Informations\u0020to\u0020the\u0020Gameplay\u0020State\u0020Object\u0020for\u0020the\u0020current\u0020Player\u0020for\u0020the\u0020Response.",
             "url": "classes/Gameplay.html#method_getGameplaySpeedHunt"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003Aresponse\u0028\u0029",
+            "name": "response",
+            "summary": "This\u0020method\u0020creates\u0020a\u0020default\u0020response\u0020and\u0020fills\u0020it\u0020with\u0020all\u0020the\u0020necessary\u0020information.",
+            "url": "classes/Gameplay.html#method_response"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003Acaptured\u0028\u0029",
             "name": "captured",
             "summary": "This\u0020Method\u0020set\u0020a\u0020Player\u0020as\u0020captured.",
@@ -665,6 +670,16 @@ Search.appendIndex(
             "name": "endTimestamp",
             "summary": "",
             "url": "classes/Gameplay.html#property_endTimestamp"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024generateTestData",
+            "name": "generateTestData",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_generateTestData"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024testDataSource",
+            "name": "testDataSource",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_testDataSource"
         },                {
             "fqsen": "\\Player",
             "name": "Player",
