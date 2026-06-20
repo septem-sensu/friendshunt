@@ -30,6 +30,7 @@ class Gameplay {
  *
  */
   constructor( playerId, gameId, gameSettings ) {
+    this.gameplayRoles          = {'player': 'Spieler', 'hunter': 'Jäger', 'management': 'Spielleitung' };
     this.colors                 = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
     this.affectedColor          = '#ff0000';
     this.capturedColor          = '#555555';
@@ -45,15 +46,26 @@ class Gameplay {
     this.game                   = new Game( gameId );
     this.gameId                 = gameId;
     this.playerId               = playerId;
+    this.playerRole             = null;
     this.steps                  = 0;
     this.gameplayRole           = '';
     this.lastMessageId          = '';
 
+    this.gameSettings           = gameSettings;
+    this.isRunning              = false;
+    this.state                  = -1;
+    this.stateMessage           = '';
+    this.silentHuntMessage      = '';
+    this.speedHuntMessage       = '';
     this.outOfPlayingField      = false;
     this.gameplayState          = {};
-    this.gameSettings           = gameSettings;
     this.capturedPlayerIds      = [];
     this.capturedPlayer         = {};
+    this.cheatPlayerIds         = [];
+    this.cheatHunterIds         = [];
+    this.cheatManagementIds     = [];
+    this.speedHuntPlayerIds     = [];
+    this.affectedPlayerIds      = [];
     this.gameplayMessages       = [];
     this.systemMessagesDontShow = {};
     this.replayData             = null;
@@ -111,9 +123,10 @@ class Gameplay {
  *
  */
   init() {
+    this.setStates();
     this.geoTracker.getCurrentPosition( this.setMap.bind( this ) );
 
-    if( Date.now() / 1000 > this.gameSettings.end ) {
+    if( this.state > 1 ) {
       document.querySelector( '.game-permission-pedometer' ).classList.add( 'hidden' );
     } else {
       this.geoTracker.startIntervalTracking( this.track.bind( this ) );
@@ -123,6 +136,111 @@ class Gameplay {
     this.batteryTracker.init();
 
     this.registerEventHandler();
+
+    return;
+  }
+
+/**
+ * This method returns a Php timestamp of the current time.
+ *
+ * @public
+ *
+ * @return    {number}  timestampNow  The Php timestamp at the current time
+ *
+ * @example   var timestampNow = gameplay.timestampNow();
+ * @example   var timestampNow = this.timestampNow();
+ *
+ */
+  timestampNow() {
+    return parseInt( Date.now() / 1000 );
+  }
+
+/**
+ * This method sets different states to the current gameplay.
+ * The method is executed when the class is instantiated and with every response.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   gameplay.setStates();
+ * @example   this.setStates();
+ *
+ */
+  setStates() {
+    this.isRunning   = this.timestampNow() < this.gameSettings.end && this.timestampNow() > this.gameSettings.start ? true : false;
+
+    if( this.timestampNow() < this.gameSettings.start ) {
+      this.state        = 0;
+      this.stateMessage = 'Das Spiel Startet am ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr. ';
+    } else if( this.timestampNow() > this.gameSettings.end ) {
+      this.state        = 3;
+      this.stateMessage = 'Das Spiel ist beendet. ';
+    } else {
+      this.state        = 1;
+      this.stateMessage = 'Das Spiel ist läuft. ';
+    }
+
+    if( this.isRunning ) {
+      this.capturedPlayer     = {};
+      this.capturedPlayerIds  = [];
+      this.speedHuntPlayerIds = [];
+      this.affectedPlayerIds  = [];
+      this.cheatPlayerIds     = [];
+      this.cheatHunterIds     = [];
+      this.cheatManagementIds = [];
+
+      // All players were captured
+      if( this.gameplayState.capturedPlayer ) {
+        for( var i = 0; i < this.gameplayState.capturedPlayer.length; i++ ) {
+          this.capturedPlayerIds.push( this.gameplayState.capturedPlayer[ i ].playerId );
+          this.capturedPlayer[ this.gameplayState.capturedPlayer[ i ].playerId ] = this.gameplayState.capturedPlayer[ i ];
+        }
+
+        if( this.gameplayState.capturedPlayer.length >= this.gameSettings.playerIds.length ) {
+          this.state        = 2;
+          this.stateMessage = 'Alle Spieler wurden gefangen. Die Jäger haben das Spiel gewonnen. Das Spiel ist beendet. ';
+          this.isRunning    = false;
+        }
+      }
+
+      // Silent Hunt
+      if( this.gameplayState.nextSilentHunt ) {
+        if( this.gameplayState.nextSilentHunt >= this.gameSettings.end ) {
+          this.silentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+        } else {
+          this.silentHuntMessage = 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
+        }
+      }
+
+      // Speed Hunt
+      if( this.gameplayState.speedHuntState ) {
+        if( this.gameplayState.speedHuntState.speedHuntCount > 0 ) {
+          this.speedHuntMessage = 'Es läuft ein Speedhunt, Ping ' + this.gameplayState.speedHuntState.speedHuntCount + ' von ' + this.gameplayState.speedHuntState.speedHuntCountMax + '. ';
+          this.speedHuntPlayerIds.push( this.gameplayState.speedHuntState.playerId );
+          this.affectedPlayerIds.push( this.gameplayState.speedHuntState.playerId );
+        } else if( typeof this.gameplayState.speedHuntState.next == 'undefined' ) {
+          this.speedHuntMessage = 'Speedhunt ist verfügbar. ';
+        } else if( this.gameplayState.speedHuntState.next > this.gameSettings.end ) {
+          this.speedHuntMessage = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
+        } else {
+          this.speedHuntMessage = 'Der nächste Speedhunt ist am ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+        }
+      }
+
+      // Cheating Players
+      if( this.gameplayState.systemMessages ) {
+        for( var i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
+          if( this.gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
+          if( ! this.gameplayState.systemMessages[ i ].applies ) continue;
+          if( ! this.gameplayState.systemMessages[ i ].appliesRole ) continue;
+          if( this.gameplayState.systemMessages[ i ].appliesRole == 'player' ) this.cheatPlayerIds.push( this.gameplayState.systemMessages[ i ].applies );
+          if( this.gameplayState.systemMessages[ i ].appliesRole == 'hunter' ) this.cheatHunterIds.push( this.gameplayState.systemMessages[ i ].applies );
+          if( this.gameplayState.systemMessages[ i ].appliesRole == 'management' ) this.cheatManagementIds.push( this.gameplayState.systemMessages[ i ].applies );
+          this.affectedPlayerIds.push( this.gameplayState.systemMessages[ i ].applies );
+        }
+      }
+    }
 
     return;
   }
@@ -244,6 +362,12 @@ class Gameplay {
     this.gameplayMessages   = result.messages ? result.messages : this.gameplayMessages;
     this.outOfPlayingField  = result.outOfPlayingField ? result.outOfPlayingField : this.outOfPlayingField;
     this.playerId           = result.playerId ? result.playerId : this.playerId;
+    this.playerRole         = result.gameRole ? result.gameRole : this.playerRole;
+
+    this.setStates();
+    this.setStateLine();
+    this.setMessages();
+    this.checkSystemMessages();
 
     if( result.callbackMethod ) this[ result.callbackMethod ]( response );
 
@@ -284,12 +408,11 @@ class Gameplay {
 
     this.geoMaps.setCircle( 'playingFieldCenterPosition', fieldCenter[ 0 ], fieldCenter[ 1 ], this.gameSettings.playingFieldSize, '#ff0000', 1, '#ff0000', 0.08 );
 
-    if( Date.now() / 1000 > this.gameSettings.end && this.gameSettings.showReplay ) {
+    if( this.state > 1 ) {
       this.getReplayData();
-      return;
+    } else {
+      this.track( lat, lng, precision, message );
     }
-
-    this.track( lat, lng, precision, message );
 
     return;
   };
@@ -329,7 +452,7 @@ class Gameplay {
     post.outOfPlayingField    = this.outOfPlayingField;
     post.batteryLevel         = batteryState.supported ? batteryState.level : 0;
     post.batteryIsCharging    = batteryState.supported ? batteryState.charging : false;
-    post.timestamp            = Date.now() / 1000;
+    post.timestamp            = this.timestampNow();
 
     this.geoTracker.set( 'stepCount', 0 );
 
@@ -352,41 +475,17 @@ class Gameplay {
  *
  */
   setPositions( response ) {
-    var gameplayRoles     = [ 'player', 'hunter', 'management' ];
-    var speedHuntPlayer   = '';
+    for( var gameplayRole in this.gameplayRoles ) {
+      for( var i = 0; i < response.result.positions[ gameplayRole ].length; i++ ) {
+        if( response.result.positions[ gameplayRole ][ i ].position.length < 1 ) continue;
 
-    if( this.gameplayState.speedHuntState.speedHuntCount > 0 ) {
-      for( var i = 0; i < response.result.positions.player.length; i++ ) {
-        if( response.result.positions.player[ i ].id != this.gameplayState.speedHuntState.playerId ) continue;
-        if( this.gameSettings.showNames == '1' ) {
-          speedHuntPlayer = this.gameplayState.speedHuntState.playerName;
-        } else {
-          speedHuntPlayer = 'Spieler ' + ( i + 1 );
-        }
+        var tracking = response.result.positions[ gameplayRole ][ i ];
 
-        break;
+        this.setPosition( gameplayRole, tracking, i + 1 );
       }
     }
 
-    for( var i = 0; i < this.gameplayState.capturedPlayer.length; i++ ) {
-      this.capturedPlayerIds.push( this.gameplayState.capturedPlayer[ i ].playerId );
-      this.capturedPlayer[ this.gameplayState.capturedPlayer[ i ].playerId ] = this.gameplayState.capturedPlayer[ i ];
-    }
-
-    for( var k = 0; k < gameplayRoles.length; k++ ) {
-      for( var i = 0; i < response.result.positions[  gameplayRoles[ k ] ].length; i++ ) {
-        if( response.result.positions[  gameplayRoles[ k ] ][ i ].position.length < 1 ) continue;
-
-        var tracking     = response.result.positions[  gameplayRoles[ k ] ][ i ];
-
-        this.setPosition( gameplayRoles[ k ], tracking, response.result, i + 1, speedHuntPlayer );
-      }
-    }
-
-    this.setStateLine();
-    this.setMessages();
     this.checkRules();
-    this.checkSystemMessages();
 
     return;
   }
@@ -452,7 +551,7 @@ class Gameplay {
  */
   checkSystemMessages() {
     var gameSettings             = this.gameSettings;
-    var systemMessages           = this.gameplayState.systemMessages;
+    var systemMessages           = this.gameplayState.systemMessages ? this.gameplayState.systemMessages : [];
     var systemMessagesDontShow   = this.systemMessagesDontShow;
     var showLayer                = false;
     var systemMessageLayer       = document.querySelector( '#game-system-message-container' );
@@ -560,8 +659,6 @@ class Gameplay {
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
 
-    // this.geoMaps.removeMarker( this.playerId );
-
     document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
 
     return;
@@ -608,45 +705,26 @@ class Gameplay {
  */
   setStateLine() {
     var stateLine = '';
-    var timeStampNow = Date.now() / 1000;
 
-    if( this.gameplayState.gameState == 'stopped' ) {
-      if( timeStampNow < this.gameSettings.start ) {
-        stateLine += 'Das Spiel Startet am ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr. ';
+    if( this.isRunning ) {
+      if( this.gameplayState.speedHuntState.speedHuntCount > 0 &&  this.gameplayRole != 'hunter' ) {
+        stateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">' + this.speedHuntMessage + '</span> ';
       } else {
-        stateLine += 'Das Spiel ist beendet. ';
+        stateLine += this.speedHuntMessage;
       }
 
-      document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-stop.png';
-      document.querySelector( '#game-state-icon-container' ).removeAttribute( 'onclick' );
-    } else {
-      if( this.gameplayState.speedHuntState.speedHuntCount > 0 ) {
-        if( this.gameplayRole != 'hunter' ) stateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">';
-        stateLine += 'Es läuft ein Speedhunt, Ping ' + this.gameplayState.speedHuntState.speedHuntCount + ' von ' + this.gameplayState.speedHuntState.speedHuntCountMax + '. ';
-        if( this.gameplayRole != 'hunter' ) stateLine += '</span> ';
-      } else {
-        if( typeof this.gameplayState.speedHuntState.next != 'undefined' ) {
-          stateLine += 'Der nächste Speedhunt ist am ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
-        } else {
-          stateLine += 'Speedhunt ist verfügbar. ';
-        }
-      }
-
-      if( this.gameplayState.nextSilentHunt >= this.gameSettings.end ) {
-        stateLine += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
-      } else {
-        stateLine += 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
-      }
+      stateLine += this.silentHuntMessage;
 
       document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-play.png';
       document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].methods.gameplay.checkSystemMessages();' );
+    } else {
+      stateLine += this.stateMessage;
+
+      document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-stop.png';
+      document.querySelector( '#game-state-icon-container' ).removeAttribute( 'onclick' );
     }
 
     document.querySelector( '#game-scrolling-info-text' ).innerHTML = stateLine;
-
-    if( timeStampNow > this.gameplayState.timestampEnd ) {
-      document.querySelector( '.game-permission-pedometer' ).classList.add( 'hidden' );
-    }
 
     return;
   }
@@ -659,123 +737,48 @@ class Gameplay {
  *
  * @param     {string}   gameplayRole     The player role in the game (player, hunter or game leader)
  * @param     {object}   tracking         The current tracking object with all important information and movement data
- * @param     {object}   result           The response object with all currently important information about the game
  * @param     {number}   playerCount      The player number if the player names should not be displayed
- * @param     {string}   speedHuntPlayer  The player who is running a Speedhunt
  * @return    {void}
  *
- * @example   gameplay.setPosition( gameplayRole, tracking, result, playerCount, speedHuntPlayer );
- * @example   this.setPosition( gameplayRole, tracking, result, playerCount, speedHuntPlayer );
+ * @example   gameplay.setPosition( gameplayRole, tracking, playerCount );
+ * @example   this.setPosition( gameplayRole, tracking, playerCount );
  *
  */
-  setPosition( gameplayRole, tracking, result, playerCount, speedHuntPlayer ) {
+  setPosition( gameplayRole, tracking, playerCount ) {
     var markerCssClass    = null;
-    var affectedPlayer    = [];
     var lastPosition      = tracking.position.at( -1 );
-    var gameSettings      = this.gameSettings;
     var gameState         = this.gameplayState;
     var speedHuntState    = gameState.speedHuntState;
-    var myGameRole        = result.gameRole;
     var markerContent     = '';
-    var capturedMessage   = '';
-    var silentHuntMessage = '';
     var markerColor       = this.colors[ playerCount ];
-    var timestampNow      = Date.now() / 1000;
-    var playerIsCaptured  = this.capturedPlayerIds.includes( tracking.id );
-
-    if( playerIsCaptured ) {
-      speedHuntState.message = '';
-    } else {
-      // Marker Message: Speed Hunt
-      if( speedHuntState.speedHuntCount > 0 ) {
-        speedHuntState.message = 'Es läuft ein Speedhunt, Ping ' + speedHuntState.speedHuntCount + ' von ' + speedHuntState.speedHuntCountMax + '.';
-      } else {
-        if( typeof speedHuntState.next != 'undefined' ) {
-          if( speedHuntState.next >= this.gameSettings.end ) {
-            speedHuntState.message = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
-          } else {
-            speedHuntState.message = 'Der nächste Speedhunt ist am ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
-          }
-        } else if( timestampNow > this.gameSettings.end ) {
-          speedHuntState.message = 'Das Spiel ist zu Ende. Es gibt keinen Speed Hunt mehr. ';
-        } else {
-          speedHuntState.message = 'Speedhunt ist verfügbar. ';
-        }
-      }
-
-      // Marker Message: Silent Hunt
-      if( this.gameplayState.nextSilentHunt >= this.gameSettings.end ) {
-        silentHuntMessage += 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
-      } else if( timestampNow > this.gameSettings.end ) {
-        silentHuntMessage += 'Das Spiel ist zu Ende. Es gibt keinen Silent Hunt mehr. ';
-      } else {
-        silentHuntMessage += 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
-      }
-
-      // Marker Message: Violation of the Rules
-      for( var i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
-        if( this.gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
-        if( ! this.gameplayState.systemMessages[ i ].applies ) continue;
-
-        affectedPlayer.push( this.gameplayState.systemMessages[ i ].applies );
-      }
-    }
 
     // Marker css Class if it is me myself
     if( tracking.id == this.playerId ) markerCssClass = this.markerCssClassMyOwn;
 
-    // Set Marker Content
+    // Marker Content
     if( gameplayRole == 'player' ) {
-      if( myGameRole == 'player' ) {
-        if( gameSettings.showPlayer == 0 && tracking.id != this.playerId ) return;
+      if( this.playerRole == 'player' ) {
+        if( this.gameSettings.showPlayer == 0 && tracking.id != this.playerId ) return;
 
         markerContent   += '<p class="bold">' + tracking.name + '</p>';
+      } else if( this.playerRole == 'hunter' ) {
+        var playerName = this.gameSettings.showNames == '1' ? tracking.name : 'Spieler ' + playerCount;
 
-        if( tracking.id == this.playerId && this.gameplayState.isRunning && ! playerIsCaptured ) {
-          capturedMessage = '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].objects.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>';
-        }
-      } else if( myGameRole == 'hunter' ) {
-        var playerName = gameSettings.showNames == '1' ? tracking.name : 'Spieler ' + playerCount;
-
-        if( affectedPlayer.includes( tracking.id ) ) {
-          markerColor    = this.affectedColor;
-          markerCssClass = this.markerCssClassAlarm;
-        }
-
-        if( speedHuntState.speedHuntCount == -1 || playerIsCaptured ) {
-          markerContent   += '<p class="bold">' + playerName + '</p>';
-        } else if( speedHuntState.speedHuntCount == 0 && this.gameplayState.isRunning ) {
-          markerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].objects.gameplay.speedHunt( \'' + tracking.id + '\' );">';
-          markerContent   += playerName;
-          markerContent   += '</p>';
+        if( this.isRunning && ! this.capturedPlayerIds.includes( tracking.id ) && ( speedHuntState.speedHuntCount == 0 || tracking.id == speedHuntState.playerId ) ) {
+          markerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].objects.gameplay.speedHunt( \'' + tracking.id + '\' );">' + playerName + '</p>';
         } else {
-          if( tracking.id == speedHuntState.playerId && this.gameplayState.isRunning ) {
-            markerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].objects.gameplay.speedHunt( \'' + tracking.id + '\' );">';
-            markerContent   += playerName;
-            markerContent   += '</p>';
-            markerColor      = this.affectedColor;
-            markerCssClass   = this.markerCssClassAlarm;
-          } else {
-            markerContent   += '<p class="bold">' + playerName + '</p>';
-          }
+          markerContent   += '<p class="bold">' + playerName + '</p>';
         }
       } else {
-        var playerName       = gameSettings.showNames == '1' ? tracking.name : tracking.name + ' (Spieler ' + playerCount + ')';
+        var playerName       = this.gameSettings.showNames == '1' ? tracking.name : tracking.name + ' (Spieler ' + playerCount + ')';
         markerContent   += '<p class="bold">' + playerName + '</p>';
-
-        if( affectedPlayer.includes( tracking.id ) ) markerColor = this.affectedColor;
-
-        if( speedHuntState.speedHuntCount > 0 && tracking.id == speedHuntState.playerId ) {
-          markerColor    = this.affectedColor;
-          markerCssClass = this.markerCssClassAlarm;
-        }
       }
 
       markerContent   += '<p>Rolle: Spieler</p>';
-      markerContent   += '<p>' + speedHuntState.message + '</p>';
-      markerContent   += '<p>' + silentHuntMessage + '</p>';
+      markerContent   += this.speedHuntMessage != '' && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p>' + this.speedHuntMessage + '</p>' : '';
+      markerContent   += this.silentHuntMessage != '' && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p>' + this.silentHuntMessage + '</p>' : '';
     } else if( gameplayRole == 'hunter' ) {
-      if( myGameRole == 'player' ) return;
+      if( this.playerRole == 'player' ) return;
       markerContent   += '<p class="bold">' + tracking.name + '</p>';
       markerContent   += '<p>Rolle: Jäger</p>';
     } else {
@@ -785,18 +788,26 @@ class Gameplay {
 
     markerContent   += '<p>Letztes Tracking: ' + Utils.timestampPhpToString( lastPosition.timestamp, true ) + ' Uhr</p>';
     markerContent   += '<p>Genauigkeit: ' + lastPosition.precision + ' Meter</p>';
-    markerContent   += capturedMessage;
+    markerContent   += this.isRunning && this.playerRole == 'player' && tracking.id == this.playerId && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].objects.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>' : '';
+    markerContent   += this.capturedPlayerIds.includes( tracking.id ) ? '<p class="bold">Wurde am ' + Utils.timestampPhpToString( this.capturedPlayer[ tracking.id ].timestamp ) + ' Uhr gefangen.</p>' : '';
 
+    // Set Marker with color and add css class
     if( this.capturedPlayerIds.includes( tracking.id ) ) {
-      markerContent  += '<p class="bold">Wurde am ' + Utils.timestampPhpToString( this.capturedPlayer[ tracking.id ].timestamp ) + ' Uhr gefangen.</p>';
-      markerCssClass  = this.markerCssClassCaptured;
-
       this.geoMaps.setMarker( tracking.id, gameplayRole, this.capturedColor, lastPosition.lat, lastPosition.lng, markerContent );
-    } else {
-      this.geoMaps.setMarker( tracking.id, gameplayRole, markerColor, lastPosition.lat, lastPosition.lng, markerContent );
-    }
+      this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassCaptured );
 
-    if( markerCssClass ) this.geoMaps.addMarkerCssClass( tracking.id, markerCssClass );
+      if( tracking.id == this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
+    } else if( this.playerRole != 'player' && this.affectedPlayerIds.includes( tracking.id ) ) {
+      this.geoMaps.setMarker( tracking.id, gameplayRole, this.affectedColor, lastPosition.lat, lastPosition.lng, markerContent );
+      this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassAlarm );
+    } else if( this.playerRole == 'player' && this.cheatPlayerIds.includes( tracking.id ) ) {
+      this.geoMaps.setMarker( tracking.id, gameplayRole, this.affectedColor, lastPosition.lat, lastPosition.lng, markerContent );
+      this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassAlarm );
+    } else {
+      this.geoMaps.setMarker( tracking.id, gameplayRole, this.colors[ playerCount ], lastPosition.lat, lastPosition.lng, markerContent );
+
+      if( tracking.id == this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
+    }
 
     return;
   }
@@ -821,7 +832,7 @@ class Gameplay {
     post.callbackMethod    = 'setPositions';
     post.playerId          = this.playerId;
     post.speedHuntPlayerId = speedHuntPlayerId;
-    post.timestamp         = Date.now() / 1000;
+    post.timestamp         = this.timestampNow();
 
     return this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
   }

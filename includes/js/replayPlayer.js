@@ -145,6 +145,11 @@ class ReplayPlayer {
     };
 
     for( var playerId in this.replayData.names ) {
+      if( ! this.replayData.names[ playerId ].firstLat || ! this.replayData.names[ playerId ].firstLng ) {
+        playerCounter[ this.replayData.names[ playerId ].role ]++;
+        continue;
+      }
+
       this.replayData.names[ playerId ].color = colors[ playerCounter[ this.replayData.names[ playerId ].role ] ]
 
       this.geoMaps.setMarker(

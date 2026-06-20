@@ -837,9 +837,12 @@ class Gameplay extends Game {
           $this->saveGameplay();
         }
 
-        // Speed Hunt is Running
-        if( isset( $this->gameplayObject->speedHunt ) && $this->gameplayObject->speedHunt->playerId == $strPlayerId ) {
-          $intLastPingTimestamp                 = count( $this->gameplayObject->speedHunt->timestamps ) > 0 ? end( $this->gameplayObject->speedHunt->timestamps ) : time();
+        // Speed Hunt
+        $objSpeedHunt = isset( $this->gameplayObject->speedHunt ) ? $this->gameplayObject->speedHunt : null;
+        $objSpeedHunt = ! isset( $objSpeedHunt ) && count( $this->gameplayObject->speedHunts ) > 0 ? end( $this->gameplayObject->speedHunts ) : $objSpeedHunt;
+
+        if( isset( $objSpeedHunt ) && $objSpeedHunt->playerId == $strPlayerId ) {
+          $intLastPingTimestamp                 = count( $objSpeedHunt->timestamps ) > 0 ? end( $objSpeedHunt->timestamps ) : time();
 
           $objSystemMessage                     = new stdClass();
           $objSystemMessage->type               = 'speedhunt';
@@ -847,18 +850,17 @@ class Gameplay extends Game {
           $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
           $objSystemMessage->message            = '<p class="danger-text bold">SPEEDHUNT LÄUFT</p>';
           $objSystemMessage->message           .= '<p class="danger-text">Aktuell läuft ein Speedhunt auf einen Spieler.</p>';
-          $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $this->gameplayObject->speedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Ping ' . count(  $objSpeedHunt->timestamps ) . ' von ' . $this->gameplayObject->speedPingCount . '</p>';
           $objSystemMessage->appliesRole        = 'player';
           $objSystemMessage->appliesRoleName    = 'Spieler';
           $objSystemMessage->cssClass           = 'danger-text';
           $objSystemMessage->appliesCount       = $i + 1;
           $objSystemMessage->showMessageOnlyOne = false;
-          $objSystemMessage->id                 = 'speedhunt_' . $this->gameplayObject->speedHunt->playerId . '_' . $intLastPingTimestamp;
+          $objSystemMessage->id                 = 'speedhunt_' . $intLastPingTimestamp;
           $objSystemMessage->timestamp          = $intLastPingTimestamp;
 
           array_push( $objState->systemMessages, $objSystemMessage );
         }
-
       }
     }
 
