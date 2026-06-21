@@ -1,17 +1,18 @@
 /**
  * Geo Tracker Class for the Friends Hunt App.
  *
- * This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.
- * The Class is for handling Position Tracking, Step Counting and Calculte Distances.
- * The Class can start inverval Tracking and used the Wake Lock API.
+ * This Class represents the Geo Tracker Class for the Friends Hunt App with its Properties and Methods.
+ * The Class is for handling Position Tracking, Step Counting and Calculate Distances.
+ * The Class can start interval Tracking and uses the Wake Lock API.
  *
  * @class
+ * @see GeoMaps
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
  * @since     2026-06-05
  *
- * @example   const objGeoTracker = new GeoTracker();
+ * @example   const geoTracker = new GeoTracker();
  *
  */
 class GeoTracker {
@@ -19,17 +20,19 @@ class GeoTracker {
   /**
  * This Method is the Constructor for this Class.
  *
- * @constructor
+ * @public
  *
- * @example   const objGeoTracker = new GeoTracker();
+ * @return    {void}
+ *
+ * @example   const geoTracker = new GeoTracker();
  *
  */
   constructor() {
     this.options = {
-      enableHighAccuracy: true,  // GPS statt WLAN-Tracking
-      timeout: 20000,            // Maximal 20 Sekunden auf das Signal warten
-      maximumAge: 0              // Keinen alten Cache-Wert nutzen, sondern live abfragen
-    }
+      enableHighAccuracy: true,
+      timeout: 20000,            // Wait a maximum of 20 seconds for the signal
+      maximumAge: 0              // Do not use old cache values, query them live
+    };
 
     this.trackInterval      = typeof window[ appAlias ].gameSettings == 'object' && typeof window[ appAlias ].gameSettings.trackInterval != 'undefined' ? window[ appAlias ].gameSettings.trackInterval * 1000 : 60000;
     this.stepCount          = 0;
@@ -37,7 +40,7 @@ class GeoTracker {
     this.wakeLock           = null;
     this.debug              = window[ appAlias ].debug ? true : false;
     this.caller             = null;
-    this.intervalTrackingId = null
+    this.intervalTrackingId = null;
 
     return;
   }
@@ -48,9 +51,11 @@ class GeoTracker {
  * @public
  *
  * @param     {string}   property   The Property to get
- * @return    {mixed}    value      The Value of the Property
+ * @return    {*}        value      The Value of the Property
  *
- * @example   let value = objGeoTracker.stepCount( property );
+ * @example   let value = geoTracker.stepCount( property );
+ *
+ * @see GeoTracker#set
  *
  */
   get( property ) {
@@ -63,10 +68,12 @@ class GeoTracker {
  * @public
  *
  * @param     {string}   property   The Property to set
- * @param     {mixed}    value      The Value to set
+ * @param     {*}        value      The Value to set
  * @return    {void}
  *
- * @example   objGeoTracker.set( property, value );
+ * @example   geoTracker.set( property, value );
+ *
+ * @see GeoTracker#get
  *
  */
   set( property, value ) {
@@ -80,10 +87,10 @@ class GeoTracker {
  *
  * @public
  *
- * @param     {string}   callbackSuccess   The Property to set
+ * @param     {function} callbackSuccess   The callback function for the position
  * @return    {void}
  *
- * @example   objGeoTracker.getCurrentPosition( callbackSuccess );
+ * @example   geoTracker.getCurrentPosition( callbackSuccess );
  *
  */
   getCurrentPosition( callbackSuccess ) {
@@ -92,17 +99,14 @@ class GeoTracker {
         ( position ) => {
           const lat       = position.coords.latitude;
           const lng       = position.coords.longitude;
-          const precision = position.coords.accuracy; // Genauigkeit in Metern
+          const precision = position.coords.accuracy;
 
           if( this.debug ) console.log(`Erfolg! Breitengrad: ${lat}, Längengrad: ${lng}`);
           if( this.debug ) console.log(`Genauigkeit: ${precision} Meter`);
 
           callbackSuccess( lat, lng, precision, {} );
-
-          //window[ appAlias ].methods.gameplay[ callbackSuccess ]( lat, lng, precision, {} );
         },
         ( error ) => {
-            // Fehlerbehandlung (z.B. wenn der Nutzer die Freigabe abgelehnt hat)
             if( this.debug ) console.error("Fehler bei der GPS-Abfrage: ", error.message);
             callbackSuccess( -1, -1, -1, {
               'error': 'GPS-Abfrage fehlgeschlagen',
@@ -130,10 +134,10 @@ class GeoTracker {
  *
  * @public
  *
- * @param     {string}   callbackSuccess   The Property to set
+ * @param     {function} callbackSuccess   The callback function for the position
  * @return    {void}
  *
- * @example   objGeoTracker.startIntervalTracking( callbackSuccess );
+ * @example   geoTracker.startIntervalTracking( callbackSuccess );
  *
  */
   startIntervalTracking( callbackSuccess ) {
@@ -155,7 +159,7 @@ class GeoTracker {
  *
  * @return    {void}
  *
- * @example   objGeoTracker.stopIntervalTracking();
+ * @example   geoTracker.stopIntervalTracking();
  *
  */
   stopIntervalTracking() {
@@ -166,14 +170,14 @@ class GeoTracker {
   }
 
 /**
- * This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
+ * This Method starts the Wake Lock, so that the Device does not go into Sleep Mode or lock the Screen.
  *
  * @async
  * @public
  *
  * @return    {void}
  *
- * @example   objGeoTracker.startWakeLock();
+ * @example   geoTracker.startWakeLock();
  *
  */
   async startWakeLock() {
@@ -188,13 +192,13 @@ class GeoTracker {
   }
 
 /**
- * This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
+ * This Method stops the Wake Lock Mode, the Device can go into Sleep Mode or lock the Screen.
  *
  * @public
  *
  * @return    {void}
  *
- * @example   objGeoTracker.stopWakeLock();
+ * @example   geoTracker.stopWakeLock();
  *
  */
   stopWakeLock() {
@@ -215,7 +219,7 @@ class GeoTracker {
  *
  * @return    {void}
  *
- * @example   objGeoTracker.startPedometer();
+ * @example   geoTracker.startPedometer();
  *
  */
   startPedometer() {
@@ -251,7 +255,7 @@ class GeoTracker {
  *
  * @return    {void}
  *
- * @example   objGeoTracker.checkPedometerSensor();
+ * @example   geoTracker.checkPedometerSensor();
  *
  */
   checkPedometerSensor() {
@@ -275,13 +279,13 @@ class GeoTracker {
  *
  * @public
  *
- * @param     {number}  lat1       The Latidude of Waypoint 1 (float)
- * @param     {number}  lng1       The Langidude of Waypoint 1 (float)
- * @param     {number}  lat2       The Latidude of Waypoint 2 (float)
- * @param     {number}  lng2       The Langidude of Waypoint 2 (float)
+ * @param     {number}  lat1       The Latitude of Waypoint 1 (float)
+ * @param     {number}  lng1       The Longitude of Waypoint 1 (float)
+ * @param     {number}  lat2       The Latitude of Waypoint 2 (float)
+ * @param     {number}  lng2       The Longitude of Waypoint 2 (float)
  * @return    {number}  distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
  *
- * @example   let floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );
+ * @example   let floatDistance = geoTracker.calcDistance( lat1, lng1, lat2, lng2 );
  *
  */
   calcDistance( lat1, lng1, lat2, lng2 ) {
@@ -296,4 +300,4 @@ class GeoTracker {
 
     return distance;
   }
-};
+}

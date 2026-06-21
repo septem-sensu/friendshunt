@@ -88,7 +88,7 @@ class Utils {
  *
  */
   static timestampPhpToString( timestamp, seconds, format ) {
-    return this.timestampJsToString( timestamp * 1000, seconds, format  )
+    return this.timestampJsToString( timestamp * 1000, seconds, format  );
   }
 
 /**
@@ -107,7 +107,7 @@ class Utils {
   static timestampJsToString( timestamp, seconds, format ) {
     const dateTime = new Date( timestamp );
     const pad      = (num) => String( num ).padStart( 2, '0' );
-    let date       = pad( dateTime.getDate() ) + '.' + pad( dateTime.getMonth() + 1 ) + '.' + dateTime.getFullYear();
+    const date     = pad( dateTime.getDate() ) + '.' + pad( dateTime.getMonth() + 1 ) + '.' + dateTime.getFullYear();
     let time       = pad( dateTime.getHours() ) + ':' + pad( dateTime.getMinutes() );
 
     time           = seconds ? time + ':' + pad( dateTime.getSeconds() ) : time;
@@ -115,7 +115,7 @@ class Utils {
     if( format == 'date' ) {
       return date;
     } else if( format == 'time' ) {
-      return time
+      return time;
     }
 
     return date + ' ' + time;
@@ -203,14 +203,14 @@ class Utils {
  *
  * @public
  *
- * @param     {mixed}   mixContent    The content to be displayed in the console
+ * @param     {*}      mixContent    The content to be displayed in the console
  * @return    {void}
  *
  * @example   Utils.log( mixContent );
  *
  */
   static log( mixContent ) {
-    const debugConsole = document.querySelector( '#debug-console' );
+    let debugConsole = document.querySelector( '#debug-console' );
 
     if( debugConsole == null ) {
       let content     = '';

@@ -161,6 +161,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Validator.html">Validator</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -226,162 +233,6 @@
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="_request"><span class="type-signature"></span>_request(request)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method executes the actual Xhr request.All the necessary parameters are in the request object.The response of this method is passed to the processResponse method.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The request object with all the required information</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Examples</h5>
-        
-    <pre class="sunlight-highlight-javascript">communicator._request( request );</pre>
-
-    <pre class="sunlight-highlight-javascript">this._request( request );</pre>
-
-
-    
-</dd>
-
-        
             
 <hr>
 <dt>
@@ -489,6 +340,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Communicator.html#set">Communicator#set</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -520,7 +378,7 @@
     </dt>
     <dd>
         
-<span class="param-type">mixed</span>
+<span class="param-type">*</span>
 
 
 
@@ -531,11 +389,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">let value = communicator.get( &#x27;maxRequestCount&#x27; );</pre>
-
-    <pre class="sunlight-highlight-javascript">let value = this.get( property );</pre>
 
 
     
@@ -687,11 +543,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">communicator.manageRedirects( &#x27;?view=Game&#x27; );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.manageRedirects( redirect );</pre>
 
 
     
@@ -793,11 +647,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">communicator.manageRequestQueue();</pre>
-
-    <pre class="sunlight-highlight-javascript">this.manageRequestQueue();</pre>
 
 
     
@@ -815,7 +667,7 @@
 
     
     <div class="description">
-        This method returns a request object for the Commicator to which you can attach further data.
+        This method returns a request object for the Communicator to which you can attach further data.
     </div>
     
 
@@ -1001,11 +853,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">const requestObject = communicator.newJsonRequestObject( &#x27;Player&#x27;, &#x27;deletePlayer&#x27;, &#x27;max@musterman.de&#x27; );</pre>
-
-    <pre class="sunlight-highlight-javascript">const requestObject = this.newJsonRequestObject( className, method, id );</pre>
 
 
     
@@ -1181,11 +1031,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">communicator.proccessResponse( request, response );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.proccessResponse( request, response );</pre>
 
 
     
@@ -1409,11 +1257,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">communicator.request( &#x27;POST&#x27;, {}, {}, ref.function );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.request( &#x27;method&#x27;, getParams, postParams, callbackMethod );</pre>
 
 
     
@@ -1496,7 +1342,7 @@
             <td class="type">
             
                 
-<span class="param-type">mixed</span>
+<span class="param-type">*</span>
 
 
 
@@ -1551,6 +1397,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Communicator.html#get">Communicator#get</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -1589,11 +1442,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">communicator.set( &#x27;property&#x27;, 5 );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.set( property, value );</pre>
 
 
     
@@ -1745,11 +1596,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">communicator.setFields( object );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.setFields( object );</pre>
 
 
     
@@ -1805,7 +1654,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-21T08:49:52+02:00
+		on 2026-06-21T23:14:37+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

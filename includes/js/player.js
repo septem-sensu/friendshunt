@@ -3,6 +3,9 @@
  * The class inherits from the Base class.
  *
  * @class
+ * @see Base
+ * @see Communicator
+ * @see Validator
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -46,7 +49,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.registerEventHandler();
- * @example   this.registerEventHandler();
  *
  */
   registerEventHandler() {
@@ -267,7 +269,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.getPlayerList();
- * @example   this.getPlayerList();
  *
  */
   getPlayerList() {
@@ -292,7 +293,6 @@ class Player extends Base {
  * @todo      Player avatar must be fetched by the player and not saved in the games folder.
  *
  * @example   player.proccessResponsePlayerList( response );
- * @example   this.proccessResponsePlayerList( response );
  *
  */
   proccessResponsePlayerList( response ) {
@@ -309,7 +309,7 @@ class Player extends Base {
       contentContainerContent    += '<p>' + playerList[ playerId ].email + '</p>';
       contentContainerContent    += '<p>' + playerList[ playerId ].role + '</p>';
       contentContainerContent    += '<p>' + playerList[ playerId ].title + '</p>';
-      contentContainerContent    += '<button data-player-id="' + playerId + '" onclick="javascript: window[ appAlias ].objects.player.deletePlayerFromApp( this );" type="button" class="w-160 mt-10 danger">Spieler löschen</button>'
+      contentContainerContent    += '<button data-player-id="' + playerId + '" onclick="javascript: window[ appAlias ].objects.player.deletePlayerFromApp( this );" type="button" class="w-160 mt-10 danger">Spieler löschen</button>';
       contentContainerContent    += '</td></tr></table>';
       contentContainerContent    += '</div>';
 
@@ -328,7 +328,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.addGamesToTemplate();
- * @example   this.addGamesToTemplate();
  *
  */
   addGamesToTemplate() {
@@ -350,7 +349,7 @@ class Player extends Base {
         addGameStartText  = ' - Spiel läuft gerade.';
       } else if( nowTimestamp > gameEnd ) {
         gameStartCssClass = ' danger-text';
-        addGameStartText  = ' - Spiel ist beendet.'
+        addGameStartText  = ' - Spiel ist beendet.';
       }
 
       contentContainerContent    += '<table class="w-100p"><tr>';
@@ -387,11 +386,10 @@ class Player extends Base {
  *
  * @public
  *
- * @param     {element}   element  The element (button) that was clicked to find out the game ID
+ * @param     {HTMLElement}   element  The element (button) that was clicked to find out the game ID
  * @return    {void}
  *
  * @example   player.startGame( element );
- * @example   this.startGame( element );
  *
  */
   startGame( element ) {
@@ -417,7 +415,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.proccessResponseAddPlayerToGame( response );
- * @example   this.proccessResponseAddPlayerToGame( response );
  *
  */
   proccessResponseAddPlayerToGame( response ) {
@@ -460,7 +457,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.proccessResponseAddHunterToGame( response );
- * @example   this.proccessResponseAddHunterToGame( response );
  *
  */
   proccessResponseAddHunterToGame( response ) {
@@ -503,7 +499,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.proccessResponseAddManagementToGame( response );
- * @example   this.proccessResponseAddManagementToGame( response );
  *
  */
   proccessResponseAddManagementToGame( response ) {
@@ -547,7 +542,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.getPlayerInfoHtml( player, inputName );
- * @example   this.getPlayerInfoHtml( player, inputName );
  *
  */
   getPlayerInfoHtml( player, inputName ) {
@@ -576,11 +570,10 @@ class Player extends Base {
  *
  * @public
  *
- * @param     {object}   element  The element (button) that was clicked to find out the game ID
+ * @param     {HTMLElement}   element  The element (button) that was clicked to find out the game ID
  * @return    {void}
  *
  * @example   player.archiveGame( element );
- * @example   this.archiveGame( element );
  *
  */
   archiveGame( element ) {
@@ -604,7 +597,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.proccessResponseArchiveGame( response );
- * @example   this.proccessResponseArchiveGame( response );
  *
  */
   proccessResponseArchiveGame( response ) {
@@ -623,11 +615,10 @@ class Player extends Base {
  *
  * @public
  *
- * @param     {object}   element  The element (button) that was clicked to find out the game ID
+ * @param     {HTMLElement}   element  The element (button) that was clicked to find out the game ID
  * @return    {void}
  *
  * @example   player.deleteGame( element );
- * @example   this.deleteGame( element );
  *
  */
   deleteGame( element ) {
@@ -651,7 +642,6 @@ class Player extends Base {
  * @return    {void}
  *
  * @example   player.proccessResponseDeleteGame( response );
- * @example   this.proccessResponseDeleteGame( response );
  *
  */
   proccessResponseDeleteGame( response ) {
@@ -668,11 +658,10 @@ class Player extends Base {
  *
  * @public
  *
- * @param     {object}   element  The element (button) that was clicked to find out the player ID
+ * @param     {HTMLElement}   element  The element (button) that was clicked to find out the player ID
  * @return    {void}
  *
  * @example   player.deletePlayerFromApp( element );
- * @example   this.deletePlayerFromApp( element );
  *
  */
   deletePlayerFromApp( element ) {

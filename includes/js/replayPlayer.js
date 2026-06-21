@@ -3,6 +3,8 @@
  * The Replay class uses the tracking data to create a replay of all players on the map at multiple speeds.
  *
  * @class
+ * @see Gameplay
+ * @see GeoMaps
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -59,10 +61,11 @@ class ReplayPlayer {
  * @public
  *
  * @param     {string}   property   The property of the value
- * @return    {mixed}    value      The value of the property
+ * @return    {*}        value      The value of the property
  *
  * @example   let value = replayPlayer.get( property );
- * @example   let value = this.get( property );
+ *
+ * @see ReplayPlayer#set
  *
  */
   get( property ) {
@@ -75,11 +78,12 @@ class ReplayPlayer {
  * @public
  *
  * @param     {string}   property   The property that you want to set
- * @param     {mixed}    value      The value you want to set to the property
+ * @param     {*}        value      The value you want to set to the property
  * @return    {void}
  *
  * @example   replayPlayer.set( property, value );
- * @example   this.set( property, value );
+ *
+ * @see ReplayPlayer#get
  *
  */
   set( property, value ) {
@@ -96,7 +100,6 @@ class ReplayPlayer {
  * @return    {void}
  *
  * @example   replayPlayer.init();
- * @example   this.init();
  *
  */
   init() {
@@ -127,9 +130,9 @@ class ReplayPlayer {
     this.slider.addEventListener( 'input', ( objEvent ) => {
       this.pause();
 
-      let iSliderSekunden          = parseInt( objEvent.target.value );
+      const sliderSeconds          = parseInt( objEvent.target.value );
 
-      this.currentVirtualTimestamp = this.startTimestamp + iSliderSekunden;
+      this.currentVirtualTimestamp = this.startTimestamp + sliderSeconds;
       this.lastProcessedIndex      = 0;
 
       this.renderTargetTime( this.currentVirtualTimestamp );
@@ -150,7 +153,7 @@ class ReplayPlayer {
         continue;
       }
 
-      this.replayData.names[ playerId ].color = colors[ playerCounter[ this.replayData.names[ playerId ].role ] ]
+      this.replayData.names[ playerId ].color = colors[ playerCounter[ this.replayData.names[ playerId ].role ] ];
 
       this.geoMaps.setMarker(
         playerId,
@@ -178,7 +181,6 @@ class ReplayPlayer {
  * @return    {void}
  *
  * @example   replayPlayer.play();
- * @example   this.play();
  *
  */
   play() {
@@ -186,9 +188,9 @@ class ReplayPlayer {
 
     this.isPlaying     = true;
     this.playbackTimer = setInterval( () => {
-      let iVergangeneVirtuelleSekunden = 0.1 * this.speedMultiplier;
+      const pastVirtualSeconds = 0.1 * this.speedMultiplier;
 
-      this.currentVirtualTimestamp += iVergangeneVirtuelleSekunden;
+      this.currentVirtualTimestamp += pastVirtualSeconds;
 
       if( this.currentVirtualTimestamp >= this.endTimestamp ) {
         this.currentVirtualTimestamp = this.endTimestamp;
@@ -215,7 +217,6 @@ class ReplayPlayer {
  * @return    {void}
  *
  * @example   replayPlayer.pause();
- * @example   this.pause();
  *
  */
   pause() {
@@ -234,14 +235,13 @@ class ReplayPlayer {
  * @return    {void}
  *
  * @example   replayPlayer.renderTargetTime( targetTimestamp );
- * @example   this.renderTargetTime( targetTimestamp );
  *
  */
   renderTargetTime( targetTimestamp ) {
     const marker = this.geoMaps.get( 'marker' );
 
     for( const playerId in marker ) {
-      if( playerId.indexOf( '@' ) == -1 ) continue
+      if( playerId.indexOf( '@' ) == -1 ) continue;
       if( ! marker.hasOwnProperty( playerId ) ) continue;
 
       let floatingPoint = this.calculateIntermediatePoint( playerId, targetTimestamp );
@@ -297,7 +297,7 @@ class ReplayPlayer {
       }
     }
 
-    let targetTime = new Date( targetTimestamp * 1000 );
+    const targetTime = new Date( targetTimestamp * 1000 );
     document.querySelector( '#replay-clock' ).innerText = targetTime.toLocaleTimeString( 'de-DE' );
 
     return;
@@ -315,7 +315,6 @@ class ReplayPlayer {
  * @return    {object}   position          An object with the position or intermediate position of a player
  *
  * @example   position = replayPlayer.calculateIntermediatePoint( playerId, targetTimestamp );
- * @example   position = this.calculateIntermediatePoint( playerId, targetTimestamp );
  *
  */
   calculateIntermediatePoint( playerId, targetTimestamp ) {
@@ -330,7 +329,7 @@ class ReplayPlayer {
 
       if( ping.playerId !== playerId ) continue;
 
-      let pingTime  = parseInt( ping.timestamp );
+      const pingTime = parseInt( ping.timestamp );
 
       if( ping.type !== 'tracking' ) {
         this.playerClassesAndColors[ playerId ] = this.playerClassesAndColors[ playerId ] || {};
@@ -353,14 +352,14 @@ class ReplayPlayer {
     if( lastPing === null ) return null;
     if( nextPing === null ) return { 'lat': parseFloat( lastPing.lat ), 'lng': parseFloat( lastPing.lng ) };
 
-    let timeDeltaTotal = parseInt( nextPing.timestamp ) - parseInt( lastPing.timestamp );
+    const timeDeltaTotal = parseInt( nextPing.timestamp ) - parseInt( lastPing.timestamp );
 
     if( timeDeltaTotal <= 0 ) return { 'lat': parseFloat( lastPing.lat ), 'lng': parseFloat( lastPing.lng ) };
 
-    let timeDeltaCurrent = targetTimestamp - parseInt( lastPing.timestamp );
-    let progress         = timeDeltaCurrent / timeDeltaTotal;
-    let interpolatedLat  = parseFloat( lastPing.lat ) + ( parseFloat( nextPing.lat ) - parseFloat( lastPing.lat ) ) * progress;
-    let interpolatedLng  = parseFloat( lastPing.lng ) + ( parseFloat( nextPing.lng ) - parseFloat( lastPing.lng ) ) * progress;
+    const timeDeltaCurrent = targetTimestamp - parseInt( lastPing.timestamp );
+    const progress         = timeDeltaCurrent / timeDeltaTotal;
+    const interpolatedLat  = parseFloat( lastPing.lat ) + ( parseFloat( nextPing.lat ) - parseFloat( lastPing.lat ) ) * progress;
+    const interpolatedLng  = parseFloat( lastPing.lng ) + ( parseFloat( nextPing.lng ) - parseFloat( lastPing.lng ) ) * progress;
 
     return { 'lat': interpolatedLat, 'lng': interpolatedLng };
   }
@@ -371,11 +370,10 @@ class ReplayPlayer {
  * @public
  *
  * @param     {object}   activeBtn          The currently active Html button object which should become inactive
- * @param     {object}   strInactiveBtnId   The currently inactive Html button object that should become active
+ * @param     {string}   strInactiveBtnId   The Css selector of the Html button object that should become active
  * @return    {void}
  *
- * @example   position = replayPlayer.toggleButtonClass( activeBtn, strInactiveBtnId );
- * @example   position = this.toggleButtonClass( activeBtn, strInactiveBtnId );
+ * @example   replayPlayer.toggleButtonClass( activeBtn, strInactiveBtnId );
  *
  */
   toggleButtonClass( activeBtn, strInactiveBtnId ) {

@@ -4,6 +4,9 @@
  * The Game class registers all required event handlers when instantiating.
  *
  * @class
+ * @see Base
+ * @see GeoTracker
+ * @see GeoMaps
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -46,7 +49,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.registerEventHandler();
- * @example   this.registerEventHandler();
  *
  */
   registerEventListener() {
@@ -56,7 +58,7 @@ class Game extends Base {
 
     for( let i = 0; i < mapInfoLayer.length; i++ ) {
       mapInfoLayer[ i ].addEventListener( 'click', ( event ) => {
-        const mapLayer = document.querySelector( '#info-layer-map' )
+        const mapLayer = document.querySelector( '#info-layer-map' );
 
         mapLayer.classList.remove( 'hidden' );
 
@@ -206,7 +208,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.showMapInInfoLayer();
- * @example   this.showMapInInfoLayer();
  *
  */
   showMapInInfoLayer( lat, lng, precision, message ) {
@@ -238,7 +239,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.startGame();
- * @example   this.startGame();
  *
  */
   startGame() {
@@ -260,7 +260,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.addGameplayDataToTemplate();
- * @example   this.addGameplayDataToTemplate();
  *
  */
   addGameplayDataToTemplate() {
@@ -270,7 +269,7 @@ class Game extends Base {
     for( let i = 0; i < members.length; i++ ) {
       for( let j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
         const contentContainer      = document.createElement( 'div' );
-        let profileImage            = 'includes/files/game/' + window[ appAlias ].id + '/profile_image_' + gameplayData[ members[ i ] ][ j ].email + '_' + gameplayData[ members[ i ] ][ j ].image;
+        const profileImage          = 'includes/files/game/' + window[ appAlias ].id + '/profile_image_' + gameplayData[ members[ i ] ][ j ].email + '_' + gameplayData[ members[ i ] ][ j ].image;
         let contentContainerContent = '<div class="content-container align-left">';
 
         contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
@@ -278,7 +277,7 @@ class Game extends Base {
         contentContainerContent    += '</td><td class="align-top">';
         contentContainerContent    += '<p class="bold mb-10">' + gameplayData[ members[ i ] ][ j ].name + '</p>';
         contentContainerContent    += '<p><a href="mailto:' + gameplayData[ members[ i ] ][ j ].email + '">✉ ' + gameplayData[ members[ i ] ][ j ].email + '</a></p>';
-        contentContainerContent    += '<p>' + gameplayData[ members[ i ] ][ j ].role.charAt(0).toUpperCase() + gameplayData[ members[ i ] ][ j ].role.slice(1); + '</p>';
+        contentContainerContent    += '<p>' + gameplayData[ members[ i ] ][ j ].role.charAt(0).toUpperCase() + gameplayData[ members[ i ] ][ j ].role.slice(1) + '</p>';
         contentContainerContent    += '<p>' + gameplayData[ members[ i ] ][ j ].title + '</p>';
         contentContainerContent    += '</td></tr></table>';
         contentContainerContent    += '</div>';
@@ -300,7 +299,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.addGameImagesContent();
- * @example   this.addGameImagesContent();
  *
  */
   addGameImagesContent() {
@@ -339,7 +337,7 @@ class Game extends Base {
         document.querySelector('.full-image-layer').style.display = 'block';
         document.querySelector('.full-image').style.display       = 'block';
 
-        let tagImage = '<img src="' + event.target.src + '" />';
+        const tagImage = '<img src="' + event.target.src + '" />';
 
         document.querySelector('.full-image').innerHTML = tagImage;
 
@@ -361,14 +359,13 @@ class Game extends Base {
 
 /**
  * This method fires a request to the endpoint to get the data of the archived games.
- * The response of this method is passed from the Communictor object to the proccessResponseGameArchiveList.
+ * The response of this method is passed from the Communicator object to the proccessResponseGameArchiveList.
  *
  * @public
  *
  * @return    {void}
  *
  * @example   game.getGameArchiveList();
- * @example   this.getGameArchiveList();
  *
  */
   getGameArchiveList() {
@@ -389,7 +386,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.proccessResponseGameArchiveList( response );
- * @example   this.proccessResponseGameArchiveList( response );
  *
  */
   proccessResponseGameArchiveList( response ) {
@@ -427,7 +423,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.bringBackArchiveGame( element );
- * @example   this.bringBackArchiveGame( element);
  *
  */
   bringBackArchiveGame( element ) {
@@ -450,7 +445,6 @@ class Game extends Base {
  * @return    {void}
  *
  * @example   game.deleteArchiveGame( element );
- * @example   this.deleteArchiveGame( element );
  *
  */
   deleteArchiveGame( element ) {

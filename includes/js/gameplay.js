@@ -6,6 +6,11 @@
  * counts steps and monitors the device's battery level.
  *
  * @class
+ * @see Communicator
+ * @see GeoTracker
+ * @see GeoMaps
+ * @see BatteryTracker
+ * @see Game
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -81,10 +86,11 @@ class Gameplay {
  * @public
  *
  * @param     {string}   property   The property of the value
- * @return    {mixed}    value      The value of the property
+ * @return    {*}        value      The value of the property
  *
  * @example   let value = gameplay.get( property );
- * @example   let value = this.get( property );
+ *
+ * @see Gameplay#set
  *
  */
   get( property ) {
@@ -97,11 +103,12 @@ class Gameplay {
  * @public
  *
  * @param     {string}   property   The property that you want to set
- * @param     {mixed}    value      The value you want to set to the property
+ * @param     {*}        value      The value you want to set to the property
  * @return    {void}
  *
  * @example   gameplay.set( property, value );
- * @example   this.set( property, value );
+ *
+ * @see Gameplay#get
  *
  */
   set( property, value ) {
@@ -119,7 +126,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.init();
- * @example   this.init();
  *
  */
   init() {
@@ -148,7 +154,6 @@ class Gameplay {
  * @return    {number}  timestampNow  The Php timestamp at the current time
  *
  * @example   let timestampNow = gameplay.timestampNow();
- * @example   let timestampNow = this.timestampNow();
  *
  */
   timestampNow() {
@@ -164,7 +169,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.setStates();
- * @example   this.setStates();
  *
  */
   setStates() {
@@ -254,7 +258,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.registerEventHandler();
- * @example   this.registerEventHandler();
  *
  */
   registerEventHandler() {
@@ -297,7 +300,7 @@ class Gameplay {
         if( this.replayData && replayPanel ) replayPanel.classList.remove( 'hidden' );
 
         return;
-      } )
+      } );
     }
 
     const newGameplayMessageButton = document.querySelector( '#new-gameplay-message-button' );
@@ -353,7 +356,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.processResponse( response );
- * @example   this.processResponse( response );
  *
  */
   processResponse( response ) {
@@ -389,7 +391,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.setMap( lat, lng, precision, message );
- * @example   this.setMap( lat, lng, precision, message );
  *
  */
   setMap( lat, lng, precision, message ) {
@@ -423,7 +424,7 @@ class Gameplay {
 /**
  * This method creates a tracking object with longitude, longitude, number of steps, battery level and some more
  * and sends this tracking object to the endpoint via the Communicator object.
- * Der Response geht an die setPositions Methode um dort verarbeitet zu werden.
+ * The response is passed to the setPositions method for processing.
  *
  * @public
  *
@@ -434,7 +435,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.track( lat, lng, precision, message );
- * @example   this.track( lat, lng, precision, message );
  *
  */
   track( lat, lng, precision, message ) {
@@ -474,7 +474,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.setPositions( response );
- * @example   this.setPositions( response );
  *
  */
   setPositions( response ) {
@@ -501,7 +500,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.showCaptureLayer();
- * @example   this.showCaptureLayer();
  *
  */
   showCaptureLayer() {
@@ -549,7 +547,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.checkSystemMessages();
- * @example   this.checkSystemMessages();
  *
  */
   checkSystemMessages() {
@@ -571,7 +568,7 @@ class Gameplay {
       const newSystemMessage     = document.createElement( 'div' );
       let message                = '';
       let applies                = '';
-      let cssClass               = typeof systemMessages[ i ].cssClass == 'string' ? ' class="' + systemMessages[ i ].cssClass + '"' : '';
+      const cssClass             = typeof systemMessages[ i ].cssClass == 'string' ? ' class="' + systemMessages[ i ].cssClass + '"' : '';
 
       if( typeof systemMessages[ i ].applies == 'string' && systemMessages[ i ].applies != '' ) {
         if( this.gameplayRole == 'hunter' && gameSettings.showNames != '1' && systemMessages[ i ].appliesRole == 'player' ) {
@@ -611,14 +608,13 @@ class Gameplay {
 
 /**
  * This method creates a request object with the information that you were caught and who caught you.
- * This request object is fired to the endpoint via the Communcator object.
+ * This request object is fired to the endpoint via the Communicator object.
  *
  * @public
  *
  * @return    {void}
  *
  * @example   gameplay.sendCaptured();
- * @example   this.sendCaptured();
  *
  */
   sendCaptured() {
@@ -632,7 +628,7 @@ class Gameplay {
 
     for( let i = 0; i < hunterIds.length; ++i ) {
       if( ! hunterIds[ i ].checked ) continue;
-      post.hunterIds.push( hunterIds[ i ].value )
+      post.hunterIds.push( hunterIds[ i ].value );
     }
 
     if( post.hunterIds.length < 1 ) {
@@ -655,7 +651,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.checkRules();
- * @example   this.checkRules();
  *
  */
   checkRules() {
@@ -683,7 +678,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.setStateLine();
- * @example   this.setStateLine();
  *
  */
   setStateLine() {
@@ -724,7 +718,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.setPosition( gameplayRole, tracking, playerCount );
- * @example   this.setPosition( gameplayRole, tracking, playerCount );
  *
  */
   setPosition( gameplayRole, tracking, playerCount ) {
@@ -800,7 +793,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.speedHunt( 'max@musterman.de' );
- * @example   this.speedHunt( speedHuntPlayerId );
  *
  */
   speedHunt( speedHuntPlayerId ) {
@@ -823,7 +815,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.showMessageLayer();
- * @example   this.showMessageLayer();
  *
  */
   showMessageLayer() {
@@ -856,7 +847,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.setMessages();
- * @example   this.setMessages();
  *
  */
   setMessages() {
@@ -940,7 +930,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.getReplayData();
- * @example   this.getReplayData();
  *
  */
   getReplayData() {
@@ -971,7 +960,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.generateReplayData( response );
- * @example   this.generateReplayData( response );
  *
  */
   generateReplayData( response ) {
@@ -1087,7 +1075,6 @@ class Gameplay {
  * @return    {void}
  *
  * @example   gameplay.startReplayPlayer();
- * @example   this.startReplayPlayer();
  *
  */
   startReplayPlayer() {

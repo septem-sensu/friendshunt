@@ -161,6 +161,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Communicator.html">Communicator</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -226,772 +233,6 @@
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="_validateEmail"><span class="type-signature"></span>_validateEmail(email)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method checks an email address for validity and returns the result of the check.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>email</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The email address</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    isValide   The result of the check, true: is valid, false: is not valid
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Examples</h5>
-        
-    <pre class="sunlight-highlight-javascript">let isValide = validator._validateEmail( email );</pre>
-
-    <pre class="sunlight-highlight-javascript">let isValide = this._validateEmail( email );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="_validateField"><span class="type-signature"></span>_validateField(key, form)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method checks the field passed with the input field name whether it meets all the guidelinesthe input field is stored (fields.json).
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the input field</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>form</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The form in which the key is located</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    formIsValide   The result of the check, true: is valid, false: is not valid
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Examples</h5>
-        
-    <pre class="sunlight-highlight-javascript">let formIsValide = validator._validateField( key, form );</pre>
-
-    <pre class="sunlight-highlight-javascript">let formIsValide = this._validateField( key, form );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="_validateFieldSetFormError"><span class="type-signature"></span>_validateFieldSetFormError(event)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method sets or removes a FormError from the input fields of a form when typing with the keyboard or changing the field.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The triggering event</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Examples</h5>
-        
-    <pre class="sunlight-highlight-javascript">validator._validateFieldSetFormError( event );</pre>
-
-    <pre class="sunlight-highlight-javascript">this._validateFieldSetFormError( event );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="_validateFields"><span class="type-signature"></span>_validateFields()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method loops through all forms and their fields on the current page and validates the input.Furthermore, it switches the buttons with the Css class: Submit to disable or enable.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Examples</h5>
-        
-    <pre class="sunlight-highlight-javascript">validator._validateFields();</pre>
-
-    <pre class="sunlight-highlight-javascript">this._validateFields();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="_validatePassword"><span class="type-signature"></span>_validatePassword(password)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method is specifically for passwords and checks the password against the stored rules.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>password</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The password</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    isValide   The result of the check, true: is valid, false: is not valid
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Examples</h5>
-        
-    <pre class="sunlight-highlight-javascript">let isValide = validator._validatePassword( password );</pre>
-
-    <pre class="sunlight-highlight-javascript">let isValide = this._validatePassword( password );</pre>
-
-
-    
-</dd>
-
-        
             
 <hr>
 <dt>
@@ -1099,6 +340,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Validator.html#set">Validator#set</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -1130,7 +378,7 @@
     </dt>
     <dd>
         
-<span class="param-type">mixed</span>
+<span class="param-type">*</span>
 
 
 
@@ -1141,11 +389,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">let value = validator.get( property );</pre>
-
-    <pre class="sunlight-highlight-javascript">let value = this.get( property );</pre>
 
 
     
@@ -1297,11 +543,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">validator.manageFormErrors( formErrors );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.manageFormErrors( formErrors );</pre>
 
 
     
@@ -1403,11 +647,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">validator.registerEventHandler();</pre>
-
-    <pre class="sunlight-highlight-javascript">this.registerEventHandler();</pre>
 
 
     
@@ -1509,11 +751,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">validator.resetFormErrors();</pre>
-
-    <pre class="sunlight-highlight-javascript">this.resetFormErrors();</pre>
 
 
     
@@ -1596,7 +836,7 @@
             <td class="type">
             
                 
-<span class="param-type">mixed</span>
+<span class="param-type">*</span>
 
 
 
@@ -1651,6 +891,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="Validator.html#get">Validator#get</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -1689,11 +936,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">validator.set( property, value );</pre>
-
-    <pre class="sunlight-highlight-javascript">this.set( property, value );</pre>
 
 
     
@@ -1795,11 +1040,9 @@
         
 
     
-        <h5>Examples</h5>
+        <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">validator.validateFields();</pre>
-
-    <pre class="sunlight-highlight-javascript">this.validateFields();</pre>
 
 
     
@@ -1855,7 +1098,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-21T08:49:52+02:00
+		on 2026-06-21T23:14:37+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -6,6 +6,7 @@
  * The event handler for form validation is called when an object is instantiated.
  *
  * @class
+ * @see Communicator
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -35,7 +36,7 @@ class Validator {
       'passwordHasCapitalLetters': window[ appAlias ].passwordRules.passwordHasCapitalLetters,
       'passwordHasLowercaseLetters': window[ appAlias ].passwordRules.passwordHasLowercaseLetters,
       'passwordHasSpecialCharacters': window[ appAlias ].passwordRules.passwordHasSpecialCharacters
-    }
+    };
 
     this.registerEventHandler();
 
@@ -48,10 +49,11 @@ class Validator {
  * @public
  *
  * @param     {string}   property   The property of the value
- * @return    {mixed}    value      The value of the property
+ * @return    {*}        value      The value of the property
  *
  * @example   let value = validator.get( property );
- * @example   let value = this.get( property );
+ *
+ * @see Validator#set
  *
  */
   get( property ) {
@@ -64,11 +66,12 @@ class Validator {
  * @public
  *
  * @param     {string}   property   The property that you want to set
- * @param     {mixed}    value      The value you want to set to the property
+ * @param     {*}        value      The value you want to set to the property
  * @return    {void}
  *
  * @example   validator.set( property, value );
- * @example   this.set( property, value );
+ *
+ * @see Validator#get
  *
  */
   set( property, value ) {
@@ -86,7 +89,6 @@ class Validator {
  * @return    {void}
  *
  * @example   validator.registerEventHandler();
- * @example   this.registerEventHandler();
  *
  */
   registerEventHandler() {
@@ -109,7 +111,6 @@ class Validator {
  * @return    {void}
  *
  * @example   validator.validateFields();
- * @example   this.validateFields();
  *
  */
   validateFields() {
@@ -128,7 +129,7 @@ class Validator {
 
           fieldObjects[ j ].addEventListener( 'change', ( event ) => { this._validateFields(); }, false );
           fieldObjects[ j ].addEventListener( 'keyup', ( event ) => { this._validateFields(); }, false );
-          fieldObjects[ j ].addEventListener( 'blur', ( event ) => { this._validateFieldSetFormError( event ) }, false );
+          fieldObjects[ j ].addEventListener( 'blur', ( event ) => { this._validateFieldSetFormError( event ); }, false );
         }
       }
     }
@@ -139,13 +140,12 @@ class Validator {
 /**
  * This method sets or removes a FormError from the input fields of a form when typing with the keyboard or changing the field.
  *
- * @public
+ * @private
  *
  * @param     {object}  event   The triggering event
  * @return    {void}
  *
  * @example   validator._validateFieldSetFormError( event );
- * @example   this._validateFieldSetFormError( event );
  *
  */
   _validateFieldSetFormError( event ) {
@@ -164,14 +164,13 @@ class Validator {
  * This method checks the field passed with the input field name whether it meets all the guidelines
  * the input field is stored (fields.json).
  *
- * @public
+ * @private
  *
  * @param     {string}   key            The name of the input field
  * @param     {object}   form           The form in which the key is located
  * @return    {boolean}  formIsValide   The result of the check, true: is valid, false: is not valid
  *
  * @example   let formIsValide = validator._validateField( key, form );
- * @example   let formIsValide = this._validateField( key, form );
  *
  */
   _validateField( key, form ) {
@@ -196,7 +195,7 @@ class Validator {
       const password2 = form.querySelector( fields[ key ].element + '[name=\'' + key + '2\']' );
       if( password2 != null && typeof password2.value == 'string' && field.value != password2.value ) formIsValide = false;
       if( typeof fields[ key ].validatePasswordSecurity == 'boolean' && fields[ key ].validatePasswordSecurity ) {
-        if( ! this._validatePassword( field.value ) ) formIsValide = false
+        if( ! this._validatePassword( field.value ) ) formIsValide = false;
       }
     } else {
       const intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
@@ -214,12 +213,11 @@ class Validator {
  * This method loops through all forms and their fields on the current page and validates the input.
  * Furthermore, it switches the buttons with the Css class: Submit to disable or enable.
  *
- * @public
+ * @private
  *
  * @return    {void}
  *
  * @example   validator._validateFields();
- * @example   this._validateFields();
  *
  */
   _validateFields() {
@@ -256,13 +254,12 @@ class Validator {
 /**
  * This method is specifically for passwords and checks the password against the stored rules.
  *
- * @public
+ * @private
  *
  * @param     {string}   password   The password
  * @return    {boolean}  isValide   The result of the check, true: is valid, false: is not valid
  *
  * @example   let isValide = validator._validatePassword( password );
- * @example   let isValide = this._validatePassword( password );
  *
  */
   _validatePassword( password ) {
@@ -292,13 +289,12 @@ class Validator {
 /**
  * This method checks an email address for validity and returns the result of the check.
  *
- * @public
+ * @private
  *
  * @param     {string}   email      The email address
  * @return    {boolean}  isValide   The result of the check, true: is valid, false: is not valid
  *
  * @example   let isValide = validator._validateEmail( email );
- * @example   let isValide = this._validateEmail( email );
  *
  */
   _validateEmail( email ) {
@@ -314,7 +310,6 @@ class Validator {
  * @return    {void}
  *
  * @example   validator.manageFormErrors( formErrors );
- * @example   this.manageFormErrors( formErrors );
  *
  */
   manageFormErrors( formErrors ) {
@@ -335,7 +330,6 @@ class Validator {
  * @return    {void}
  *
  * @example   validator.resetFormErrors();
- * @example   this.resetFormErrors();
  *
  */
   resetFormErrors() {

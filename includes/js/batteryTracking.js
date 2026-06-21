@@ -1,7 +1,7 @@
 /**
- * Geo Battery Class for the Friends Hunt App.
+ * BatteryTracker Class for the Friends Hunt App.
  *
- * This Class represents the Battery Tracker Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the Battery Tracker Class for the Friends Hunt App with its Properties and Methods.
  * The Class is for handling Battery Level and is charging.
  * Unfortunately, accessing the battery does not work on the iPhone.
  *
@@ -42,9 +42,11 @@ class BatteryTracker {
  * @public
  *
  * @param     {string}   property   The Property to get
- * @return    {mixed}    value      The Value of the Property
+ * @return    {*}        value      The Value of the Property
  *
  * @example   let value = objBatteryTracker.get( property );
+ *
+ * @see BatteryTracker#set
  *
  */
   get( property ) {
@@ -57,10 +59,12 @@ class BatteryTracker {
  * @public
  *
  * @param     {string}   property   The Property to set
- * @param     {mixed}    value      The Value to set
+ * @param     {*}        value      The Value to set
  * @return    {void}
  *
  * @example   objBatteryTracker.set( property, value );
+ *
+ * @see BatteryTracker#get
  *
  */
   set( property, value ) {
@@ -130,7 +134,7 @@ class BatteryTracker {
  *
  * @public
  *
- * @return    {object}  objBatteryState  objBatteryState
+ * @return    {object}  objBatteryState  The current battery state with level, charging and supported properties
  *
  * @example   const objBatteryState = objBatteryTracker.getBatteryData();
  *

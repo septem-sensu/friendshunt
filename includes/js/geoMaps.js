@@ -5,6 +5,7 @@
  * The Class is for handling Leaflet with OpenStreetMap.
  *
  * @class
+ * @see GeoTracker
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -18,9 +19,12 @@ class GeoMaps {
 /**
  * This Method is the Constructor for this Class.
  *
+ * @public
+ *
+ * @return    {void}
+ *
  * @example   const objGeoMaps = new GeoMaps();
  *
- * @constructor
  */
   constructor() {
     this.zoomLevel    = 14; // Standard-Zoomstufe für die Kartendarstellung
@@ -42,9 +46,11 @@ class GeoMaps {
  * @public
  *
  * @param     {string}   property   The Property to get
- * @return    {mixed}    value      The Value of the Property
+ * @return    {*}        value      The Value of the Property
  *
  * @example   let value = objGeoMaps.get( property );
+ *
+ * @see GeoMaps#set
  *
  */
   get( property ) {
@@ -57,10 +63,12 @@ class GeoMaps {
  * @public
  *
  * @param     {string}   property   The Property to set
- * @param     {mixed}    value      The Value to set
+ * @param     {*}        value      The Value to set
  * @return    {void}
  *
  * @example   objGeoMaps.set( property, value );
+ *
+ * @see GeoMaps#get
  *
  */
   set( property, value ) {
@@ -74,8 +82,8 @@ class GeoMaps {
  *
  * @public
  *
- * @param     {number}  lat         The current Latidude
- * @param     {number}  lng         The current Langidude
+ * @param     {number}  lat         The current Latitude
+ * @param     {number}  lng         The current Longitude
  * @return    {object}  objMap      The Leaflet Map Object
  *
  * @example   let objMap = objGeoMaps.setMap( lat, lng );
@@ -102,8 +110,8 @@ class GeoMaps {
  * @param     {string}  id        The Game Player Id (Marker Id)
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
- * @param     {number}  lat       The Latidude of the Game Player
- * @param     {number}  lng       The Langidude of the Game Player
+ * @param     {number}  lat       The Latitude of the Game Player
+ * @param     {number}  lng       The Longitude of the Game Player
  * @param     {string}  content   The Content of the Popup
  * @param     {string}  name      The Text at the Icon
  * @param     {string}  cssclass  The css Class for the Icon
@@ -231,7 +239,7 @@ class GeoMaps {
  *
  * @param     {string}  id         The Game Player Id (Marker Id)
  * @param     {string}  cssClass   The css Class to remove from the Marker Icon
- * @return    {bool}    objResult  Contains the css Class at the Marker Icon
+ * @return    {boolean} objResult  Contains the css Class at the Marker Icon
  *
  * @example   objResult = objGeoMaps.containsMarkerCssClass( id, cssClass );
  *
@@ -273,11 +281,11 @@ class GeoMaps {
  * @public
  *
  * @param     {string}  id        The Game Player Id (Circle Id)
- * @param     {number}  lat       The Latidude of the Center of the Circle
- * @param     {number}  lng       The Langidude of the Center of the Circle
+ * @param     {number}  lat       The Latitude of the Center of the Circle
+ * @param     {number}  lng       The Longitude of the Center of the Circle
  * @param     {number}  size      The Radius of the Circle
  * @param     {string}  color     The Color of the Circle edge
- * @param     {number}  weight    The weight of the Corcle edge
+ * @param     {number}  weight    The weight of the Circle edge
  * @param     {string}  fillColor The fill Color of the Circle
  * @param     {number}  opacity   The Opacity of the Circle
  * @return    {void}
@@ -295,7 +303,7 @@ class GeoMaps {
       'fillColor': fillColor,
       'fillOpacity': opacity,
       'interactive': false
-    } ).addTo( this.map );;
+    } ).addTo( this.map );
 
     return;
   }
@@ -311,8 +319,8 @@ class GeoMaps {
  * @param     {number}  weight          The weight of the Corcle edge
  * @param     {string}  fillColor       The fill Color of the Circle
  * @param     {number}  opacity         The Opacity of the Circle
- * @param     {number}  selector        The Selector of a input Fiel to set the coordinates
- * @param     {number}  selectorRadius  The Selector of a input Fiel to set the radius
+ * @param     {string}  selector        The Selector of a input Field to set the coordinates
+ * @param     {string}  selectorRadius  The Selector of a input Field to set the radius
  * @return    {void}
  *
  * @example   objGeoMaps.setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius );
@@ -503,7 +511,7 @@ class GeoMaps {
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
  * @param     {string}  name      The Text at the Icon
- * @return    {string}  strImage  The Vector Object Image
+ * @return    {object}  strImage  The Leaflet DivIcon Object
  *
  * @example   strImage = objGeoMaps.getIcon( role, color, name );
  *
@@ -585,4 +593,4 @@ class GeoMaps {
       popupAnchor: [0, -size / 2]
     } );
   }
-};
+}

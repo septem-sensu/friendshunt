@@ -4,6 +4,7 @@
  * The class requires the Validator class.
  *
  * @class
+ * @see Validator
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -43,10 +44,11 @@ class Communicator {
  * @public
  *
  * @param     {string}   property   The property of the value
- * @return    {mixed}    value      The value of the property
+ * @return    {*}        value      The value of the property
  *
  * @example   let value = communicator.get( 'maxRequestCount' );
- * @example   let value = this.get( property );
+ *
+ * @see Communicator#set
  *
  */
   get( property ) {
@@ -59,11 +61,12 @@ class Communicator {
  * @public
  *
  * @param     {string}   property   The property that you want to set
- * @param     {mixed}    value      The value you want to set to the property
+ * @param     {*}        value      The value you want to set to the property
  * @return    {void}
  *
  * @example   communicator.set( 'property', 5 );
- * @example   this.set( property, value );
+ *
+ * @see Communicator#get
  *
  */
   set( property, value ) {
@@ -73,7 +76,7 @@ class Communicator {
   }
 
 /**
- * This method returns a request object for the Commicator to which you can attach further data.
+ * This method returns a request object for the Communicator to which you can attach further data.
  *
  * @public
  *
@@ -83,7 +86,6 @@ class Communicator {
  * @return    {object}   requestObject  The finished request object for the communicator
  *
  * @example   const requestObject = communicator.newJsonRequestObject( 'Player', 'deletePlayer', 'max@musterman.de' );
- * @example   const requestObject = this.newJsonRequestObject( className, method, id );
  *
  */
   newJsonRequestObject( className, method, id ) {
@@ -125,7 +127,6 @@ class Communicator {
  * @return    {void}
  *
  * @example   communicator.manageRequestQueue();
- * @example   this.manageRequestQueue();
  *
  */
   manageRequestQueue() {
@@ -151,7 +152,6 @@ class Communicator {
  * @return    {void}
  *
  * @example   communicator.request( 'POST', {}, {}, ref.function );
- * @example   this.request( 'method', getParams, postParams, callbackMethod );
  *
  */
   request( method, getParams, postParams, callbackMethod ) {
@@ -173,13 +173,12 @@ class Communicator {
  * All the necessary parameters are in the request object.
  * The response of this method is passed to the processResponse method.
  *
- * @public
+ * @private
  *
  * @param     {object}  request  The request object with all the required information
  * @return    {void}
  *
  * @example   communicator._request( request );
- * @example   this._request( request );
  *
  */
   _request( request ) {
@@ -250,7 +249,6 @@ class Communicator {
  * @return    {void}
  *
  * @example   communicator.proccessResponse( request, response );
- * @example   this.proccessResponse( request, response );
  *
  */
   proccessResponse( request, response ) {
@@ -297,7 +295,6 @@ class Communicator {
  * @return    {void}
  *
  * @example   communicator.setFields( object );
- * @example   this.setFields( object );
  *
  */
   setFields( object ) {
@@ -327,7 +324,6 @@ class Communicator {
  * @return    {void}
  *
  * @example   communicator.manageRedirects( '?view=Game' );
- * @example   this.manageRedirects( redirect );
  *
  */
   manageRedirects( redirect ) {

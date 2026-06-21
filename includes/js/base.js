@@ -8,6 +8,7 @@
  * This class requires the Communicator class.
  *
  * @class
+ * @see Communicator
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -41,10 +42,11 @@ class Base {
  * @public
  *
  * @param     {string}   property   The property of the value
- * @return    {mixed}    value      The value of the property
+ * @return    {*}        value      The value of the property
  *
  * @example   let value = baseObject.get( property );
- * @example   let value = this.get( property );
+ *
+ * @see Base#set
  *
  */
   get( property ) {
@@ -57,11 +59,12 @@ class Base {
  * @public
  *
  * @param     {string}   property   The property that you want to set
- * @param     {mixed}    value      The value you want to set to the property
+ * @param     {*}        value      The value you want to set to the property
  * @return    {void}
  *
  * @example   baseObject.set( property, value );
- * @example   this.set( property, value );
+ *
+ * @see Base#get
  *
  */
   set( property, value ) {
@@ -79,7 +82,6 @@ class Base {
  * @return    {void}
  *
  * @example   baseObject.registerEventHandler();
- * @example   this.registerEventHandler();
  *
  */
   registerEventHandler() {
@@ -127,7 +129,7 @@ class Base {
         document.querySelector('.full-image-layer').style.display = 'block';
         document.querySelector('.full-image').style.display = 'block';
 
-        let tagImage = '<img src="' + this.src + '" />';
+        const tagImage = '<img src="' + this.src + '" />';
 
         document.querySelector('.full-image').innerHTML = tagImage;
 
@@ -167,7 +169,6 @@ class Base {
  * @return    {void}
  *
  * @example   baseObject.processResponse( response );
- * @example   this.processResponse( response );
  *
  */
   processResponse( response ) {
@@ -187,7 +188,6 @@ class Base {
  * @return    {void}
  *
  * @example   baseObject.unhideGameAdministratorButtons();
- * @example   this.unhideGameAdministratorButtons();
  *
  */
   unhideGameAdministratorButtons() {

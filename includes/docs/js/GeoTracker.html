@@ -74,7 +74,7 @@
         GeoTracker
         </h2>
         
-            <div class="class-description">Geo Tracker Class for the Friends Hunt App.This Class represents the Geo Tracker Class for the Friends Hunt App with his Properties and Methods.The Class is for handling Position Tracking, Step Counting and Calculte Distances.The Class can start inverval Tracking and used the Wake Lock API.</div>
+            <div class="class-description">Geo Tracker Class for the Friends Hunt App.This Class represents the Geo Tracker Class for the Friends Hunt App with its Properties and Methods.The Class is for handling Position Tracking, Step Counting and Calculate Distances.The Class can start interval Tracking and uses the Wake Lock API.</div>
         
     
 </header>
@@ -161,6 +161,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="GeoMaps.html">GeoMaps</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -177,11 +184,31 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">const objGeoTracker = new GeoTracker();</pre>
+    <pre class="sunlight-highlight-javascript">const geoTracker = new GeoTracker();</pre>
 
 
     
@@ -269,7 +296,7 @@
 
             
 
-            <td class="description last">The Latidude of Waypoint 1 (float)</td>
+            <td class="description last">The Latitude of Waypoint 1 (float)</td>
         </tr>
 
     
@@ -293,7 +320,7 @@
 
             
 
-            <td class="description last">The Langidude of Waypoint 1 (float)</td>
+            <td class="description last">The Longitude of Waypoint 1 (float)</td>
         </tr>
 
     
@@ -317,7 +344,7 @@
 
             
 
-            <td class="description last">The Latidude of Waypoint 2 (float)</td>
+            <td class="description last">The Latitude of Waypoint 2 (float)</td>
         </tr>
 
     
@@ -341,7 +368,7 @@
 
             
 
-            <td class="description last">The Langidude of Waypoint 2 (float)</td>
+            <td class="description last">The Longitude of Waypoint 2 (float)</td>
         </tr>
 
     
@@ -429,7 +456,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">let floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );</pre>
+    <pre class="sunlight-highlight-javascript">let floatDistance = geoTracker.calcDistance( lat1, lng1, lat2, lng2 );</pre>
 
 
     
@@ -533,7 +560,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.checkPedometerSensor();</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.checkPedometerSensor();</pre>
 
 
     
@@ -647,6 +674,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="GeoTracker.html#set">GeoTracker#set</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -678,7 +712,7 @@
     </dt>
     <dd>
         
-<span class="param-type">mixed</span>
+<span class="param-type">*</span>
 
 
 
@@ -691,7 +725,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">let value = objGeoTracker.stepCount( property );</pre>
+    <pre class="sunlight-highlight-javascript">let value = geoTracker.stepCount( property );</pre>
 
 
     
@@ -750,7 +784,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">function</span>
 
 
 
@@ -761,7 +795,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The callback function for the position</td>
         </tr>
 
     
@@ -845,7 +879,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.getCurrentPosition( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.getCurrentPosition( callbackSuccess );</pre>
 
 
     
@@ -928,7 +962,7 @@
             <td class="type">
             
                 
-<span class="param-type">mixed</span>
+<span class="param-type">*</span>
 
 
 
@@ -983,6 +1017,13 @@
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li><a href="GeoTracker.html#get">GeoTracker#get</a></li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -1023,7 +1064,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.set( property, value );</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.set( property, value );</pre>
 
 
     
@@ -1082,7 +1123,7 @@
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">function</span>
 
 
 
@@ -1093,7 +1134,7 @@
 
             
 
-            <td class="description last">The Property to set</td>
+            <td class="description last">The callback function for the position</td>
         </tr>
 
     
@@ -1177,7 +1218,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startIntervalTracking( callbackSuccess );</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.startIntervalTracking( callbackSuccess );</pre>
 
 
     
@@ -1281,7 +1322,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startPedometer();</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.startPedometer();</pre>
 
 
     
@@ -1299,7 +1340,7 @@
 
     
     <div class="description">
-        This Method starts the Wake Look, so that the Device does not go into Sleep Mode or lock the Screen.
+        This Method starts the Wake Lock, so that the Device does not go into Sleep Mode or lock the Screen.
     </div>
     
 
@@ -1385,7 +1426,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.startWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.startWakeLock();</pre>
 
 
     
@@ -1489,7 +1530,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopIntervalTracking();</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.stopIntervalTracking();</pre>
 
 
     
@@ -1507,7 +1548,7 @@
 
     
     <div class="description">
-        This Method stops the Wake Look Mode, the Device can go into Sleep Mode or lock the Screen.
+        This Method stops the Wake Lock Mode, the Device can go into Sleep Mode or lock the Screen.
     </div>
     
 
@@ -1593,7 +1634,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoTracker.stopWakeLock();</pre>
+    <pre class="sunlight-highlight-javascript">geoTracker.stopWakeLock();</pre>
 
 
     
@@ -1649,7 +1690,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-21T08:49:52+02:00
+		on 2026-06-21T23:14:37+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

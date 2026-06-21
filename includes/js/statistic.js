@@ -5,6 +5,8 @@
  * This class requires the GeoTracker class and the Communicator class.
  *
  * @class
+ * @see GeoTracker
+ * @see Communicator
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -33,7 +35,7 @@ class Statistic {
 
     this.statistic    = null;
     this.response     = null;
-    this.selector     = selector
+    this.selector     = selector;
     this.isInit       = false;
 
     return;
@@ -45,10 +47,11 @@ class Statistic {
  * @public
  *
  * @param     {string}   property   The property of the value
- * @return    {mixed}    value      The value of the property
+ * @return    {*}        value      The value of the property
  *
  * @example   let value = statistic.get( property );
- * @example   let value = this.get( property );
+ *
+ * @see Statistic#set
  *
  */
   get( property ) {
@@ -61,11 +64,12 @@ class Statistic {
  * @public
  *
  * @param     {string}   property   The property that you want to set
- * @param     {mixed}    value      The value you want to set to the property
+ * @param     {*}        value      The value you want to set to the property
  * @return    {void}
  *
  * @example   statistic.set( property, value );
- * @example   this.set( property, value );
+ *
+ * @see Statistic#get
  *
  */
   set( property, value ) {
@@ -83,7 +87,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.init();
- * @example   this.init();
  *
  */
   init() {
@@ -139,7 +142,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.getGameStatistics();
- * @example   this.getGameStatistics();
  *
  */
   getGameStatistics() {
@@ -162,7 +164,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.generateGameStatistics( response );
- * @example   this.generateGameStatistics( response );
  *
  */
   generateGameStatistics( response ) {
@@ -190,7 +191,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.addGameOverviewContainer();
- * @example   this.addGameOverviewContainer();
  *
  */
   addGameOverviewContainer() {
@@ -249,14 +249,13 @@ class Statistic {
   }
 
 /**
- * This method generates the game Speed ​​Hunt container and inserts it into the designated locations in the game dashboard view.
+ * This method generates the game Speed Hunt container and inserts it into the designated locations in the game dashboard view.
  *
  * @public
  *
  * @return    {void}
  *
  * @example   statistic.addSpeedHuntsContainer();
- * @example   this.addSpeedHuntsContainer();
  *
  */
   addSpeedHuntsContainer() {
@@ -277,7 +276,7 @@ class Statistic {
     content     += '<tbody>';
 
     for( let i = 0; i < speedHunts.length; i++ ) {
-      let cssClass = this.statistic.names[ speedHunts[ i ].playerId ].captured ? ' danger-text' : '';
+      const cssClass = this.statistic.names[ speedHunts[ i ].playerId ].captured ? ' danger-text' : '';
 
       content     += '<tr>';
       content     += '<td class="align-left pr-10' + cssClass + '">' + speedHunts[ i ].playerName + '</td>';
@@ -288,7 +287,7 @@ class Statistic {
     }
 
     content    += '</tbody>';
-    content    += '</table>'
+    content    += '</table>';
     content    += '</div>';
 
     this.statistic.statisticContainer.innerHTML += content;
@@ -297,14 +296,13 @@ class Statistic {
   }
 
 /**
- * This method generates the news overview container and inserts it into the designated locations in the game dashboard view.
+ * This method generates the messages overview container and inserts it into the designated locations in the game dashboard view.
  *
  * @public
  *
  * @return    {void}
  *
  * @example   statistic.addMessagesContainer();
- * @example   this.addMessagesContainer();
  *
  */
   addMessagesContainer() {
@@ -325,25 +323,25 @@ class Statistic {
     content     += '<tbody>';
 
     for( const playerId in this.statistic.names ) {
-      let cssClass         = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
-      let cssClassBattery  = 'success-text';
-      let charched         = this.statistic.names[ playerId ].batteryCharged ? 'Ja' : 'Nein';
-      let cssClassCharched = this.statistic.names[ playerId ].batteryCharged ? 'info-text' : 'warning-text';
+      const cssClass         = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
+      const charched         = this.statistic.names[ playerId ].batteryCharged ? 'Ja' : 'Nein';
+      const cssClassCharched = this.statistic.names[ playerId ].batteryCharged ? 'info-text' : 'warning-text';
+      let cssClassBattery    = 'success-text';
 
-      batteryMin           = batteryMin > this.statistic.names[ playerId ].batteryMin ? this.statistic.names[ playerId ].batteryMin : batteryMin;
-      batteryMax           = batteryMax < this.statistic.names[ playerId ].batteryMax ? this.statistic.names[ playerId ].batteryMax : batteryMax;
+      batteryMin             = batteryMin > this.statistic.names[ playerId ].batteryMin ? this.statistic.names[ playerId ].batteryMin : batteryMin;
+      batteryMax             = batteryMax < this.statistic.names[ playerId ].batteryMax ? this.statistic.names[ playerId ].batteryMax : batteryMax;
 
-      cssClassBattery      = this.statistic.names[ playerId ].batteryMin < 70 ? 'info-text' : cssClassBattery;
-      cssClassBattery      = this.statistic.names[ playerId ].batteryMin < 40 ? 'warning-text' : cssClassBattery;
-      cssClassBattery      = this.statistic.names[ playerId ].batteryMin < 20 ? 'danger-text' : cssClassBattery;
+      cssClassBattery        = this.statistic.names[ playerId ].batteryMin < 70 ? 'info-text' : cssClassBattery;
+      cssClassBattery        = this.statistic.names[ playerId ].batteryMin < 40 ? 'warning-text' : cssClassBattery;
+      cssClassBattery        = this.statistic.names[ playerId ].batteryMin < 20 ? 'danger-text' : cssClassBattery;
 
-      content             += '<tr>';
-      content             += '<td class="align-left pr-10' + cssClass + '">' + this.statistic.names[ playerId ].name + '</td>';
-      content             += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].messages + '</td>';
-      content             += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].messageSize + '</td>';
-      content             += '<td class="align-right pr-10 ' + cssClassBattery + '">' + this.statistic.names[ playerId ].batteryMin + '% / ' + this.statistic.names[ playerId ].batteryMax + '%</td>';
-      content             += '<td class="align-right pr-10 ' + cssClassCharched + '">' + charched + '</td>';
-      content             += '</tr>';
+      content               += '<tr>';
+      content               += '<td class="align-left pr-10' + cssClass + '">' + this.statistic.names[ playerId ].name + '</td>';
+      content               += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].messages + '</td>';
+      content               += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].messageSize + '</td>';
+      content               += '<td class="align-right pr-10 ' + cssClassBattery + '">' + this.statistic.names[ playerId ].batteryMin + '% / ' + this.statistic.names[ playerId ].batteryMax + '%</td>';
+      content               += '<td class="align-right pr-10 ' + cssClassCharched + '">' + charched + '</td>';
+      content               += '</tr>';
     }
 
     content    += '</tbody>';
@@ -356,7 +354,7 @@ class Statistic {
     content    += '<th class="align-right pr-10"></th>';
     content    += '</tr></tfoot>';
 
-    content    += '</table>'
+    content    += '</table>';
     content    += '</div>';
 
     this.statistic.statisticContainer.innerHTML += content;
@@ -372,7 +370,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.addOutOfPlayfield();
- * @example   this.addOutOfPlayfield();
  *
  */
   addOutOfPlayfield() {
@@ -390,8 +387,8 @@ class Statistic {
     content                 += '<tbody>';
 
     for( let i = 0; i < this.statistic.outOfPlayfield.length; i++ ) {
-      let cssClass = this.statistic.names[ this.statistic.outOfPlayfield[ i ].playerId ].captured ? ' danger-text' : '';
-      let end      = typeof this.statistic.outOfPlayfield[ i ].end != 'undefined' ? Utils.timestampPhpToString( this.statistic.outOfPlayfield[ i ].end ) : '--';
+      const cssClass = this.statistic.names[ this.statistic.outOfPlayfield[ i ].playerId ].captured ? ' danger-text' : '';
+      const end      = typeof this.statistic.outOfPlayfield[ i ].end != 'undefined' ? Utils.timestampPhpToString( this.statistic.outOfPlayfield[ i ].end ) : '--';
 
       show        = true;
 
@@ -404,7 +401,7 @@ class Statistic {
     }
 
     content    += '</tbody>';
-    content    += '</table>'
+    content    += '</table>';
     content    += '</div>';
 
     if( show ) this.statistic.statisticContainer.innerHTML += content;
@@ -420,7 +417,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.addCapturedContainer();
- * @example   this.addCapturedContainer();
  *
  */
   addCapturedContainer() {
@@ -455,7 +451,6 @@ class Statistic {
  * @return    {void}
  *
  * @example   statistic.addPlayerDistancesContainers();
- * @example   this.addPlayerDistancesContainers();
  *
  */
   addPlayerDistancesContainers() {
@@ -481,7 +476,7 @@ class Statistic {
       for( const playerId in this.statistic.names ) {
         if( role != this.statistic.names[ playerId ].role ) continue;
 
-        let strCssClass = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
+        const cssClass = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
 
         show          = true;
         stepAll       += this.statistic.names[ playerId ].steps;
@@ -489,7 +484,7 @@ class Statistic {
         drivedAll     += this.statistic.names[ playerId ].drived;
 
         content       += '<tr>';
-        content       += '<td class="align-left pr-10' + strCssClass + '">' + this.statistic.names[ playerId ].name + '</td>';
+        content       += '<td class="align-left pr-10' + cssClass + '">' + this.statistic.names[ playerId ].name + '</td>';
         content       += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].steps + '</td>';
         content       += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].distance + ' km</td>';
 
@@ -517,7 +512,7 @@ class Statistic {
       content    += '<th class="align-right"></th>';
       content    += '</tr></tfoot>';
 
-      content    += '</table>'
+      content    += '</table>';
       content    += '</div>';
 
       if( show ) this.statistic.statisticContainer.innerHTML += content;
@@ -534,7 +529,6 @@ class Statistic {
  * @return    {object}  statistic  The created Statistic object
  *
  * @example   let statistic = statistic.gameStatistic();
- * @example   let statistic = this.gameStatistic();
  *
  */
   gameStatistic() {
@@ -565,11 +559,11 @@ class Statistic {
 
               outOfPlayfield = true;
             } else if( outOfPlayfield == true && tracking[ i ].outOfPlayingField == false ) {
-              let intOutOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
-              let intOutOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
+              const outOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
+              const outOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
 
-              this.statistic.names[ playerId ].outOfPlayfield[ intOutOfPlayfieldLengthPlayer ].end = tracking[ i ].timestamp;
-              this.statistic.outOfPlayfield[ intOutOfPlayfieldLength ].end                            = tracking[ i ].timestamp;
+              this.statistic.names[ playerId ].outOfPlayfield[ outOfPlayfieldLengthPlayer ].end = tracking[ i ].timestamp;
+              this.statistic.outOfPlayfield[ outOfPlayfieldLength ].end                         = tracking[ i ].timestamp;
 
               outOfPlayfield = false;
             }
@@ -625,7 +619,5 @@ class Statistic {
 
     return;
   }
-
-
 
 }
