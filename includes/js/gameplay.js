@@ -1031,7 +1031,8 @@ class Gameplay {
     for( let i = 0; i < speedHunts.length; i++ ) {
       for( let j = 0; j < speedHunts[ i ].timestamps.length; j++ ) {
         this.replayData.trackings.push( {
-          'type': 'speedhunt',
+          'type': 'alarm',
+          'subType': 'speedhunt',
           'role': this.replayData.names[ speedHunts[ i ].playerId ].role,
           'roleName': this.replayData.names[ speedHunts[ i ].playerId ].roleName,
           'playerId': speedHunts[ i ].playerId,
@@ -1045,7 +1046,8 @@ class Gameplay {
     for( const playerId in cheats ) {
       for( let i = 0; i < cheats[ playerId ].length; i++ ) {
         this.replayData.trackings.push( {
-          'type': 'cheat',
+          'type': 'alarm',
+          'subType': 'cheat',
           'role': this.replayData.names[ playerId ].role,
           'roleName': this.replayData.names[ playerId ].roleName,
           'playerId': playerId,
@@ -1059,6 +1061,7 @@ class Gameplay {
     for( let i = 0; i < captured.length; i++ ) {
       this.replayData.trackings.push( {
         'type': 'capture',
+        'subType': 'capture',
         'role': this.replayData.names[ captured[ i ].playerId ].role,
         'roleName': this.replayData.names[ captured[ i ].playerId ].roleName,
         'playerId': captured[ i ].playerId,

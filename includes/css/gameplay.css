@@ -117,6 +117,16 @@ body, html {
     left: calc(50% - 185px);
   }
 
+  body .replay-controls-row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  body .playback-buttons, .speed-buttons {
+    justify-content: center;
+  }
+
 }
 
 #gameplay-button-replay {
@@ -157,7 +167,7 @@ body, html {
 }
 
 #map {
-  height: 150vh;
+  height: 100vh;
   width: 100%;
 }
 
@@ -249,14 +259,24 @@ body, html {
   height: 35px;
   margin-left: 10px;
   margin-top: 6px;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .icons-gamplay-menu-bottom {
   filter: invert(1);
   color: #000000 !important;
   position: absolute;
-  opacity: 0.6;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  transition: transform 0.2s;
+}
+
+.icons-gamplay-menu-bottom:hover {
+  opacity: 0.5;
+}
+
+.icons-gamplay-menu-bottom:active {
+  transform: scale(0.85);
 }
 
 .icon-game-camera {
@@ -474,8 +494,6 @@ body, html {
   margin-right: 7px;
 }
 
-
-
 #game-system-message-container {
   position: fixed;
   top: 58px;
@@ -522,121 +540,87 @@ body, html {
   width: calc(100% - 20px);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .replay-panel {
-    background-color: var(--backgroundColorContent);
-    border-radius: 10px 10px 10px 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: fixed;
-    bottom: 59px;
-    z-index: 5000;
-    width: 550px;
-    left: calc(50% - 290px);
+  background-color: var(--backgroundColorContent);
+  border-radius: 10px 10px 10px 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: fixed;
+  bottom: 59px;
+  z-index: 5000;
+  width: 550px;
+  left: calc(50% - 290px);
 }
 
 .replay-timeline-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-/* Der schicke, flache Cyber-Slider */
 #replay-slider {
-    flex-grow: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    background: #0f172a;
-    height: 6px;
-    border-radius: 3px;
-    outline: none;
-    border: 1px solid var(--border-color);
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #0f172a;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid var(--border-color);
 }
 
 #replay-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
-    box-shadow: 0 0 8px #fff;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 8px #fff;
+  opacity: 0.8;
 }
 
 #replay-clock {
-    font-family: var(--font-tactical); /* Deine Orbitron / Mono */
-    font-size: 1.1rem;
-    color: var(--color-system);
-    min-width: 80px;
-    text-align: right;
+  font-size: 1.1rem;
+  color: var(--color-system);
+  min-width: 80px;
+  text-align: right;
 }
 
 .replay-controls-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Taktische Buttons (Exakt nach deinem Clean-Look) */
 .btn-tactical, .btn-speed {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--color-text);
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--color-text);
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-tactical:hover, .btn-speed:hover {
-    border-color: var(--color-hunter);
-    color: var(--color-hunter);
+  border-color: var(--color-hunter);
+  color: var(--color-hunter);
 }
 
-/* Aktiv-Zustand für Play/Pause und die gewählte Geschwindigkeit */
 .btn-active {
-    background-color: rgba(0, 240, 255, 0.1) !important;
-    border-color: var(--color-hunter) !important;
-    color: var(--color-hunter) !important;
+  background-color: rgba(0, 240, 255, 0.1) !important;
+  border-color: var(--color-hunter) !important;
+  color: var(--color-hunter) !important;
 }
 
 .playback-buttons, .speed-buttons {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
-
-/* --- 📱 Mobil-Breakpoint (Unter 650px) --- */
-@media (max-width: 650px) {
-    .replay-controls-row {
-        flex-direction: column;
-        gap: 12px;
-        align-items: stretch;
-    }
-    .playback-buttons, .speed-buttons {
-        justify-content: center;
-    }
-}
-
-
-
-
-
 

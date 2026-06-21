@@ -1,13 +1,144 @@
+/* Orbitron */
+@font-face {
+  font-display: swap;
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../css/fonts/orbitron-v35-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../css/fonts/orbitron-v35-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../css/fonts/orbitron-v35-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../css/fonts/orbitron-v35-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../css/fonts/orbitron-v35-latin-800.woff2') format('woff2');
+}
+
+/* Roboto Condensed */
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 100;
+  src: url('../css/fonts/roboto-condensed-v31-latin-100.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 200;
+  src: url('../css/fonts/roboto-condensed-v31-latin-200.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../css/fonts/roboto-condensed-v31-latin-300.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../css/fonts/roboto-condensed-v31-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../css/fonts/roboto-condensed-v31-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../css/fonts/roboto-condensed-v31-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../css/fonts/roboto-condensed-v31-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../css/fonts/roboto-condensed-v31-latin-800.woff2') format('woff2');
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: "Segoe UI", sans-serif, arial;
+  font-family: "Roboto Condensed" !important;
+  font-weight: 300;
   background-color: var(--backgroundColorBody);
   text-align: center;
   color: var(--textColorContent);
+}
+
+h2,
+h1 {
+  font-family: Orbitron;
+  text-transform: uppercase;
+
+}
+
+h1 {
+  padding-left: 28px;
+  content: " ";
+  background-image: url(../images/favicons/friendshunt-app-icon-32x32.png);
+  height: 28px;
+  background-size: 26px;
+  background-position-y: 0px;
+  background-position-x: -3px;
+  background-repeat: no-repeat;
+}
+
+h2 {
+  top: 4px;
+  position: relative;
+  text-transform: uppercase
 }
 
 input[type="text"],
@@ -29,6 +160,23 @@ textarea {
 a {
   text-decoration: none;
   color: var(--textColorLink);
+}
+
+button {
+  font-family: "Roboto Condensed";
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 .background-alternate {
@@ -248,4 +396,64 @@ body .content-container.first-child {
 .mode-set-points .leaflet-interactive {
   pointer-events: none !important;
   cursor: default !important;
+}
+
+.content-container p {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  color: rgb(226, 232, 240);
+}
+
+body .c-w-265 { width: 265px; }
+body .c-mt-120 { margin-top: 120px; }
+.c-info-table {
+  width: 100%;
+}
+
+.c-info-table td {
+  height: 25px;
+}
+
+.c-dashboard-player-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
+}
+
+.c-edit-player-image {
+  width: 240px;
+  height: 240px;
+  border-radius: 4px;
+}
+
+.full-image {
+  display: block;
+  width: 100%;
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  z-index: 30010;
+}
+
+.full-image img {
+  margin: 0 auto;
+  z-index: 2000;
+  max-height: calc(100vh - 200px);
+  max-width: 95%;
+  border-radius: 15px;
+}
+
+.full-image-layer {
+  z-index: 20000;
+  background-size: contain;
+  background-repeat: no-repeat no-repeat;
+  background-position: center center;
+  background-color: #000;
+  opacity: .7;
+  position: fixed;
+  left: 0;
+  width: calc(100vw * 2);
+  height: calc(100vh * 2);
+  top: 0;
+  display: none;
 }
