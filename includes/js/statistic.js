@@ -537,94 +537,94 @@ class Statistic {
  * @example   let statistic = this.gameStatistic();
  *
  */
-gameStatistic() {
-  // distances this.statistic this.response
-  for( const role in this.statistic.roles ) {
-    const trackings = this.response.positions[ role ];
+  gameStatistic() {
+    // distances this.statistic this.response
+    for( const role in this.statistic.roles ) {
+      const trackings = this.response.positions[ role ];
 
-    for( const playerId in trackings ) {
-      const tracking         = this.response.positions[ role ][ playerId ];
-      let countSteps         = 0;
-      let distance           = 0;
-      let drived             = 0;
-      let batteryMin         = 100;
-      let batteryMax         = 0;
-      let batteryIsCharged   = false;
-      let outOfPlayfield     = false;
+      for( const playerId in trackings ) {
+        const tracking         = this.response.positions[ role ][ playerId ];
+        let countSteps         = 0;
+        let distance           = 0;
+        let drived             = 0;
+        let batteryMin         = 100;
+        let batteryMax         = 0;
+        let batteryIsCharged   = false;
+        let outOfPlayfield     = false;
 
-      for( let i = 0; i < tracking.length; i++ ) {
-        countSteps         += tracking[ i ].steps;
-        batteryMin          = batteryMin > tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMin;
-        batteryMax          = batteryMax < tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMax;
-        batteryIsCharged  = tracking[ i ].batteryIsCharching ? true : batteryIsCharged;
+        for( let i = 0; i < tracking.length; i++ ) {
+          countSteps         += tracking[ i ].steps;
+          batteryMin          = batteryMin > tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMin;
+          batteryMax          = batteryMax < tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMax;
+          batteryIsCharged  = tracking[ i ].batteryIsCharching ? true : batteryIsCharged;
 
-        if( role != 'management' ) {
-          if( outOfPlayfield == false && tracking[ i ].outOfPlayingField == true ) {
-            this.statistic.names[ playerId ].outOfPlayfield.push( { 'start': tracking[ i ].timestamp, 'playerId': playerId } );
-            this.statistic.outOfPlayfield.push( { 'start': tracking[ i ].timestamp, 'playerId': playerId } );
+          if( role != 'management' ) {
+            if( outOfPlayfield == false && tracking[ i ].outOfPlayingField == true ) {
+              this.statistic.names[ playerId ].outOfPlayfield.push( { 'start': tracking[ i ].timestamp, 'playerId': playerId } );
+              this.statistic.outOfPlayfield.push( { 'start': tracking[ i ].timestamp, 'playerId': playerId } );
 
-            outOfPlayfield = true;
-          } else if( outOfPlayfield == true && tracking[ i ].outOfPlayingField == false ) {
-            let intOutOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
-            let intOutOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
+              outOfPlayfield = true;
+            } else if( outOfPlayfield == true && tracking[ i ].outOfPlayingField == false ) {
+              let intOutOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
+              let intOutOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
 
-            this.statistic.names[ playerId ].outOfPlayfield[ intOutOfPlayfieldLengthPlayer ].end = tracking[ i ].timestamp;
-            this.statistic.outOfPlayfield[ intOutOfPlayfieldLength ].end                            = tracking[ i ].timestamp;
+              this.statistic.names[ playerId ].outOfPlayfield[ intOutOfPlayfieldLengthPlayer ].end = tracking[ i ].timestamp;
+              this.statistic.outOfPlayfield[ intOutOfPlayfieldLength ].end                            = tracking[ i ].timestamp;
 
-            outOfPlayfield = false;
+              outOfPlayfield = false;
+            }
           }
+
+          if( tracking[ i ].isDrived && i > 0 ) {
+            drived += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i - 1 ].lat, tracking[ i - 1 ].lng );
+          }
+
+          if( i > tracking.length - 2 ) continue;
+
+          distance += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i + 1 ].lat, tracking[ i + 1 ].lng );
         }
 
-        if( tracking[ i ].isDrived && i > 0 ) {
-          drived += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i - 1 ].lat, tracking[ i - 1 ].lng );
-        }
+        this.statistic.steps                            += countSteps;
+        this.statistic.distance                         += distance;
+        this.statistic.drived                           += drived;
 
-        if( i > tracking.length - 2 ) continue;
+        this.statistic.names[ playerId ].steps           = countSteps;
+        this.statistic.names[ playerId ].distance        = ( Math.ceil( distance / 100 ) ) / 10;
+        this.statistic.names[ playerId ].drived          = ( Math.ceil( drived / 100 ) ) / 10;
 
-        distance += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i + 1 ].lat, tracking[ i + 1 ].lng );
+        this.statistic.names[ playerId ].batteryMin      = Math.round( batteryMin );
+        this.statistic.names[ playerId ].batteryMax      = Math.round( batteryMax );
+        this.statistic.names[ playerId ].batteryCharged  = batteryIsCharged;
       }
-
-      this.statistic.steps                            += countSteps;
-      this.statistic.distance                         += distance;
-      this.statistic.drived                           += drived;
-
-      this.statistic.names[ playerId ].steps           = countSteps;
-      this.statistic.names[ playerId ].distance        = ( Math.ceil( distance / 100 ) ) / 10;
-      this.statistic.names[ playerId ].drived          = ( Math.ceil( drived / 100 ) ) / 10;
-
-      this.statistic.names[ playerId ].batteryMin      = Math.round( batteryMin );
-      this.statistic.names[ playerId ].batteryMax      = Math.round( batteryMax );
-      this.statistic.names[ playerId ].batteryCharged  = batteryIsCharged;
     }
+
+    this.statistic.distance = ( Math.ceil( this.statistic.distance / 100 ) ) / 10;
+    this.statistic.drived   = ( Math.ceil( this.statistic.drived / 100 ) ) / 10;
+
+    // messages
+    for( let i = 0; i < this.response.messages.length; i++ ) {
+      this.statistic.names[ this.response.messages[ i ].playerId ].messages     += 1;
+      this.statistic.names[ this.response.messages[ i ].playerId ].messageSize  += this.response.messages[ i ].message.length;
+      this.statistic.messages    += 1;
+      this.statistic.messageSize += this.response.messages[ i ].message.length;
+    }
+
+    // captured
+    for( let i = 0; i < this.response.gameplay.captured.length; i++ ) {
+      this.statistic.names[ this.response.gameplay.captured[ i ].playerId ].captured = this.response.gameplay.captured[ i ];
+      this.statistic.captured.push( this.response.gameplay.captured[ i ] );
+    }
+
+    // speed hunts
+    for( let i = 0; i < this.response.gameplay.speedHunts.length; i++ ) {
+      this.statistic.names[ this.response.gameplay.speedHunts[ i ].playerId ].speedHunts += 1;
+      this.statistic.speedHunts += 1;
+    }
+
+    if( window[ appAlias ].debug ) console.log( this.statistic );
+
+    return;
   }
-
-  this.statistic.distance = ( Math.ceil( this.statistic.distance / 100 ) ) / 10;
-  this.statistic.drived   = ( Math.ceil( this.statistic.drived / 100 ) ) / 10;
-
-  // messages
-  for( let i = 0; i < this.response.messages.length; i++ ) {
-    this.statistic.names[ this.response.messages[ i ].playerId ].messages     += 1;
-    this.statistic.names[ this.response.messages[ i ].playerId ].messageSize  += this.response.messages[ i ].message.length;
-    this.statistic.messages    += 1;
-    this.statistic.messageSize += this.response.messages[ i ].message.length;
-  }
-
-  // captured
-  for( let i = 0; i < this.response.gameplay.captured.length; i++ ) {
-    this.statistic.names[ this.response.gameplay.captured[ i ].playerId ].captured = this.response.gameplay.captured[ i ];
-    this.statistic.captured.push( this.response.gameplay.captured[ i ] );
-  }
-
-  // speed hunts
-  for( let i = 0; i < this.response.gameplay.speedHunts.length; i++ ) {
-    this.statistic.names[ this.response.gameplay.speedHunts[ i ].playerId ].speedHunts += 1;
-    this.statistic.speedHunts += 1;
-  }
-
-  if( window[ appAlias ].debug ) console.log( this.statistic );
-
-  return;
-}
 
 
 

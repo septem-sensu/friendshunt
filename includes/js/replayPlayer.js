@@ -250,14 +250,15 @@ class ReplayPlayer {
         marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
 
         if( this.playerClassesAndColors[ playerId ] ) {
+          // Speed Hunt
           if( this.playerClassesAndColors[ playerId ][ 'speedhunt' ] ) {
             if( this.playerClassesAndColors[ playerId ][ 'speedhunt' ] > targetTimestamp ) {
               this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
-              //this.geoMaps.removeMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassAlarm' ) );
+
               if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
             } else if( this.playerClassesAndColors[ playerId ][ 'speedhunt' ] + 300 < targetTimestamp ) {
               this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
-              //this.geoMaps.removeMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassAlarm' ) );
+
               if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
             } else {
               this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.gameplay.get( 'affectedColor' ), this.replayData.names[ playerId ].name );
@@ -265,17 +266,31 @@ class ReplayPlayer {
             }
           }
 
+          // Cheat
+          if( this.playerClassesAndColors[ playerId ][ 'cheat' ] ) {
+            if( this.playerClassesAndColors[ playerId ][ 'cheat' ] > targetTimestamp ) {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
+
+              if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+            } else if( this.playerClassesAndColors[ playerId ][ 'cheat' ] + 300 < targetTimestamp ) {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
+
+              if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+            } else {
+              this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.gameplay.get( 'affectedColor' ), this.replayData.names[ playerId ].name );
+              this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassAlarm' ) );
+            }
+          }
+
+          // Capture
           if( this.playerClassesAndColors[ playerId ][ 'capture' ] ) {
             if( this.playerClassesAndColors[ playerId ][ 'capture' ] > targetTimestamp ) {
               this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.replayData.names[ playerId ].color, this.replayData.names[ playerId ].name );
-              //this.geoMaps.removeMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassCaptured' ) );
             }  else {
               this.geoMaps.setIcon( playerId, this.replayData.names[ playerId ].role, this.gameplay.get( 'capturedColor' ), this.replayData.names[ playerId ].name );
               this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassCaptured' ) );
             }
           }
-
-
         }
       }
     }

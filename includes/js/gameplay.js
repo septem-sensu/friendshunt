@@ -979,6 +979,7 @@ class Gameplay {
 
     const speedHunts = response.gameplay.speedHunts;
     const captured   = response.gameplay.captured;
+    const cheats     = response.violationsOfTheRules;
 
     if( window[ appAlias ].debug ) console.log( 'generateReplay Response: ', response );
 
@@ -1026,6 +1027,7 @@ class Gameplay {
       }
     }
 
+    // Speed Hunts
     for( let i = 0; i < speedHunts.length; i++ ) {
       for( let j = 0; j < speedHunts[ i ].timestamps.length; j++ ) {
         this.replayData.trackings.push( {
@@ -1039,6 +1041,21 @@ class Gameplay {
       }
     }
 
+    // Cheating
+    for( const playerId in cheats ) {
+      for( let i = 0; i < cheats[ playerId ].length; i++ ) {
+        this.replayData.trackings.push( {
+          'type': 'cheat',
+          'role': this.replayData.names[ playerId ].role,
+          'roleName': this.replayData.names[ playerId ].roleName,
+          'playerId': playerId,
+          'playerName': this.replayData.names[ playerId ].name,
+          'timestamp': cheats[ playerId ][ i ]
+        } );
+      }
+    }
+
+    // Caputure
     for( let i = 0; i < captured.length; i++ ) {
       this.replayData.trackings.push( {
         'type': 'capture',
