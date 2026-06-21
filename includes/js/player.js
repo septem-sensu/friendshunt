@@ -8,7 +8,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var player = new Player( playerId );
+ * @example   const player = new Player( playerId );
  *
  */
 
@@ -22,7 +22,7 @@ class Player extends Base {
  * @param     {string}   playerId       The player ID
  * @return    {void}
  *
- * @example   var player = new Player( playerId );
+ * @example   const player = new Player( playerId );
  *
  */
   constructor( playerId ) {
@@ -52,11 +52,11 @@ class Player extends Base {
   registerEventHandler() {
     super.registerEventHandler();
 
-    var loginButtons = document.querySelectorAll( '.event-login' );
+    const loginButtons = document.querySelectorAll( '.event-login' );
 
-    for( var i = 0; i < loginButtons.length; i++ ) {
+    for( let i = 0; i < loginButtons.length; i++ ) {
       loginButtons[ i ].addEventListener( 'click', ( event ) => {
-        var post      = { 'class': 'Player', 'method': 'login', 'id': null };
+        const post    = { 'class': 'Player', 'method': 'login', 'id': null };
 
         post.name     = document.querySelector( '#name' ).value;
         post.password = document.querySelector( '#password' ).value;
@@ -67,11 +67,11 @@ class Player extends Base {
       } );
     }
 
-    var registerButtons = document.querySelectorAll( '.event-new-player' );
+    const registerButtons = document.querySelectorAll( '.event-new-player' );
 
-    for( var i = 0; i < registerButtons.length; i++ ) {
+    for( let i = 0; i < registerButtons.length; i++ ) {
       registerButtons[ i ].addEventListener( 'click', ( event ) => {
-        var post      = this.communicator.newJsonRequestObject( 'Player', 'newPlayer', null);
+        const post = this.communicator.newJsonRequestObject( 'Player', 'newPlayer', null);
 
         post.id    =  post.email;
         post.image = 'avatar.png';
@@ -82,17 +82,17 @@ class Player extends Base {
       } );
     }
 
-    var passwordChangeButton = document.querySelector( '#event-change-player-password' );
+    const passwordChangeButton = document.querySelector( '#event-change-player-password' );
 
     if( passwordChangeButton != null ) {
       passwordChangeButton.addEventListener( 'click', ( event ) => {
-        var element = event.target;
+        const element = event.target;
 
         if( element.hasAttribute( 'disabled' ) && typeof element.getAttribute( 'disabled' ) == 'string' && element.getAttribute( 'disabled' ) == 'disabled' ) return;
 
-        var password1 = document.querySelector( '#password' ) != null ? document.querySelector( '#password' ).value : null;
-        var password2 = document.querySelector( '#password2' ) != null ? document.querySelector( '#password2' ).value : null;
-        var post      = { 'class': window[ appAlias ].class, 'id': window[ appAlias ].id, 'method': 'saveRequestObject', 'password': password1, 'redirect': 'index.php?view=player' };
+        const password1 = document.querySelector( '#password' ) != null ? document.querySelector( '#password' ).value : null;
+        const password2 = document.querySelector( '#password2' ) != null ? document.querySelector( '#password2' ).value : null;
+        const post      = { 'class': window[ appAlias ].class, 'id': window[ appAlias ].id, 'method': 'saveRequestObject', 'password': password1, 'redirect': 'index.php?view=player' };
 
         if( password1 == null || password2 == null || password1 != password2 || ! this.validator._validatePassword( password1 ) ) {
           this.validator.manageFormErrors( [ { 'field': '#password' }, { 'field': '#password2' } ] );
@@ -107,11 +107,11 @@ class Player extends Base {
       } );
     }
 
-    var changePlayerButton = document.querySelector( '#event-save-object' );
+    const changePlayerButton = document.querySelector( '#event-save-object' );
 
     if( changePlayerButton != null ) {
       changePlayerButton.addEventListener( 'click', () => {
-        var post = this.communicator.newJsonRequestObject( 'Player', 'saveRequestObject', window[ appAlias ].id );
+        const post = this.communicator.newJsonRequestObject( 'Player', 'saveRequestObject', window[ appAlias ].id );
 
         post.redirect = 'index.php?view=player';
 
@@ -119,17 +119,18 @@ class Player extends Base {
       } );
     }
 
-    var addPlayerToGameButton = document.querySelector( '#event-add-player-to-game' );
+    const addPlayerToGameButton = document.querySelector( '#event-add-player-to-game' );
 
     if( addPlayerToGameButton != null ) {
       addPlayerToGameButton.addEventListener( 'click', () => {
         this.validator.resetFormErrors();
 
-        var searchField = document.querySelector( '#search-player-field' ) != null ? document.querySelector( '#search-player-field' ).value : null;
-        var post        = { 'class': 'Game', 'method': 'addPlayerToGame', 'player': searchField };
+        const searchField = document.querySelector( '#search-player-field' ) != null ? document.querySelector( '#search-player-field' ).value : null;
+        const post        = { 'class': 'Game', 'method': 'addPlayerToGame', 'player': searchField };
 
         if( searchField == null || searchField.length < 6 ) {
           this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );
+
           return;
         }
 
@@ -139,17 +140,18 @@ class Player extends Base {
       } );
     }
 
-    var addHunterToGameButton = document.querySelector( '#event-add-hunter-to-game' );
+    const addHunterToGameButton = document.querySelector( '#event-add-hunter-to-game' );
 
     if( addHunterToGameButton != null ) {
       addHunterToGameButton.addEventListener( 'click', () => {
         this.validator.resetFormErrors();
 
-        var searchField = document.querySelector( '#search-hunter-field' ) != null ? document.querySelector( '#search-hunter-field' ).value : null;
-        var post        = { 'class': 'Game', 'method': 'addHunterToGame', 'player': searchField };
+        const searchField = document.querySelector( '#search-hunter-field' ) != null ? document.querySelector( '#search-hunter-field' ).value : null;
+        const post        = { 'class': 'Game', 'method': 'addHunterToGame', 'player': searchField };
 
         if( searchField == null || searchField.length < 6 ) {
           this.validator.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
+
           return;
         }
 
@@ -159,17 +161,18 @@ class Player extends Base {
       } );
     }
 
-    var addManagementToGameButton = document.querySelector( '#event-add-management-to-game' );
+    const addManagementToGameButton = document.querySelector( '#event-add-management-to-game' );
 
     if( addManagementToGameButton != null ) {
       addManagementToGameButton.addEventListener( 'click', () => {
         this.validator.resetFormErrors();
 
-        var searchField = document.querySelector( '#search-management-field' ) != null ? document.querySelector( '#search-management-field' ).value : null;
-        var post        = { 'class': 'Game', 'method': 'addManagementToGame', 'player': searchField };
+        const searchField = document.querySelector( '#search-management-field' ) != null ? document.querySelector( '#search-management-field' ).value : null;
+        const post        = { 'class': 'Game', 'method': 'addManagementToGame', 'player': searchField };
 
         if( searchField == null || searchField.length < 6 ) {
           this.validator.manageFormErrors( [ { 'field': '#search-management-field' } ] );
+
           return;
         }
 
@@ -179,9 +182,9 @@ class Player extends Base {
       } );
     }
 
-    var inputLoginName     = document.querySelector( 'input#name' );
-    var inputLoginPassword = document.querySelector( 'input#password' );
-    var loginSubmit        = document.querySelector( 'button.event-login' );
+    const inputLoginName     = document.querySelector( 'input#name' );
+    const inputLoginPassword = document.querySelector( 'input#password' );
+    const loginSubmit        = document.querySelector( 'button.event-login' );
 
     if( loginSubmit != null && inputLoginName != null && inputLoginPassword != null ) {
       inputLoginName.addEventListener( 'keydown', function( event ) {
@@ -203,17 +206,17 @@ class Player extends Base {
       } );
     }
 
-    var setupButton = document.querySelector( '.event-setup' );
+    const setupButton = document.querySelector( '.event-setup' );
 
     if( setupButton != null ) {
       setupButton.addEventListener( 'click', () => {
-        var post                  = { 'class': 'Player', 'method': 'setup' };
+        const post       = { 'class': 'Player', 'method': 'setup' };
 
-        post.email                = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
-        post.password             = document.querySelector('#password') != null ? document.querySelector('#password').value : null;
-        post.name                 = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
-        post.title                = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
-        post.description          = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
+        post.email       = document.querySelector('#email') != null ? document.querySelector('#email').value : null;
+        post.password    = document.querySelector('#password') != null ? document.querySelector('#password').value : null;
+        post.name        = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
+        post.title       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
+        post.description = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
 
         this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
 
@@ -221,11 +224,11 @@ class Player extends Base {
       } );
     }
 
-    var playerDeleteButton = document.querySelector( '#event-delete-player' );
+    const playerDeleteButton = document.querySelector( '#event-delete-player' );
 
     if( playerDeleteButton != null ) {
       playerDeleteButton.addEventListener( 'click', () => {
-        var post = { 'class': window[ appAlias ].class, 'method': 'deletePlayer', 'id': window[ appAlias ].id };
+        const post = { 'class': window[ appAlias ].class, 'method': 'deletePlayer', 'id': window[ appAlias ].id };
 
         this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
 
@@ -233,13 +236,13 @@ class Player extends Base {
       } );
     }
 
-    var fileUploadButtons = document.querySelectorAll( '#avatar-upload' );
+    const fileUploadButtons = document.querySelectorAll( '#avatar-upload' );
 
-    for( var i = 0; i < fileUploadButtons.length; i++ ) {
+    for( let i = 0; i < fileUploadButtons.length; i++ ) {
       fileUploadButtons[ i ].addEventListener( 'change', ( event ) => {
         if( ! event.target.files[ 0 ] ) return;
 
-        var formData = new FormData();
+        const formData = new FormData();
 
         formData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ] );
         formData.append( 'class', 'Player' );
@@ -268,7 +271,7 @@ class Player extends Base {
  *
  */
   getPlayerList() {
-    var post            = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getPlayerList' };
+    const post          = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getPlayerList' };
 
     post.callbackMethod = 'proccessResponsePlayerList';
 
@@ -293,11 +296,11 @@ class Player extends Base {
  *
  */
   proccessResponsePlayerList( response ) {
-    var playerList = response.result.playerList;
+    const playerList = response.result.playerList;
 
-    for (var playerId in playerList ) {
-      var contentContainer        = document.createElement( 'div' );
-      var contentContainerContent = '<div class="content-container align-left">';
+    for ( const playerId in playerList ) {
+      const contentContainer      = document.createElement( 'div' );
+      let contentContainerContent = '<div class="content-container align-left">';
 
       contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
       contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + playerList[ playerId ].email + '/' + playerList[ playerId ].image + '" />';
@@ -329,18 +332,18 @@ class Player extends Base {
  *
  */
   addGamesToTemplate() {
-    var games  = this.games;
-    var fields = window[ appAlias ].gameFields;
+    const games  = this.games;
+    const fields = window[ appAlias ].gameFields;
 
-    for( var i = 0; i < games.length; i++ ) {
-      var contentContainer        = document.createElement( 'div' );
-      var gameStart               = games[ i ].start;
-      var gameDuration            = parseInt( games[ i ].duration );
-      var gameEnd                 = gameStart + gameDuration * 60 * 60;
-      var nowTimestamp            = Date.now() / 1000;
-      var contentContainerContent = '';
-      var gameStartCssClass       = '';
-      var addGameStartText        = '';
+    for( let i = 0; i < games.length; i++ ) {
+      const contentContainer      = document.createElement( 'div' );
+      const gameStart             = games[ i ].start;
+      const gameDuration          = parseInt( games[ i ].duration );
+      const gameEnd               = gameStart + gameDuration * 60 * 60;
+      const nowTimestamp          = Date.now() / 1000;
+      let contentContainerContent = '';
+      let gameStartCssClass       = '';
+      let addGameStartText        = '';
 
       if( nowTimestamp > gameStart && nowTimestamp < gameEnd ) {
         gameStartCssClass = ' success-text';
@@ -392,9 +395,9 @@ class Player extends Base {
  *
  */
   startGame( element ) {
-    var post       = { 'class': 'Game', 'method': 'startGame' };
+    const post = { 'class': 'Game', 'method': 'startGame' };
 
-    post.id        = element.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
+    post.id    = element.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
 
     Utils.playMessagePiep();
     Utils.triggerMessageVibration();
@@ -432,8 +435,8 @@ class Player extends Base {
       return;
     }
 
-    var contentContainer        = document.createElement( 'div' );
-    var player                  = response.result.playerObject;
+    const contentContainer      = document.createElement( 'div' );
+    const player                = response.result.playerObject;
 
     contentContainer.innerHTML  = this.getPlayerInfoHtml( player, 'player-id' );
     contentContainer.id         = player.email.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' );
@@ -475,8 +478,8 @@ class Player extends Base {
       return;
     }
 
-    var contentContainer        = document.createElement( 'div' );
-    var player                  = response.result.playerObject;
+    const contentContainer      = document.createElement( 'div' );
+    const player                = response.result.playerObject;
 
     contentContainer.innerHTML  = this.getPlayerInfoHtml( player, 'hunter-id' );
     contentContainer.id         = player.email.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' );
@@ -518,8 +521,8 @@ class Player extends Base {
       return;
     }
 
-    var contentContainer        = document.createElement( 'div' );
-    var player                  = response.result.playerObject;
+    const contentContainer      = document.createElement( 'div' );
+    const player                = response.result.playerObject;
 
     contentContainer.innerHTML  = this.getPlayerInfoHtml( player, 'management-id' );
     contentContainer.id         = player.email.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' );
@@ -548,7 +551,7 @@ class Player extends Base {
  *
  */
   getPlayerInfoHtml( player, inputName ) {
-    var contentContainerContent = '';
+    let contentContainerContent = '';
 
     if( typeof player != 'object' || player == null ) return;
 
@@ -581,9 +584,9 @@ class Player extends Base {
  *
  */
   archiveGame( element ) {
-    var htmlGamesContainer = element.closest( '.content-container' );
-    var gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
-    var post               = { 'class': 'Game', 'id': gameId, 'method': 'archiveGame', 'callbackMethod': 'proccessResponseArchiveGame' };
+    const htmlGamesContainer = element.closest( '.content-container' );
+    const gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
+    const post               = { 'class': 'Game', 'id': gameId, 'method': 'archiveGame', 'callbackMethod': 'proccessResponseArchiveGame' };
 
     if( typeof gameId != 'string' || gameId == null ) return;
 
@@ -628,9 +631,9 @@ class Player extends Base {
  *
  */
   deleteGame( element ) {
-    var htmlGamesContainer = element.closest( '.content-container' );
-    var gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
-    var post               = { 'class': 'Game', 'id': gameId, 'method': 'deleteGame', 'callbackMethod': 'proccessResponseDeleteGame' };
+    const htmlGamesContainer = element.closest( '.content-container' );
+    const gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
+    const post               = { 'class': 'Game', 'id': gameId, 'method': 'deleteGame', 'callbackMethod': 'proccessResponseDeleteGame' };
 
     if( typeof gameId != 'string' || gameId == null ) return;
 
@@ -673,7 +676,7 @@ class Player extends Base {
  *
  */
   deletePlayerFromApp( element ) {
-    var post            = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'deletePlayerFromApp' };
+    const post          = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'deletePlayerFromApp' };
 
     post.deletePlayerId = element.getAttribute( 'data-player-id' );
 

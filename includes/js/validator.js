@@ -11,7 +11,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var validator = new Validator();
+ * @example   const validator = new Validator();
  *
  */
 class Validator {
@@ -23,7 +23,7 @@ class Validator {
  *
  * @return    {void}
  *
- * @example   var validator = new Validator();
+ * @example   const validator = new Validator();
  *
  */
   constructor() {
@@ -50,8 +50,8 @@ class Validator {
  * @param     {string}   property   The property of the value
  * @return    {mixed}    value      The value of the property
  *
- * @example   var value = validator.get( property );
- * @example   var value = this.get( property );
+ * @example   let value = validator.get( property );
+ * @example   let value = this.get( property );
  *
  */
   get( property ) {
@@ -115,15 +115,15 @@ class Validator {
   validateFields() {
     this._validateFields();
 
-    var forms = document.querySelectorAll( 'form' );
+    const forms = document.querySelectorAll( 'form' );
 
-    for( var k = 0; k < forms.length; k++ ) {
-      for( var i = 0; i < this.fieldTypes.length; i++ ) {
-        var fieldObjects = forms[ k ].querySelectorAll( this.fieldTypes[ i ] );
+    for( let k = 0; k < forms.length; k++ ) {
+      for( let i = 0; i < this.fieldTypes.length; i++ ) {
+        const fieldObjects = forms[ k ].querySelectorAll( this.fieldTypes[ i ] );
 
         if( fieldObjects == null ) continue;
 
-        for( var j = 0; j < fieldObjects.length; j++ ) {
+        for( let j = 0; j < fieldObjects.length; j++ ) {
           if( fieldObjects[ j ] == null ) continue;
 
           fieldObjects[ j ].addEventListener( 'change', ( event ) => { this._validateFields(); }, false );
@@ -149,7 +149,7 @@ class Validator {
  *
  */
   _validateFieldSetFormError( event ) {
-    var form = event.target.closest( 'form' );
+    const form = event.target.closest( 'form' );
 
     if( this._validateField( event.target.name, form ) ) {
       event.target.classList.remove( 'form-error' );
@@ -170,36 +170,36 @@ class Validator {
  * @param     {object}   form           The form in which the key is located
  * @return    {boolean}  formIsValide   The result of the check, true: is valid, false: is not valid
  *
- * @example   var formIsValide = validator._validateField( key, form );
- * @example   var formIsValide = this._validateField( key, form );
+ * @example   let formIsValide = validator._validateField( key, form );
+ * @example   let formIsValide = this._validateField( key, form );
  *
  */
   _validateField( key, form ) {
-    var fields        = this.fields;
-    var formIsValide  = true;
+    const fields      = this.fields;
+    let formIsValide  = true;
 
     if( typeof key != 'string' || key == '' ) return true;
     if( typeof fields  != 'object' || fields == null ) return true;
     if( typeof fields[ key ] == 'undefined' || fields[ key ] == null ) return true;
 
     if( ! fields[ key ].mandatory ) return true;
-    var field = form.querySelector( fields[ key ].element + '[name=\'' + key + '\']' );
+    const field = form.querySelector( fields[ key ].element + '[name=\'' + key + '\']' );
 
     if( typeof( field ) != 'object' || field == null ) return true;
 
     if( fields[ key ].type == 'checkbox' ) {
       if( ! field.checked ) formIsValide = false;
     } else if( fields[ key ].type == 'password' ) {
-      var intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
+      const intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
       if( typeof( field.value ) != 'string' || field.value == '' ) formIsValide = false;
       if( field.value.length < intMinLength ) formIsValide = false;
-      var password2 = form.querySelector( fields[ key ].element + '[name=\'' + key + '2\']' );
+      const password2 = form.querySelector( fields[ key ].element + '[name=\'' + key + '2\']' );
       if( password2 != null && typeof password2.value == 'string' && field.value != password2.value ) formIsValide = false;
       if( typeof fields[ key ].validatePasswordSecurity == 'boolean' && fields[ key ].validatePasswordSecurity ) {
         if( ! this._validatePassword( field.value ) ) formIsValide = false
       }
     } else {
-      var intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
+      const intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
       if( typeof( field.value ) != 'string' || field.value == '' ) formIsValide = false;
       if( field.value.length < intMinLength ) formIsValide = false;
     }
@@ -223,15 +223,15 @@ class Validator {
  *
  */
   _validateFields() {
-    var fields = this.fields;
-    var forms  = document.querySelectorAll( 'form' );
+    const fields = this.fields;
+    const forms  = document.querySelectorAll( 'form' );
 
-    for( var u = 0; u < forms.length; u++ ) {
-      var formIsValide = true;
+    for( let u = 0; u < forms.length; u++ ) {
+      let formIsValide = true;
 
       if( typeof( fields ) != 'object' || fields == null ) return;
 
-      for ( var key in fields ) {
+      for ( const key in fields ) {
         formIsValide = this._validateField( key, forms[ u ] );
 
         if( ! formIsValide ) {
@@ -261,28 +261,28 @@ class Validator {
  * @param     {string}   password   The password
  * @return    {boolean}  isValide   The result of the check, true: is valid, false: is not valid
  *
- * @example   var isValide = validator._validatePassword( password );
- * @example   var isValide = this._validatePassword( password );
+ * @example   let isValide = validator._validatePassword( password );
+ * @example   let isValide = this._validatePassword( password );
  *
  */
   _validatePassword( password ) {
     if( this.passwordRules.passwordHasNumbers ) {
-      var regexNumbers = /[0-9]/;
+      const regexNumbers = /[0-9]/;
       if( ! regexNumbers.test( password ) ) return false;
     }
 
     if( this.passwordRules.passwordHasCapitalLetters ) {
-      var regexCapitalLetters = /[A-Z]/;
+      const regexCapitalLetters = /[A-Z]/;
       if( ! regexCapitalLetters.test( password ) ) return false;
     }
 
     if( this.passwordRules.passwordHasLowercaseLetters ) {
-      var regexLowercaseLetters = /[a-z]/;
+      const regexLowercaseLetters = /[a-z]/;
       if( ! regexLowercaseLetters.test( password ) ) return false;
     }
 
     if( this.passwordRules.passwordHasSpecialCharacters ) {
-      var regexSpecialCharacters = /[^a-zA-Z0-9\s]/;
+      const regexSpecialCharacters = /[^a-zA-Z0-9\s]/;
       if( ! regexSpecialCharacters.test( password ) ) return false;
     }
 
@@ -297,8 +297,8 @@ class Validator {
  * @param     {string}   email      The email address
  * @return    {boolean}  isValide   The result of the check, true: is valid, false: is not valid
  *
- * @example   var isValide = validator._validateEmail( email );
- * @example   var isValide = this._validateEmail( email );
+ * @example   let isValide = validator._validateEmail( email );
+ * @example   let isValide = this._validateEmail( email );
  *
  */
   _validateEmail( email ) {
@@ -318,7 +318,7 @@ class Validator {
  *
  */
   manageFormErrors( formErrors ) {
-    for( var i = 0; i < formErrors.length; i++ ) {
+    for( let i = 0; i < formErrors.length; i++ ) {
       if( document.querySelector( formErrors[ i ].field ) == null ) continue;
       this.formErrors.push( formErrors[ i ] );
       document.querySelector( formErrors[ i ].field ).classList.add( 'form-error' );
@@ -339,9 +339,9 @@ class Validator {
  *
  */
   resetFormErrors() {
-    var formErrors = document.querySelectorAll( '.form-error' );
+    const formErrors = document.querySelectorAll( '.form-error' );
 
-    for( var i = 0; i < formErrors.length; i++ ) {
+    for( let i = 0; i < formErrors.length; i++ ) {
       formErrors[ i ].classList.remove( 'form-error' );
     }
 

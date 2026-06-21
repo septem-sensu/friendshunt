@@ -10,7 +10,7 @@
  * @version   0.1.0
  * @since     2026-06-05
  *
- * @example   var objGeoMaps = new GeoMaps();
+ * @example   const objGeoMaps = new GeoMaps();
  *
  */
 class GeoMaps {
@@ -18,7 +18,7 @@ class GeoMaps {
 /**
  * This Method is the Constructor for this Class.
  *
- * @example   var objGeoMaps = new GeoMaps();
+ * @example   const objGeoMaps = new GeoMaps();
  *
  * @constructor
  */
@@ -44,7 +44,7 @@ class GeoMaps {
  * @param     {string}   property   The Property to get
  * @return    {mixed}    value      The Value of the Property
  *
- * @example   var value = objGeoMaps.get( property );
+ * @example   let value = objGeoMaps.get( property );
  *
  */
   get( property ) {
@@ -78,7 +78,7 @@ class GeoMaps {
  * @param     {number}  lng         The current Langidude
  * @return    {object}  objMap      The Leaflet Map Object
  *
- * @example   var objMap = objGeoMaps.setMap( lat, lng );
+ * @example   let objMap = objGeoMaps.setMap( lat, lng );
  *
  */
   setMap( lat, lng ) {
@@ -511,7 +511,7 @@ class GeoMaps {
   getIcon( role, color, name ) {
     let svgContent = '';
     const size     = 30;
-    var content    = '';
+    let content    = '';
 
     switch ( role ) {
       case 'hunter': // Ein Fadenkreuz / Visier für die Jäger

@@ -7,7 +7,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var guid = Utils.guid();
+ * @example   const guid = Utils.guid();
  *
  */
 class Utils {
@@ -19,7 +19,7 @@ class Utils {
  *
  * @return    {string}  guid  A GUID
  *
- * @example   var guid = Utils.guid();
+ * @example   const guid = Utils.guid();
  *
  */
   static guid() {
@@ -33,7 +33,7 @@ class Utils {
  *
  * @return    {string}  randomString  A random string
  *
- * @example   var randomString = Utils.s4();
+ * @example   let randomString = Utils.s4();
  *
  */
   static s4() {
@@ -48,7 +48,7 @@ class Utils {
  * @param     {string}  dateTimeString   The date time string
  * @return    {number}  timestamp        The Php Timestamp
  *
- * @example   var timestamp = Utils.stringToPhpTimestamp( dateTimeString );
+ * @example   let timestamp = Utils.stringToPhpTimestamp( dateTimeString );
  *
  */
   static stringToPhpTimestamp( dateTimeString ) {
@@ -65,7 +65,7 @@ class Utils {
  * @param     {string}  dateTimeString   The date time string
  * @return    {number}  timestamp        The JavaScript Timestamp
  *
- * @example   var timestamp = Utils.stringToJsTimestamp( dateTimeString );
+ * @example   let timestamp = Utils.stringToJsTimestamp( dateTimeString );
  *
  */
   static stringToJsTimestamp( dateTimeString ) {
@@ -84,7 +84,7 @@ class Utils {
  * @param     {string}   format          The return format, date for just the date, time for just the time, or datetime for both the date and time
  * @return    {string}   dateTimeString  The date time string
  *
- * @example   var dateTimeString = Utils.timestampPhpToString( timestamp, seconds, format );
+ * @example   let dateTimeString = Utils.timestampPhpToString( timestamp, seconds, format );
  *
  */
   static timestampPhpToString( timestamp, seconds, format ) {
@@ -101,14 +101,14 @@ class Utils {
  * @param     {string}   format          The return format, date for just the date, time for just the time, or datetime for both the date and time
  * @return    {string}   dateTimeString  The date time string
  *
- * @example   var dateTimeString = Utils.timestampJsToString( timestamp, seconds, format );
+ * @example   let dateTimeString = Utils.timestampJsToString( timestamp, seconds, format );
  *
  */
   static timestampJsToString( timestamp, seconds, format ) {
     const dateTime = new Date( timestamp );
     const pad      = (num) => String( num ).padStart( 2, '0' );
-    var date       = pad( dateTime.getDate() ) + '.' + pad( dateTime.getMonth() + 1 ) + '.' + dateTime.getFullYear();
-    var time       = pad( dateTime.getHours() ) + ':' + pad( dateTime.getMinutes() );
+    let date       = pad( dateTime.getDate() ) + '.' + pad( dateTime.getMonth() + 1 ) + '.' + dateTime.getFullYear();
+    let time       = pad( dateTime.getHours() ) + ':' + pad( dateTime.getMinutes() );
 
     time           = seconds ? time + ':' + pad( dateTime.getSeconds() ) : time;
 
@@ -210,10 +210,10 @@ class Utils {
  *
  */
   static log( mixContent ) {
-    var debugConsole = document.querySelector( '#debug-console' );
+    const debugConsole = document.querySelector( '#debug-console' );
 
     if( debugConsole == null ) {
-      var content     = '';
+      let content     = '';
 
       debugConsole    = document.createElement( 'div' );
       debugConsole.id = 'debug-console';

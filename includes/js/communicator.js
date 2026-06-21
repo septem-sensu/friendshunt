@@ -9,7 +9,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var communicator = new Communicator();
+ * @example   const communicator = new Communicator();
  *
  */
 class Communicator {
@@ -21,7 +21,7 @@ class Communicator {
  *
  * @return    {void}
  *
- * @example   var communicator = new Communicator();
+ * @example   const communicator = new Communicator();
  *
  */
   constructor() {
@@ -45,8 +45,8 @@ class Communicator {
  * @param     {string}   property   The property of the value
  * @return    {mixed}    value      The value of the property
  *
- * @example   var value = communicator.get( 'maxRequestCount' );
- * @example   var value = this.get( property );
+ * @example   let value = communicator.get( 'maxRequestCount' );
+ * @example   let value = this.get( property );
  *
  */
   get( property ) {
@@ -82,28 +82,31 @@ class Communicator {
  * @param     {string}   id             The ID of the object on which the method should be executed
  * @return    {object}   requestObject  The finished request object for the communicator
  *
- * @example   var requestObject = communicator.newJsonRequestObject( 'Player', 'deletePlayer', 'max@musterman.de' );
- * @example   var requestObject = this.newJsonRequestObject( className, method, id );
+ * @example   const requestObject = communicator.newJsonRequestObject( 'Player', 'deletePlayer', 'max@musterman.de' );
+ * @example   const requestObject = this.newJsonRequestObject( className, method, id );
  *
  */
   newJsonRequestObject( className, method, id ) {
-    var jsonRequestObject     = {};
+    const jsonRequestObject     = {};
 
     jsonRequestObject.class  = className;
     jsonRequestObject.method = method;
 
     if( typeof id == 'string' && id != '' ) jsonRequestObject.id = id;
 
-    for( var fieldname in window[ appAlias ].fields ) {
-      var field = document.querySelector( '#' + fieldname );
-      var value = null;
+    for( const fieldname in window[ appAlias ].fields ) {
+      const field = document.querySelector( '#' + fieldname );
+      let value   = null;
 
       if( field == null ) continue;
+
       if( typeof window[ appAlias ].fields[ fieldname ].element == 'string' && window[ appAlias ].fields[ fieldname ].element == 'img' ) {
         if( typeof field.src != 'string' || field.src == '' ) continue;
+
         value = field.src;
       } else {
         if( typeof field.value == 'undefined' || field.value == '' ) continue;
+
         value = field.value;
       }
 
@@ -129,7 +132,7 @@ class Communicator {
     if( this.requestQueue.length < 1 ) return;
     if( typeof this.requestOnTheWay.requestId == 'string' && this.requestOnTheWay.requestId != '' ) return;
 
-    var request = this.requestQueue.shift();
+    const request = this.requestQueue.shift();
 
     this._request( request );
 
@@ -152,7 +155,7 @@ class Communicator {
  *
  */
   request( method, getParams, postParams, callbackMethod ) {
-    var queueObject = { 'requestId': Utils.guid(), 'requestCount': 0 };
+    const queueObject = { 'requestId': Utils.guid(), 'requestCount': 0 };
 
     queueObject.method         = method;
     queueObject.getParams      = getParams;
@@ -180,20 +183,21 @@ class Communicator {
  *
  */
   _request( request ) {
-    var xhr              = new XMLHttpRequest();
-    var url              = 'index.php';
-    var methodAjax      = request.method == 'POSTBIN' ? 'POST' : request.method;
-    var getParams        = request.getParams;
+    const xhr            = new XMLHttpRequest();
+    const methodAjax     = request.method == 'POSTBIN' ? 'POST' : request.method;
+    const getParams      = request.getParams;
+    let url              = 'index.php';
 
     this.requestOnTheWay = request;
 
-    for( var property in getParams ) {
+    for( const property in getParams ) {
       url += url.indexOf( '?' ) == -1 ? '?' : '&';
       url += property + '=' + encodeURIComponent( getParams[ property ] );
     }
 
     xhr.open( methodAjax, url, true );
     xhr.withCredentials = true;
+
     if( request.method != 'POSTBIN' ) xhr.setRequestHeader( 'Content-type', 'application/json' );
 
     xhr.onreadystatechange = () => {
@@ -209,7 +213,7 @@ class Communicator {
           this.manageRequestQueue();
         } else {
           if( request.requestCount > this.maxRequestCount ) {
-            var requestError           = { 'error': xhr.status + ' ' + xhr.statusText };
+            const requestError           = { 'error': xhr.status + ' ' + xhr.statusText };
 
             requestError.requestObject = JSON.parse( JSON.stringify( this.requestOnTheWay ) );
 
@@ -251,7 +255,7 @@ class Communicator {
  */
   proccessResponse( request, response ) {
     if( typeof response.errors == 'object' && response.errors != null && response.errors.length > 0 ) {
-      for( var i = 0; i < response.errors; i++ ) {
+      for( let i = 0; i < response.errors; i++ ) {
         if( typeof response.errors[ i ].redirect == 'string' && response.errors[ i ].redirect != '' ) this.manageRedirects( response.errors[ i ].redirect );
       }
     }
@@ -264,9 +268,11 @@ class Communicator {
 
       if( response.result.method && response.result.method == 'gameplay' && response.result.callback ) {
         if(this.debug ) console.log( 'Object Ajax-Response: ', response.result );
+
         window[ appAlias ].lastMessageId    = window[ appAlias ].lastMessageId || '';
         window[ appAlias ].gameplayState    = typeof response.result.state == 'object' && response.result.state != null ? response.result.state : {};
         window[ appAlias ].gameplayMessages = typeof response.result.messages == 'object' && response.result.messages != null ? response.result.messages : [];
+
         if( typeof response.result.gameRole == 'string' ) window[ appAlias ].gameplayRole = response.result.gameRole;
       }
     }
@@ -276,11 +282,7 @@ class Communicator {
       if( typeof response.object.redirect == 'string' && response.object.redirect != '' ) this.manageRedirects( response.object.redirect );
     }
 
-    if( typeof request.callbackMethod == 'function' ) {
-      request.callbackMethod( response );
-    } else if( typeof request.callbackMethod == 'string' && request.callbackMethod != '' ) {
-      //window[ appAlias ].methods[ request.callbackMethod ]( JSON.parse( xhr.responseText ) );
-    }
+    if( typeof request.callbackMethod == 'function' ) request.callbackMethod( response );
 
     return;
   }
@@ -302,8 +304,8 @@ class Communicator {
     if( typeof object != 'object' || object == null ) return;
     if( typeof window[ appAlias ].fields != 'object' || window[ appAlias ].fields == null ) return;
 
-    for( var property in object ) {
-      var htmlObject = document.querySelector( '#' + property );
+    for( const property in object ) {
+      const htmlObject = document.querySelector( '#' + property );
 
       if( typeof window[ appAlias ].fields[ property ] == 'undefined') continue;
       if( htmlObject == null ) continue;

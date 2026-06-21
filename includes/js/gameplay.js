@@ -11,7 +11,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var gameplay = new Gameplay( playerId, gameId, gameSettings );
+ * @example   const gameplay = new Gameplay( playerId, gameId, gameSettings );
  *
  */
 class Gameplay {
@@ -26,7 +26,7 @@ class Gameplay {
  * @param     {object}   gameSettings   The Game Settings object with all of the game's settings
  * @return    {void}
  *
- * @example   var gameplay = new Gameplay( playerId, gameId, gameSettings );
+ * @example   const gameplay = new Gameplay( playerId, gameId, gameSettings );
  *
  */
   constructor( playerId, gameId, gameSettings ) {
@@ -83,8 +83,8 @@ class Gameplay {
  * @param     {string}   property   The property of the value
  * @return    {mixed}    value      The value of the property
  *
- * @example   var value = gameplay.get( property );
- * @example   var value = this.get( property );
+ * @example   let value = gameplay.get( property );
+ * @example   let value = this.get( property );
  *
  */
   get( property ) {
@@ -147,8 +147,8 @@ class Gameplay {
  *
  * @return    {number}  timestampNow  The Php timestamp at the current time
  *
- * @example   var timestampNow = gameplay.timestampNow();
- * @example   var timestampNow = this.timestampNow();
+ * @example   let timestampNow = gameplay.timestampNow();
+ * @example   let timestampNow = this.timestampNow();
  *
  */
   timestampNow() {
@@ -192,7 +192,7 @@ class Gameplay {
 
       // All players were captured
       if( this.gameplayState.capturedPlayer ) {
-        for( var i = 0; i < this.gameplayState.capturedPlayer.length; i++ ) {
+        for( let i = 0; i < this.gameplayState.capturedPlayer.length; i++ ) {
           this.capturedPlayerIds.push( this.gameplayState.capturedPlayer[ i ].playerId );
           this.capturedPlayer[ this.gameplayState.capturedPlayer[ i ].playerId ] = this.gameplayState.capturedPlayer[ i ];
         }
@@ -230,7 +230,7 @@ class Gameplay {
 
       // Cheating Players
       if( this.gameplayState.systemMessages ) {
-        for( var i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
+        for( let i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
           if( this.gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
           if( ! this.gameplayState.systemMessages[ i ].applies ) continue;
           if( ! this.gameplayState.systemMessages[ i ].appliesRole ) continue;
@@ -258,7 +258,7 @@ class Gameplay {
  *
  */
   registerEventHandler() {
-    var menuBottomMessageButton = document.querySelector( '#menu-bottom-messages-button' );
+    const menuBottomMessageButton = document.querySelector( '#menu-bottom-messages-button' );
 
     if( menuBottomMessageButton != null ) {
       document.querySelector( '#menu-bottom-messages-button' ).addEventListener( 'click', ( event ) => {
@@ -268,7 +268,7 @@ class Gameplay {
       } );
     }
 
-    var gamePermissionPedometerButton = document.querySelector( '#game-permission-pedometer-button' );
+    const gamePermissionPedometerButton = document.querySelector( '#game-permission-pedometer-button' );
 
     if( gamePermissionPedometerButton != null ) {
       gamePermissionPedometerButton.addEventListener( 'click', ( event ) => {
@@ -279,14 +279,14 @@ class Gameplay {
       } );
     }
 
-    var gameSystemMessagesOkButton = document.querySelector( '#game-system-messages-ok-button' );
+    const gameSystemMessagesOkButton = document.querySelector( '#game-system-messages-ok-button' );
 
     if( gameSystemMessagesOkButton != null ) {
       gameSystemMessagesOkButton.addEventListener( 'click', ( event ) => {
-        var arrDontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
-        var replayPanel         = document.querySelector( '.replay-panel' );
+        const arrDontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
+        const replayPanel         = document.querySelector( '.replay-panel' );
 
-        for( var i = 0; i < arrDontShowMessages.length; ++i ) {
+        for( let i = 0; i < arrDontShowMessages.length; ++i ) {
           if( ! arrDontShowMessages[ i ].checked ) continue;
 
           this.systemMessagesDontShow[ arrDontShowMessages[ i ].value ] = true;
@@ -300,12 +300,12 @@ class Gameplay {
       } )
     }
 
-    var newGameplayMessageButton = document.querySelector( '#new-gameplay-message-button' );
-    var newGameplayMessageInput  = document.querySelector( '#new-gameplay-message-input' );
+    const newGameplayMessageButton = document.querySelector( '#new-gameplay-message-button' );
+    const newGameplayMessageInput  = document.querySelector( '#new-gameplay-message-input' );
 
     if( newGameplayMessageButton != null && newGameplayMessageInput != null ) {
       newGameplayMessageButton.addEventListener( 'click', ( event ) => {
-        var post       = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
+        const post           = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
 
         post.gameplayMethod  = 'message';
         post.callbackMethod  = 'setMessages';
@@ -330,7 +330,7 @@ class Gameplay {
       } );
     }
 
-    var gameCaptureOkButton = document.querySelector( '#game-capture-ok-button' );
+    const gameCaptureOkButton = document.querySelector( '#game-capture-ok-button' );
 
     if( gameCaptureOkButton != null ) {
       gameCaptureOkButton.addEventListener( 'click', ( event ) => {
@@ -357,7 +357,7 @@ class Gameplay {
  *
  */
   processResponse( response ) {
-    var result              = response.result ? response.result : response;
+    const result            = response.result ? response.result : response;
 
     this.gameplayState      = result.state ? result.state : this.gameplayState;
     this.gameSettings       = result.settings ? result.settings : this.gameSettings;
@@ -393,17 +393,17 @@ class Gameplay {
  *
  */
   setMap( lat, lng, precision, message ) {
-    var gameStart      = this.gameSettings.start;
-    var contentStart   = '<p class="bold">Startposition des Spiels</p>';
-    var contentExit    = '<p class="bold">Exitpunkt des Spiels</p>';
-    var startPosition  = this.gameSettings.startPosition.split( ',' );
-    var exitPosition   = this.gameSettings.exitPosition.split( ',' );
-    var fieldCenter    = this.gameSettings.playingFieldCenterPosition.split( ',' );
+    const gameStart     = this.gameSettings.start;
+    const startPosition = this.gameSettings.startPosition.split( ',' );
+    const exitPosition  = this.gameSettings.exitPosition.split( ',' );
+    const fieldCenter   = this.gameSettings.playingFieldCenterPosition.split( ',' );
+    let contentStart    = '<p class="bold">Startposition des Spiels</p>';
+    let contentExit     = '<p class="bold">Exitpunkt des Spiels</p>';
 
-    contentStart      += '<p>Spielstart: ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr</p>';
-    contentStart      += '<p>Spielende: ' + Utils.timestampPhpToString( this.gameSettings.end ) + ' Uhr</p>';
-    contentExit       += '<p>Spielstart: ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr</p>';
-    contentExit       += '<p>Spielende: ' + Utils.timestampPhpToString( this.gameSettings.end ) + ' Uhr</p>';
+    contentStart       += '<p>Spielstart: ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr</p>';
+    contentStart       += '<p>Spielende: ' + Utils.timestampPhpToString( this.gameSettings.end ) + ' Uhr</p>';
+    contentExit        += '<p>Spielstart: ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr</p>';
+    contentExit        += '<p>Spielende: ' + Utils.timestampPhpToString( this.gameSettings.end ) + ' Uhr</p>';
 
     this.geoMaps.setMap( lat, lng, 'map' );
     this.geoMaps.setMarker( 'start', 'start', '#00aa00', startPosition[ 0 ], startPosition[ 1 ], contentStart );
@@ -438,9 +438,9 @@ class Gameplay {
  *
  */
   track( lat, lng, precision, message ) {
-    var post         = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
-    var stepCount    = this.geoTracker.get( 'stepCount' );
-    var batteryState = this.batteryTracker.getBatteryData();
+    const post         = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
+    const stepCount    = this.geoTracker.get( 'stepCount' );
+    const batteryState = this.batteryTracker.getBatteryData();
 
     this.steps               += stepCount;
 
@@ -478,11 +478,11 @@ class Gameplay {
  *
  */
   setPositions( response ) {
-    for( var gameplayRole in this.gameplayRoles ) {
-      for( var i = 0; i < response.result.positions[ gameplayRole ].length; i++ ) {
+    for( const gameplayRole in this.gameplayRoles ) {
+      for( let i = 0; i < response.result.positions[ gameplayRole ].length; i++ ) {
         if( response.result.positions[ gameplayRole ][ i ].position.length < 1 ) continue;
 
-        var tracking = response.result.positions[ gameplayRole ][ i ];
+        const tracking = response.result.positions[ gameplayRole ][ i ];
 
         this.setPosition( gameplayRole, tracking, i + 1 );
       }
@@ -505,25 +505,25 @@ class Gameplay {
  *
  */
   showCaptureLayer() {
-    var hunter             = this.gameSettings.hunter;
-    var captureLayer       = document.querySelector( '#game-capture-container' );
-    var captureLayerInner  = document.querySelector( '#game-capture-hunter-container' );
-    var content            = '';
+    const captureLayer      = document.querySelector( '#game-capture-container' );
+    const captureLayerInner = document.querySelector( '#game-capture-hunter-container' );
+    const hunter            = this.gameSettings.hunter;
+    let content             = '';
 
-    content               += '<div class="content-container">';
-    content               += '<div>';
-    content               += '<h2 class="align-left float-left">Gefangen</h2>';
-    content               += '<button class="success float-right" onclick="javascript: document.querySelector(\'#game-capture-container\').classList.add(\'hidden\')">Doch nicht</button>';
-    content               += '<div class="clear-both"></div>';
-    content               += '</div>';
-    content               += '<p class="align-left mt-10">Von wem wurdest du erwischt und gefangen?</p>';
-    content               += '</div>';
+    content                += '<div class="content-container">';
+    content                += '<div>';
+    content                += '<h2 class="align-left float-left">Gefangen</h2>';
+    content                += '<button class="success float-right" onclick="javascript: document.querySelector(\'#game-capture-container\').classList.add(\'hidden\')">Doch nicht</button>';
+    content                += '<div class="clear-both"></div>';
+    content                += '</div>';
+    content                += '<p class="align-left mt-10">Von wem wurdest du erwischt und gefangen?</p>';
+    content                += '</div>';
 
     captureLayerInner.innerHTML = content;
 
-    for( var i = 0; i < hunter.length; i++ ) {
-      var newHunterDiv       = document.createElement( 'div' );
-      var hunterContent      = '';
+    for( let i = 0; i < hunter.length; i++ ) {
+      const newHunterDiv     = document.createElement( 'div' );
+      let hunterContent      = '';
       hunterContent         += '<div class="content-container">';
       hunterContent         += '<p class="align-left"><input type="checkbox" name="hunterId" value="' + hunter[ i ].id + '" /> ' + hunter[ i ].id + '</p>';
       hunterContent         += '</div>';
@@ -553,25 +553,25 @@ class Gameplay {
  *
  */
   checkSystemMessages() {
-    var gameSettings             = this.gameSettings;
-    var systemMessages           = this.gameplayState.systemMessages ? this.gameplayState.systemMessages : [];
-    var systemMessagesDontShow   = this.systemMessagesDontShow;
-    var showLayer                = false;
-    var systemMessageLayer       = document.querySelector( '#game-system-message-container' );
-    var systemMessagesHtml       = document.querySelector( '#game-system-messages' );
-    var replayPanel              = document.querySelector( '.replay-panel' );
+    const systemMessageLayer     = document.querySelector( '#game-system-message-container' );
+    const systemMessagesHtml     = document.querySelector( '#game-system-messages' );
+    const replayPanel            = document.querySelector( '.replay-panel' );
+    const gameSettings           = this.gameSettings;
+    const systemMessages         = this.gameplayState.systemMessages ? this.gameplayState.systemMessages : [];
+    const systemMessagesDontShow = this.systemMessagesDontShow;
+    let showLayer                = false;
 
     systemMessagesHtml.innerHTML = '';
 
-    for( var i = 0; i < systemMessages.length; i++ ) {
+    for( let i = 0; i < systemMessages.length; i++ ) {
       if( ! systemMessages[ i ].for.includes( this.gameplayRole ) ) continue;
       if( this.systemMessagesDontShow[ systemMessages[ i ].id ] ) continue;
       if( systemMessages[ i ].showMessageOnlyOne ) this.systemMessagesDontShow[ systemMessages[ i ].id ] = true;
 
-      var newSystemMessage       = document.createElement( 'div' );
-      var message                = '';
-      var applies                = '';
-      var cssClass               = typeof systemMessages[ i ].cssClass == 'string' ? ' class="' + systemMessages[ i ].cssClass + '"' : '';
+      const newSystemMessage     = document.createElement( 'div' );
+      let message                = '';
+      let applies                = '';
+      let cssClass               = typeof systemMessages[ i ].cssClass == 'string' ? ' class="' + systemMessages[ i ].cssClass + '"' : '';
 
       if( typeof systemMessages[ i ].applies == 'string' && systemMessages[ i ].applies != '' ) {
         if( this.gameplayRole == 'hunter' && gameSettings.showNames != '1' && systemMessages[ i ].appliesRole == 'player' ) {
@@ -622,15 +622,15 @@ class Gameplay {
  *
  */
   sendCaptured() {
-    var hunterIds        = document.querySelectorAll( 'input[name="hunterId"]' );
-    var post             = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
+    const hunterIds      = document.querySelectorAll( 'input[name="hunterId"]' );
+    const post           = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
 
     post.gameplayMethod  = 'captured';
     post.callbackMethod  = 'setPositions';
     post.hunterIds       = [];
     post.playerId        = this.playerId;
 
-    for( var i = 0; i < hunterIds.length; ++i ) {
+    for( let i = 0; i < hunterIds.length; ++i ) {
       if( ! hunterIds[ i ].checked ) continue;
       post.hunterIds.push( hunterIds[ i ].value )
     }
@@ -662,7 +662,7 @@ class Gameplay {
     if( this.capturedPlayerIds.includes( this.playerId ) ) return;
     if( ! this.gameplayState.isRunning ) return;
 
-    var floatPlayerDistance = this.geoMaps.getDistance( 'playingFieldCenterPosition', this.playerId );
+    const floatPlayerDistance = this.geoMaps.getDistance( 'playingFieldCenterPosition', this.playerId );
 
     if( floatPlayerDistance > parseInt( this.gameSettings.playingFieldSize ) + 50 ) {
       this.outOfPlayingField = true;
@@ -687,7 +687,7 @@ class Gameplay {
  *
  */
   setStateLine() {
-    var stateLine = '';
+    let stateLine = '';
 
     if( this.isRunning ) {
       if( this.gameplayState.speedHuntState.speedHuntCount > 0 &&  this.gameplayRole != 'hunter' ) {
@@ -728,10 +728,10 @@ class Gameplay {
  *
  */
   setPosition( gameplayRole, tracking, playerCount ) {
-    var lastPosition      = tracking.position.at( -1 );
-    var gameState         = this.gameplayState;
-    var speedHuntState    = gameState.speedHuntState;
-    var markerContent     = '';
+    const lastPosition    = tracking.position.at( -1 );
+    const gameState       = this.gameplayState;
+    const speedHuntState  = gameState.speedHuntState;
+    let markerContent     = '';
 
     // Marker Content
     if( gameplayRole == 'player' ) {
@@ -740,7 +740,7 @@ class Gameplay {
 
         markerContent   += '<p class="bold">' + tracking.name + '</p>';
       } else if( this.playerRole == 'hunter' ) {
-        var playerName = this.gameSettings.showNames == '1' ? tracking.name : 'Spieler ' + playerCount;
+        let playerName = this.gameSettings.showNames == '1' ? tracking.name : 'Spieler ' + playerCount;
 
         if( this.isRunning && ! this.capturedPlayerIds.includes( tracking.id ) && ( speedHuntState.speedHuntCount == 0 || tracking.id == speedHuntState.playerId ) ) {
           markerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].objects.gameplay.speedHunt( \'' + tracking.id + '\' );">' + playerName + '</p>';
@@ -748,7 +748,7 @@ class Gameplay {
           markerContent   += '<p class="bold">' + playerName + '</p>';
         }
       } else {
-        var playerName       = this.gameSettings.showNames == '1' ? tracking.name : tracking.name + ' (Spieler ' + playerCount + ')';
+        let playerName   = this.gameSettings.showNames == '1' ? tracking.name : tracking.name + ' (Spieler ' + playerCount + ')';
         markerContent   += '<p class="bold">' + playerName + '</p>';
       }
 
@@ -804,7 +804,7 @@ class Gameplay {
  *
  */
   speedHunt( speedHuntPlayerId ) {
-    var post = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
+    const post = { 'class': 'Game', 'id': this.gameId, 'method': 'gameplay' };
 
     post.gameplayMethod    = 'speedHunt';
     post.callbackMethod    = 'setPositions';
@@ -827,9 +827,9 @@ class Gameplay {
  *
  */
   showMessageLayer() {
-    var messageLayer            = document.querySelector( '#game-message-layer' );
-    var messageContainer        = document.querySelector( '#game-message-content' );
-    var replayPanel             = document.querySelector( '.replay-panel' );
+    const messageLayer     = document.querySelector( '#game-message-layer' );
+    const messageContainer = document.querySelector( '#game-message-content' );
+    const replayPanel      = document.querySelector( '.replay-panel' );
 
     if( messageLayer.classList.contains( 'hidden' ) ) {
       messageLayer.classList.remove( 'hidden' );
@@ -860,24 +860,24 @@ class Gameplay {
  *
  */
   setMessages() {
-    var lastMessageId            = '';
-    var content                  = '';
-    var messageContainer         = document.querySelector( '#game-message-content' );
-    var newGameplayMessageInput  = document.querySelector( '#new-gameplay-message-input' );
+    const messageContainer        = document.querySelector( '#game-message-content' );
+    const newGameplayMessageInput = document.querySelector( '#new-gameplay-message-input' );
+    let lastMessageId             = '';
+    let content                   = '';
 
     if( newGameplayMessageInput != null ) newGameplayMessageInput.value = '';
 
-    for( var i = 0; i < this.gameplayMessages.length; i++ ) {
-      var message        = this.gameplayMessages[ i ];
-      var realPlayerName = message.playerName;
-      var playerName     = '';
+    for( let i = 0; i < this.gameplayMessages.length; i++ ) {
+      const message        = this.gameplayMessages[ i ];
+      const realPlayerName = message.playerName;
+      let playerName       = '';
 
       content           += message.playerId == this.playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + message.id + '"><div>';
 
       if( message.playerId != this.playerId ) lastMessageId = message.id;
 
       if( playerName == '' ) {
-        for( var j = 0; j < this.gameSettings.playerIds.length; j++ ) {
+        for( let j = 0; j < this.gameSettings.playerIds.length; j++ ) {
           if( this.gameSettings.playerIds[ j ] != message.playerId ) continue;
 
           playerName  = this.gameSettings.showNames == '1' ? realPlayerName + ' - Spieler' : 'Spieler ' + ( j + 1 );
@@ -888,7 +888,7 @@ class Gameplay {
       }
 
       if( playerName == '' ) {
-        for( var j = 0; j < this.gameSettings.hunterIds.length; j++ ) {
+        for( let j = 0; j < this.gameSettings.hunterIds.length; j++ ) {
           if( this.gameSettings.hunterIds[ j ] != message.playerId ) continue;
 
           playerName  = this.gameSettings.showNames == '1' ? realPlayerName + ' - Jäger' : 'Jäger ' + ( j + 1 );
@@ -899,7 +899,7 @@ class Gameplay {
       }
 
       if( playerName == '' ) {
-        for( var j = 0; j < this.gameSettings.managementIds.length;j++ ) {
+        for( let j = 0; j < this.gameSettings.managementIds.length;j++ ) {
           if( this.gameSettings.managementIds[ j ] != message.playerId ) continue;
 
           playerName  = this.gameSettings.showNames == '1' ? realPlayerName + ' - Spielleitung' : 'Spielleitung ' + ( j + 1 );
@@ -950,7 +950,7 @@ class Gameplay {
       return;
     }
 
-    var post             = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
+    const post             = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
 
     post.gameplayMethod  = 'statistic';
     post.callbackMethod  = 'generateReplayData';
@@ -977,8 +977,8 @@ class Gameplay {
   generateReplayData( response ) {
     response         = response.result;
 
-    var speedHunts   = response.gameplay.speedHunts;
-    var captured     = response.gameplay.captured;
+    const speedHunts = response.gameplay.speedHunts;
+    const captured   = response.gameplay.captured;
 
     if( window[ appAlias ].debug ) console.log( 'generateReplay Response: ', response );
 
@@ -988,8 +988,8 @@ class Gameplay {
       'trackings': []
     };
 
-    for( var role in this.replayData.roles ) {
-      for( var i = 0; i < response.gameplay[ role ].length; i++ ) {
+    for( const role in this.replayData.roles ) {
+      for( let i = 0; i < response.gameplay[ role ].length; i++ ) {
         this.replayData.names[ response.gameplay[ role ][ i ].id ] = {
           'id': response.gameplay[ role ][ i ].id,
           'name': response.gameplay[ role ][ i ].name,
@@ -1001,16 +1001,16 @@ class Gameplay {
       }
     }
 
-    for( var role in this.replayData.roles ) {
-      var trackings     = response.positions[ role ];
-      var playerCounter = -1;
+    for( const role in this.replayData.roles ) {
+      const trackings   = response.positions[ role ];
+      let playerCounter = -1;
 
-      for( var playerId in trackings ) {
-        var tracking = response.positions[ role ][ playerId ];
+      for( const playerId in trackings ) {
+        const tracking = response.positions[ role ][ playerId ];
 
         playerCounter++;
 
-        for( var i = 0; i < tracking.length; i++ ) {
+        for( let i = 0; i < tracking.length; i++ ) {
           tracking[ i ].type        = 'tracking';
           tracking[ i ].role        = role;
           tracking[ i ].roleName    = this.replayData.roles[ role ];
@@ -1026,8 +1026,8 @@ class Gameplay {
       }
     }
 
-    for( var i = 0; i < speedHunts.length; i++ ) {
-      for( var j = 0; j < speedHunts[ i ].timestamps.length; j++ ) {
+    for( let i = 0; i < speedHunts.length; i++ ) {
+      for( let j = 0; j < speedHunts[ i ].timestamps.length; j++ ) {
         this.replayData.trackings.push( {
           'type': 'speedhunt',
           'role': this.replayData.names[ speedHunts[ i ].playerId ].role,
@@ -1039,7 +1039,7 @@ class Gameplay {
       }
     }
 
-    for( var i = 0; i < captured.length; i++ ) {
+    for( let i = 0; i < captured.length; i++ ) {
       this.replayData.trackings.push( {
         'type': 'capture',
         'role': this.replayData.names[ captured[ i ].playerId ].role,
@@ -1071,8 +1071,8 @@ class Gameplay {
  *
  */
   startReplayPlayer() {
-    var replayPlayer        = new ReplayPlayer( this.replayData, this );
-    var systemMessageLayer  = document.querySelector( '#game-system-message-container' );
+    const replayPlayer       = new ReplayPlayer( this.replayData, this );
+    const systemMessageLayer = document.querySelector( '#game-system-message-container' );
 
     if( systemMessageLayer != null && ! systemMessageLayer.classList.contains( 'hidden' ) ) return;
 

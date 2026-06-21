@@ -11,7 +11,7 @@
  * @version   0.1.0
  * @since     2026-06-05
  *
- * @example   var objBatteryTracker = new BatteryTracker();
+ * @example   const objBatteryTracker = new BatteryTracker();
  *
  */
 class BatteryTracker {
@@ -23,7 +23,7 @@ class BatteryTracker {
  *
  * @return    {void}
  *
- * @example   var batteryTracker = new BatteryTracker();
+ * @example   const batteryTracker = new BatteryTracker();
  *
  */
   constructor() {
@@ -44,7 +44,7 @@ class BatteryTracker {
  * @param     {string}   property   The Property to get
  * @return    {mixed}    value      The Value of the Property
  *
- * @example   var value = objBatteryTracker.get( property );
+ * @example   let value = objBatteryTracker.get( property );
  *
  */
   get( property ) {
@@ -76,7 +76,7 @@ class BatteryTracker {
  *
  * @return    {Promise}  objPromise  Returns a promise once initialization is complete
  *
- * @example   var objPromise = objBatteryTracker.init();
+ * @example   const objPromise = objBatteryTracker.init();
  *
  */
   init() {
@@ -132,7 +132,7 @@ class BatteryTracker {
  *
  * @return    {object}  objBatteryState  objBatteryState
  *
- * @example   var objBatteryState = objBatteryTracker.getBatteryData();
+ * @example   const objBatteryState = objBatteryTracker.getBatteryData();
  *
  */
   getBatteryData() {

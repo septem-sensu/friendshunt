@@ -10,7 +10,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var statistic = new Statistic( selector );
+ * @example   const statistic = new Statistic( selector );
  *
  */
 class Statistic {
@@ -23,7 +23,7 @@ class Statistic {
  * @param     {string}   selector   The Css selector where the statistics should be inserted
  * @return    {void}
  *
- * @example   var statistic = new Statistic( selector );
+ * @example   const statistic = new Statistic( selector );
  *
  */
   constructor( selector ) {
@@ -47,8 +47,8 @@ class Statistic {
  * @param     {string}   property   The property of the value
  * @return    {mixed}    value      The value of the property
  *
- * @example   var value = statistic.get( property );
- * @example   var value = this.get( property );
+ * @example   let value = statistic.get( property );
+ * @example   let value = this.get( property );
  *
  */
   get( property ) {
@@ -101,8 +101,8 @@ class Statistic {
       'statisticContainer': document.querySelector( this.selector )
     };
 
-    for( var role in this.statistic.roles ) {
-      for( var i = 0; i < this.response.gameplay[ role ].length; i++ ) {
+    for( const role in this.statistic.roles ) {
+      for( let i = 0; i < this.response.gameplay[ role ].length; i++ ) {
         this.statistic.names[ this.response.gameplay[ role ][ i ].id ] = {
           'id': this.response.gameplay[ role ][ i ].id,
           'name': this.response.gameplay[ role ][ i ].name,
@@ -145,7 +145,7 @@ class Statistic {
   getGameStatistics() {
     if( this.isInit ) return;
 
-    var post             = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
+    const post           = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
     post.gameplayMethod  = 'statistic';
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.generateGameStatistics.bind( this ) );
@@ -194,7 +194,7 @@ class Statistic {
  *
  */
   addGameOverviewContainer() {
-    var content = '';
+    let content = '';
 
     content    += '<div class="card">';
     content    += '<div class="card-title">Spiel-Überblick</div>';
@@ -260,8 +260,8 @@ class Statistic {
  *
  */
   addSpeedHuntsContainer() {
-    var speedHunts = this.response.gameplay.speedHunts
-    var content  = '';
+    const speedHunts = this.response.gameplay.speedHunts;
+    let content      = '';
 
     if( speedHunts.length < 1 ) return;
 
@@ -276,8 +276,8 @@ class Statistic {
     content     += '</tr></thead>';
     content     += '<tbody>';
 
-    for( var i = 0; i < speedHunts.length; i++ ) {
-      var cssClass = this.statistic.names[ speedHunts[ i ].playerId ].captured ? ' danger-text' : '';
+    for( let i = 0; i < speedHunts.length; i++ ) {
+      let cssClass = this.statistic.names[ speedHunts[ i ].playerId ].captured ? ' danger-text' : '';
 
       content     += '<tr>';
       content     += '<td class="align-left pr-10' + cssClass + '">' + speedHunts[ i ].playerName + '</td>';
@@ -308,9 +308,9 @@ class Statistic {
  *
  */
   addMessagesContainer() {
-    var content    = '';
-    var batteryMin = 100;
-    var batteryMax = 0;
+    let content    = '';
+    let batteryMin = 100;
+    let batteryMax = 0;
 
     content     += '<div class="card card-full">';
     content     += '<div class="card-title">Nachrichten & Akku Übersicht</div>';
@@ -324,11 +324,11 @@ class Statistic {
     content     += '</tr></thead>';
     content     += '<tbody>';
 
-    for( var playerId in this.statistic.names ) {
-      var cssClass         = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
-      var cssClassBattery  = 'success-text';
-      var charched         = this.statistic.names[ playerId ].batteryCharged ? 'Ja' : 'Nein';
-      var cssClassCharched = this.statistic.names[ playerId ].batteryCharged ? 'info-text' : 'warning-text';
+    for( const playerId in this.statistic.names ) {
+      let cssClass         = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
+      let cssClassBattery  = 'success-text';
+      let charched         = this.statistic.names[ playerId ].batteryCharged ? 'Ja' : 'Nein';
+      let cssClassCharched = this.statistic.names[ playerId ].batteryCharged ? 'info-text' : 'warning-text';
 
       batteryMin           = batteryMin > this.statistic.names[ playerId ].batteryMin ? this.statistic.names[ playerId ].batteryMin : batteryMin;
       batteryMax           = batteryMax < this.statistic.names[ playerId ].batteryMax ? this.statistic.names[ playerId ].batteryMax : batteryMax;
@@ -376,8 +376,8 @@ class Statistic {
  *
  */
   addOutOfPlayfield() {
-    var show                 = false;
-    var content              = '';
+    let show                 = false;
+    let content              = '';
 
     content                 += '<div class="card card-full">';
     content                 += '<div class="card-title">Regelbruch - Spielfeld verlassen</div>';
@@ -389,9 +389,9 @@ class Statistic {
     content                 += '</tr></thead>';
     content                 += '<tbody>';
 
-    for( var i = 0; i < this.statistic.outOfPlayfield.length; i++ ) {
-      var cssClass = this.statistic.names[ this.statistic.outOfPlayfield[ i ].playerId ].captured ? ' danger-text' : '';
-      var end      = typeof this.statistic.outOfPlayfield[ i ].end != 'undefined' ? Utils.timestampPhpToString( this.statistic.outOfPlayfield[ i ].end ) : '--';
+    for( let i = 0; i < this.statistic.outOfPlayfield.length; i++ ) {
+      let cssClass = this.statistic.names[ this.statistic.outOfPlayfield[ i ].playerId ].captured ? ' danger-text' : '';
+      let end      = typeof this.statistic.outOfPlayfield[ i ].end != 'undefined' ? Utils.timestampPhpToString( this.statistic.outOfPlayfield[ i ].end ) : '--';
 
       show        = true;
 
@@ -424,9 +424,9 @@ class Statistic {
  *
  */
   addCapturedContainer() {
-    var content = '';
+    let content = '';
 
-    for( var i = 0; i < this.statistic.captured.length; i++ ) {
+    for( let i = 0; i < this.statistic.captured.length; i++ ) {
       content  += '<div class="card">';
       content  += '<div class="card-title">Ausgeschieden</div>';
       content  += '<div class="align-left">';
@@ -434,7 +434,7 @@ class Statistic {
       content  += '<p class="align-left mb-10">' + Utils.timestampPhpToString( this.statistic.captured[ i ].timestamp ) + ' Uhr</p>';
       content  += '<p class="align-left bold mb-5 info-text">Jäger:</p>';
 
-      for( var j = 0; j < this.statistic.captured[ i ].hunterIds.length; j++ ) {
+      for( let j = 0; j < this.statistic.captured[ i ].hunterIds.length; j++ ) {
         content  += '<p class="align-left">' + this.statistic.names[ this.statistic.captured[ i ].hunterIds[ j ]  ].name + '</p>';
       }
 
@@ -459,12 +459,12 @@ class Statistic {
  *
  */
   addPlayerDistancesContainers() {
-    for( var role in this.statistic.roles ) {
-      var content        = '';
-      var show           = false;
-      var stepAll        = 0;
-      var distanceAll  = 0;
-      var drivedAll    = 0;
+    for( const role in this.statistic.roles ) {
+      let content      = '';
+      let show         = false;
+      let stepAll      = 0;
+      let distanceAll  = 0;
+      let drivedAll    = 0;
 
       content    += '<div class="card card-full">';
       content    += '<div class="card-title">Distanzen als ' + this.statistic.roles[ role ] + '</div>';
@@ -478,10 +478,10 @@ class Statistic {
       content    += '</tr></thead>';
       content    += '<tbody>';
 
-      for( var playerId in this.statistic.names ) {
+      for( const playerId in this.statistic.names ) {
         if( role != this.statistic.names[ playerId ].role ) continue;
 
-        var strCssClass = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
+        let strCssClass = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
 
         show          = true;
         stepAll       += this.statistic.names[ playerId ].steps;
@@ -533,26 +533,26 @@ class Statistic {
  *
  * @return    {object}  statistic  The created Statistic object
  *
- * @example   var statistic = statistic.gameStatistic();
- * @example   var statistic = this.gameStatistic();
+ * @example   let statistic = statistic.gameStatistic();
+ * @example   let statistic = this.gameStatistic();
  *
  */
 gameStatistic() {
   // distances this.statistic this.response
-  for( var role in this.statistic.roles ) {
-    var trackings = this.response.positions[ role ];
+  for( const role in this.statistic.roles ) {
+    const trackings = this.response.positions[ role ];
 
-    for( var playerId in trackings ) {
-      var tracking           = this.response.positions[ role ][ playerId ];
-      var countSteps         = 0;
-      var distance           = 0;
-      var drived             = 0;
-      var batteryMin         = 100;
-      var batteryMax         = 0;
-      var batteryIsCharged   = false;
-      var outOfPlayfield    = false;
+    for( const playerId in trackings ) {
+      const tracking         = this.response.positions[ role ][ playerId ];
+      let countSteps         = 0;
+      let distance           = 0;
+      let drived             = 0;
+      let batteryMin         = 100;
+      let batteryMax         = 0;
+      let batteryIsCharged   = false;
+      let outOfPlayfield     = false;
 
-      for( var i = 0; i < tracking.length; i++ ) {
+      for( let i = 0; i < tracking.length; i++ ) {
         countSteps         += tracking[ i ].steps;
         batteryMin          = batteryMin > tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMin;
         batteryMax          = batteryMax < tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMax;
@@ -565,8 +565,8 @@ gameStatistic() {
 
             outOfPlayfield = true;
           } else if( outOfPlayfield == true && tracking[ i ].outOfPlayingField == false ) {
-            var intOutOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
-            var intOutOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
+            let intOutOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
+            let intOutOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
 
             this.statistic.names[ playerId ].outOfPlayfield[ intOutOfPlayfieldLengthPlayer ].end = tracking[ i ].timestamp;
             this.statistic.outOfPlayfield[ intOutOfPlayfieldLength ].end                            = tracking[ i ].timestamp;
@@ -602,7 +602,7 @@ gameStatistic() {
   this.statistic.drived   = ( Math.ceil( this.statistic.drived / 100 ) ) / 10;
 
   // messages
-  for( var i = 0; i < this.response.messages.length; i++ ) {
+  for( let i = 0; i < this.response.messages.length; i++ ) {
     this.statistic.names[ this.response.messages[ i ].playerId ].messages     += 1;
     this.statistic.names[ this.response.messages[ i ].playerId ].messageSize  += this.response.messages[ i ].message.length;
     this.statistic.messages    += 1;
@@ -610,13 +610,13 @@ gameStatistic() {
   }
 
   // captured
-  for( var i = 0; i < this.response.gameplay.captured.length; i++ ) {
+  for( let i = 0; i < this.response.gameplay.captured.length; i++ ) {
     this.statistic.names[ this.response.gameplay.captured[ i ].playerId ].captured = this.response.gameplay.captured[ i ];
     this.statistic.captured.push( this.response.gameplay.captured[ i ] );
   }
 
   // speed hunts
-  for( var i = 0; i < this.response.gameplay.speedHunts.length; i++ ) {
+  for( let i = 0; i < this.response.gameplay.speedHunts.length; i++ ) {
     this.statistic.names[ this.response.gameplay.speedHunts[ i ].playerId ].speedHunts += 1;
     this.statistic.speedHunts += 1;
   }

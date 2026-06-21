@@ -13,7 +13,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var baseObject = new Base();
+ * @example   const baseObject = new Base();
  *
  */
 class Base {
@@ -25,7 +25,7 @@ class Base {
  *
  * @return    {void}
  *
- * @example   var baseObject = new Base();
+ * @example   const baseObject = new Base();
  *
  */
   constructor() {
@@ -43,8 +43,8 @@ class Base {
  * @param     {string}   property   The property of the value
  * @return    {mixed}    value      The value of the property
  *
- * @example   var value = baseObject.get( property );
- * @example   var value = this.get( property );
+ * @example   let value = baseObject.get( property );
+ * @example   let value = this.get( property );
  *
  */
   get( property ) {
@@ -83,9 +83,9 @@ class Base {
  *
  */
   registerEventHandler() {
-    var links = document.querySelectorAll( '.event-link' );
+    const links = document.querySelectorAll( '.event-link' );
 
-    for( var i = 0; i < links.length; i++ ) {
+    for( let i = 0; i < links.length; i++ ) {
       if( ! links[ i ].hasAttribute( 'data-link' ) ) continue;
 
       links[ i ].addEventListener( 'click', function() {
@@ -94,10 +94,10 @@ class Base {
       });
     }
 
-    var htmlSpanTags = document.querySelectorAll( 'span.js-calc' );
+    const htmlSpanTags = document.querySelectorAll( 'span.js-calc' );
 
-    for( var i = 0; i < htmlSpanTags.length; i++ ) {
-      var htmlSpanTag = htmlSpanTags[ i ];
+    for( let i = 0; i < htmlSpanTags.length; i++ ) {
+      const htmlSpanTag = htmlSpanTags[ i ];
 
       if( htmlSpanTag.classList.contains( 'js-calc-set-default-int' ) ) {
         if( htmlSpanTag.innerHTML == '' ) htmlSpanTag.innerHTML = '0';
@@ -118,17 +118,16 @@ class Base {
       if( htmlSpanTag.classList.contains( 'js-calc-datetime' ) ) {
         htmlSpanTag.innerHTML = Utils.timestampPhpToString( htmlSpanTag.innerHTML );
       }
-
     }
 
-    var zoomImages = document.querySelectorAll( '.zoom-image' );
+    const zoomImages = document.querySelectorAll( '.zoom-image' );
 
-    for( var i = 0; i < zoomImages.length; i++ ) {
+    for( let i = 0; i < zoomImages.length; i++ ) {
       zoomImages[ i ].addEventListener( 'click', ( event ) => {
         document.querySelector('.full-image-layer').style.display = 'block';
         document.querySelector('.full-image').style.display = 'block';
 
-        var tagImage = '<img src="' + this.src + '" />';
+        let tagImage = '<img src="' + this.src + '" />';
 
         document.querySelector('.full-image').innerHTML = tagImage;
 
@@ -136,7 +135,7 @@ class Base {
       } );
     }
 
-    var uploadAvatarOpenDialog = document.querySelector( '#avatar' );
+    const uploadAvatarOpenDialog = document.querySelector( '#avatar' );
 
     if( uploadAvatarOpenDialog != null ) {
       uploadAvatarOpenDialog.addEventListener( 'click', ( event ) => {
@@ -146,15 +145,16 @@ class Base {
       } );
     }
 
-    var forms = document.querySelectorAll( 'form' );
+    const forms = document.querySelectorAll( 'form' );
 
-    for( var i = 0; i < forms.length; i++ ) {
+    for( let i = 0; i < forms.length; i++ ) {
       if( forms[ i ].querySelector( 'input[name="resetForm"]' ) == null ) continue;
       if( forms[ i ].querySelector( 'input[name="resetForm"]' ).value != "1" ) continue;
 
       forms[ i ].reset();
     }
 
+    return;
   }
 
 /**
@@ -171,9 +171,7 @@ class Base {
  *
  */
   processResponse( response ) {
-    var result              = response.result ? response.result : response;
-
-    console.log( result );
+    const result = response.result ? response.result : response;
 
     if( result.callbackMethod ) this[ result.callbackMethod ]( response );
 
@@ -193,20 +191,20 @@ class Base {
  *
  */
   unhideGameAdministratorButtons() {
-    var role             = window[ appAlias ].systemRole;
-    var deleteButtons    = document.querySelectorAll( '.game-delete-button' );
-    var archiveButtons   = document.querySelectorAll( '.game-archive-button' );
-    var playerListButton = document.querySelector( '#player-list-button-container' );
-    var newGameButton    = document.querySelector( '.new-game-button' );
-    var newPlayerButton  = document.querySelector( '#new-player-button-container' );
-    var archiveButton    = document.querySelector( '#game-archive-button-container' );
+    const role             = window[ appAlias ].systemRole;
+    const deleteButtons    = document.querySelectorAll( '.game-delete-button' );
+    const archiveButtons   = document.querySelectorAll( '.game-archive-button' );
+    const playerListButton = document.querySelector( '#player-list-button-container' );
+    const newGameButton    = document.querySelector( '.new-game-button' );
+    const newPlayerButton  = document.querySelector( '#new-player-button-container' );
+    const archiveButton    = document.querySelector( '#game-archive-button-container' );
 
     if( role == 'administrator' ) {
-      for( var i = 0; i < deleteButtons.length; i++ ) {
+      for( let i = 0; i < deleteButtons.length; i++ ) {
         deleteButtons[ i ].classList.remove( 'hidden' );
       }
 
-      for( var i = 0; i < archiveButtons.length; i++ ) {
+      for( let i = 0; i < archiveButtons.length; i++ ) {
         archiveButtons[ i ].classList.remove( 'hidden' );
       }
 
@@ -215,5 +213,7 @@ class Base {
       if( playerListButton != null ) playerListButton.classList.remove( 'hidden' );
       if( archiveButton != null ) archiveButton.classList.remove( 'hidden' );
     }
+
+    return;
   }
 }

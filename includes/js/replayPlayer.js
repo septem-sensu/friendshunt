@@ -8,7 +8,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var replayPlayer = new ReplayPlayer( replayData, gamePlay );
+ * @example   const replayPlayer = new ReplayPlayer( replayData, gamePlay );
  *
  */
 class ReplayPlayer {
@@ -22,7 +22,7 @@ class ReplayPlayer {
  * @param     {object}   gamePlay       The calling gameplay object
  * @return    {void}
  *
- * @example   var replayPlayer = new ReplayPlayer( replayData, gamePlay );
+ * @example   const replayPlayer = new ReplayPlayer( replayData, gamePlay );
  *
  */
   constructor( replayData, gameplay ) {
@@ -61,8 +61,8 @@ class ReplayPlayer {
  * @param     {string}   property   The property of the value
  * @return    {mixed}    value      The value of the property
  *
- * @example   var value = replayPlayer.get( property );
- * @example   var value = this.get( property );
+ * @example   let value = replayPlayer.get( property );
+ * @example   let value = this.get( property );
  *
  */
   get( property ) {
@@ -127,7 +127,7 @@ class ReplayPlayer {
     this.slider.addEventListener( 'input', ( objEvent ) => {
       this.pause();
 
-      var iSliderSekunden          = parseInt( objEvent.target.value );
+      let iSliderSekunden          = parseInt( objEvent.target.value );
 
       this.currentVirtualTimestamp = this.startTimestamp + iSliderSekunden;
       this.lastProcessedIndex      = 0;
@@ -137,14 +137,14 @@ class ReplayPlayer {
       return;
     } );
 
-    var colors        = this.gameplay.get( 'colors' );
-    var playerCounter = {
+    const colors        = this.gameplay.get( 'colors' );
+    const playerCounter = {
       'player': 1,
       'hunter': 1,
       'management': 1
     };
 
-    for( var playerId in this.replayData.names ) {
+    for( const playerId in this.replayData.names ) {
       if( ! this.replayData.names[ playerId ].firstLat || ! this.replayData.names[ playerId ].firstLng ) {
         playerCounter[ this.replayData.names[ playerId ].role ]++;
         continue;
@@ -186,7 +186,7 @@ class ReplayPlayer {
 
     this.isPlaying     = true;
     this.playbackTimer = setInterval( () => {
-      var iVergangeneVirtuelleSekunden = 0.1 * this.speedMultiplier;
+      let iVergangeneVirtuelleSekunden = 0.1 * this.speedMultiplier;
 
       this.currentVirtualTimestamp += iVergangeneVirtuelleSekunden;
 
@@ -238,13 +238,13 @@ class ReplayPlayer {
  *
  */
   renderTargetTime( targetTimestamp ) {
-    var marker = this.geoMaps.get( 'marker' );
+    const marker = this.geoMaps.get( 'marker' );
 
-    for( var playerId in marker ) {
+    for( const playerId in marker ) {
       if( playerId.indexOf( '@' ) == -1 ) continue
       if( ! marker.hasOwnProperty( playerId ) ) continue;
 
-      var floatingPoint = this.calculateIntermediatePoint( playerId, targetTimestamp );
+      let floatingPoint = this.calculateIntermediatePoint( playerId, targetTimestamp );
 
       if( floatingPoint !== null ) {
         marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
@@ -280,7 +280,7 @@ class ReplayPlayer {
       }
     }
 
-    var targetTime = new Date( targetTimestamp * 1000 );
+    let targetTime = new Date( targetTimestamp * 1000 );
     document.querySelector( '#replay-clock' ).innerText = targetTime.toLocaleTimeString( 'de-DE' );
 
     return;
@@ -302,18 +302,18 @@ class ReplayPlayer {
  *
  */
   calculateIntermediatePoint( playerId, targetTimestamp ) {
-    var lastPing = null;
-    var nextPing = null;
+    let lastPing = null;
+    let nextPing = null;
 
     if( typeof this.playerIndices[ playerId ] === 'undefined' ) this.playerIndices[ playerId ] = 0;
     if( this.tracking[ this.playerIndices[ playerId ] ] && parseInt( this.tracking[ this.playerIndices[ playerId ] ].timestamp ) > targetTimestamp ) this.playerIndices[ playerId ] = 0;
 
-    for( var i = this.playerIndices[ playerId ]; i < this.tracking.length; i++ ) {
-      var ping = this.tracking[ i ];
+    for( let i = this.playerIndices[ playerId ]; i < this.tracking.length; i++ ) {
+      let ping = this.tracking[ i ];
 
       if( ping.playerId !== playerId ) continue;
 
-      var pingTime  = parseInt( ping.timestamp );
+      let pingTime  = parseInt( ping.timestamp );
 
       if( ping.type !== 'tracking' ) {
         this.playerClassesAndColors[ playerId ] = this.playerClassesAndColors[ playerId ] || {};
@@ -336,14 +336,14 @@ class ReplayPlayer {
     if( lastPing === null ) return null;
     if( nextPing === null ) return { 'lat': parseFloat( lastPing.lat ), 'lng': parseFloat( lastPing.lng ) };
 
-    var timeDeltaTotal = parseInt( nextPing.timestamp ) - parseInt( lastPing.timestamp );
+    let timeDeltaTotal = parseInt( nextPing.timestamp ) - parseInt( lastPing.timestamp );
 
     if( timeDeltaTotal <= 0 ) return { 'lat': parseFloat( lastPing.lat ), 'lng': parseFloat( lastPing.lng ) };
 
-    var timeDeltaCurrent = targetTimestamp - parseInt( lastPing.timestamp );
-    var progress         = timeDeltaCurrent / timeDeltaTotal;
-    var interpolatedLat  = parseFloat( lastPing.lat ) + ( parseFloat( nextPing.lat ) - parseFloat( lastPing.lat ) ) * progress;
-    var interpolatedLng  = parseFloat( lastPing.lng ) + ( parseFloat( nextPing.lng ) - parseFloat( lastPing.lng ) ) * progress;
+    let timeDeltaCurrent = targetTimestamp - parseInt( lastPing.timestamp );
+    let progress         = timeDeltaCurrent / timeDeltaTotal;
+    let interpolatedLat  = parseFloat( lastPing.lat ) + ( parseFloat( nextPing.lat ) - parseFloat( lastPing.lat ) ) * progress;
+    let interpolatedLng  = parseFloat( lastPing.lng ) + ( parseFloat( nextPing.lng ) - parseFloat( lastPing.lng ) ) * progress;
 
     return { 'lat': interpolatedLat, 'lng': interpolatedLng };
   }

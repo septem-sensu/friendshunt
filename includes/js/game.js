@@ -9,7 +9,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   var game = new Game();
+ * @example   const game = new Game();
  *
  */
 class Game extends Base {
@@ -21,7 +21,7 @@ class Game extends Base {
  *
  * @return    {void}
  *
- * @example   var game = new Game();
+ * @example   const game = new Game();
  *
  */
   constructor() {
@@ -29,8 +29,7 @@ class Game extends Base {
 
     this.geoTracker        = new GeoTracker();
     this.geoMaps           = new GeoMaps();
-
-    var games              = [];
+    this.games             = [];
 
     this.registerEventListener();
 
@@ -53,11 +52,11 @@ class Game extends Base {
   registerEventListener() {
     super.registerEventHandler();
 
-    var mapInfoLayer = document.querySelectorAll('.event-open-map-layer');
+    const mapInfoLayer = document.querySelectorAll('.event-open-map-layer');
 
-    for( var i = 0; i < mapInfoLayer.length; i++ ) {
+    for( let i = 0; i < mapInfoLayer.length; i++ ) {
       mapInfoLayer[ i ].addEventListener( 'click', ( event ) => {
-        var mapLayer = document.querySelector( '#info-layer-map' )
+        const mapLayer = document.querySelector( '#info-layer-map' )
 
         mapLayer.classList.remove( 'hidden' );
 
@@ -70,7 +69,7 @@ class Game extends Base {
       } );
     }
 
-    var mapInfoLayerCloseButton = document.querySelector( '#info-layer-map-close-button' );
+    const mapInfoLayerCloseButton = document.querySelector( '#info-layer-map-close-button' );
 
     if( mapInfoLayerCloseButton != null ) {
       mapInfoLayerCloseButton.addEventListener( 'click', ( event ) => {
@@ -81,14 +80,14 @@ class Game extends Base {
       } );
     }
 
-    var saveNewGameButton = document.querySelector( '#event-save-new-game' );
+    const saveNewGameButton = document.querySelector( '#event-save-new-game' );
 
     if( saveNewGameButton != null ) {
       saveNewGameButton.addEventListener( 'click', ( event ) => {
-        var playerHtmlObjects            = document.querySelectorAll('input[name="player-id"]');
-        var hunterHtmlObjects            = document.querySelectorAll('input[name="hunter-id"]');
-        var managementHtmlObjects        = document.querySelectorAll('input[name="management-id"]');
-        var post                         = { 'player': [], 'hunter': [], 'management': [], 'class': 'Game', 'method': 'saveNewGame' };
+        const playerHtmlObjects          = document.querySelectorAll('input[name="player-id"]');
+        const hunterHtmlObjects          = document.querySelectorAll('input[name="hunter-id"]');
+        const managementHtmlObjects      = document.querySelectorAll('input[name="management-id"]');
+        const post                       = { 'player': [], 'hunter': [], 'management': [], 'class': 'Game', 'method': 'saveNewGame' };
 
         post.name                        = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
         post.title                       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
@@ -119,15 +118,15 @@ class Game extends Base {
           return;
         }
 
-        for( var i = 0; i < playerHtmlObjects.length; i++ ) {
+        for( let i = 0; i < playerHtmlObjects.length; i++ ) {
           post.player.push( playerHtmlObjects[ i ].value );
         }
 
-        for( var i = 0; i < hunterHtmlObjects.length; i++ ) {
+        for( let i = 0; i < hunterHtmlObjects.length; i++ ) {
           post.hunter.push( hunterHtmlObjects[ i ].value );
         }
 
-        for( var i = 0; i < managementHtmlObjects.length; i++ ) {
+        for( let i = 0; i < managementHtmlObjects.length; i++ ) {
           post.management.push( managementHtmlObjects[ i ].value );
         }
 
@@ -137,7 +136,7 @@ class Game extends Base {
       } );
     }
 
-    var uploadGameImagesOpenDialog = document.querySelector( '#event-game-images-upload-button' );
+    const uploadGameImagesOpenDialog = document.querySelector( '#event-game-images-upload-button' );
 
     if( uploadGameImagesOpenDialog != null ) {
       uploadGameImagesOpenDialog.addEventListener( 'click', ( event ) => {
@@ -147,13 +146,13 @@ class Game extends Base {
       } );
     }
 
-    var fileUploadButtons = document.querySelectorAll( '#game-images-upload' );
+    const fileUploadButtonsImage = document.querySelectorAll( '#game-images-upload' );
 
-    for( var i = 0; i < fileUploadButtons.length; i++ ) {
-      fileUploadButtons[ i ].addEventListener( 'change', ( event ) => {
+    for( let i = 0; i < fileUploadButtonsImage.length; i++ ) {
+      fileUploadButtonsImage[ i ].addEventListener( 'change', ( event ) => {
         if( ! event.target.files[ 0 ] ) return;
 
-        var formData = new FormData();
+        const formData = new FormData();
 
         formData.append( 'files', document.querySelector( '#game-images-upload' ).files[ 0 ]);
         formData.append( 'class', 'Game' );
@@ -171,13 +170,13 @@ class Game extends Base {
       } );
     }
 
-    var fileUploadButtons = document.querySelectorAll( '#avatar-upload' );
+    const fileUploadButtonsAvatar = document.querySelectorAll( '#avatar-upload' );
 
-    for( var i = 0; i < fileUploadButtons.length; i++ ) {
-      fileUploadButtons[ i ].addEventListener( 'change', ( event ) => {
+    for( let i = 0; i < fileUploadButtonsAvatar.length; i++ ) {
+      fileUploadButtonsAvatar[ i ].addEventListener( 'change', ( event ) => {
         if( ! event.target.files[ 0 ] ) return;
 
-        var formData = new FormData();
+        const formData = new FormData();
 
         formData.append( 'files', document.querySelector( '#avatar-upload' ).files[ 0 ] );
         formData.append( 'class', 'Game' );
@@ -211,13 +210,13 @@ class Game extends Base {
  *
  */
   showMapInInfoLayer( lat, lng, precision, message ) {
-    var caller            = this.geoTracker.get( 'caller' ).target;
-    var markerId          = caller.id == 'startPosition' ? 'start' : 'exit';
-    var strColor          = caller.id == 'startPosition' ? '#00aa00' : '#00aa00';
-    var selector          = '#' + caller.id
-    var selectorRadius    = '#playingFieldSize'
-    var content           = caller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
-    var defaultRadius     = 1000;
+    const caller          = this.geoTracker.get( 'caller' ).target;
+    const selectorRadius  = '#playingFieldSize';
+    const markerId        = caller.id == 'startPosition' ? 'start' : 'exit';
+    const strColor        = caller.id == 'startPosition' ? '#00aa00' : '#00aa00';
+    const selector        = '#' + caller.id;
+    const content         = caller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
+    const defaultRadius   = 1000;
 
     this.geoMaps.setMap( lat, lng, 'map' );
 
@@ -243,7 +242,7 @@ class Game extends Base {
  *
  */
   startGame() {
-    var post       = { 'class': 'Game', 'method': 'startGame', 'id': window[ appAlias ].id };
+    const post = { 'class': 'Game', 'method': 'startGame', 'id': window[ appAlias ].id };
 
     Utils.playMessagePiep();
     Utils.triggerMessageVibration();
@@ -265,14 +264,14 @@ class Game extends Base {
  *
  */
   addGameplayDataToTemplate() {
-    var members      = [ 'player', 'hunter', 'management' ];
-    var gameplayData = typeof window[ appAlias ].gameplayData == 'object' && window[ appAlias ].gameplayData != null ? window[ appAlias ].gameplayData : null;
+    const members      = [ 'player', 'hunter', 'management' ];
+    const gameplayData = typeof window[ appAlias ].gameplayData == 'object' && window[ appAlias ].gameplayData != null ? window[ appAlias ].gameplayData : null;
 
-    for( var i = 0; i < members.length; i++ ) {
-      for( var j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
-        var profileImage            = 'includes/files/game/' + window[ appAlias ].id + '/profile_image_' + gameplayData[ members[ i ] ][ j ].email + '_' + gameplayData[ members[ i ] ][ j ].image;
-        var contentContainer        = document.createElement( 'div' );
-        var contentContainerContent = '<div class="content-container align-left">';
+    for( let i = 0; i < members.length; i++ ) {
+      for( let j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
+        const contentContainer      = document.createElement( 'div' );
+        let profileImage            = 'includes/files/game/' + window[ appAlias ].id + '/profile_image_' + gameplayData[ members[ i ] ][ j ].email + '_' + gameplayData[ members[ i ] ][ j ].image;
+        let contentContainerContent = '<div class="content-container align-left">';
 
         contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
         contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="' + profileImage + '" />';
@@ -307,12 +306,12 @@ class Game extends Base {
   addGameImagesContent() {
     if( typeof window[ appAlias ].gameImages != 'object' || window[ appAlias ].gameImages == null ) return;
 
-    var gameImages = window[ appAlias ].gameImages;
+    const gameImages = window[ appAlias ].gameImages;
 
-    for( var i = 0; i < gameImages.length; i++ ) {
-      var imageTrash = document.createElement( 'div' );
-      var imageCover = document.createElement( 'div' );
-      var imageTag   = document.createElement( 'img' );
+    for( let i = 0; i < gameImages.length; i++ ) {
+      const imageTrash = document.createElement( 'div' );
+      const imageCover = document.createElement( 'div' );
+      const imageTag   = document.createElement( 'img' );
 
       imageTag.classList.add( 'c-dashboard-player-image' );
       imageTag.classList.add( 'game-image-gallery-image' );
@@ -327,7 +326,7 @@ class Game extends Base {
       imageTrash.setAttribute( 'data-image-id', gameImages[ i ] );
 
       imageTrash.addEventListener( 'click', ( event ) => {
-        var post      = { 'class': 'Game', 'method': 'deleteGameImage', 'class': 'Game', 'id': window[ appAlias ].id };
+        const post      = { 'class': 'Game', 'method': 'deleteGameImage', 'class': 'Game', 'id': window[ appAlias ].id };
 
         post.imageId  = event.target.getAttribute( 'data-image-id' );
 
@@ -340,7 +339,7 @@ class Game extends Base {
         document.querySelector('.full-image-layer').style.display = 'block';
         document.querySelector('.full-image').style.display       = 'block';
 
-        var tagImage = '<img src="' + event.target.src + '" />';
+        let tagImage = '<img src="' + event.target.src + '" />';
 
         document.querySelector('.full-image').innerHTML = tagImage;
 
@@ -373,7 +372,7 @@ class Game extends Base {
  *
  */
   getGameArchiveList() {
-    var post = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getGameArchiveList', 'callbackMethod': 'cProccessResponseGameArchiveList' };
+    const post = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getGameArchiveList', 'callbackMethod': 'cProccessResponseGameArchiveList' };
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.proccessResponseGameArchiveList.bind( this ) );
 
@@ -394,11 +393,11 @@ class Game extends Base {
  *
  */
   proccessResponseGameArchiveList( response ) {
-    var archiveGames = response.result.archiveGames;
+    const archiveGames = response.result.archiveGames;
 
-    for (var gameId in archiveGames ) {
-      var contentContainer        = document.createElement( 'div' );
-      var contentContainerContent = '<div class="content-container align-left">';
+    for ( const gameId in archiveGames ) {
+      const contentContainer      = document.createElement( 'div' );
+      let contentContainerContent = '<div class="content-container align-left">';
 
       contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
       contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/game/archive/' + gameId + '/' + archiveGames[ gameId ].avatar + '" />';
@@ -432,7 +431,7 @@ class Game extends Base {
  *
  */
   bringBackArchiveGame( element ) {
-    var post    = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'backFromArchiveGame' };
+    const post  = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'backFromArchiveGame' };
 
     post.gameId = element.getAttribute( 'data-game-id' );
 
@@ -455,7 +454,7 @@ class Game extends Base {
  *
  */
   deleteArchiveGame( element ) {
-    var post    = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'deleteArchiveGame' };
+    const post  = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'deleteArchiveGame' };
 
     post.gameId = element.getAttribute( 'data-game-id' );
 

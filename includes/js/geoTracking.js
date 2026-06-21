@@ -11,7 +11,7 @@
  * @version   0.1.0
  * @since     2026-06-05
  *
- * @example   var objGeoTracker = new GeoTracker();
+ * @example   const objGeoTracker = new GeoTracker();
  *
  */
 class GeoTracker {
@@ -21,7 +21,7 @@ class GeoTracker {
  *
  * @constructor
  *
- * @example   var objGeoTracker = new GeoTracker();
+ * @example   const objGeoTracker = new GeoTracker();
  *
  */
   constructor() {
@@ -50,7 +50,7 @@ class GeoTracker {
  * @param     {string}   property   The Property to get
  * @return    {mixed}    value      The Value of the Property
  *
- * @example   var value = objGeoTracker.stepCount( property );
+ * @example   let value = objGeoTracker.stepCount( property );
  *
  */
   get( property ) {
@@ -281,7 +281,7 @@ class GeoTracker {
  * @param     {number}  lng2       The Langidude of Waypoint 2 (float)
  * @return    {number}  distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
  *
- * @example   var floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );
+ * @example   let floatDistance = objGeoTracker.calcDistance( lat1, lng1, lat2, lng2 );
  *
  */
   calcDistance( lat1, lng1, lat2, lng2 ) {
