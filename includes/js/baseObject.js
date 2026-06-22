@@ -34,6 +34,7 @@ class BaseObject {
   constructor() {
     this.communicator = new Communicator();
     this.validator    = this.communicator.get( 'validator' );
+    this.appAlias     = window.appAlias;
 
     for( const property in window[ appAlias ].objects.object ) {
       if( window[ appAlias ].objects.object[ property ] ) continue;
@@ -225,4 +226,63 @@ class BaseObject {
 
     return;
   }
+
+/**
+ * This method gets a value from a key that is stored in local storage under a specific context.
+ *
+ * @public
+ *
+ * @param     {string}   context  The context under which the key is located whose value should be fetched
+ * @param     {string}   key      The key whose value should be fetched
+ * @return    {*}        value    The value which is stored in local storage
+ *
+ * @example   let value = baseObject.getLocalStorage( 'game_6a350ae8600042.28612508', 'lastMessageId' );
+ *
+ */
+  getLocalStorage( context, key ) {
+    let localStorageObject = localStorage.getItem( this.appAlias );
+
+    localStorageObject     = localStorageObject ? JSON.parse( atob( localStorageObject ) ) : {};
+
+    if( ! localStorageObject[ context ] ) return;
+    if( ! localStorageObject[ context ][ key ] ) return;
+
+    return localStorageObject[ context ][ key ];
+  }
+
+/**
+ * This method saves a value on a key under a specific context in local storage.
+ * If you pass an empty string as the key, the context is deleted.
+ * If an empty string is passed as a value, the key is deleted.
+ *
+ * @public
+ *
+ * @param     {string}   context  The context under which the key lies
+ * @param     {string}   key      The key under which the value should be saved
+ * @param     {*}        value    The value that you want to store under a key in a specific context
+ * @return    {void}
+ *
+ * @example   baseObject.setLocalStorage( 'game_6a350ae8600042.28612508', 'lastMessageId', 'message_6a2c5e4deb5426.99254536' );
+ *
+ */
+  setLocalStorage( context, key, value ) {
+    let localStorageObject = localStorage.getItem( this.appAlias );
+
+    localStorageObject     = localStorageObject ? JSON.parse( atob( localStorageObject ) ) : {};
+
+    if( key == '' && localStorageObject[ context ] ) {
+      delete localStorageObject[ context ];
+    } else if( value == '' && localStorageObject[ context ] ) {
+      delete localStorageObject[ context ][ key ];
+    } else if( ! localStorageObject[ context ] ) {
+       localStorageObject[ context ] = {};
+    }
+
+    if( context, key, value ) localStorageObject[ context ][ key ] = value;
+
+    localStorage.setItem( this.appAlias,   btoa( JSON.stringify( localStorageObject ) ) );
+
+    return;
+  }
+
 }

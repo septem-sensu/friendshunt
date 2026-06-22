@@ -105,6 +105,12 @@ class Gameplay extends Game {
     this.geoTracker.startWakeLock();
     this.batteryTracker.init();
 
+    const lastMessageId          = this.getLocalStorage( this.gameId, 'lastMessageId' );
+    const systemMessagesDontShow = this.getLocalStorage( this.gameId, 'systemMessagesDontShow' );
+
+    this.lastMessageId           = lastMessageId ? lastMessageId : this.lastMessageId;
+    this.systemMessagesDontShow  = systemMessagesDontShow ? systemMessagesDontShow : this.systemMessagesDontShow;
+
     this.registerEventHandler();
 
     return;
@@ -258,6 +264,8 @@ class Gameplay extends Game {
 
           this.systemMessagesDontShow[ arrDontShowMessages[ i ].value ] = true;
         }
+
+        this.setLocalStorage( this.gameId, 'systemMessagesDontShow', this.systemMessagesDontShow );
 
         document.querySelector( '#game-system-message-container' ).classList.add( 'hidden' );
 
@@ -874,6 +882,8 @@ class Gameplay extends Game {
 
     if( lastMessageId != this.lastMessageId ) {
       this.lastMessageId = lastMessageId;
+
+      this.setLocalStorage( this.gameId, 'lastMessageId', this.lastMessageId );
 
       Utils.playMessagePiep();
       Utils.triggerMessageVibration();
