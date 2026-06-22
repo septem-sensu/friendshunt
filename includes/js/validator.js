@@ -6,7 +6,6 @@
  * The event handler for form validation is called when an object is instantiated.
  *
  * @class
- * @see Communicator
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

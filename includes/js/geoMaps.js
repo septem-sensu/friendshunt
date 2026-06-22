@@ -5,7 +5,8 @@
  * The Class is for handling Leaflet with OpenStreetMap.
  *
  * @class
- * @see GeoTracker
+ *
+ * @see leaflet
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

@@ -6,7 +6,6 @@
  * The Class can start interval Tracking and uses the Wake Lock API.
  *
  * @class
- * @see GeoMaps
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

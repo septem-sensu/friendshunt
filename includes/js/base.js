@@ -8,7 +8,9 @@
  * This class requires the Communicator class.
  *
  * @class
+ *
  * @see Communicator
+ * @see Utils
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

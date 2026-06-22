@@ -3,9 +3,10 @@
  * The class inherits from the Base class.
  *
  * @class
+ *
  * @see Base
  * @see Communicator
- * @see Validator
+ * @see Utils
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

@@ -5,6 +5,7 @@
  * This class requires the GeoTracker class and the Communicator class.
  *
  * @class
+ *
  * @see GeoTracker
  * @see Communicator
  *

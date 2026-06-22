@@ -6,11 +6,14 @@
  * counts steps and monitors the device's battery level.
  *
  * @class
+ *
  * @see Communicator
  * @see GeoTracker
  * @see GeoMaps
  * @see BatteryTracker
  * @see Game
+ * @see ReplayPlayer
+ * @see Utils
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

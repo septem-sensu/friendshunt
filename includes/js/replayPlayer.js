@@ -3,6 +3,7 @@
  * The Replay class uses the tracking data to create a replay of all players on the map at multiple speeds.
  *
  * @class
+ *
  * @see Gameplay
  * @see GeoMaps
  *

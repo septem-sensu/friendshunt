@@ -4,9 +4,11 @@
  * The Game class registers all required event handlers when instantiating.
  *
  * @class
+ *
  * @see Base
  * @see GeoTracker
  * @see GeoMaps
+ * @see Utils
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0

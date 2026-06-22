@@ -4,6 +4,7 @@
  * The class requires the Validator class.
  *
  * @class
+ *
  * @see Validator
  *
  * @author    Markus Götz <info@septem-sensu.de>
