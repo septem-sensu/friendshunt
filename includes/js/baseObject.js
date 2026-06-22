@@ -19,7 +19,7 @@
  * @example   const baseObject = new Base();
  *
  */
-class Base {
+class BaseObject {
 
 /**
  * This method is the constructor of the class.
@@ -34,6 +34,13 @@ class Base {
   constructor() {
     this.communicator = new Communicator();
     this.validator    = this.communicator.get( 'validator' );
+
+    for( const property in window[ appAlias ].objects.object ) {
+      if( window[ appAlias ].objects.object[ property ] ) continue;
+      this[ property ] = window[ appAlias ].objects.object[ property ];
+    }
+
+    delete window[ appAlias ].objects.object;
 
     return;
   }

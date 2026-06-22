@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Base.html">Base</a></li><li><a href="BatteryTracker.html">BatteryTracker</a></li><li><a href="Communicator.html">Communicator</a></li><li><a href="Game.html">Game</a></li><li><a href="Gameplay.html">Gameplay</a></li><li><a href="GeoMaps.html">GeoMaps</a></li><li><a href="GeoTracker.html">GeoTracker</a></li><li><a href="Player.html">Player</a></li><li><a href="ReplayPlayer.html">ReplayPlayer</a></li><li><a href="Statistic.html">Statistic</a></li><li><a href="Utils.html">Utils</a></li><li><a href="Validator.html">Validator</a></li>
+					<li><a href="BaseObject.html">BaseObject</a></li><li><a href="BatteryTracker.html">BatteryTracker</a></li><li><a href="Communicator.html">Communicator</a></li><li><a href="Game.html">Game</a></li><li><a href="Gameplay.html">Gameplay</a></li><li><a href="GeoMaps.html">GeoMaps</a></li><li><a href="GeoTracker.html">GeoTracker</a></li><li><a href="Player.html">Player</a></li><li><a href="ReplayPlayer.html">ReplayPlayer</a></li><li><a href="Statistic.html">Statistic</a></li><li><a href="Utils.html">Utils</a></li><li><a href="Validator.html">Validator</a></li>
 				</ul>
 			</li>
 			
@@ -262,6 +262,8 @@
 	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
 	<dd class="tag-see">
 		<ul>
+			<li><a href="Game.html">Game</a></li>
+			
 			<li><a href="Communicator.html">Communicator</a></li>
 			
 			<li><a href="GeoTracker.html">GeoTracker</a></li>
@@ -269,8 +271,6 @@
 			<li><a href="GeoMaps.html">GeoMaps</a></li>
 			
 			<li><a href="BatteryTracker.html">BatteryTracker</a></li>
-			
-			<li><a href="Game.html">Game</a></li>
 			
 			<li><a href="ReplayPlayer.html">ReplayPlayer</a></li>
 			
@@ -699,171 +699,6 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">gameplay.generateReplayData( response );</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="get"><span class="type-signature"></span>get(property)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method is the default getter of the class.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>property</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The property of the value</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="Gameplay.html#set">Gameplay#set</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    value      The value of the property
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">*</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">let value = gameplay.get( property );</pre>
 
 
     
@@ -1434,191 +1269,6 @@
         <h5>Example</h5>
         
     <pre class="sunlight-highlight-javascript">gameplay.sendCaptured();</pre>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="set"><span class="type-signature"></span>set(property, value)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        This method is the default setter for the class.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>property</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The property that you want to set</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The value you want to set to the property</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="Gameplay.html#get">Gameplay#get</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">void</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">gameplay.set( property, value );</pre>
 
 
     
@@ -3368,7 +3018,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-22T07:34:50+02:00
+		on 2026-06-22T12:16:17+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

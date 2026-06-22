@@ -33,7 +33,7 @@ class GeoTracker {
       maximumAge: 0              // Do not use old cache values, query them live
     };
 
-    this.trackInterval      = typeof window[ appAlias ].gameSettings == 'object' && typeof window[ appAlias ].gameSettings.trackInterval != 'undefined' ? window[ appAlias ].gameSettings.trackInterval * 1000 : 60000;
+    this.trackInterval      = typeof window[ appAlias ].objects.gameSettings == 'object' && typeof window[ appAlias ].objects.gameSettings.trackInterval != 'undefined' ? window[ appAlias ].objects.gameSettings.trackInterval * 1000 : 60000;
     this.stepCount          = 0;
     this.lastPulse          = 0;
     this.wakeLock           = null;

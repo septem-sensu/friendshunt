@@ -7,7 +7,7 @@
   </tr>
 </table>
 
-<p float="left"> 
+<p float="left">
   <a href="https://www.php.net/" target="_blank" title="PHP"><img src="includes/images/php.png" alt="PHP" height="46" /></a>
   <a href="https://developer.mozilla.org/de/docs/Web/JavaScript" target="_blank" title="JavaScript"><img src="includes/images/javascript.png" alt="JavaScript" height="46" /></a>
   <a href="https://developer.mozilla.org/de/docs/Glossary/HTML5" target="_blank" title="HTML5"><img src="includes/images/html.png" alt="HTML" height="46" /></a>
@@ -26,9 +26,9 @@
 <table>
   <tr>
     <td><img src="includes/images/screenshots/screenshot-friendshunt-tracking-550x1024.png" alt="Friends-Hunt App - Tracking Ansicht"  width="230" title="Friends-Hunt App - Tracking Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friendshunt-dashboard-550x1024.png" alt="Friends-Hunt App - Game Dashboard Ansicht"  width="230" title="Friends-Hunt App - Game Dashboard Ansicht" /></td> 
-    <td><img src="includes/images/screenshots/screenshot-friendshunt-account-550x1024.png" alt="Friends-Hunt App - My Account Ansicht"  width="230" title="Friends-Hunt App - My Account Ansicht" /></td> 
-    <td><img src="includes/images/screenshots/screenshot-friendshunt-messages-550x1024.png" alt="Friends-Hunt App - Nachrichten Ansicht"  width="230" title="Friends-Hunt App - Nachrichten Ansicht" /></td> 
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-dashboard-550x1024.png" alt="Friends-Hunt App - Game Dashboard Ansicht"  width="230" title="Friends-Hunt App - Game Dashboard Ansicht" /></td>
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-account-550x1024.png" alt="Friends-Hunt App - My Account Ansicht"  width="230" title="Friends-Hunt App - My Account Ansicht" /></td>
+    <td><img src="includes/images/screenshots/screenshot-friendshunt-messages-550x1024.png" alt="Friends-Hunt App - Nachrichten Ansicht"  width="230" title="Friends-Hunt App - Nachrichten Ansicht" /></td>
   </tr>
 </table>
 
@@ -73,7 +73,14 @@ Jedes Match kann über das Dashboard maßgeschneidert konfiguriert werden:
 
 ## 🛠️ Technische Architektur
 
-Das Projekt trennt Logik und Darstellung. Das Backend agiert als passiver Datensammler.
+Das Projekt trennt Logik und Darstellung.
+
+### Technologie-Stack
+* **Frontend:** HTML5, Vanilla CSS3 (kein schweres Bootstrap nötig), native JavaScript Web APIs.
+* **Karten:** LeafletJS & OpenStreetMap.
+* **Backend:** Objektorientiertes PHP.
+* **Kommunikation:** Asynchrone PHP <-> JavaScript AJAX-Schnittstellen (JSON-Payloads).
+* **Sicherheit:** Cookie-basierte Authentifizierung mit verschlüsselten Tokens, strikte client- und serverseitige Formularvalidierung.
 
 ### PHP Klassenstruktur (OOP)
 ```text
@@ -85,12 +92,21 @@ BaseObject/               # Kern-Objekt mit Basis-Logiken
         └── Gameplay/     # Geo-Berechnungen, Intervalle & Nachrichtensystem
 ```
 
-### Technologie-Stack
-* **Frontend:** HTML5, Vanilla CSS3 (kein schweres Bootstrap nötig), native JavaScript Web APIs.
-* **Karten:** LeafletJS & OpenStreetMap.
-* **Backend:** Objektorientiertes PHP.
-* **Kommunikation:** Asynchrone PHP <-> JavaScript AJAX-Schnittstellen (JSON-Payloads).
-* **Sicherheit:** Cookie-basierte Authentifizierung mit verschlüsselten Tokens, strikte client- und serverseitige Formularvalidierung.
+### JavaScript Klassenstruktur (OOP)
+```text
+Communicator/             # Steuerung der AJAX-Anfragen
+Validator/                # Formularvalidierung
+BatteryTracker/           # Battery Status API
+GeoMaps/                  # OpenStreetMaps-Integration über Leaflet
+GeoTracker/               # GPS, Schrittzähler, Wake Lock
+Statistic/                # Dashboard-Statistiken
+ReplayPlayer/             # Spiel-Replay (Timelapse)
+Utils/                    # Statitische Hilfs-Methoden (GUID, Timestamps, Audio, Vibration)
+BaseObject/               # Kern-Objekt mit Basis-Logiken
+  ├── Player/             # Login, Usermanagement, Rollen, Avatare & Auth
+  └── Game/               # Spielinstanzen
+        └── Gameplay/     # Laufzeitbetrieb, Intervalle & Nachrichtensystem
+```
 
 ---
 

@@ -28,15 +28,17 @@ class Validator {
  */
   constructor() {
     this.formErrors    = [];
-    this.fields        = window[ appAlias ].fields;
+    this.fields        = window[ appAlias ].objects.fields;
     this.fieldTypes    = [ 'input', 'select', 'textarea' ];
-    this.passwordRules = {
+    this.passwordRules = window[ appAlias ].objects.passwordRules;
+    /*
+    {
       'passwordHasNumbers': window[ appAlias ].passwordRules.passwordHasNumbers,
       'passwordHasCapitalLetters': window[ appAlias ].passwordRules.passwordHasCapitalLetters,
       'passwordHasLowercaseLetters': window[ appAlias ].passwordRules.passwordHasLowercaseLetters,
       'passwordHasSpecialCharacters': window[ appAlias ].passwordRules.passwordHasSpecialCharacters
     };
-
+    */
     this.registerEventHandler();
 
     return;

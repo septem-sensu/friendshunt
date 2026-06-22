@@ -17,7 +17,7 @@
  * @example   const game = new Game();
  *
  */
-class Game extends Base {
+class Game extends BaseObject {
 
 /**
  * This method is the constructor of the class.
@@ -134,7 +134,7 @@ class Game extends Base {
           post.management.push( managementHtmlObjects[ i ].value );
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -164,11 +164,11 @@ class Game extends Base {
         formData.append( 'property', 'tmpImageAdd' );
         formData.append( 'method', 'Game::addGameImage' );
 
-        if( window[ appAlias ].view.alias == 'gameDashboard' ) {
+        if( window[ appAlias ].objects.view.alias == 'gameDashboard' ) {
           formData.append( 'redirect', '?view=gameDashboard&class=Game&id=' + window[ appAlias ].id );
         }
 
-        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, formData, 'proccessResponse' );
+        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'proccessResponse' );
 
         return;
       } );
@@ -187,9 +187,9 @@ class Game extends Base {
         formData.append( 'id', window[ appAlias ].id );
         formData.append( 'property', 'avatar' );
         formData.append( 'method', 'Game::avatarFileUploaded' );
-        formData.append( 'redirect', '?view=' + window[ appAlias ].view.alias + '&class=Game&id=' + window[ appAlias ].id );
+        formData.append( 'redirect', '?view=' + window[ appAlias ].objects.view.alias + '&class=Game&id=' + window[ appAlias ].id );
 
-        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, formData, 'proccessResponse' );
+        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'proccessResponse' );
 
         return;
       } );
@@ -249,7 +249,7 @@ class Game extends Base {
     Utils.playMessagePiep();
     Utils.triggerMessageVibration();
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post , 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post , 'proccessResponse' );
 
     return;
   }
@@ -266,7 +266,7 @@ class Game extends Base {
  */
   addGameplayDataToTemplate() {
     const members      = [ 'player', 'hunter', 'management' ];
-    const gameplayData = typeof window[ appAlias ].gameplayData == 'object' && window[ appAlias ].gameplayData != null ? window[ appAlias ].gameplayData : null;
+    const gameplayData = typeof window[ appAlias ].objects.gameplayData == 'object' && window[ appAlias ].objects.gameplayData != null ? window[ appAlias ].objects.gameplayData : null;
 
     for( let i = 0; i < members.length; i++ ) {
       for( let j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
@@ -304,9 +304,9 @@ class Game extends Base {
  *
  */
   addGameImagesContent() {
-    if( typeof window[ appAlias ].gameImages != 'object' || window[ appAlias ].gameImages == null ) return;
+    if( typeof window[ appAlias ].objects.gameImages != 'object' || window[ appAlias ].objects.gameImages == null ) return;
 
-    const gameImages = window[ appAlias ].gameImages;
+    const gameImages = window[ appAlias ].objects.gameImages;
 
     for( let i = 0; i < gameImages.length; i++ ) {
       const imageTrash = document.createElement( 'div' );
@@ -330,7 +330,7 @@ class Game extends Base {
 
         post.imageId  = event.target.getAttribute( 'data-image-id' );
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -373,7 +373,7 @@ class Game extends Base {
   getGameArchiveList() {
     const post = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getGameArchiveList', 'callbackMethod': 'cProccessResponseGameArchiveList' };
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.proccessResponseGameArchiveList.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseGameArchiveList.bind( this ) );
 
     return;
   }
@@ -432,7 +432,7 @@ class Game extends Base {
 
     post.gameId = element.getAttribute( 'data-game-id' );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
     return;
   }
@@ -454,7 +454,7 @@ class Game extends Base {
 
     post.gameId = element.getAttribute( 'data-game-id' );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
     return;
   }

@@ -7,11 +7,11 @@
  *
  * @class
  *
+ * @see Game
  * @see Communicator
  * @see GeoTracker
  * @see GeoMaps
  * @see BatteryTracker
- * @see Game
  * @see ReplayPlayer
  * @see Utils
  *
@@ -22,7 +22,7 @@
  * @example   const gameplay = new Gameplay( playerId, gameId, gameSettings );
  *
  */
-class Gameplay {
+class Gameplay extends Game {
 
 /**
  * This method is the constructor of the class.
@@ -38,6 +38,8 @@ class Gameplay {
  *
  */
   constructor( playerId, gameId, gameSettings ) {
+    super();
+
     this.gameplayRoles          = {'player': 'Spieler', 'hunter': 'Jäger', 'management': 'Spielleitung' };
     this.colors                 = [ '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000', '#00aa00', '#0000ff', '#ff00ff', '#00aaaa', '#aaaa00', '#000000' ];
     this.affectedColor          = '#ff0000';
@@ -46,11 +48,7 @@ class Gameplay {
     this.markerCssClassMyOwn    = 'game-my-own-marker';
     this.markerCssClassCaptured = 'game-marker-captured';
 
-    this.communicator           = new Communicator();
-    this.validator              = this.communicator.get( 'validator' );
-    this.geoTracker             = new GeoTracker();
     this.batteryTracker         = new BatteryTracker();
-    this.geoMaps                = new GeoMaps();
     this.game                   = new Game( gameId );
     this.gameId                 = gameId;
     this.playerId               = playerId;
@@ -79,43 +77,6 @@ class Gameplay {
     this.replayData             = null;
 
     this.init();
-
-    return;
-  }
-
-/**
- * This method is the default getter of the class.
- *
- * @public
- *
- * @param     {string}   property   The property of the value
- * @return    {*}        value      The value of the property
- *
- * @example   let value = gameplay.get( property );
- *
- * @see Gameplay#set
- *
- */
-  get( property ) {
-    return this[ property ];
-  }
-
-/**
- * This method is the default setter for the class.
- *
- * @public
- *
- * @param     {string}   property   The property that you want to set
- * @param     {*}        value      The value you want to set to the property
- * @return    {void}
- *
- * @example   gameplay.set( property, value );
- *
- * @see Gameplay#get
- *
- */
-  set( property, value ) {
-    this[ property ] = value;
 
     return;
   }
@@ -319,7 +280,7 @@ class Gameplay {
         post.timestamp       = new Date().getTime();
         post.message         = newGameplayMessageInput.value;
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
         return;
       } );
@@ -462,7 +423,7 @@ class Gameplay {
 
     this.geoTracker.set( 'stepCount', 0 );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     return;
   }
@@ -639,7 +600,7 @@ class Gameplay {
       return;
     }
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
 
@@ -807,7 +768,7 @@ class Gameplay {
     post.speedHuntPlayerId = speedHuntPlayerId;
     post.timestamp         = this.timestampNow();
 
-    return this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    return this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
   }
 
 /**
@@ -947,7 +908,7 @@ class Gameplay {
     post.gameplayMethod  = 'statistic';
     post.callbackMethod  = 'generateReplayData';
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     return;
   }

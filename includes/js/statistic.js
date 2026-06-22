@@ -151,7 +151,7 @@ class Statistic {
     const post           = { 'class': 'Game', 'id': window[ appAlias ].id, 'method': 'gameplay' };
     post.gameplayMethod  = 'statistic';
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.generateGameStatistics.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.generateGameStatistics.bind( this ) );
 
     return;
   }

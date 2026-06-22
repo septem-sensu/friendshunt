@@ -447,9 +447,13 @@ class Controller {
 
     if( isset( $this->object ) && get_class( $this->object ) == $this->className ) {
       $this->presentationObject->assignTemplateVar( $this->object->serializeObject( $this->object ), $this->className, BaseObject::fields( $this->className ) );
+      $this->presentationObject->assignTemplateVar( 'object', 'default', null, json_encode( $this->object->serializeObject( $this->object ) ) );
     } else if( isset( $this->className ) && $this->className != '' && isset( $this->objectId ) && $this->objectId != '' ) {
       $this->object = new $this->className( $this->objectId );
       $this->presentationObject->assignTemplateVar( $this->object->serializeObject( $this->object ), $this->className, BaseObject::fields( $this->className ) );
+      $this->presentationObject->assignTemplateVar( 'object', 'default', null, json_encode( $this->object->serializeObject( $this->object ) ) );
+    } else {
+      $this->presentationObject->assignTemplateVar( 'object', 'default', null, json_encode( new stdClass() ) );
     }
 
     for( $i = 0; $i < count( $this->templates ); $i++ ) {

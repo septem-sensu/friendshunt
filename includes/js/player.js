@@ -16,7 +16,7 @@
  *
  */
 
-class Player extends Base {
+class Player extends BaseObject {
 
 /**
  * This method is the constructor of the class.
@@ -33,7 +33,7 @@ class Player extends Base {
     super();
 
     this.playerId      = playerId;
-    this.games         = window[ appAlias ].games;
+    this.games         = window[ appAlias ].objects.games;
 
     this.registerEventHandler();
 
@@ -64,7 +64,7 @@ class Player extends Base {
         post.name     = document.querySelector( '#name' ).value;
         post.password = document.querySelector( '#password' ).value;
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -79,7 +79,7 @@ class Player extends Base {
         post.id    =  post.email;
         post.image = 'avatar.png';
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -104,7 +104,7 @@ class Player extends Base {
 
         this.validator.resetFormErrors();
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -118,7 +118,7 @@ class Player extends Base {
 
         post.redirect = 'index.php?view=player';
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
       } );
     }
 
@@ -137,7 +137,7 @@ class Player extends Base {
           return;
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.proccessResponseAddPlayerToGame.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseAddPlayerToGame.bind( this ) );
 
         return;
       } );
@@ -158,7 +158,7 @@ class Player extends Base {
           return;
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.proccessResponseAddHunterToGame.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseAddHunterToGame.bind( this ) );
 
         return;
       } );
@@ -179,7 +179,7 @@ class Player extends Base {
           return;
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.proccessResponseAddManagementToGame.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseAddManagementToGame.bind( this ) );
 
         return;
       } );
@@ -221,7 +221,7 @@ class Player extends Base {
         post.title       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
         post.description = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -233,7 +233,7 @@ class Player extends Base {
       playerDeleteButton.addEventListener( 'click', () => {
         const post = { 'class': window[ appAlias ].class, 'method': 'deletePlayer', 'id': window[ appAlias ].id };
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
         return;
       } );
@@ -252,9 +252,9 @@ class Player extends Base {
         formData.append( 'id', window[ appAlias ].id );
         formData.append( 'property', 'image' );
         formData.append( 'method', 'Player::avatarFileUploaded' );
-        formData.append( 'redirect', '?view=' + window[ appAlias ].view.alias + '&class=Player&id=' + window[ appAlias ].id );
+        formData.append( 'redirect', '?view=' + window[ appAlias ].objects.view.alias + '&class=Player&id=' + window[ appAlias ].id );
 
-        return this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].view.alias }, formData, 'proccessResponse' );
+        return this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'proccessResponse' );
       } );
     }
 
@@ -277,7 +277,7 @@ class Player extends Base {
 
     post.callbackMethod = 'proccessResponsePlayerList';
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     return;
   }
@@ -333,7 +333,7 @@ class Player extends Base {
  */
   addGamesToTemplate() {
     const games  = this.games;
-    const fields = window[ appAlias ].gameFields;
+    const fields = window[ appAlias ].objects.gameFields;
 
     for( let i = 0; i < games.length; i++ ) {
       const contentContainer      = document.createElement( 'div' );
@@ -401,7 +401,7 @@ class Player extends Base {
     Utils.playMessagePiep();
     Utils.triggerMessageVibration();
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post , 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post , 'proccessResponse' );
 
     return;
   }
@@ -584,7 +584,7 @@ class Player extends Base {
 
     if( typeof gameId != 'string' || gameId == null ) return;
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     return;
   }
@@ -629,7 +629,7 @@ class Player extends Base {
 
     if( typeof gameId != 'string' || gameId == null ) return;
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, this.processResponse.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     return;
   }
@@ -670,7 +670,7 @@ class Player extends Base {
 
     post.deletePlayerId = element.getAttribute( 'data-player-id' );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
 
     return;
   }

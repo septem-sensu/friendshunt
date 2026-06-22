@@ -1,6 +1,6 @@
 <script type="text/javascript">
-  window[ appAlias ].playerId     = '{{Game::playerId}}';
-  window[ appAlias ].gameSettings = {{Gameplay::gameSettings}};
+  window[ appAlias ].playerId             = '{{Game::playerId}}';
+  window[ appAlias ].objects.gameSettings = {{Gameplay::gameSettings}};
 </script>
 
 <input type="hidden" name="resetForm" value="1" />
@@ -78,6 +78,6 @@
 </div>
 
 <script type="text/javascript">
-  window[ appAlias ].objects.gameplay = new Gameplay( window[ appAlias ].playerId, window[ appAlias ].id, window[ appAlias ].gameSettings );
+  window[ appAlias ].objects.gameplay = new Gameplay( window[ appAlias ].playerId, window[ appAlias ].id, window[ appAlias ].objects.gameSettings );
 </script>
 
