@@ -44,6 +44,8 @@ class BaseObject {
 
     delete window[ appAlias ].objects.object;
 
+    this.registerEventHandler();
+
     return;
   }
 

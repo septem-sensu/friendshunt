@@ -34,8 +34,6 @@ class Player extends BaseObject {
     this.playerId      = playerId;
     this.games         = window[ appAlias ].objects.games;
 
-    this.registerEventHandler();
-
     return;
   }
 

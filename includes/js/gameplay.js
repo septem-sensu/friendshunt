@@ -111,8 +111,6 @@ class Gameplay extends Game {
     this.lastMessageId           = lastMessageId ? lastMessageId : this.lastMessageId;
     this.systemMessagesDontShow  = systemMessagesDontShow ? systemMessagesDontShow : this.systemMessagesDontShow;
 
-    this.registerEventHandler();
-
     return;
   }
 
@@ -231,6 +229,10 @@ class Gameplay extends Game {
  *
  */
   registerEventHandler() {
+    super.registerEventHandler();
+
+    console.log('TEST')
+
     const menuBottomMessageButton = document.querySelector( '#menu-bottom-messages-button' );
 
     if( menuBottomMessageButton != null ) {
@@ -565,7 +567,7 @@ class Gameplay extends Game {
 
     if( ! showLayer ) return;
 
-    Utils.playMessageBeep();
+    Utils.playMessagePiep();
     Utils.triggerMessageVibration();
 
     if( this.replayData && replayPanel ) replayPanel.classList.add( 'hidden' );
@@ -887,7 +889,7 @@ class Gameplay extends Game {
 
       this.setLocalStorage( this.gameId, 'lastMessageId', this.lastMessageId );
 
-      Utils.playMessageBeep();
+      Utils.playMessagePiep();
       Utils.triggerMessageVibration();
 
       if( document.querySelector( '#game-message-layer' ).classList.contains( 'hidden' ) ) document.querySelector( '.icon-new-message' ).classList.remove( 'hidden' );
@@ -1034,8 +1036,8 @@ class Gameplay extends Game {
       } );
     }
 
-    this.replayData.trackings.sort( function( a, b ) {
-      return a.timestamp - b.timestamp;
+    this.replayData.trackings.sort( function( objA, objB ) {
+      return objA.timestamp - objB.timestamp;
     } );
 
     this.startReplayPlayer();

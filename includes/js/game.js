@@ -36,8 +36,6 @@ class Game extends BaseObject {
     this.geoMaps           = new GeoMaps();
     this.games             = [];
 
-    this.registerEventHandler();
-
     return;
   }
 
