@@ -32,6 +32,11 @@
   }
 }
 
+@keyframes tactical-rec-blink {
+  0% { opacity: 0.8; filter: brightness(1.2); }
+  100% { opacity: 0.4; filter: brightness(0.8); }
+}
+
 
 body, html {
     /* Zwingt das Layout, sich an den sicheren Display-Rändern auszurichten */
@@ -127,6 +132,33 @@ body, html {
     justify-content: center;
   }
 
+}
+
+.replay-highlight-repeat {
+  position: fixed;
+  top: 58px;
+  z-index: 4001;
+  background-color: var(--backgroundColorContent);
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: tactical-rec-blink 1s infinite alternate ease-in-out;
+  opacity: 0.8;
+}
+
+.replay-highlight-repeat::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #f00;
+  border-radius: 50%;
 }
 
 #gameplay-button-replay {

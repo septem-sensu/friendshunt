@@ -21,8 +21,8 @@ class ReplayPlayer {
  *
  * @public
  *
- * @param     {object}   trackingData   The sorted tracking data
- * @param     {object}   gamePlay       The calling gameplay object
+ * @param     {object}   replayData      The sorted tracking data
+ * @param     {object}   gameplay        The calling gameplay object
  * @return    {void}
  *
  * @example   const replayPlayer = new ReplayPlayer( replayData, gamePlay );
@@ -33,11 +33,15 @@ class ReplayPlayer {
     this.tracking                 = this.replayData.trackings;
     this.gameplay                 = gameplay;
     this.geoMaps                  = this.gameplay.get( 'geoMaps' );
+    this.currentPlayerId          = this.gameplay.get( 'playerId' );
+    this.mapInstance              = this.geoMaps.get( 'map' );
     this.playerClassesAndColors   = {};
 
     this.playbackTimer            = null;
     this.speedMultiplier          = 10;
     this.isPlaying                = false;
+    this.isTrackingMode           = false;
+    this.isHighlightActive        = false;
 
     this.startTimestamp           = parseInt( this.tracking[ 0 ].timestamp );
     this.endTimestamp             = parseInt( this.tracking[ this.tracking.length - 1 ].timestamp );
@@ -92,7 +96,7 @@ class ReplayPlayer {
   }
 
 /**
- * This class initializes the object and registers all required event handlers
+ * This method initializes the object and registers all required event handlers
  *
  * @public
  *
@@ -139,11 +143,7 @@ class ReplayPlayer {
     } );
 
     const colors        = this.gameplay.get( 'colors' );
-    const playerCounter = {
-      'player': 1,
-      'hunter': 1,
-      'management': 1
-    };
+    const playerCounter = { 'player': 1, 'hunter': 1, 'management': 1 };
 
     for( const playerId in this.replayData.names ) {
       if( ! this.replayData.names[ playerId ].firstLat || ! this.replayData.names[ playerId ].firstLng ) {
@@ -163,10 +163,47 @@ class ReplayPlayer {
         this.replayData.names[ playerId ].name
       );
 
-      if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+      if( window[ appAlias ].playerId === playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
 
       playerCounter[ this.replayData.names[ playerId ].role ]++;
     }
+
+    document.querySelector( '#btn-replay-track' ).addEventListener( 'click', ( event ) => {
+      this.isTrackingMode = ! this.isTrackingMode;
+
+      if ( this.isTrackingMode ) {
+        event.target.classList.add( 'btn-active' );
+        event.target.innerText = '⨀';
+      } else {
+        event.target.classList.remove( 'btn-active' );
+        event.target.innerText = '⨁';
+      }
+
+      return;
+    } );
+
+    this.mapInstance.on( 'dragstart', () => {
+      if ( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
+
+      return;
+    } );
+
+    this.mapInstance.on( 'click', () => {
+      if ( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
+
+      return;
+    } );
+
+    document.querySelector( '.replay-panel' ).addEventListener( 'custom_moveend', ( event ) => {
+      if( ! event || ! event.detail || ! event.detail.method ) return;
+      if( typeof event.detail.method !== 'function' ) return;
+
+      const executionMethod = event.detail.method.bind( this );
+
+      executionMethod( event );
+
+      return;
+    } );
 
     return;
   }
@@ -239,13 +276,20 @@ class ReplayPlayer {
     const marker = this.geoMaps.get( 'marker' );
 
     for( const playerId in marker ) {
-      if( playerId.indexOf( '@' ) == -1 ) continue;
+      if( playerId.indexOf( '@' ) === -1 ) continue;
       if( ! marker.hasOwnProperty( playerId ) ) continue;
 
-      let floatingPoint = this.calculateIntermediatePoint( playerId, targetTimestamp );
+      const floatingPoint = this.calculateIntermediatePoint( playerId, targetTimestamp );
 
       if( floatingPoint !== null ) {
         marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
+
+        if ( this.isTrackingMode && ! this.isHighlightActive && playerId === this.currentPlayerId ) {
+          this.mapInstance.panTo( [ floatingPoint.lat, floatingPoint.lng ], {
+            'animate': true,
+            'duration': 0.1
+          } );
+        }
 
         if( this.playerClassesAndColors[ playerId ] ) {
           this.playerClassesAndColors[ playerId ].isSet = this.playerClassesAndColors[ playerId ].isSet || {};
@@ -258,7 +302,7 @@ class ReplayPlayer {
 
                 this.playerClassesAndColors[ playerId ].isSet.alarm = false;
 
-                if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+                if( window[ appAlias ].playerId === playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
               }
             } else {
               if( ! this.playerClassesAndColors[ playerId ].isSet.alarm ) {
@@ -280,7 +324,7 @@ class ReplayPlayer {
 
                 delete this.processedHighlight[ this.playerClassesAndColors[ playerId ].capture ];
 
-                if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+                if( window[ appAlias ].playerId === playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
               }
             }  else {
               if( ! this.playerClassesAndColors[ playerId ].isSet.capture ) {
@@ -289,7 +333,7 @@ class ReplayPlayer {
 
                 this.playerClassesAndColors[ playerId ].isSet.capture   = true;
 
-                if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
+                if( window[ appAlias ].playerId === playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
               }
             }
           }
@@ -298,6 +342,7 @@ class ReplayPlayer {
     }
 
     const targetTime = new Date( targetTimestamp * 1000 );
+
     document.querySelector( '#replay-clock' ).innerText = targetTime.toLocaleTimeString( 'de-DE' );
 
     return;
@@ -323,9 +368,12 @@ class ReplayPlayer {
   startHighlight( playerId, highlightTimestamp, timelineIndex ) {
     this.pause();
 
-    const mapInstance             = this.geoMaps.get( 'map' );
-    const oldCameraCenterPosition = mapInstance.getCenter();
-    const oldCameraZoom           = mapInstance.getZoom();
+    document.querySelector( '#replay-highlight-repeat' ).classList.remove( 'hidden' );
+
+    this.isHighlightActive        = true;
+
+    const oldCameraCenterPosition = this.mapInstance.getCenter();
+    const oldCameraZoom           = this.mapInstance.getZoom();
     const oldSpeed                = this.speedMultiplier;
     const savedTimelineTime       = this.currentVirtualTimestamp;
     let highlightPoint            = null;
@@ -333,7 +381,7 @@ class ReplayPlayer {
 
     for( let i = timelineIndex; i >= 0; i-- ) {
       if( this.tracking[ i ].timestamp > highlightTimestamp ) continue;
-      if( this.tracking[ i ].playerId != playerId || this.tracking[ i ].type != 'tracking' ) continue;
+      if( this.tracking[ i ].playerId !== playerId || this.tracking[ i ].type !== 'tracking' ) continue;
 
       foundPoints++;
 
@@ -344,34 +392,93 @@ class ReplayPlayer {
       break;
     }
 
-    if( highlightPoint == null ) return;
+    if( highlightPoint === null ) return;
 
     this.currentVirtualTimestamp = highlightPoint.timestamp;
 
-    mapInstance.flyTo( [ parseFloat( highlightPoint.lat ), parseFloat( highlightPoint.lng ) ], 18, { 'animate': true, 'duration': 2.0 } );
+    this.mapInstance.flyTo( [ parseFloat( highlightPoint.lat ), parseFloat( highlightPoint.lng ) ], 18, { 'animate': true, 'duration': 2.0 } );
 
-    mapInstance.once( 'moveend', () => {
-      this.speedMultiplier = 10;
+    const checkIsHighlight = () => {
+      if( this.mapInstance.getZoom() !== 18 ) return;
 
-      this.play();
+      this.mapInstance.off( 'moveend', checkIsHighlight );
 
-      const highlightWatcher = setInterval( () => {
-        if( this.currentVirtualTimestamp >= highlightTimestamp ) {
-          clearInterval( highlightWatcher );
-          this.pause();
-
-          setTimeout( () => {
-            mapInstance.flyTo( oldCameraCenterPosition, oldCameraZoom, { 'animate': true, 'duration': 2.0 } );
-
-            mapInstance.once( 'moveend', () => {
-              this.currentVirtualTimestamp = highlightTimestamp;
-              this.speedMultiplier         = oldSpeed;
-              this.play();
-            } );
-          }, 2000 );
+      const eventMoveEnd = new CustomEvent( 'custom_moveend', {
+        'detail': {
+          'method': this._highlightFadeIn,
+          'oldCameraCenterPosition': oldCameraCenterPosition,
+          'oldCameraZoom': oldCameraZoom,
+          'highlightTimestamp': highlightTimestamp,
+          'speedMultiplier': oldSpeed
         }
-      }, 100 );
-    } );
+      } );
+
+      document.querySelector( '.replay-panel' ).dispatchEvent( eventMoveEnd );
+
+      return;
+    };
+
+    this.mapInstance.on( 'moveend', checkIsHighlight );
+
+    return;
+  }
+
+/**
+ * This method runs the initial sequence of the highlight.
+ * It sets the playback speed to 10 times the normal speed
+ * and zooms to the zoom level specified in the event details.
+ *
+ * @private
+ *
+ * @param     {object}   event  The event with additional information in the attribute detail
+ * @return    {void}
+ *
+ * @example   replayPlayer._highlightFadeIn( event );
+ *
+ */
+  _highlightFadeIn( event ) {
+    this.speedMultiplier = 10;
+
+    this.play();
+
+    const highlightWatcher = setInterval( () => {
+      if( this.currentVirtualTimestamp >= event.detail.highlightTimestamp ) {
+        clearInterval( highlightWatcher );
+        this.pause();
+
+        setTimeout( () => {
+          this.mapInstance.flyTo( event.detail.oldCameraCenterPosition, event.detail.oldCameraZoom, { 'animate': true, 'duration': 2.0 } );
+
+          this.mapInstance.once( 'moveend', () => {
+            event.detail.method = this._highlightFadeOut;
+            document.querySelector( '.replay-panel' ).dispatchEvent( event );
+          } );
+        }, 2000 );
+      }
+    }, 100 );
+
+    return;
+  }
+
+/**
+ * This method ends the highlight and sets all parameters back to how they were before the highlight.
+ *
+ * @private
+ *
+ * @param     {object}   event  The event with additional information in the attribute detail
+ * @return    {void}
+ *
+ * @example   replayPlayer._highlightFadeOut( event );
+ *
+ */
+  _highlightFadeOut( event ) {
+    this.currentVirtualTimestamp = event.detail.highlightTimestamp;
+    this.speedMultiplier         = event.detail.speedMultiplier;
+    this.isHighlightActive       = false;
+
+    this.play();
+
+    document.querySelector( '#replay-highlight-repeat' ).classList.add( 'hidden' );
 
     return;
   }
@@ -398,7 +505,7 @@ class ReplayPlayer {
     if( this.tracking[ this.playerIndices[ playerId ] ] && parseInt( this.tracking[ this.playerIndices[ playerId ] ].timestamp ) > targetTimestamp ) this.playerIndices[ playerId ] = 0;
 
     for( let i = this.playerIndices[ playerId ]; i < this.tracking.length; i++ ) {
-      let ping = this.tracking[ i ];
+      const ping = this.tracking[ i ];
 
       if( ping.playerId !== playerId ) continue;
 
@@ -408,7 +515,7 @@ class ReplayPlayer {
         this.playerClassesAndColors[ playerId ] = this.playerClassesAndColors[ playerId ] || {};
         this.playerClassesAndColors[ playerId ][ ping.type ] = pingTime;
 
-        if( ping.type == 'capture' && ! this.processedHighlight[ pingTime ] ) {
+        if( ping.type === 'capture' && ! this.processedHighlight[ pingTime ] ) {
           this.processedHighlight[ pingTime ] = true;
           this.startHighlight( ping.playerId, pingTime, i );
 
