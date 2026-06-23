@@ -11,7 +11,7 @@
  * @version   0.1.0
  * @since     2026-06-05
  *
- * @example   const objBatteryTracker = new BatteryTracker();
+ * @example   const batteryTracker = new BatteryTracker();
  *
  */
 class BatteryTracker {
@@ -30,7 +30,7 @@ class BatteryTracker {
     this.batteryLevel = null;
     this.isCharging   = false;
     this.isSupported  = false;
-    this.batteryObj   = null;
+    this.battery   = null;
     this.debug        = window[ appAlias ].debug ? true : false;
 
     return;
@@ -44,7 +44,7 @@ class BatteryTracker {
  * @param     {string}   property   The Property to get
  * @return    {*}        value      The Value of the Property
  *
- * @example   let value = objBatteryTracker.get( property );
+ * @example   let value = batteryTracker.get( property );
  *
  * @see BatteryTracker#set
  *
@@ -62,7 +62,7 @@ class BatteryTracker {
  * @param     {*}        value      The Value to set
  * @return    {void}
  *
- * @example   objBatteryTracker.set( property, value );
+ * @example   batteryTracker.set( property, value );
  *
  * @see BatteryTracker#get
  *
@@ -78,32 +78,32 @@ class BatteryTracker {
  *
  * @public
  *
- * @return    {Promise}  objPromise  Returns a promise once initialization is complete
+ * @return    {Promise}  promise  Returns a promise once initialization is complete
  *
- * @example   const objPromise = objBatteryTracker.init();
+ * @example   const promise = batteryTracker.init();
  *
  */
   init() {
-    if( typeof navigator.getBattery === 'undefined' ) {
+    if( typeof navigator.getBattery !== 'function' ) {
       this.isSupported = false;
 
-      if ( this.debug ) console.log( 'BatteryTracker: Nicht unterstützt (iOS/Safari Fallback aktiv).' );
+      if( this.debug ) console.log( 'BatteryTracker: Nicht unterstützt (iOS/Safari Fallback aktiv).' );
 
       return Promise.resolve();
     }
 
     this.isSupported = true;
 
-    return navigator.getBattery().then( ( objBattery ) => {
-      this.batteryObj = objBattery;
+    return navigator.getBattery().then( ( battery ) => {
+      this.battery = battery;
 
       this.updateBatteryData();
 
-      this.batteryObj.addEventListener( 'levelchange', () => this.updateBatteryData() );
+      this.battery.addEventListener( 'levelchange', () => this.updateBatteryData() );
 
-      this.batteryObj.addEventListener( 'chargingchange', () => this.updateBatteryData() );
-    } ).catch( ( objError ) => {
-      console.error( 'BatteryTracker Fehler:', objError );
+      this.battery.addEventListener( 'chargingchange', () => this.updateBatteryData() );
+    } ).catch( ( error ) => {
+      console.error( 'BatteryTracker Fehler:', error );
     } );
   }
 
@@ -115,16 +115,16 @@ class BatteryTracker {
  *
  * @return    {void}
  *
- * @example   objBatteryTracker.updateBatteryData();
+ * @example   batteryTracker.updateBatteryData();
  *
  */
   updateBatteryData() {
-    if ( !this.batteryObj ) return;
+    if( !this.battery ) return;
 
-    this.batteryLevel = Math.round( this.batteryObj.level * 100 );
-    this.isCharging   = this.batteryObj.charging;
+    this.batteryLevel = Math.round( this.battery.level * 100 );
+    this.isCharging   = this.battery.charging;
 
-    if ( this.debug ) console.log( `BatteryTracker Update: ${this.batteryLevel}% (Laden: ${this.isCharging})` );
+    if( this.debug ) console.log( `BatteryTracker Update: ${this.batteryLevel}% (Laden: ${this.isCharging})` );
 
     return;
   }
@@ -134,9 +134,9 @@ class BatteryTracker {
  *
  * @public
  *
- * @return    {object}  objBatteryState  The current battery state with level, charging and supported properties
+ * @return    {object}  batteryState  The current battery state with level, charging and supported properties
  *
- * @example   const objBatteryState = objBatteryTracker.getBatteryData();
+ * @example   const batteryState = batteryTracker.getBatteryData();
  *
  */
   getBatteryData() {
@@ -146,4 +146,4 @@ class BatteryTracker {
       'supported': this.isSupported
     };
   }
-}
+};

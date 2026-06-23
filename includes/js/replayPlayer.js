@@ -54,6 +54,7 @@ class ReplayPlayer {
     this.slider.min               = 0;
     this.slider.max               = this.endTimestamp - this.startTimestamp;
     this.slider.value             = 0;
+    this.debug                    = window[ appAlias ].debug ? true : false;
 
     this.init();
   }
@@ -106,34 +107,34 @@ class ReplayPlayer {
  *
  */
   init() {
-    document.querySelector( '#btn-replay-play' ).addEventListener( 'click', ( objEvent ) => {
+    document.querySelector( '#btn-replay-play' ).addEventListener( 'click', ( event ) => {
       this.play();
-      this.toggleButtonClass( objEvent.target, '#btn-replay-pause' );
+      this.toggleButtonClass( event.target, '#btn-replay-pause' );
 
       return;
     } );
 
-    document.querySelector( '#btn-replay-pause' ).addEventListener( 'click', ( objEvent ) => {
+    document.querySelector( '#btn-replay-pause' ).addEventListener( 'click', ( event ) => {
       this.pause();
-      this.toggleButtonClass( objEvent.target, '#btn-replay-play' );
+      this.toggleButtonClass( event.target, '#btn-replay-play' );
 
       return;
     } );
 
-    document.querySelectorAll( '.btn-speed' ).forEach( ( objBtn ) => {
-      objBtn.addEventListener( 'click', ( objEvent ) => {
+    document.querySelectorAll( '.btn-speed' ).forEach( ( btn ) => {
+      btn.addEventListener( 'click', ( event ) => {
         document.querySelectorAll( '.btn-speed' ).forEach( b => b.classList.remove( 'btn-active' ) );
-        objEvent.target.classList.add( 'btn-active' );
-        this.speedMultiplier = parseInt( objEvent.target.getAttribute( 'data-speed' ) );
+        event.target.classList.add( 'btn-active' );
+        this.speedMultiplier = parseInt( event.target.getAttribute( 'data-speed' ) );
 
         return;
       } );
     } );
 
-    this.slider.addEventListener( 'input', ( objEvent ) => {
+    this.slider.addEventListener( 'input', ( event ) => {
       this.pause();
 
-      const sliderSeconds          = parseInt( objEvent.target.value );
+      const sliderSeconds          = parseInt( event.target.value );
 
       this.currentVirtualTimestamp = this.startTimestamp + sliderSeconds;
 
@@ -171,7 +172,7 @@ class ReplayPlayer {
     document.querySelector( '#btn-replay-track' ).addEventListener( 'click', ( event ) => {
       this.isTrackingMode = ! this.isTrackingMode;
 
-      if ( this.isTrackingMode ) {
+      if( this.isTrackingMode ) {
         event.target.classList.add( 'btn-active' );
         event.target.innerText = '⨀';
       } else {
@@ -183,13 +184,13 @@ class ReplayPlayer {
     } );
 
     this.mapInstance.on( 'dragstart', () => {
-      if ( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
+      if( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
 
       return;
     } );
 
     this.mapInstance.on( 'click', () => {
-      if ( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
+      if( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
 
       return;
     } );
@@ -284,7 +285,7 @@ class ReplayPlayer {
       if( floatingPoint !== null ) {
         marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
 
-        if ( this.isTrackingMode && ! this.isHighlightActive && playerId === this.currentPlayerId ) {
+        if( this.isTrackingMode && ! this.isHighlightActive && playerId === this.currentPlayerId ) {
           this.mapInstance.panTo( [ floatingPoint.lat, floatingPoint.lng ], {
             'animate': true,
             'duration': 0.1
@@ -558,15 +559,15 @@ class ReplayPlayer {
  * @public
  *
  * @param     {object}   activeBtn          The currently active Html button object which should become inactive
- * @param     {string}   strInactiveBtnId   The Css selector of the Html button object that should become active
+ * @param     {string}   inactiveBtnId   The Css selector of the Html button object that should become active
  * @return    {void}
  *
- * @example   replayPlayer.toggleButtonClass( activeBtn, strInactiveBtnId );
+ * @example   replayPlayer.toggleButtonClass( activeBtn, inactiveBtnId );
  *
  */
-  toggleButtonClass( activeBtn, strInactiveBtnId ) {
+  toggleButtonClass( activeBtn, inactiveBtnId ) {
     activeBtn.classList.add( 'btn-active' );
-    document.querySelector( strInactiveBtnId ).classList.remove( 'btn-active' );
+    document.querySelector( inactiveBtnId ).classList.remove( 'btn-active' );
 
     return;
   }

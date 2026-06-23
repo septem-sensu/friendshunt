@@ -12,7 +12,7 @@
  * @version   0.1.0
  * @since     2026-06-05
  *
- * @example   const objGeoMaps = new GeoMaps();
+ * @example   const geoMaps = new GeoMaps();
  *
  */
 class GeoMaps {
@@ -24,7 +24,7 @@ class GeoMaps {
  *
  * @return    {void}
  *
- * @example   const objGeoMaps = new GeoMaps();
+ * @example   const geoMaps = new GeoMaps();
  *
  */
   constructor() {
@@ -49,7 +49,7 @@ class GeoMaps {
  * @param     {string}   property   The Property to get
  * @return    {*}        value      The Value of the Property
  *
- * @example   let value = objGeoMaps.get( property );
+ * @example   let value = geoMaps.get( property );
  *
  * @see GeoMaps#set
  *
@@ -67,7 +67,7 @@ class GeoMaps {
  * @param     {*}        value      The Value to set
  * @return    {void}
  *
- * @example   objGeoMaps.set( property, value );
+ * @example   geoMaps.set( property, value );
  *
  * @see GeoMaps#get
  *
@@ -85,9 +85,9 @@ class GeoMaps {
  *
  * @param     {number}  lat         The current Latitude
  * @param     {number}  lng         The current Longitude
- * @return    {object}  objMap      The Leaflet Map Object
+ * @return    {object}  map      The Leaflet Map Object
  *
- * @example   let objMap = objGeoMaps.setMap( lat, lng );
+ * @example   const map      = geoMaps.setMap( lat, lng );
  *
  */
   setMap( lat, lng ) {
@@ -118,18 +118,18 @@ class GeoMaps {
  * @param     {string}  cssclass  The css Class for the Icon
  * @return    {void}
  *
- * @example   objGeoMaps.setMarker( id, role, color, lat, lng, content, name );
+ * @example   geoMaps.setMarker( id, role, color, lat, lng, content, name );
  *
  */
   setMarker( id, role, color, lat, lng, content, name, cssclass ) {
     const icon   = this.getIcon( role, color, name );
 
-    if( cssclass && cssclass != '' ) icon.classList.add( cssclass );
+    if( cssclass && cssclass !== '' ) icon.classList.add( cssclass );
 
     if( this.marker[ id ] ) this.marker[ id ].remove();
 
     this.marker[ id ] = L.marker( [ lat, lng ], { icon: icon } ).addTo( this.map );
-    if( typeof content == 'string' && content != '' ) this.marker[ id ].bindPopup( content );
+    if( typeof content === 'string' && content !== '' ) this.marker[ id ].bindPopup( content );
 
     return;
   }
@@ -142,7 +142,7 @@ class GeoMaps {
  * @param     {string}  id        The Game Player Id to remove from Map
  * @return    {void}
  *
- * @example   objGeoMaps.removeMarker( id );
+ * @example   geoMaps.removeMarker( id );
  *
  */
   removeMarker( id ) {
@@ -163,21 +163,21 @@ class GeoMaps {
  * @param     {string}  selector  The Selector of a input Fiel to set the coordinates
  * @return    {void}
  *
- * @example   objGeoMaps.setMarkerInteractive( id, role, color, content, selector );
+ * @example   geoMaps.setMarkerInteractive( id, role, color, content, selector );
  *
  */
   setMarkerInteractive( id, role, color, content, selector ) {
     document.querySelector( '#map' ).classList.add( 'mode-set-points' );
 
-    this.map.on( 'click', ( objEvent ) => {
+    this.map.on( 'click', ( event ) => {
       if( this.marker[ id ] ) this.marker[ id ].remove();
 
-      this.marker[ id ] = L.marker( objEvent.latlng, { 'icon': this.getIcon( role, color ) } ).addTo( this.map );
+      this.marker[ id ] = L.marker( event.latlng, { 'icon': this.getIcon( role, color ) } ).addTo( this.map );
       this.marker[ id ].bindPopup( content );
 
       if( selector && document.querySelector( selector ) != null ) {
-        const lat = objEvent.latlng.lat;
-        const lng = objEvent.latlng.lng;
+        const lat = event.latlng.lat;
+        const lng = event.latlng.lng;
 
         document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
       }
@@ -199,7 +199,7 @@ class GeoMaps {
  * @param     {string}  name      The Text at the Icon
  * @return    {void}
  *
- * @example   objGeoMaps.setIcon( id, role, color, name );
+ * @example   geoMaps.setIcon( id, role, color, name );
  *
  */
   setIcon( id, role, color, name ) {
@@ -219,7 +219,7 @@ class GeoMaps {
  * @param     {string}  cssClass  The css Class to add the Marker Icon
  * @return    {void}
  *
- * @example   objGeoMaps.addMarkerCssClass( id, cssClass );
+ * @example   geoMaps.addMarkerCssClass( id, cssClass );
  *
  */
   addMarkerCssClass( id, cssClass ) {
@@ -240,9 +240,9 @@ class GeoMaps {
  *
  * @param     {string}  id         The Game Player Id (Marker Id)
  * @param     {string}  cssClass   The css Class to remove from the Marker Icon
- * @return    {boolean} objResult  Contains the css Class at the Marker Icon
+ * @return    {boolean} result  Contains the css Class at the Marker Icon
  *
- * @example   objResult = objGeoMaps.containsMarkerCssClass( id, cssClass );
+ * @example   const result = geoMaps.containsMarkerCssClass( id, cssClass );
  *
  */
   containsMarkerCssClass( id, cssClass ) {
@@ -262,7 +262,7 @@ class GeoMaps {
  * @param     {string}  cssClass  The css Class to remove from the Marker Icon
  * @return    {void}
  *
- * @example   objGeoMaps.removeMarkerCssClass( id, cssClass );
+ * @example   geoMaps.removeMarkerCssClass( id, cssClass );
  *
  */
   removeMarkerCssClass( id, cssClass ) {
@@ -291,7 +291,7 @@ class GeoMaps {
  * @param     {number}  opacity   The Opacity of the Circle
  * @return    {void}
  *
- * @example   objGeoMaps.setCircle( id, lat, lng, size, color, weight, fillColor, opacity );
+ * @example   geoMaps.setCircle( id, lat, lng, size, color, weight, fillColor, opacity );
  *
  */
   setCircle( id, lat, lng, size, color, weight, fillColor, opacity ) {
@@ -317,31 +317,31 @@ class GeoMaps {
  * @param     {string}  id              The Game Player Id (Circle Id)
  * @param     {number}  size            The Radius of the Circle
  * @param     {string}  color           The Color of the Circle edge
- * @param     {number}  weight          The weight of the Corcle edge
+ * @param     {number}  weight          The weight of the Circle edge
  * @param     {string}  fillColor       The fill Color of the Circle
  * @param     {number}  opacity         The Opacity of the Circle
  * @param     {string}  selector        The Selector of a input Field to set the coordinates
  * @param     {string}  selectorRadius  The Selector of a input Field to set the radius
  * @return    {void}
  *
- * @example   objGeoMaps.setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius );
+ * @example   geoMaps.setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius );
  *
  */
   setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius ) {
     document.querySelector( '#map' ).classList.remove( 'mode-set-points' );
 
-    this.map.on( 'click', ( objEvent ) => {
+    this.map.on( 'click', ( event ) => {
       if( this.isResizing[ id ] || this.justResized[ id ] ) {
         this.justResized[ id ] = false;
 
         return;
       }
 
-      this.centreZone[ id ] = objEvent.latlng;
+      this.centreZone[ id ] = event.latlng;
 
       if( selector && document.querySelector( selector ) != null ) {
-        const lat = objEvent.latlng.lat;
-        const lng = objEvent.latlng.lng;
+        const lat = event.latlng.lat;
+        const lng = event.latlng.lng;
 
         document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
       }
@@ -363,6 +363,8 @@ class GeoMaps {
 
       return;
     } );
+
+    return;
   }
 
 /**
@@ -371,10 +373,10 @@ class GeoMaps {
  * @public
  *
  * @param     {string}  id              The Game Player Id (Circle Id)
- * @param     {number}  selectorRadius  The Selector of a input Fiel to set the radius
+ * @param     {number}  selectorRadius  The Selector of a input Field to set the radius
  * @return    {void}
  *
- * @example   objGeoMaps.bindResizeEvents( id, selectorRadius );
+ * @example   geoMaps.bindResizeEvents( id, selectorRadius );
  *
  */
   bindResizeEvents( id, selectorRadius ) {
@@ -382,11 +384,11 @@ class GeoMaps {
 
     if( ! circleElement ) return;
 
-    this.marker[ id ].on( 'mousedown', ( objEvent ) => {
+    this.marker[ id ].on( 'mousedown', ( event ) => {
       this.isResizing[ id ]  = true;
       this.justResized[ id ] = false;
 
-      L.DomEvent.stopPropagation( objEvent );
+      L.DomEvent.stopPropagation( event );
       this.map.dragging.disable();
 
       return;
@@ -402,10 +404,10 @@ class GeoMaps {
       return;
     }, { 'passive': false } );
 
-    this.map.on( 'mousemove', ( objEvent ) => {
+    this.map.on( 'mousemove', ( event ) => {
       if( ! this.isResizing[ id ] ) return;
 
-      const radiusInMeters = this.marker[ id ].getLatLng().distanceTo( objEvent.latlng );
+      const radiusInMeters = this.marker[ id ].getLatLng().distanceTo( event.latlng );
 
       if( radiusInMeters >= 100 && radiusInMeters <= 10000 ) {
         this.marker[ id ].setRadius( radiusInMeters );
@@ -443,9 +445,9 @@ class GeoMaps {
       return;
     }, { 'passive': false });
 
-    this.map.on( 'mouseup', ( objEvent ) => {
+    this.map.on( 'mouseup', ( event ) => {
       if( this.isResizing[ id ] ) {
-        L.DomEvent.stopPropagation( objEvent );
+        L.DomEvent.stopPropagation( event );
 
         this.isResizing[ id ]  = false;
         this.justResized[ id ] = true;
@@ -476,9 +478,9 @@ class GeoMaps {
  * @public
  *
  * @param     {string}  id            The Id
- * @return    {object}  objPosition   The Leaflet Position Object
+ * @return    {object}  position   The Leaflet Position Object
  *
- * @example   objPosition = objGeoMaps.getPosition( id );
+ * @example   const position = geoMaps.getPosition( id );
  *
  */
   getPosition( id ) {
@@ -492,9 +494,9 @@ class GeoMaps {
  *
  * @param     {string}  id1             The Id1
  * @param     {string}  id2             The Id2
- * @return    {number}  floatDistance   The distance between two Ids in Meters
+ * @return    {number}  distance   The distance between two Ids in Meters
  *
- * @example   floatDistance = objGeoMaps.getDistance( id1, id2 );
+ * @example   const distance = geoMaps.getDistance( id1, id2 );
  *
  */
   getDistance( id1, id2 ) {
@@ -512,9 +514,9 @@ class GeoMaps {
  * @param     {string}  role      The Game Player Role (player, hunter or management)
  * @param     {string}  color     The Game Player Color
  * @param     {string}  name      The Text at the Icon
- * @return    {object}  strImage  The Leaflet DivIcon Object
+ * @return    {object}  icon       The Leaflet DivIcon Object
  *
- * @example   strImage = objGeoMaps.getIcon( role, color, name );
+ * @example   const icon = geoMaps.getIcon( role, color, name );
  *
  */
   getIcon( role, color, name ) {
@@ -577,7 +579,7 @@ class GeoMaps {
         svgContent = `<svg width="${size}" height="${size}"><circle cx="18" cy="18" r="8" fill="${color}"/></svg>`;
     }
 
-    if( name && name != '' ) {
+    if( name && name !== '' ) {
       content += '<div class="tactical-marker-wrapper">';
       content += svgContent;
       content += '<span class="marker-label" style="color: ' + color + ';">' + name + '</span>';
@@ -594,4 +596,4 @@ class GeoMaps {
       popupAnchor: [0, -size / 2]
     } );
   }
-}
+};

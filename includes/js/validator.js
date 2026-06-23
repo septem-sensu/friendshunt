@@ -1,4 +1,3 @@
-
 /**
  * This class represents the Validator class with all properties and methods.
  * The Validator class validates input fields as well as passwords and email addresses and throws form errors if necessary.
@@ -31,6 +30,7 @@ class Validator {
     this.fields        = window[ appAlias ].objects.fields;
     this.fieldTypes    = [ 'input', 'select', 'textarea' ];
     this.passwordRules = window[ appAlias ].objects.passwordRules;
+    this.debug         = window[ appAlias ].debug ? true : false;
 
     this.registerEventHandler();
 
@@ -45,7 +45,7 @@ class Validator {
  * @param     {string}   property   The property of the value
  * @return    {*}        value      The value of the property
  *
- * @example   let value = validator.get( property );
+ * @example   const value = validator.get( property );
  *
  * @see Validator#set
  *
@@ -162,45 +162,45 @@ class Validator {
  *
  * @param     {string}   key            The name of the input field
  * @param     {object}   form           The form in which the key is located
- * @return    {boolean}  formIsValide   The result of the check, true: is valid, false: is not valid
+ * @return    {boolean}  formIsValid   The result of the check, true: is valid, false: is not valid
  *
- * @example   let formIsValide = validator._validateField( key, form );
+ * @example   const formIsValid = validator._validateField( key, form );
  *
  */
   _validateField( key, form ) {
     const fields      = this.fields;
-    let formIsValide  = true;
+    let formIsValid  = true;
 
-    if( typeof key != 'string' || key == '' ) return true;
-    if( typeof fields  != 'object' || fields == null ) return true;
-    if( typeof fields[ key ] == 'undefined' || fields[ key ] == null ) return true;
+    if( typeof key !== 'string' || key === '' ) return true;
+    if( typeof fields !== 'object' || fields == null ) return true;
+    if( typeof fields[ key ] === 'undefined' || fields[ key ] == null ) return true;
 
     if( ! fields[ key ].mandatory ) return true;
     const field = form.querySelector( fields[ key ].element + '[name=\'' + key + '\']' );
 
-    if( typeof( field ) != 'object' || field == null ) return true;
+    if( typeof field !== 'object' || field == null ) return true;
 
-    if( fields[ key ].type == 'checkbox' ) {
-      if( ! field.checked ) formIsValide = false;
-    } else if( fields[ key ].type == 'password' ) {
-      const intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
-      if( typeof( field.value ) != 'string' || field.value == '' ) formIsValide = false;
-      if( field.value.length < intMinLength ) formIsValide = false;
+    if( fields[ key ].type === 'checkbox' ) {
+      if( ! field.checked ) formIsValid = false;
+    } else if( fields[ key ].type === 'password' ) {
+      const minLength = typeof fields[ key ].minLength === 'number' ? fields[ key ].minLength : 1;
+      if( typeof field.value !== 'string' || field.value === '' ) formIsValid = false;
+      if( field.value.length < minLength ) formIsValid = false;
       const password2 = form.querySelector( fields[ key ].element + '[name=\'' + key + '2\']' );
-      if( password2 != null && typeof password2.value == 'string' && field.value != password2.value ) formIsValide = false;
-      if( typeof fields[ key ].validatePasswordSecurity == 'boolean' && fields[ key ].validatePasswordSecurity ) {
-        if( ! this._validatePassword( field.value ) ) formIsValide = false;
+      if( password2 != null && typeof password2.value === 'string' && field.value !== password2.value ) formIsValid = false;
+      if( typeof fields[ key ].validatePasswordSecurity === 'boolean' && fields[ key ].validatePasswordSecurity ) {
+        if( ! this._validatePassword( field.value ) ) formIsValid = false;
       }
     } else {
-      const intMinLength = typeof fields[ key ].minLength == 'number' ? fields[ key ].minLength : 1;
-      if( typeof( field.value ) != 'string' || field.value == '' ) formIsValide = false;
-      if( field.value.length < intMinLength ) formIsValide = false;
+      const minLength = typeof fields[ key ].minLength === 'number' ? fields[ key ].minLength : 1;
+      if( typeof field.value !== 'string' || field.value === '' ) formIsValid = false;
+      if( field.value.length < minLength ) formIsValid = false;
     }
-    if( ! formIsValide ) return false;
-    if( fields[ key ].mail && ! this._validateEmail( field.value ) ) formIsValide = false;
-    if( formIsValide ) field.classList.remove( 'form-error' );
+    if( ! formIsValid ) return false;
+    if( fields[ key ].mail && ! this._validateEmail( field.value ) ) formIsValid = false;
+    if( formIsValid ) field.classList.remove( 'form-error' );
 
-    return formIsValide;
+    return formIsValid;
   }
 
 /**
@@ -219,25 +219,25 @@ class Validator {
     const forms  = document.querySelectorAll( 'form' );
 
     for( let u = 0; u < forms.length; u++ ) {
-      let formIsValide = true;
+      let formIsValid = true;
 
-      if( typeof( fields ) != 'object' || fields == null ) return;
+      if( typeof fields !== 'object' || fields == null ) return;
 
-      for ( const key in fields ) {
-        formIsValide = this._validateField( key, forms[ u ] );
+      for( const key in fields ) {
+        formIsValid = this._validateField( key, forms[ u ] );
 
-        if( ! formIsValide ) {
-          if( forms[ u ].querySelector( '.submit' ) == null ) return;
+        if( ! formIsValid ) {
+          if( forms[ u ].querySelector( '.submit' ) == null ) continue;
           forms[ u ].querySelector( '.submit' ).setAttribute( 'disabled', 'disabled' );
           break;
         }
       }
 
-      if( formIsValide ) {
-        if( forms[ u ].querySelector( '.submit' ) == null ) return;
+      if( formIsValid ) {
+        if( forms[ u ].querySelector( '.submit' ) == null ) continue;
         forms[ u ].querySelector( '.submit' ).removeAttribute( 'disabled' );
       } else {
-        if( forms[ u ].querySelector( '.submit' ) == null ) return;
+        if( forms[ u ].querySelector( '.submit' ) == null ) continue;
         forms[ u ].querySelector( '.submit' ).setAttribute( 'disabled', 'disabled' );
       }
     }
@@ -253,7 +253,7 @@ class Validator {
  * @param     {string}   password   The password
  * @return    {boolean}  isValide   The result of the check, true: is valid, false: is not valid
  *
- * @example   let isValide = validator._validatePassword( password );
+ * @example   const isValide = validator._validatePassword( password );
  *
  */
   _validatePassword( password ) {
@@ -288,7 +288,7 @@ class Validator {
  * @param     {string}   email      The email address
  * @return    {boolean}  isValide   The result of the check, true: is valid, false: is not valid
  *
- * @example   let isValide = validator._validateEmail( email );
+ * @example   const isValide = validator._validateEmail( email );
  *
  */
   _validateEmail( email ) {
@@ -336,4 +336,4 @@ class Validator {
     return;
   }
 
-}
+};

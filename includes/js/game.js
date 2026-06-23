@@ -5,7 +5,7 @@
  *
  * @class
  *
- * @see Base
+ * @see BaseObject
  * @see GeoTracker
  * @see GeoMaps
  * @see Utils
@@ -36,7 +36,7 @@ class Game extends BaseObject {
     this.geoMaps           = new GeoMaps();
     this.games             = [];
 
-    this.registerEventListener();
+    this.registerEventHandler();
 
     return;
   }
@@ -53,7 +53,7 @@ class Game extends BaseObject {
  * @example   game.registerEventHandler();
  *
  */
-  registerEventListener() {
+  registerEventHandler() {
     super.registerEventHandler();
 
     const mapInfoLayer = document.querySelectorAll('.event-open-map-layer');
@@ -134,7 +134,7 @@ class Game extends BaseObject {
           post.management.push( managementHtmlObjects[ i ].value );
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -168,7 +168,7 @@ class Game extends BaseObject {
           formData.append( 'redirect', '?view=gameDashboard&class=Game&id=' + window[ appAlias ].id );
         }
 
-        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'proccessResponse' );
+        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'processResponse' );
 
         return;
       } );
@@ -189,7 +189,7 @@ class Game extends BaseObject {
         formData.append( 'method', 'Game::avatarFileUploaded' );
         formData.append( 'redirect', '?view=' + window[ appAlias ].objects.view.alias + '&class=Game&id=' + window[ appAlias ].id );
 
-        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'proccessResponse' );
+        this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'processResponse' );
 
         return;
       } );
@@ -215,18 +215,18 @@ class Game extends BaseObject {
   showMapInInfoLayer( lat, lng, precision, message ) {
     const caller          = this.geoTracker.get( 'caller' ).target;
     const selectorRadius  = '#playingFieldSize';
-    const markerId        = caller.id == 'startPosition' ? 'start' : 'exit';
-    const strColor        = caller.id == 'startPosition' ? '#00aa00' : '#00aa00';
+    const markerId        = caller.id === 'startPosition' ? 'start' : 'exit';
+    const color        = '#00aa00';
     const selector        = '#' + caller.id;
-    const content         = caller.id == 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
+    const content         = caller.id === 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
     const defaultRadius   = 1000;
 
     this.geoMaps.setMap( lat, lng, 'map' );
 
-    if( caller.id == 'playingFieldCenterPosition' ) {
+    if( caller.id === 'playingFieldCenterPosition' ) {
       this.geoMaps.setCircleInteractive( caller.id, defaultRadius, '#ff0000', 1, '#ff0000', 0.08, selector, selectorRadius );
     } else {
-      this.geoMaps.setMarkerInteractive( markerId, markerId, strColor, content, selector );
+      this.geoMaps.setMarkerInteractive( markerId, markerId, color, content, selector );
     }
 
     return;
@@ -246,10 +246,10 @@ class Game extends BaseObject {
   startGame() {
     const post = { 'class': 'Game', 'method': 'startGame', 'id': window[ appAlias ].id };
 
-    Utils.playMessagePiep();
+    Utils.playMessageBeep();
     Utils.triggerMessageVibration();
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post , 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post , 'processResponse' );
 
     return;
   }
@@ -266,7 +266,7 @@ class Game extends BaseObject {
  */
   addGameplayDataToTemplate() {
     const members      = [ 'player', 'hunter', 'management' ];
-    const gameplayData = typeof window[ appAlias ].objects.gameplayData == 'object' && window[ appAlias ].objects.gameplayData != null ? window[ appAlias ].objects.gameplayData : null;
+    const gameplayData = typeof window[ appAlias ].objects.gameplayData === 'object' && window[ appAlias ].objects.gameplayData != null ? window[ appAlias ].objects.gameplayData : null;
 
     for( let i = 0; i < members.length; i++ ) {
       for( let j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
@@ -304,7 +304,7 @@ class Game extends BaseObject {
  *
  */
   addGameImagesContent() {
-    if( typeof window[ appAlias ].objects.gameImages != 'object' || window[ appAlias ].objects.gameImages == null ) return;
+    if( typeof window[ appAlias ].objects.gameImages !== 'object' || window[ appAlias ].objects.gameImages == null ) return;
 
     const gameImages = window[ appAlias ].objects.gameImages;
 
@@ -326,11 +326,11 @@ class Game extends BaseObject {
       imageTrash.setAttribute( 'data-image-id', gameImages[ i ] );
 
       imageTrash.addEventListener( 'click', ( event ) => {
-        const post      = { 'class': 'Game', 'method': 'deleteGameImage', 'class': 'Game', 'id': window[ appAlias ].id };
+        const post = { 'class': 'Game', 'method': 'deleteGameImage', 'id': window[ appAlias ].id };
 
         post.imageId  = event.target.getAttribute( 'data-image-id' );
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -346,10 +346,10 @@ class Game extends BaseObject {
         return;
       } );
 
-      if( typeof window[ appAlias ].systemRole != 'string' || window[ appAlias ].systemRole != 'administrator' ) imageTrash.classList.add( 'hidden' );
+      if( typeof window[ appAlias ].systemRole !== 'string' || window[ appAlias ].systemRole !== 'administrator' ) imageTrash.classList.add( 'hidden' );
 
       imageTag.src         = 'includes/files/game/' + window[ appAlias ].id + '/' + gameImages[ i ];
-      imageTrash.innerHTML = '<img src="includes/images/icon-trash.png" alt="Löschbutton" />'
+      imageTrash.innerHTML = '<img src="includes/images/icon-trash.png" alt="Löschbutton" />';
 
       imageCover.append( imageTag );
       imageCover.append( imageTrash );
@@ -361,7 +361,7 @@ class Game extends BaseObject {
 
 /**
  * This method fires a request to the endpoint to get the data of the archived games.
- * The response of this method is passed from the Communicator object to the proccessResponseGameArchiveList.
+ * The response of this method is passed from the Communicator object to the processResponseGameArchiveList.
  *
  * @public
  *
@@ -371,9 +371,9 @@ class Game extends BaseObject {
  *
  */
   getGameArchiveList() {
-    const post = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getGameArchiveList', 'callbackMethod': 'cProccessResponseGameArchiveList' };
+    const post = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getGameArchiveList', 'callbackMethod': 'processResponseGameArchiveList' };
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseGameArchiveList.bind( this ) );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponseGameArchiveList.bind( this ) );
 
     return;
   }
@@ -387,13 +387,13 @@ class Game extends BaseObject {
  * @param     {object}   response     The response object from the endpoint
  * @return    {void}
  *
- * @example   game.proccessResponseGameArchiveList( response );
+ * @example   game.processResponseGameArchiveList( response );
  *
  */
-  proccessResponseGameArchiveList( response ) {
+  processResponseGameArchiveList( response ) {
     const archiveGames = response.result.archiveGames;
 
-    for ( const gameId in archiveGames ) {
+    for( const gameId in archiveGames ) {
       const contentContainer      = document.createElement( 'div' );
       let contentContainerContent = '<div class="content-container align-left">';
 
@@ -432,7 +432,7 @@ class Game extends BaseObject {
 
     post.gameId = element.getAttribute( 'data-game-id' );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
     return;
   }
@@ -454,7 +454,7 @@ class Game extends BaseObject {
 
     post.gameId = element.getAttribute( 'data-game-id' );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
     return;
   }

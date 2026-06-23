@@ -33,7 +33,7 @@ class Utils {
  *
  * @return    {string}  randomString  A random string
  *
- * @example   let randomString = Utils.s4();
+ * @example   const randomString = Utils.s4();
  *
  */
   static s4() {
@@ -48,7 +48,7 @@ class Utils {
  * @param     {string}  dateTimeString   The date time string
  * @return    {number}  timestamp        The Php Timestamp
  *
- * @example   let timestamp = Utils.stringToPhpTimestamp( dateTimeString );
+ * @example   const timestamp = Utils.stringToPhpTimestamp( dateTimeString );
  *
  */
   static stringToPhpTimestamp( dateTimeString ) {
@@ -65,7 +65,7 @@ class Utils {
  * @param     {string}  dateTimeString   The date time string
  * @return    {number}  timestamp        The JavaScript Timestamp
  *
- * @example   let timestamp = Utils.stringToJsTimestamp( dateTimeString );
+ * @example   const timestamp = Utils.stringToJsTimestamp( dateTimeString );
  *
  */
   static stringToJsTimestamp( dateTimeString ) {
@@ -84,7 +84,7 @@ class Utils {
  * @param     {string}   format          The return format, date for just the date, time for just the time, or datetime for both the date and time
  * @return    {string}   dateTimeString  The date time string
  *
- * @example   let dateTimeString = Utils.timestampPhpToString( timestamp, seconds, format );
+ * @example   const dateTimeString = Utils.timestampPhpToString( timestamp, seconds, format );
  *
  */
   static timestampPhpToString( timestamp, seconds, format ) {
@@ -101,7 +101,7 @@ class Utils {
  * @param     {string}   format          The return format, date for just the date, time for just the time, or datetime for both the date and time
  * @return    {string}   dateTimeString  The date time string
  *
- * @example   let dateTimeString = Utils.timestampJsToString( timestamp, seconds, format );
+ * @example   const dateTimeString = Utils.timestampJsToString( timestamp, seconds, format );
  *
  */
   static timestampJsToString( timestamp, seconds, format ) {
@@ -112,9 +112,9 @@ class Utils {
 
     time           = seconds ? time + ':' + pad( dateTime.getSeconds() ) : time;
 
-    if( format == 'date' ) {
+    if( format === 'date' ) {
       return date;
-    } else if( format == 'time' ) {
+    } else if( format === 'time' ) {
       return time;
     }
 
@@ -128,38 +128,38 @@ class Utils {
  *
  * @return    {void}
  *
- * @example   Utils.playMessagePiep();
+ * @example   Utils.playMessageBeep();
  *
  */
-  static playMessagePiep() {
-    const objAudioCtx       = new ( window.AudioContext || window.webkitAudioContext )();
-    const intNow            = objAudioCtx.currentTime;
-    const objOsc1           = objAudioCtx.createOscillator();
-    const objGain1          = objAudioCtx.createGain();
+  static playMessageBeep() {
+    const audioCtx        = new ( window.AudioContext || window.webkitAudioContext )();
+    const now             = audioCtx.currentTime;
+    const osc1            = audioCtx.createOscillator();
+    const gain1           = audioCtx.createGain();
 
-    objOsc1.type            = 'sine';
-    objOsc1.frequency.value = 1200;
+    osc1.type             = 'sine';
+    osc1.frequency.value  = 1200;
 
-    objGain1.gain.setValueAtTime( 0.2, intNow );
-    objGain1.gain.exponentialRampToValueAtTime( 0.001, intNow + 0.1 );
-    objOsc1.connect( objGain1 );
-    objGain1.connect( objAudioCtx.destination );
-    objOsc1.start( intNow );
-    objOsc1.stop( intNow + 0.1 );
+    gain1.gain.setValueAtTime( 0.2, now );
+    gain1.gain.exponentialRampToValueAtTime( 0.001, now + 0.1 );
+    osc1.connect( gain1 );
+    gain1.connect( audioCtx.destination );
+    osc1.start( now );
+    osc1.stop( now + 0.1 );
 
-    const intStartSound2    = intNow + 0.15;
-    const objOsc2           = objAudioCtx.createOscillator();
-    const objGain2          = objAudioCtx.createGain();
+    const startSound2     = now + 0.15;
+    const osc2            = audioCtx.createOscillator();
+    const gain2           = audioCtx.createGain();
 
-    objOsc2.type            = 'sine';
-    objOsc2.frequency.value = 800;
+    osc2.type             = 'sine';
+    osc2.frequency.value  = 800;
 
-    objGain2.gain.setValueAtTime( 0.2, intStartSound2 );
-    objGain2.gain.exponentialRampToValueAtTime( 0.001, intStartSound2 + 0.4 );
-    objOsc2.connect( objGain2 );
-    objGain2.connect( objAudioCtx.destination ) ;
-    objOsc2.start( intStartSound2 );
-    objOsc2.stop( intStartSound2 + 0.4 );
+    gain2.gain.setValueAtTime( 0.2, startSound2 );
+    gain2.gain.exponentialRampToValueAtTime( 0.001, startSound2 + 0.4 );
+    osc2.connect( gain2 );
+    gain2.connect( audioCtx.destination );
+    osc2.start( startSound2 );
+    osc2.stop( startSound2 + 0.4 );
 
     return;
   }
@@ -175,7 +175,7 @@ class Utils {
  *
  */
   static triggerMessageVibration() {
-    if ( 'vibrate' in navigator ) navigator.vibrate( [ 200, 100, 200 ] );
+    if( 'vibrate' in navigator ) navigator.vibrate( [ 200, 100, 200 ] );
 
     return;
   }
@@ -228,14 +228,14 @@ class Utils {
       document.querySelector( 'body' ).prepend( debugConsole );
     }
 
-    if( typeof mixContent == 'object' ) {
+    if( typeof mixContent === 'object' ) {
       if( mixContent == null ) return;
       mixContent = JSON.stringify( mixContent );
-    } else if( mixContent == 'clear' ) {
+    } else if( mixContent === 'clear' ) {
       debugConsole.innerHTML = '<p>Debug Console</p>';
-    } else if( mixContent == 'hide' ) {
+    } else if( mixContent === 'hide' ) {
       debugConsole.classList.add( 'hidden' );
-    } else if( mixContent == 'unhide' ) {
+    } else if( mixContent === 'unhide' ) {
       debugConsole.classList.remove( 'hidden' );
     }
 
@@ -247,5 +247,4 @@ class Utils {
     return;
   }
 
-
-}
+};

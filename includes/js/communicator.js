@@ -35,6 +35,7 @@ class Communicator {
     this.requestQueue       = [];
     this.maxResponsesLength = 20;
     this.maxRequestCount    = 4;
+    this.debug              = window[ appAlias ].debug ? true : false;
 
     return;
   }
@@ -95,20 +96,20 @@ class Communicator {
     jsonRequestObject.class  = className;
     jsonRequestObject.method = method;
 
-    if( typeof id == 'string' && id != '' ) jsonRequestObject.id = id;
+    if( typeof id === 'string' && id !== '' ) jsonRequestObject.id = id;
 
-    for( const fieldname in window[ appAlias ].fields ) {
+    for( const fieldname in window[ appAlias ].objects.fields ) {
       const field = document.querySelector( '#' + fieldname );
       let value   = null;
 
       if( field == null ) continue;
 
-      if( typeof window[ appAlias ].fields[ fieldname ].element == 'string' && window[ appAlias ].fields[ fieldname ].element == 'img' ) {
-        if( typeof field.src != 'string' || field.src == '' ) continue;
+      if( typeof window[ appAlias ].objects.fields[ fieldname ].element === 'string' && window[ appAlias ].objects.fields[ fieldname ].element === 'img' ) {
+        if( typeof field.src !== 'string' || field.src === '' ) continue;
 
         value = field.src;
       } else {
-        if( typeof field.value == 'undefined' || field.value == '' ) continue;
+        if( typeof field.value === 'undefined' || field.value === '' ) continue;
 
         value = field.value;
       }
@@ -132,7 +133,7 @@ class Communicator {
  */
   manageRequestQueue() {
     if( this.requestQueue.length < 1 ) return;
-    if( typeof this.requestOnTheWay.requestId == 'string' && this.requestOnTheWay.requestId != '' ) return;
+    if( typeof this.requestOnTheWay.requestId === 'string' && this.requestOnTheWay.requestId !== '' ) return;
 
     const request = this.requestQueue.shift();
 
@@ -184,21 +185,21 @@ class Communicator {
  */
   _request( request ) {
     const xhr            = new XMLHttpRequest();
-    const methodAjax     = request.method == 'POSTBIN' ? 'POST' : request.method;
+    const methodAjax     = request.method === 'POSTBIN' ? 'POST' : request.method;
     const getParams      = request.getParams;
     let url              = 'index.php';
 
     this.requestOnTheWay = request;
 
     for( const property in getParams ) {
-      url += url.indexOf( '?' ) == -1 ? '?' : '&';
+      url += url.indexOf( '?' ) === -1 ? '?' : '&';
       url += property + '=' + encodeURIComponent( getParams[ property ] );
     }
 
     xhr.open( methodAjax, url, true );
     xhr.withCredentials = true;
 
-    if( request.method != 'POSTBIN' ) xhr.setRequestHeader( 'Content-type', 'application/json' );
+    if( request.method !== 'POSTBIN' ) xhr.setRequestHeader( 'Content-type', 'application/json' );
 
     xhr.onreadystatechange = () => {
       if( xhr.readyState === 4 ) {
@@ -207,7 +208,7 @@ class Communicator {
 
           if( this.responses.length > this.maxResponsesLength ) this.responses = this.responses.splice( 0, 10 );
 
-          this.proccessResponse( request, JSON.parse( xhr.responseText ) );
+          this.processResponse( request, JSON.parse( xhr.responseText ) );
 
           this.requestOnTheWay = {};
           this.manageRequestQueue();
@@ -228,9 +229,9 @@ class Communicator {
       }
     };
 
-    if( request.method == 'GET' ) {
+    if( request.method === 'GET' ) {
       xhr.send();
-    } else if( request.method == 'POSTBIN' ) {
+    } else if( request.method === 'POSTBIN' ) {
       xhr.send( request.postParams );
     } else {
       xhr.send( JSON.stringify( request.postParams ) );
@@ -249,39 +250,35 @@ class Communicator {
  * @param     {object}  response  The response object that came back from the endpoint and is passed on to the callback method
  * @return    {void}
  *
- * @example   communicator.proccessResponse( request, response );
+ * @example   communicator.processResponse( request, response );
  *
  */
-  proccessResponse( request, response ) {
+  processResponse( request, response ) {
     if( typeof response.errors == 'object' && response.errors != null && response.errors.length > 0 ) {
       for( let i = 0; i < response.errors; i++ ) {
-        if( typeof response.errors[ i ].redirect == 'string' && response.errors[ i ].redirect != '' ) this.manageRedirects( response.errors[ i ].redirect );
+        if( typeof response.errors[ i ].redirect === 'string' && response.errors[ i ].redirect !== '' ) this.manageRedirects( response.errors[ i ].redirect );
       }
     }
 
-    if( typeof response.result == 'object' && response.result != null ) {
-      if( typeof response.result.formErrors == 'object' && response.result.formErrors != null ) this.validator.manageFormErrors( response.result.formErrors );
-      if( typeof response.result.redirect == 'string' && response.result.redirect != '' ) this.manageRedirects( response.result.redirect );
+    if( typeof response.result === 'object' && response.result != null ) {
+      if( typeof response.result.formErrors === 'object' && response.result.formErrors != null ) this.validator.manageFormErrors( response.result.formErrors );
+      if( typeof response.result.redirect === 'string' && response.result.redirect !== '' ) this.manageRedirects( response.result.redirect );
 
       this.setFields( response.result );
 
-      if( response.result.method && response.result.method == 'gameplay' && response.result.callback ) {
-        if(this.debug ) console.log( 'Object Ajax-Response: ', response.result );
+      if( response.result.method && response.result.method === 'gameplay' && response.result.callback ) {
+        if( this.debug ) console.log( 'Object Ajax-Response: ', response.result );
 
-        window[ appAlias ].lastMessageId    = window[ appAlias ].lastMessageId || '';
-        window[ appAlias ].gameplayState    = typeof response.result.state == 'object' && response.result.state != null ? response.result.state : {};
-        window[ appAlias ].gameplayMessages = typeof response.result.messages == 'object' && response.result.messages != null ? response.result.messages : [];
-
-        if( typeof response.result.gameRole == 'string' ) window[ appAlias ].gameplayRole = response.result.gameRole;
+        if( typeof response.result.gameRole === 'string' ) window[ appAlias ].gameplayRole = response.result.gameRole;
       }
     }
 
-    if( typeof response.object == 'object' && response.object != null ) {
+    if( typeof response.object === 'object' && response.object != null ) {
       this.setFields( response.object );
-      if( typeof response.object.redirect == 'string' && response.object.redirect != '' ) this.manageRedirects( response.object.redirect );
+      if( typeof response.object.redirect === 'string' && response.object.redirect !== '' ) this.manageRedirects( response.object.redirect );
     }
 
-    if( typeof request.callbackMethod == 'function' ) request.callbackMethod( response );
+    if( typeof request.callbackMethod === 'function' ) request.callbackMethod( response );
 
     return;
   }
@@ -299,16 +296,16 @@ class Communicator {
  *
  */
   setFields( object ) {
-    if( typeof object != 'object' || object == null ) return;
-    if( typeof window[ appAlias ].fields != 'object' || window[ appAlias ].fields == null ) return;
+    if( typeof object !== 'object' || object == null ) return;
+    if( typeof window[ appAlias ].objects.fields !== 'object' || window[ appAlias ].objects.fields == null ) return;
 
     for( const property in object ) {
       const htmlObject = document.querySelector( '#' + property );
 
-      if( typeof window[ appAlias ].fields[ property ] == 'undefined') continue;
+      if( typeof window[ appAlias ].objects.fields[ property ] === 'undefined' ) continue;
       if( htmlObject == null ) continue;
 
-      if( window[ appAlias ].fields[ property ].element == 'img' ) {
+      if( window[ appAlias ].objects.fields[ property ].element === 'img' ) {
         htmlObject.src = 'files/' + window[ appAlias ].class.toLowerCase() + '/' + window[ appAlias ].id + '/' + object[ property ];
       }
     }
@@ -331,6 +328,6 @@ class Communicator {
     document.location = redirect;
 
     return;
-  };
+  }
 
 }

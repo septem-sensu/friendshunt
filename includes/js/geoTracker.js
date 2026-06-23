@@ -16,7 +16,7 @@
  */
 class GeoTracker {
 
-  /**
+/**
  * This Method is the Constructor for this Class.
  *
  * @public
@@ -33,7 +33,7 @@ class GeoTracker {
       maximumAge: 0              // Do not use old cache values, query them live
     };
 
-    this.trackInterval      = typeof window[ appAlias ].objects.gameSettings == 'object' && typeof window[ appAlias ].objects.gameSettings.trackInterval != 'undefined' ? window[ appAlias ].objects.gameSettings.trackInterval * 1000 : 60000;
+    this.trackInterval      = typeof window[ appAlias ].objects.gameSettings === 'object' && typeof window[ appAlias ].objects.gameSettings.trackInterval !== 'undefined' ? window[ appAlias ].objects.gameSettings.trackInterval * 1000 : 60000;
     this.stepCount          = 0;
     this.lastPulse          = 0;
     this.wakeLock           = null;
@@ -52,7 +52,7 @@ class GeoTracker {
  * @param     {string}   property   The Property to get
  * @return    {*}        value      The Value of the Property
  *
- * @example   let value = geoTracker.stepCount( property );
+ * @example   const value = geoTracker.get( property );
  *
  * @see GeoTracker#set
  *
@@ -140,7 +140,6 @@ class GeoTracker {
  *
  */
   startIntervalTracking( callbackSuccess ) {
-    //if( typeof window[ appAlias ].tracker.intervalTrackingId != 'undefined' && window[ appAlias ].tracker.intervalTrackingId != null ) return;
     if( this.debug ) console.log( 'Tracking läuft... Intervall: ' + this.trackInterval + ' ms' );
 
     this.intervalTrackingId = setInterval(
@@ -162,8 +161,8 @@ class GeoTracker {
  *
  */
   stopIntervalTracking() {
-    clearInterval( window[ appAlias ].tracker.intervalTrackingId );
-    window[ appAlias ].tracker.intervalTrackingId = null;
+    clearInterval( this.intervalTrackingId );
+    this.intervalTrackingId = null;
 
     return;
   }
@@ -201,7 +200,7 @@ class GeoTracker {
  *
  */
   stopWakeLock() {
-    if( this.wakeLock !== null ) return;
+    if( this.wakeLock === null ) return;
 
     this.wakeLock.release().then( () => {
       this.wakeLock = null;
@@ -226,12 +225,12 @@ class GeoTracker {
 
     this.lastPulse = Date.now();
 
-    window.addEventListener( 'devicemotion', ( objEvent ) => {
-      const objAcc = objEvent.accelerationIncludingGravity;
+    window.addEventListener( 'devicemotion', ( event ) => {
+      const acc = event.accelerationIncludingGravity;
 
-      if( !objAcc || objAcc.x === null ) return;
+      if( !acc || acc.x === null ) return;
 
-      const totalAcceleration = Math.sqrt( objAcc.x * objAcc.x + objAcc.y * objAcc.y + objAcc.z * objAcc.z );
+      const totalAcceleration = Math.sqrt( acc.x * acc.x + acc.y * acc.y + acc.z * acc.z );
 
       if( totalAcceleration > 12 && ( Date.now() - this.lastPulse > 300 ) ) {
         this.stepCount++;
@@ -284,7 +283,7 @@ class GeoTracker {
  * @param     {number}  lng2       The Longitude of Waypoint 2 (float)
  * @return    {number}  distance   The Distance between Waypoint 1 and Waypoint 2 in Meters (float)
  *
- * @example   let floatDistance = geoTracker.calcDistance( lat1, lng1, lat2, lng2 );
+ * @example   const distance = geoTracker.calcDistance( lat1, lng1, lat2, lng2 );
  *
  */
   calcDistance( lat1, lng1, lat2, lng2 ) {
@@ -299,4 +298,4 @@ class GeoTracker {
 
     return distance;
   }
-}
+};

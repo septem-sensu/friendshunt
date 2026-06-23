@@ -16,7 +16,7 @@
  * @version   0.1.0
  * @since     2026-06-18
  *
- * @example   const baseObject = new Base();
+ * @example   const baseObject = new BaseObject();
  *
  */
 class BaseObject {
@@ -28,16 +28,17 @@ class BaseObject {
  *
  * @return    {void}
  *
- * @example   const baseObject = new Base();
+ * @example   const baseObject = new BaseObject();
  *
  */
   constructor() {
     this.communicator = new Communicator();
     this.validator    = this.communicator.get( 'validator' );
     this.appAlias     = window.appAlias;
+    this.debug        = window[ appAlias ].debug ? true : false;
 
     for( const property in window[ appAlias ].objects.object ) {
-      if( window[ appAlias ].objects.object[ property ] ) continue;
+      if( this[ property ] ) continue;
       this[ property ] = window[ appAlias ].objects.object[ property ];
     }
 
@@ -56,7 +57,7 @@ class BaseObject {
  *
  * @example   let value = baseObject.get( property );
  *
- * @see Base#set
+ * @see BaseObject#set
  *
  */
   get( property ) {
@@ -74,7 +75,7 @@ class BaseObject {
  *
  * @example   baseObject.set( property, value );
  *
- * @see Base#get
+ * @see BaseObject#get
  *
  */
   set( property, value ) {
@@ -112,7 +113,7 @@ class BaseObject {
       const htmlSpanTag = htmlSpanTags[ i ];
 
       if( htmlSpanTag.classList.contains( 'js-calc-set-default-int' ) ) {
-        if( htmlSpanTag.innerHTML == '' ) htmlSpanTag.innerHTML = '0';
+        if( htmlSpanTag.innerHTML === '' ) htmlSpanTag.innerHTML = '0';
       }
 
       if( htmlSpanTag.classList.contains( 'js-calc-m-km' ) ) {
@@ -139,7 +140,7 @@ class BaseObject {
         document.querySelector('.full-image-layer').style.display = 'block';
         document.querySelector('.full-image').style.display = 'block';
 
-        const tagImage = '<img src="' + this.src + '" />';
+        const tagImage = '<img src="' + event.target.src + '" />';
 
         document.querySelector('.full-image').innerHTML = tagImage;
 
@@ -161,7 +162,7 @@ class BaseObject {
 
     for( let i = 0; i < forms.length; i++ ) {
       if( forms[ i ].querySelector( 'input[name="resetForm"]' ) == null ) continue;
-      if( forms[ i ].querySelector( 'input[name="resetForm"]' ).value != "1" ) continue;
+      if( forms[ i ].querySelector( 'input[name="resetForm"]' ).value !== "1" ) continue;
 
       forms[ i ].reset();
     }
@@ -209,7 +210,7 @@ class BaseObject {
     const newPlayerButton  = document.querySelector( '#new-player-button-container' );
     const archiveButton    = document.querySelector( '#game-archive-button-container' );
 
-    if( role == 'administrator' ) {
+    if( role === 'administrator' ) {
       for( let i = 0; i < deleteButtons.length; i++ ) {
         deleteButtons[ i ].classList.remove( 'hidden' );
       }
@@ -270,15 +271,14 @@ class BaseObject {
 
     localStorageObject     = localStorageObject ? JSON.parse( atob( localStorageObject ) ) : {};
 
-    if( key == '' && localStorageObject[ context ] ) {
+    if( key === '' && localStorageObject[ context ] ) {
       delete localStorageObject[ context ];
-    } else if( value == '' && localStorageObject[ context ] ) {
+    } else if( value === '' && localStorageObject[ context ] ) {
       delete localStorageObject[ context ][ key ];
-    } else if( ! localStorageObject[ context ] ) {
-       localStorageObject[ context ] = {};
+    } else if( context && key && value ) {
+      if( ! localStorageObject[ context ] ) localStorageObject[ context ] = {};
+      localStorageObject[ context ][ key ] = value;
     }
-
-    if( context, key, value ) localStorageObject[ context ][ key ] = value;
 
     localStorage.setItem( this.appAlias,   btoa( JSON.stringify( localStorageObject ) ) );
 

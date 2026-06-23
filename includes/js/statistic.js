@@ -33,6 +33,7 @@ class Statistic {
     this.geoTracker   = new GeoTracker();
     this.communicator = new Communicator();
     this.validator    = this.communicator.get( 'validator' );
+    this.debug        = window[ appAlias ].debug ? true : false;
 
     this.statistic    = null;
     this.response     = null;
@@ -50,7 +51,7 @@ class Statistic {
  * @param     {string}   property   The property of the value
  * @return    {*}        value      The value of the property
  *
- * @example   let value = statistic.get( property );
+ * @example   const value = statistic.get( property );
  *
  * @see Statistic#set
  *
@@ -168,7 +169,7 @@ class Statistic {
  *
  */
   generateGameStatistics( response ) {
-    if( window[ appAlias ].debug ) console.log( response.result );
+    if( this.debug ) console.log( response.result );
 
     this.response = response.result;
 
@@ -325,8 +326,8 @@ class Statistic {
 
     for( const playerId in this.statistic.names ) {
       const cssClass         = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
-      const charched         = this.statistic.names[ playerId ].batteryCharged ? 'Ja' : 'Nein';
-      const cssClassCharched = this.statistic.names[ playerId ].batteryCharged ? 'info-text' : 'warning-text';
+      const charged         = this.statistic.names[ playerId ].batteryCharged ? 'Ja' : 'Nein';
+      const cssClassCharged = this.statistic.names[ playerId ].batteryCharged ? 'info-text' : 'warning-text';
       let cssClassBattery    = 'success-text';
 
       batteryMin             = batteryMin > this.statistic.names[ playerId ].batteryMin ? this.statistic.names[ playerId ].batteryMin : batteryMin;
@@ -341,7 +342,7 @@ class Statistic {
       content               += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].messages + '</td>';
       content               += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].messageSize + '</td>';
       content               += '<td class="align-right pr-10 ' + cssClassBattery + '">' + this.statistic.names[ playerId ].batteryMin + '% / ' + this.statistic.names[ playerId ].batteryMax + '%</td>';
-      content               += '<td class="align-right pr-10 ' + cssClassCharched + '">' + charched + '</td>';
+      content               += '<td class="align-right pr-10 ' + cssClassCharged + '">' + charged + '</td>';
       content               += '</tr>';
     }
 
@@ -389,7 +390,7 @@ class Statistic {
 
     for( let i = 0; i < this.statistic.outOfPlayfield.length; i++ ) {
       const cssClass = this.statistic.names[ this.statistic.outOfPlayfield[ i ].playerId ].captured ? ' danger-text' : '';
-      const end      = typeof this.statistic.outOfPlayfield[ i ].end != 'undefined' ? Utils.timestampPhpToString( this.statistic.outOfPlayfield[ i ].end ) : '--';
+      const end      = typeof this.statistic.outOfPlayfield[ i ].end !== 'undefined' ? Utils.timestampPhpToString( this.statistic.outOfPlayfield[ i ].end ) : '--';
 
       show        = true;
 
@@ -475,7 +476,7 @@ class Statistic {
       content    += '<tbody>';
 
       for( const playerId in this.statistic.names ) {
-        if( role != this.statistic.names[ playerId ].role ) continue;
+        if( role !== this.statistic.names[ playerId ].role ) continue;
 
         const cssClass = this.statistic.names[ playerId ].captured ? ' danger-text' : '';
 
@@ -489,7 +490,7 @@ class Statistic {
         content       += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].steps + '</td>';
         content       += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].distance + ' km</td>';
 
-        if( this.statistic.names[ playerId ].role == 'player' ) {
+        if( this.statistic.names[ playerId ].role === 'player' ) {
           content  += '<td class="align-right warning-text pr-10">' + this.statistic.names[ playerId ].drived + ' km</td>';
         } else {
           content  += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].drived + ' km</td>';
@@ -529,7 +530,7 @@ class Statistic {
  *
  * @return    {object}  statistic  The created Statistic object
  *
- * @example   let statistic = statistic.gameStatistic();
+ * @example   const result = statistic.gameStatistic();
  *
  */
   gameStatistic() {
@@ -544,22 +545,22 @@ class Statistic {
         let drived             = 0;
         let batteryMin         = 100;
         let batteryMax         = 0;
-        let batteryIsCharged   = false;
+        let batteryIsCharging = false;
         let outOfPlayfield     = false;
 
         for( let i = 0; i < tracking.length; i++ ) {
           countSteps         += tracking[ i ].steps;
           batteryMin          = batteryMin > tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMin;
           batteryMax          = batteryMax < tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMax;
-          batteryIsCharged  = tracking[ i ].batteryIsCharching ? true : batteryIsCharged;
+          batteryIsCharging = tracking[ i ].batteryIsCharching ? true : batteryIsCharging;
 
-          if( role != 'management' ) {
-            if( outOfPlayfield == false && tracking[ i ].outOfPlayingField == true ) {
+          if( role !== 'management' ) {
+            if( outOfPlayfield === false && tracking[ i ].outOfPlayingField === true ) {
               this.statistic.names[ playerId ].outOfPlayfield.push( { 'start': tracking[ i ].timestamp, 'playerId': playerId } );
               this.statistic.outOfPlayfield.push( { 'start': tracking[ i ].timestamp, 'playerId': playerId } );
 
               outOfPlayfield = true;
-            } else if( outOfPlayfield == true && tracking[ i ].outOfPlayingField == false ) {
+            } else if( outOfPlayfield === true && tracking[ i ].outOfPlayingField === false ) {
               const outOfPlayfieldLengthPlayer = this.statistic.names[ playerId ].outOfPlayfield.length - 1;
               const outOfPlayfieldLength       = this.statistic.outOfPlayfield.length - 1;
 
@@ -589,7 +590,7 @@ class Statistic {
 
         this.statistic.names[ playerId ].batteryMin      = Math.round( batteryMin );
         this.statistic.names[ playerId ].batteryMax      = Math.round( batteryMax );
-        this.statistic.names[ playerId ].batteryCharged  = batteryIsCharged;
+        this.statistic.names[ playerId ].batteryCharged  = batteryIsCharging;
       }
     }
 
@@ -616,9 +617,9 @@ class Statistic {
       this.statistic.speedHunts += 1;
     }
 
-    if( window[ appAlias ].debug ) console.log( this.statistic );
+    if( this.debug ) console.log( this.statistic );
 
     return;
   }
 
-}
+};

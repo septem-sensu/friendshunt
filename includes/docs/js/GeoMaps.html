@@ -208,7 +208,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">const objGeoMaps = new GeoMaps();</pre>
+    <pre class="sunlight-highlight-javascript">const geoMaps = new GeoMaps();</pre>
 
 
     
@@ -404,7 +404,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.addMarkerCssClass( id, cssClass );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.addMarkerCssClass( id, cssClass );</pre>
 
 
     
@@ -498,7 +498,7 @@
 
             
 
-            <td class="description last">The Selector of a input Fiel to set the radius</td>
+            <td class="description last">The Selector of a input Field to set the radius</td>
         </tr>
 
     
@@ -582,7 +582,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.bindResizeEvents( id, selectorRadius );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.bindResizeEvents( id, selectorRadius );</pre>
 
 
     
@@ -740,7 +740,7 @@
     
             
 <div class="param-desc">
-    objResult  Contains the css Class at the Marker Icon
+    result  Contains the css Class at the Marker Icon
 </div>
 
 
@@ -764,7 +764,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objResult = objGeoMaps.containsMarkerCssClass( id, cssClass );</pre>
+    <pre class="sunlight-highlight-javascript">const result = geoMaps.containsMarkerCssClass( id, cssClass );</pre>
 
 
     
@@ -929,7 +929,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">let value = objGeoMaps.get( property );</pre>
+    <pre class="sunlight-highlight-javascript">let value = geoMaps.get( property );</pre>
 
 
     
@@ -1087,7 +1087,7 @@
     
             
 <div class="param-desc">
-    floatDistance   The distance between two Ids in Meters
+    distance   The distance between two Ids in Meters
 </div>
 
 
@@ -1111,7 +1111,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">floatDistance = objGeoMaps.getDistance( id1, id2 );</pre>
+    <pre class="sunlight-highlight-javascript">const distance = geoMaps.getDistance( id1, id2 );</pre>
 
 
     
@@ -1293,7 +1293,7 @@
     
             
 <div class="param-desc">
-    strImage  The Leaflet DivIcon Object
+    icon       The Leaflet DivIcon Object
 </div>
 
 
@@ -1317,7 +1317,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">strImage = objGeoMaps.getIcon( role, color, name );</pre>
+    <pre class="sunlight-highlight-javascript">const icon = geoMaps.getIcon( role, color, name );</pre>
 
 
     
@@ -1451,7 +1451,7 @@
     
             
 <div class="param-desc">
-    objPosition   The Leaflet Position Object
+    position   The Leaflet Position Object
 </div>
 
 
@@ -1475,7 +1475,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objPosition = objGeoMaps.getPosition( id );</pre>
+    <pre class="sunlight-highlight-javascript">const position = geoMaps.getPosition( id );</pre>
 
 
     
@@ -1629,7 +1629,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.removeMarker( id );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.removeMarker( id );</pre>
 
 
     
@@ -1807,7 +1807,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.removeMarkerCssClass( id, cssClass );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.removeMarkerCssClass( id, cssClass );</pre>
 
 
     
@@ -1992,7 +1992,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.set( property, value );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.set( property, value );</pre>
 
 
     
@@ -2314,7 +2314,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.setCircle( id, lat, lng, size, color, weight, fillColor, opacity );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.setCircle( id, lat, lng, size, color, weight, fillColor, opacity );</pre>
 
 
     
@@ -2456,7 +2456,7 @@
 
             
 
-            <td class="description last">The weight of the Corcle edge</td>
+            <td class="description last">The weight of the Circle edge</td>
         </tr>
 
     
@@ -2636,7 +2636,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.setCircleInteractive( id, size, color, weight, fillColor, opacity, selector, selectorRadius );</pre>
 
 
     
@@ -2862,7 +2862,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.setIcon( id, role, color, name );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.setIcon( id, role, color, name );</pre>
 
 
     
@@ -3020,7 +3020,7 @@
     
             
 <div class="param-desc">
-    objMap      The Leaflet Map Object
+    map      The Leaflet Map Object
 </div>
 
 
@@ -3044,7 +3044,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">let objMap = objGeoMaps.setMap( lat, lng );</pre>
+    <pre class="sunlight-highlight-javascript">const map      = geoMaps.setMap( lat, lng );</pre>
 
 
     
@@ -3366,7 +3366,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.setMarker( id, role, color, lat, lng, content, name );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.setMarker( id, role, color, lat, lng, content, name );</pre>
 
 
     
@@ -3616,7 +3616,7 @@
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">objGeoMaps.setMarkerInteractive( id, role, color, content, selector );</pre>
+    <pre class="sunlight-highlight-javascript">geoMaps.setMarkerInteractive( id, role, color, content, selector );</pre>
 
 
     
@@ -3672,7 +3672,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a>
 	
-		on 2026-06-22T14:06:25+02:00
+		on 2026-06-23T20:35:33+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

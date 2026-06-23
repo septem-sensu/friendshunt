@@ -4,7 +4,7 @@
  *
  * @class
  *
- * @see Base
+ * @see BaseObject
  * @see Communicator
  * @see Utils
  *
@@ -17,7 +17,6 @@
  */
 
 class Player extends BaseObject {
-
 /**
  * This method is the constructor of the class.
  *
@@ -64,7 +63,7 @@ class Player extends BaseObject {
         post.name     = document.querySelector( '#name' ).value;
         post.password = document.querySelector( '#password' ).value;
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -79,7 +78,7 @@ class Player extends BaseObject {
         post.id    =  post.email;
         post.image = 'avatar.png';
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -91,20 +90,20 @@ class Player extends BaseObject {
       passwordChangeButton.addEventListener( 'click', ( event ) => {
         const element = event.target;
 
-        if( element.hasAttribute( 'disabled' ) && typeof element.getAttribute( 'disabled' ) == 'string' && element.getAttribute( 'disabled' ) == 'disabled' ) return;
+        if( element.hasAttribute( 'disabled' ) && typeof element.getAttribute( 'disabled' ) === 'string' && element.getAttribute( 'disabled' ) === 'disabled' ) return;
 
         const password1 = document.querySelector( '#password' ) != null ? document.querySelector( '#password' ).value : null;
         const password2 = document.querySelector( '#password2' ) != null ? document.querySelector( '#password2' ).value : null;
         const post      = { 'class': window[ appAlias ].class, 'id': window[ appAlias ].id, 'method': 'saveRequestObject', 'password': password1, 'redirect': 'index.php?view=player' };
 
-        if( password1 == null || password2 == null || password1 != password2 || ! this.validator._validatePassword( password1 ) ) {
+        if( password1 == null || password2 == null || password1 !== password2 || ! this.validator._validatePassword( password1 ) ) {
           this.validator.manageFormErrors( [ { 'field': '#password' }, { 'field': '#password2' } ] );
           return;
         }
 
         this.validator.resetFormErrors();
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -118,7 +117,7 @@ class Player extends BaseObject {
 
         post.redirect = 'index.php?view=player';
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
       } );
     }
 
@@ -132,12 +131,10 @@ class Player extends BaseObject {
         const post        = { 'class': 'Game', 'method': 'addPlayerToGame', 'player': searchField };
 
         if( searchField == null || searchField.length < 6 ) {
-          this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );
-
-          return;
+          this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );          return;
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseAddPlayerToGame.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponseAddPlayerToGame.bind( this ) );
 
         return;
       } );
@@ -158,7 +155,7 @@ class Player extends BaseObject {
           return;
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseAddHunterToGame.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponseAddHunterToGame.bind( this ) );
 
         return;
       } );
@@ -179,7 +176,7 @@ class Player extends BaseObject {
           return;
         }
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.proccessResponseAddManagementToGame.bind( this ) );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponseAddManagementToGame.bind( this ) );
 
         return;
       } );
@@ -191,7 +188,7 @@ class Player extends BaseObject {
 
     if( loginSubmit != null && inputLoginName != null && inputLoginPassword != null ) {
       inputLoginName.addEventListener( 'keydown', function( event ) {
-        if ( event.key === 'Enter' ) {
+        if( event.key === 'Enter' ) {
           event.preventDefault();
           loginSubmit.click();
         }
@@ -200,7 +197,7 @@ class Player extends BaseObject {
       } );
 
       inputLoginPassword.addEventListener( 'keydown', function( event ) {
-        if ( event.key === 'Enter' ) {
+        if( event.key === 'Enter' ) {
           event.preventDefault();
           loginSubmit.click();
         }
@@ -221,7 +218,7 @@ class Player extends BaseObject {
         post.title       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
         post.description = document.querySelector('#description') != null ? document.querySelector('#description').value : null;
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -233,7 +230,7 @@ class Player extends BaseObject {
       playerDeleteButton.addEventListener( 'click', () => {
         const post = { 'class': window[ appAlias ].class, 'method': 'deletePlayer', 'id': window[ appAlias ].id };
 
-        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
         return;
       } );
@@ -254,7 +251,7 @@ class Player extends BaseObject {
         formData.append( 'method', 'Player::avatarFileUploaded' );
         formData.append( 'redirect', '?view=' + window[ appAlias ].objects.view.alias + '&class=Player&id=' + window[ appAlias ].id );
 
-        return this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'proccessResponse' );
+        return this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'processResponse' );
       } );
     }
 
@@ -263,7 +260,7 @@ class Player extends BaseObject {
 
 /**
  * This method creates a Request object to fetch the players of a game and fires it to the endpoint via the Communicator object.
- * The callback method is the proccessResponsePlayerList method which further processes the player data.
+ * The callback method is the processResponsePlayerList method which further processes the player data.
  *
  * @public
  *
@@ -275,7 +272,7 @@ class Player extends BaseObject {
   getPlayerList() {
     const post          = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'getPlayerList' };
 
-    post.callbackMethod = 'proccessResponsePlayerList';
+    post.callbackMethod = 'processResponsePlayerList';
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
@@ -293,13 +290,13 @@ class Player extends BaseObject {
  *
  * @todo      Player avatar must be fetched by the player and not saved in the games folder.
  *
- * @example   player.proccessResponsePlayerList( response );
+ * @example   player.processResponsePlayerList( response );
  *
  */
-  proccessResponsePlayerList( response ) {
+  processResponsePlayerList( response ) {
     const playerList = response.result.playerList;
 
-    for ( const playerId in playerList ) {
+    for( const playerId in playerList ) {
       const contentContainer      = document.createElement( 'div' );
       let contentContainerContent = '<div class="content-container align-left">';
 
@@ -398,10 +395,10 @@ class Player extends BaseObject {
 
     post.id    = element.closest( '.content-container' ).querySelector( 'input[name="game-id"]' ).value;
 
-    Utils.playMessagePiep();
+    Utils.playMessageBeep();
     Utils.triggerMessageVibration();
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post , 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post , 'processResponse' );
 
     return;
   }
@@ -415,11 +412,11 @@ class Player extends BaseObject {
  * @param     {object}  response   The Response object returned by the Communicator object
  * @return    {void}
  *
- * @example   player.proccessResponseAddPlayerToGame( response );
+ * @example   player.processResponseAddPlayerToGame( response );
  *
  */
-  proccessResponseAddPlayerToGame( response ) {
-    if( response.result.method != 'addPlayerToGame' ) return;
+  processResponseAddPlayerToGame( response ) {
+    if( response.result.method !== 'addPlayerToGame' ) return;
 
     if( document.querySelector( '#' + response.result.player.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' ) ) != null ) {
       this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );
@@ -427,7 +424,7 @@ class Player extends BaseObject {
       return;
     }
 
-    if( typeof response.result.playerObject != 'object' || response.result.playerObject == null ) {
+    if( typeof response.result.playerObject !== 'object' || response.result.playerObject == null ) {
       this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );
 
       return;
@@ -457,11 +454,11 @@ class Player extends BaseObject {
  * @param     {object}  response   The Response object returned by the Communicator object
  * @return    {void}
  *
- * @example   player.proccessResponseAddHunterToGame( response );
+ * @example   player.processResponseAddHunterToGame( response );
  *
  */
-  proccessResponseAddHunterToGame( response ) {
-    if( response.result.method != 'addHunterToGame' ) return;
+  processResponseAddHunterToGame( response ) {
+    if( response.result.method !== 'addHunterToGame' ) return;
 
     if( document.querySelector( '#' + response.result.player.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' ) ) != null ) {
       this.validator.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
@@ -469,7 +466,7 @@ class Player extends BaseObject {
       return;
     }
 
-    if( typeof response.result.playerObject != 'object' || response.result.playerObject == null ) {
+    if( typeof response.result.playerObject !== 'object' || response.result.playerObject == null ) {
       this.validator.manageFormErrors( [ { 'field': '#search-hunter-field' } ] );
 
       return;
@@ -499,11 +496,11 @@ class Player extends BaseObject {
  * @param     {object}  response   The Response object returned by the Communicator object
  * @return    {void}
  *
- * @example   player.proccessResponseAddManagementToGame( response );
+ * @example   player.processResponseAddManagementToGame( response );
  *
  */
-  proccessResponseAddManagementToGame( response ) {
-    if( response.result.method != 'addManagementToGame' ) return;
+  processResponseAddManagementToGame( response ) {
+    if( response.result.method !== 'addManagementToGame' ) return;
 
     if( document.querySelector( '#' + response.result.player.replaceAll( '@', 'at' ).replaceAll( '.', 'punkt' ) ) != null ) {
       this.validator.manageFormErrors( [ { 'field': '#search-management-field' } ] );
@@ -511,7 +508,7 @@ class Player extends BaseObject {
       return;
     }
 
-    if( typeof response.result.playerObject != 'object' || response.result.playerObject == null ) {
+    if( typeof response.result.playerObject !== 'object' || response.result.playerObject == null ) {
       this.validator.manageFormErrors( [ { 'field': '#search-management-field' } ] );
 
       return;
@@ -548,7 +545,7 @@ class Player extends BaseObject {
   getPlayerInfoHtml( player, inputName ) {
     let contentContainerContent = '';
 
-    if( typeof player != 'object' || player == null ) return;
+    if( typeof player !== 'object' || player == null ) return;
 
     contentContainerContent    += '<table class="w-100p"><tr><td class="w-160 align-top">';
     contentContainerContent    += '<img class="c-dashboard-player-image" src="includes/files/player/' + player.email + '/' + player.image + '" />';
@@ -567,7 +564,7 @@ class Player extends BaseObject {
 
 /**
  * This method creates a request object to archive a game and fires it to the endpoint via the Communicator object.
- * The callback method is the proccessResponseArchiveGame method.
+ * The callback method is the processResponseArchiveGame method.
  *
  * @public
  *
@@ -580,9 +577,9 @@ class Player extends BaseObject {
   archiveGame( element ) {
     const htmlGamesContainer = element.closest( '.content-container' );
     const gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
-    const post               = { 'class': 'Game', 'id': gameId, 'method': 'archiveGame', 'callbackMethod': 'proccessResponseArchiveGame' };
+    const post               = { 'class': 'Game', 'id': gameId, 'method': 'archiveGame', 'callbackMethod': 'processResponseArchiveGame' };
 
-    if( typeof gameId != 'string' || gameId == null ) return;
+    if( typeof gameId !== 'string' || gameId == null ) return;
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
@@ -597,12 +594,12 @@ class Player extends BaseObject {
  * @param     {object}  response   The Response object returned by the Communicator object
  * @return    {void}
  *
- * @example   player.proccessResponseArchiveGame( response );
+ * @example   player.processResponseArchiveGame( response );
  *
  */
-  proccessResponseArchiveGame( response ) {
-    if( typeof response.result.method != 'string' || response.result.method != 'archiveGame' ) return;
-    if( typeof response.result.id != 'string' || response.result.id == '' ) return;
+  processResponseArchiveGame( response ) {
+    if( typeof response.result.method !== 'string' || response.result.method !== 'archiveGame' ) return;
+    if( typeof response.result.id !== 'string' || response.result.id === '' ) return;
 
     document.querySelector( 'input[value="' + response.result.id + '"]' ).closest('.content-container').remove();
 
@@ -612,7 +609,7 @@ class Player extends BaseObject {
 /**
  * This method creates a request object to delete a game in the player dashboard view.
  * The Request object is fired to the endpoint via the Communicator object.
- * The callback method for this request is the proccessResponseDeleteGame method.
+ * The callback method for this request is the processResponseDeleteGame method.
  *
  * @public
  *
@@ -625,9 +622,9 @@ class Player extends BaseObject {
   deleteGame( element ) {
     const htmlGamesContainer = element.closest( '.content-container' );
     const gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
-    const post               = { 'class': 'Game', 'id': gameId, 'method': 'deleteGame', 'callbackMethod': 'proccessResponseDeleteGame' };
+    const post               = { 'class': 'Game', 'id': gameId, 'method': 'deleteGame', 'callbackMethod': 'processResponseDeleteGame' };
 
-    if( typeof gameId != 'string' || gameId == null ) return;
+    if( typeof gameId !== 'string' || gameId == null ) return;
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
@@ -642,12 +639,12 @@ class Player extends BaseObject {
  * @param     {object}  response   The Response object returned by the Communicator object
  * @return    {void}
  *
- * @example   player.proccessResponseDeleteGame( response );
+ * @example   player.processResponseDeleteGame( response );
  *
  */
-  proccessResponseDeleteGame( response ) {
-    if( typeof response.result.method != 'string' || response.result.method != 'deleteGame' ) return;
-    if( typeof response.result.id != 'string' || response.result.id == '' ) return;
+  processResponseDeleteGame( response ) {
+    if( typeof response.result.method !== 'string' || response.result.method !== 'deleteGame' ) return;
+    if( typeof response.result.id !== 'string' || response.result.id === '' ) return;
 
     document.querySelector( 'input[value="' + response.result.id + '"]' ).closest('.content-container').remove();
 
@@ -670,9 +667,9 @@ class Player extends BaseObject {
 
     post.deletePlayerId = element.getAttribute( 'data-player-id' );
 
-    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'proccessResponse' );
+    this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 
     return;
   }
 
-}
+};

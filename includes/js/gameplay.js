@@ -1,6 +1,6 @@
 /**
  * The Gameplay class controls the game with all the options the game offers.
- * This method requires the Communicator class, the GeoTracker class, the GeoMaps class,
+ * This class requires the Communicator class, the GeoTracker class, the GeoMaps class,
  * the Game class and the Battery Tracker class.
  * The class controls the Silent Hunts, the Speed Hunts, fires the tracking to the end point,
  * counts steps and monitors the device's battery level.
@@ -49,7 +49,7 @@ class Gameplay extends Game {
     this.markerCssClassCaptured = 'game-marker-captured';
 
     this.batteryTracker         = new BatteryTracker();
-    this.game                   = new Game( gameId );
+    this.game                   = new Game();
     this.gameId                 = gameId;
     this.playerId               = playerId;
     this.playerRole             = null;
@@ -193,7 +193,7 @@ class Gameplay extends Game {
           this.speedHuntMessage = 'Es läuft ein Speedhunt, Ping ' + this.gameplayState.speedHuntState.speedHuntCount + ' von ' + this.gameplayState.speedHuntState.speedHuntCountMax + '. ';
           this.speedHuntPlayerIds.push( this.gameplayState.speedHuntState.playerId );
           this.affectedPlayerIds.push( this.gameplayState.speedHuntState.playerId );
-        } else if( typeof this.gameplayState.speedHuntState.next == 'undefined' ) {
+        } else if( typeof this.gameplayState.speedHuntState.next === 'undefined' ) {
           this.speedHuntMessage = 'Speedhunt ist verfügbar. ';
         } else if( this.gameplayState.speedHuntState.next > this.gameSettings.end ) {
           this.speedHuntMessage = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
@@ -205,12 +205,12 @@ class Gameplay extends Game {
       // Cheating Players
       if( this.gameplayState.systemMessages ) {
         for( let i = 0; i < this.gameplayState.systemMessages.length; i++ ) {
-          if( this.gameplayState.systemMessages[ i ].type != 'violationoftherules' ) continue;
+          if( this.gameplayState.systemMessages[ i ].type !== 'violationoftherules' ) continue;
           if( ! this.gameplayState.systemMessages[ i ].applies ) continue;
           if( ! this.gameplayState.systemMessages[ i ].appliesRole ) continue;
-          if( this.gameplayState.systemMessages[ i ].appliesRole == 'player' ) this.cheatPlayerIds.push( this.gameplayState.systemMessages[ i ].applies );
-          if( this.gameplayState.systemMessages[ i ].appliesRole == 'hunter' ) this.cheatHunterIds.push( this.gameplayState.systemMessages[ i ].applies );
-          if( this.gameplayState.systemMessages[ i ].appliesRole == 'management' ) this.cheatManagementIds.push( this.gameplayState.systemMessages[ i ].applies );
+          if( this.gameplayState.systemMessages[ i ].appliesRole === 'player' ) this.cheatPlayerIds.push( this.gameplayState.systemMessages[ i ].applies );
+          if( this.gameplayState.systemMessages[ i ].appliesRole === 'hunter' ) this.cheatHunterIds.push( this.gameplayState.systemMessages[ i ].applies );
+          if( this.gameplayState.systemMessages[ i ].appliesRole === 'management' ) this.cheatManagementIds.push( this.gameplayState.systemMessages[ i ].applies );
           this.affectedPlayerIds.push( this.gameplayState.systemMessages[ i ].applies );
         }
       }
@@ -246,7 +246,8 @@ class Gameplay extends Game {
     if( gamePermissionPedometerButton != null ) {
       gamePermissionPedometerButton.addEventListener( 'click', ( event ) => {
         this.geoTracker.checkPedometerSensor();
-        document.querySelector( '.game-permission-pedometer' ).remove();
+        const gamePermissionPedometerContainer = document.querySelector( '.game-permission-pedometer' );
+        if( gamePermissionPedometerContainer ) gamePermissionPedometerContainer.remove();
 
         return;
       } );
@@ -256,13 +257,13 @@ class Gameplay extends Game {
 
     if( gameSystemMessagesOkButton != null ) {
       gameSystemMessagesOkButton.addEventListener( 'click', ( event ) => {
-        const arrDontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
+        const dontShowMessages = document.querySelectorAll( 'input[name="dontShow"]' );
         const replayPanel         = document.querySelector( '.replay-panel' );
 
-        for( let i = 0; i < arrDontShowMessages.length; ++i ) {
-          if( ! arrDontShowMessages[ i ].checked ) continue;
+        for( let i = 0; i < dontShowMessages.length; ++i ) {
+          if( ! dontShowMessages[ i ].checked ) continue;
 
-          this.systemMessagesDontShow[ arrDontShowMessages[ i ].value ] = true;
+          this.systemMessagesDontShow[ dontShowMessages[ i ].value ] = true;
         }
 
         this.setLocalStorage( this.gameId, 'systemMessagesDontShow', this.systemMessagesDontShow );
@@ -294,7 +295,7 @@ class Gameplay extends Game {
       } );
 
       newGameplayMessageInput.addEventListener( 'keydown', function( event ) {
-        if ( event.key === 'Enter' ) {
+        if( event.key === 'Enter' ) {
           if( this.value.length < 1 ) return;
 
           event.preventDefault();
@@ -391,7 +392,7 @@ class Gameplay extends Game {
     }
 
     return;
-  };
+  }
 
 /**
  * This method creates a tracking object with longitude, longitude, number of steps, battery level and some more
@@ -540,10 +541,10 @@ class Gameplay extends Game {
       const newSystemMessage     = document.createElement( 'div' );
       let message                = '';
       let applies                = '';
-      const cssClass             = typeof systemMessages[ i ].cssClass == 'string' ? ' class="' + systemMessages[ i ].cssClass + '"' : '';
+      const cssClass             = typeof systemMessages[ i ].cssClass === 'string' ? ' class="' + systemMessages[ i ].cssClass + '"' : '';
 
-      if( typeof systemMessages[ i ].applies == 'string' && systemMessages[ i ].applies != '' ) {
-        if( this.gameplayRole == 'hunter' && gameSettings.showNames != '1' && systemMessages[ i ].appliesRole == 'player' ) {
+      if( typeof systemMessages[ i ].applies === 'string' && systemMessages[ i ].applies !== '' ) {
+        if( this.gameplayRole === 'hunter' && gameSettings.showNames !== '1' && systemMessages[ i ].appliesRole === 'player' ) {
           applies = '<p' + cssClass + '>Betrifft: Spieler ' + systemMessages[ i ].appliesCount + '</p>';
         } else {
           applies = '<p' + cssClass + '>Betrifft: ' + systemMessages[ i ].appliesName + '</p>';
@@ -564,7 +565,7 @@ class Gameplay extends Game {
 
     if( ! showLayer ) return;
 
-    Utils.playMessagePiep();
+    Utils.playMessageBeep();
     Utils.triggerMessageVibration();
 
     if( this.replayData && replayPanel ) replayPanel.classList.add( 'hidden' );
@@ -629,9 +630,9 @@ class Gameplay extends Game {
     if( this.capturedPlayerIds.includes( this.playerId ) ) return;
     if( ! this.gameplayState.isRunning ) return;
 
-    const floatPlayerDistance = this.geoMaps.getDistance( 'playingFieldCenterPosition', this.playerId );
+    const playerDistance = this.geoMaps.getDistance( 'playingFieldCenterPosition', this.playerId );
 
-    if( floatPlayerDistance > parseInt( this.gameSettings.playingFieldSize ) + 50 ) {
+    if( playerDistance > parseInt( this.gameSettings.playingFieldSize ) + 50 ) {
       this.outOfPlayingField = true;
     } else {
       this.outOfPlayingField = false;
@@ -656,7 +657,7 @@ class Gameplay extends Game {
     let stateLine = '';
 
     if( this.isRunning ) {
-      if( this.gameplayState.speedHuntState.speedHuntCount > 0 &&  this.gameplayRole != 'hunter' ) {
+      if( this.gameplayState.speedHuntState.speedHuntCount > 0 &&  this.gameplayRole !== 'hunter' ) {
         stateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">' + this.speedHuntMessage + '</span> ';
       } else {
         stateLine += this.speedHuntMessage;
@@ -699,29 +700,30 @@ class Gameplay extends Game {
     let markerContent     = '';
 
     // Marker Content
-    if( gameplayRole == 'player' ) {
-      if( this.playerRole == 'player' ) {
-        if( this.gameSettings.showPlayer == 0 && tracking.id != this.playerId ) return;
+    if( gameplayRole === 'player' ) {
+      if( this.playerRole === 'player' ) {
+        if( this.gameSettings.showPlayer === 0 && tracking.id !== this.playerId ) return;
 
         markerContent   += '<p class="bold">' + tracking.name + '</p>';
-      } else if( this.playerRole == 'hunter' ) {
-        let playerName = this.gameSettings.showNames == '1' ? tracking.name : 'Spieler ' + playerCount;
+      } else if( this.playerRole === 'hunter' ) {
+        let playerName = this.gameSettings.showNames === '1' ? tracking.name : 'Spieler ' + playerCount;
 
-        if( this.isRunning && ! this.capturedPlayerIds.includes( tracking.id ) && ( speedHuntState.speedHuntCount == 0 || tracking.id == speedHuntState.playerId ) ) {
+        if( this.isRunning && ! this.capturedPlayerIds.includes( tracking.id ) && ( speedHuntState.speedHuntCount === 0 || tracking.id === speedHuntState.playerId ) ) {
           markerContent   += '<p class="bold pointer success-text" onclick="javascript: window[ appAlias ].objects.gameplay.speedHunt( \'' + tracking.id + '\' );">' + playerName + '</p>';
         } else {
           markerContent   += '<p class="bold">' + playerName + '</p>';
         }
       } else {
-        let playerName   = this.gameSettings.showNames == '1' ? tracking.name : tracking.name + ' (Spieler ' + playerCount + ')';
+        let playerName   = this.gameSettings.showNames === '1' ? tracking.name : tracking.name + ' (Spieler ' + playerCount + ')';
+
         markerContent   += '<p class="bold">' + playerName + '</p>';
       }
 
       markerContent   += '<p>Rolle: Spieler</p>';
-      markerContent   += this.speedHuntMessage != '' && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p>' + this.speedHuntMessage + '</p>' : '';
-      markerContent   += this.silentHuntMessage != '' && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p>' + this.silentHuntMessage + '</p>' : '';
-    } else if( gameplayRole == 'hunter' ) {
-      if( this.playerRole == 'player' ) return;
+      markerContent   += this.speedHuntMessage !== '' && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p>' + this.speedHuntMessage + '</p>' : '';
+      markerContent   += this.silentHuntMessage !== '' && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p>' + this.silentHuntMessage + '</p>' : '';
+    } else if( gameplayRole === 'hunter' ) {
+      if( this.playerRole === 'player' ) return;
       markerContent   += '<p class="bold">' + tracking.name + '</p>';
       markerContent   += '<p>Rolle: Jäger</p>';
     } else {
@@ -731,7 +733,7 @@ class Gameplay extends Game {
 
     markerContent   += '<p>Letztes Tracking: ' + Utils.timestampPhpToString( lastPosition.timestamp, true ) + ' Uhr</p>';
     markerContent   += '<p>Genauigkeit: ' + lastPosition.precision + ' Meter</p>';
-    markerContent   += this.isRunning && this.playerRole == 'player' && tracking.id == this.playerId && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].objects.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>' : '';
+    markerContent   += this.isRunning && this.playerRole === 'player' && tracking.id === this.playerId && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].objects.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>' : '';
     markerContent   += this.capturedPlayerIds.includes( tracking.id ) ? '<p class="bold">Wurde am ' + Utils.timestampPhpToString( this.capturedPlayer[ tracking.id ].timestamp ) + ' Uhr gefangen.</p>' : '';
 
     // Set Marker with color and add css class
@@ -739,17 +741,17 @@ class Gameplay extends Game {
       this.geoMaps.setMarker( tracking.id, gameplayRole, this.capturedColor, lastPosition.lat, lastPosition.lng, markerContent );
       this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassCaptured );
 
-      if( tracking.id == this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
-    } else if( this.playerRole != 'player' && this.affectedPlayerIds.includes( tracking.id ) ) {
+      if( tracking.id === this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
+    } else if( this.playerRole !== 'player' && this.affectedPlayerIds.includes( tracking.id ) ) {
       this.geoMaps.setMarker( tracking.id, gameplayRole, this.affectedColor, lastPosition.lat, lastPosition.lng, markerContent );
       this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassAlarm );
-    } else if( this.playerRole == 'player' && this.cheatPlayerIds.includes( tracking.id ) ) {
+    } else if( this.playerRole === 'player' && this.cheatPlayerIds.includes( tracking.id ) ) {
       this.geoMaps.setMarker( tracking.id, gameplayRole, this.affectedColor, lastPosition.lat, lastPosition.lng, markerContent );
       this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassAlarm );
     } else {
       this.geoMaps.setMarker( tracking.id, gameplayRole, this.colors[ playerCount ], lastPosition.lat, lastPosition.lng, markerContent );
 
-      if( tracking.id == this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
+      if( tracking.id === this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
     }
 
     return;
@@ -834,38 +836,38 @@ class Gameplay extends Game {
       const realPlayerName = message.playerName;
       let playerName       = '';
 
-      content           += message.playerId == this.playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + message.id + '"><div>';
+      content           += message.playerId === this.playerId ? '<div class="game-message-from-me"><div>' : '<div class="game-message-from-other" id="' + message.id + '"><div>';
 
-      if( message.playerId != this.playerId ) lastMessageId = message.id;
+      if( message.playerId !== this.playerId ) lastMessageId = message.id;
 
-      if( playerName == '' ) {
+      if( playerName === '' ) {
         for( let j = 0; j < this.gameSettings.playerIds.length; j++ ) {
-          if( this.gameSettings.playerIds[ j ] != message.playerId ) continue;
+          if( this.gameSettings.playerIds[ j ] !== message.playerId ) continue;
 
-          playerName  = this.gameSettings.showNames == '1' ? realPlayerName + ' - Spieler' : 'Spieler ' + ( j + 1 );
-          playerName  = message.playerId == this.playerId ? realPlayerName + ' - Spieler' : playerName;
+          playerName  = this.gameSettings.showNames === '1' ? realPlayerName + ' - Spieler' : 'Spieler ' + ( j + 1 );
+          playerName  = message.playerId === this.playerId ? realPlayerName + ' - Spieler' : playerName;
 
           break;
         }
       }
 
-      if( playerName == '' ) {
+      if( playerName === '' ) {
         for( let j = 0; j < this.gameSettings.hunterIds.length; j++ ) {
-          if( this.gameSettings.hunterIds[ j ] != message.playerId ) continue;
+          if( this.gameSettings.hunterIds[ j ] !== message.playerId ) continue;
 
-          playerName  = this.gameSettings.showNames == '1' ? realPlayerName + ' - Jäger' : 'Jäger ' + ( j + 1 );
-          playerName  = message.playerId == this.playerId ? realPlayerName + ' - Jäger' : playerName;
+          playerName  = this.gameSettings.showNames === '1' ? realPlayerName + ' - Jäger' : 'Jäger ' + ( j + 1 );
+          playerName  = message.playerId === this.playerId ? realPlayerName + ' - Jäger' : playerName;
 
           break;
         }
       }
 
-      if( playerName == '' ) {
-        for( let j = 0; j < this.gameSettings.managementIds.length;j++ ) {
-          if( this.gameSettings.managementIds[ j ] != message.playerId ) continue;
+      if( playerName === '' ) {
+        for( let j = 0; j < this.gameSettings.managementIds.length; j++ ) {
+          if( this.gameSettings.managementIds[ j ] !== message.playerId ) continue;
 
-          playerName  = this.gameSettings.showNames == '1' ? realPlayerName + ' - Spielleitung' : 'Spielleitung ' + ( j + 1 );
-          playerName  = message.playerId == this.playerId ? realPlayerName + ' - Spielleitung' : playerName;
+          playerName  = this.gameSettings.showNames === '1' ? realPlayerName + ' - Spielleitung' : 'Spielleitung ' + ( j + 1 );
+          playerName  = message.playerId === this.playerId ? realPlayerName + ' - Spielleitung' : playerName;
 
           break;
         }
@@ -880,12 +882,12 @@ class Gameplay extends Game {
 
     messageContainer.scrollTo( { 'top': messageContainer.scrollHeight, 'behavior': 'smooth' } );
 
-    if( lastMessageId != this.lastMessageId ) {
+    if( lastMessageId !== this.lastMessageId ) {
       this.lastMessageId = lastMessageId;
 
       this.setLocalStorage( this.gameId, 'lastMessageId', this.lastMessageId );
 
-      Utils.playMessagePiep();
+      Utils.playMessageBeep();
       Utils.triggerMessageVibration();
 
       if( document.querySelector( '#game-message-layer' ).classList.contains( 'hidden' ) ) document.querySelector( '.icon-new-message' ).classList.remove( 'hidden' );
@@ -943,7 +945,7 @@ class Gameplay extends Game {
     const captured   = response.gameplay.captured;
     const cheats     = response.violationsOfTheRules;
 
-    if( window[ appAlias ].debug ) console.log( 'generateReplay Response: ', response );
+    if( this.debug ) console.log( 'generateReplay Response: ', response );
 
     this.replayData    = {
       'roles': { 'player': 'Spieler', 'hunter': 'Jäger', 'management': 'Spielleitung' },
@@ -1019,7 +1021,7 @@ class Gameplay extends Game {
       }
     }
 
-    // Caputure
+    // Capture
     for( let i = 0; i < captured.length; i++ ) {
       this.replayData.trackings.push( {
         'type': 'capture',
@@ -1032,8 +1034,8 @@ class Gameplay extends Game {
       } );
     }
 
-    this.replayData.trackings.sort( function( objA, objB ) {
-      return objA.timestamp - objB.timestamp;
+    this.replayData.trackings.sort( function( a, b ) {
+      return a.timestamp - b.timestamp;
     } );
 
     this.startReplayPlayer();
