@@ -54,6 +54,9 @@ class Game extends BaseObject {
   registerEventHandler() {
     super.registerEventHandler();
 
+    if( Utils.globalRegisteredEvents[ 'Game' ] ) return;
+    Utils.globalRegisteredEvents[ 'Game' ] = true;
+
     const mapInfoLayer = document.querySelectorAll('.event-open-map-layer');
 
     for( let i = 0; i < mapInfoLayer.length; i++ ) {

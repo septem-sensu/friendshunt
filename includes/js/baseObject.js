@@ -32,10 +32,11 @@ class BaseObject {
  *
  */
   constructor() {
-    this.communicator = new Communicator();
-    this.validator    = this.communicator.get( 'validator' );
-    this.appAlias     = window.appAlias;
-    this.debug        = window[ appAlias ].debug ? true : false;
+    this.communicator             = new Communicator();
+    this.validator                = this.communicator.get( 'validator' );
+    this.appAlias                 = window.appAlias;
+    this.debug                    = window[ appAlias ].debug ? true : false;
+    this.registeredEventHandler   = {};
 
     for( const property in window[ appAlias ].objects.object ) {
       if( this[ property ] ) continue;
@@ -98,6 +99,9 @@ class BaseObject {
  *
  */
   registerEventHandler() {
+    if( Utils.globalRegisteredEvents[ 'BaseObject' ] ) return;
+    Utils.globalRegisteredEvents[ 'BaseObject' ] = true;
+
     const links = document.querySelectorAll( '.event-link' );
 
     for( let i = 0; i < links.length; i++ ) {

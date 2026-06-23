@@ -75,6 +75,7 @@ class Gameplay extends Game {
     this.gameplayMessages       = [];
     this.systemMessagesDontShow = {};
     this.replayData             = null;
+    this.registeredEventHandler   = {};
 
     this.init();
 
@@ -231,7 +232,8 @@ class Gameplay extends Game {
   registerEventHandler() {
     super.registerEventHandler();
 
-    console.log('TEST')
+    if( Utils.globalRegisteredEvents[ 'Gameplay' ] ) return;
+    Utils.globalRegisteredEvents[ 'Gameplay' ] = true;
 
     const menuBottomMessageButton = document.querySelector( '#menu-bottom-messages-button' );
 

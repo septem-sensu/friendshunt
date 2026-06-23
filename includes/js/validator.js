@@ -86,6 +86,9 @@ class Validator {
  *
  */
   registerEventHandler() {
+    if( Utils.globalRegisteredEvents[ 'Validator' ] ) return;
+    Utils.globalRegisteredEvents[ 'Validator' ] = true;
+
     window.addEventListener( 'load', () => {
       this.validateFields();
 

@@ -13,6 +13,20 @@
 class Utils {
 
 /**
+ * Global, static register to avoid multiple registrations of event handlers.
+ * Prevents double bindings, even with multiple class instances.
+ *
+ * @static
+ *
+ * @type      {Object<string, boolean>}   One Key-Value-Pair (Class Name: Status)
+ *
+ * @example   if( Utils.globalRegisteredEvents[ 'Gameplay' ] ) return;
+ *            Utils.globalRegisteredEvents[ 'Gameplay' ] = true;
+ *
+ */
+  static globalRegisteredEvents = {};
+
+/**
  * This static method creates a GUID.
  *
  * @public

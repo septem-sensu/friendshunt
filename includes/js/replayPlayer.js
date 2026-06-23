@@ -6,6 +6,7 @@
  *
  * @see Gameplay
  * @see GeoMaps
+ * @see Utils
  *
  * @author    Markus Götz <info@septem-sensu.de>
  * @version   0.1.0
@@ -107,6 +108,9 @@ class ReplayPlayer {
  *
  */
   init() {
+    if( Utils.globalRegisteredEvents[ 'ReplayPlayer' ] ) return;
+    Utils.globalRegisteredEvents[ 'ReplayPlayer' ] = true;
+
     document.querySelector( '#btn-replay-play' ).addEventListener( 'click', ( event ) => {
       this.play();
       this.toggleButtonClass( event.target, '#btn-replay-pause' );

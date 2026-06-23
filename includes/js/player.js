@@ -52,6 +52,9 @@ class Player extends BaseObject {
   registerEventHandler() {
     super.registerEventHandler();
 
+    if( Utils.globalRegisteredEvents[ 'Player' ] ) return;
+    Utils.globalRegisteredEvents[ 'Player' ] = true;
+
     const loginButtons = document.querySelectorAll( '.event-login' );
 
     for( let i = 0; i < loginButtons.length; i++ ) {
