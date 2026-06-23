@@ -1,6 +1,9 @@
 <script type="text/javascript">
-  window[ appAlias ].objects.games      = {{Player::gameObjects}};
-  window[ appAlias ].objects.gameFields = {{Game::gameFields}};
+  ( function() {
+    window[ appAlias ].objects.games      = {{Player::gameObjects}};
+    window[ appAlias ].objects.gameFields = {{Game::gameFields}};
+    return;
+  } )();
 </script>
 
 <div class="content-container first-child" >
@@ -167,17 +170,13 @@
       <span class="js-calc js-calc-set-default-int">{{Player::asManagementCountSteps}}</span>
     </div>
   </div>
-
 </div>
 
-<script>
+<script type="text/javascript">
   ( function() {
     window[ appAlias ].systemRole     = '{{Player::role}}';
     window[ appAlias ].objects.player = window[ appAlias ].objects.player || new Player( window[ appAlias ].id );
-
     window[ appAlias ].objects.player.addGamesToTemplate();
-
-    // window[ appAlias ].methods.cAddGamesToTemplate();
     return;
   } )();
 </script>

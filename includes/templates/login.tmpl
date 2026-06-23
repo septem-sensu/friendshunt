@@ -14,5 +14,8 @@
 </div>
 
 <script type="text/javascript">
-  window[ appAlias ].objects.player = new Player();
+  ( function() {
+    window[ appAlias ].objects.player = new Player();
+    return;
+  } )();
 </script>

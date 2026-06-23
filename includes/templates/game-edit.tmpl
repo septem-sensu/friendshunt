@@ -1,5 +1,7 @@
 <script>
-  window[ appAlias ].fields = {{Game::fields}};
+  ( function() {
+    window[ appAlias ].objects.fields = {{Game::fields}};
+  } )();
 </script>
 <script src="includes/libs/leaflet/leaflet.js"></script>
 <script src="includes/js/geoMaps.js"></script>
@@ -9,7 +11,7 @@
   <div class="content-container first-child" >
     <h1 class="align-left float-left">Neues Game</h1>
     <div class="align-right">
-      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player">Zurück</button>
     </div>
   </div>
 
@@ -19,7 +21,7 @@
     <input autocomplete="name" class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" />
     <label class="minw-200" for="title">Titel des Spiels*</label>
     <input autocomplete="title" class="mb-10 mt-5 w-350" type="text" name="title" id="title" placeholder="Eingabe Titel des Spiels" value="{{Game::title}}" />
-    <label class="minw-200" for="description">Beschreibung</labelp>
+    <label class="minw-200" for="description">Beschreibung</label>
     <input autocomplete="description" class="mb-10 mt-5 w-350" type="text" name="description" id="description" placeholder="Eingabe Beschreibung" value="{{Game::description}}" />
   </div>
 
@@ -63,7 +65,7 @@
     <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" autocomplete="off" type="text" name="playingFieldCenterPosition" id="playingFieldCenterPosition" placeholder="Klick für den Spielfeld Mittelpunkt" value="{{Game::playingFieldCenterPosition}}" />
     <label class="minw-200" for="startPosition">Start Position*</label>
     <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" autocomplete="off" type="text" name="startPosition" id="startPosition" placeholder="Klick für Start Position" value="{{Game::startPosition}}" />
-    <label class="minw-200" for="exitPosition">Exit Position*</plabel>
+    <label class="minw-200" for="exitPosition">Exit Position*</label>
     <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" autocomplete="off" type="text" name="exitPosition" id="exitPosition" placeholder="Klick für Exit Position" value="{{Game::exitPosition}}" />
 
     <label class="minw-200" for="showPlayer">Andere Spiele anzeigen*</label>
@@ -84,11 +86,8 @@
       <option value="1">Ja</option>
       <option value="0">Nein</option>
     </select>
-
   </div>
-
   <div id="game-content-container"></div>
-
   <div class="align-left">
     <button type="button" disabled="disabled" id="event-save-new-game" class="submit primary event-save-new-game w-140">Spiel speichern</button>
   </div>
@@ -105,12 +104,13 @@
   <div id="map"></div>
 </div>
 
-<script>
-window[ appAlias ].objects.player = new Player( window[ appAlias ].id );
-
-window.addEventListener( 'load', function() {
-  var game = new Game();
-
-  return;
-} );
+<script type="text/javascript">
+  ( function() {
+    window[ appAlias ].objects.player = new Player( window[ appAlias ].id );
+    window.addEventListener( 'load', function() {
+      const game = new Game();
+      return;
+    } );
+    return;
+  } )();
 </script>

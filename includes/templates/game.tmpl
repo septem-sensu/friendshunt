@@ -1,16 +1,19 @@
 <script type="text/javascript">
-  window[ appAlias ].playerId             = '{{Game::playerId}}';
-  window[ appAlias ].objects.gameSettings = {{Gameplay::gameSettings}};
+  ( function() {
+    window[ appAlias ].playerId             = '{{Game::playerId}}';
+    window[ appAlias ].objects.gameSettings = {{Gameplay::gameSettings}};
+    return;
+  } )();
 </script>
 
 <input type="hidden" name="resetForm" value="1" />
 <div id="map"></div>
 
-<script src="includes/libs/leaflet/leaflet.js"></script>
-<script src="includes/js/geoMaps.js"></script>
-<script src="includes/js/batteryTracking.js"></script>
-<script src="includes/js/gameplay.js"></script>
-<script src="includes/js/replayPlayer.js"></script>
+<script type="text/javascript" src="includes/libs/leaflet/leaflet.js"></script>
+<script type="text/javascript" src="includes/js/geoMaps.js"></script>
+<script type="text/javascript" src="includes/js/batteryTracker.js"></script>
+<script type="text/javascript" src="includes/js/gameplay.js"></script>
+<script type="text/javascript" src="includes/js/replayPlayer.js"></script>
 
 <div class="game-menu-top">
   <div id="game-state-icon-container" class="pointer" onclick="javascript: window[ appAlias ].objects.gameplay.checkSystemMessages();">
@@ -27,7 +30,7 @@
   <img id="menu-bottom-messages-button" class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" />
   <img class="icon-new-message hidden" src="includes/images/icon-new-message.png" alt="Neue Nachricht" />
   <img class="pointer icon-game-back icons-gamplay-menu-bottom" src="includes/images/icon-back.png" alt="Zurück zum Profil" onclick="javascript: window.location.href='?view=player';" />
-  <input id="game-images-upload" type="file" name="pictures[]">
+  <input id="game-images-upload" type="file" name="pictures[]" />
 </div>
 
 <div class="game-permission-pedometer">
@@ -56,19 +59,15 @@
 
 <div id="replay-highlight-repeat" class="replay-highlight-repeat hidden">WIEDERHOLUNG</div>
 <div class="replay-panel hidden">
-  <!-- Obere Reihe: Zeitleiste (Slider) & Uhrzeit -->
   <div class="replay-timeline-row">
-    <input type="range" id="replay-slider" min="0" max="100" value="0" step="1">
+    <input type="range" id="replay-slider" min="0" max="100" value="0" step="1" />
     <span id="replay-clock">00:00:00</span>
   </div>
-
-  <!-- Untere Reihe: Steuerungs-Buttons -->
   <div class="replay-controls-row">
     <div class="playback-buttons">
       <button id="btn-replay-play" class="btn-tactical">[ PLAY ]</button>
       <button id="btn-replay-pause" class="btn-tactical btn-active">[ PAUSE ]</button>
     </div>
-
     <div class="speed-buttons">
       <button class="btn-speed btn-active" data-speed="10">10x</button>
       <button class="btn-speed" data-speed="20">20x</button>
@@ -80,6 +79,9 @@
 </div>
 
 <script type="text/javascript">
-  window[ appAlias ].objects.gameplay = new Gameplay( window[ appAlias ].playerId, window[ appAlias ].id, window[ appAlias ].objects.gameSettings );
+  ( function() {
+    window[ appAlias ].objects.gameplay = new Gameplay( window[ appAlias ].playerId, window[ appAlias ].id, window[ appAlias ].objects.gameSettings );
+    return;
+  } )();
 </script>
 

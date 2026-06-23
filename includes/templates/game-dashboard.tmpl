@@ -1,13 +1,16 @@
 <script type="text/javascript">
-  window[ appAlias ].objects.gameImages = {{Game::images}};
-  window[ appAlias ].objects.gameplayData = {{Gameplay::gameplayData}};
+  ( function() {
+      window[ appAlias ].objects.gameImages = {{Game::images}};
+      window[ appAlias ].objects.gameplayData = {{Gameplay::gameplayData}};
+      return;
+  } )();
 </script>
 
 <input type="hidden" name="resetForm" value="1" />
 <div class="content-container first-child" >
   <h1 class="align-left float-left">Dashboard</h1>
   <div class="align-right">
-    <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+    <button type="button" class="warning w-140 event-link" data-link="index.php?view=player">Zurück</button>
   </div>
 </div>
 
@@ -17,7 +20,7 @@
     <tr>
       <td class="align-top mr-15" style="width: 195px;">
         <img src="includes/files/game/{{Game::id}}/{{Game::avatar}}" class="c-dashboard-player-image my-account-image pointer" id="avatar" />
-        <input id="avatar-upload" type="file" name="pictures[]">
+        <input id="avatar-upload" type="file" name="pictures[]" />
       </td>
       <td class="align-top">
         <p class="bold mb-10">{{Game::name}}</p>
@@ -29,8 +32,7 @@
       </td>
     </tr>
   </table>
-  <input type="hidden" name="game-id" value="{{Game::id}}">
-
+  <input type="hidden" name="game-id" value="{{Game::id}}" />
 </div>
 
 <div class="content-container minh-40">
@@ -122,39 +124,47 @@
   <h2 class="mb-15 align-left float-left">Bilder vom Spiel</h2>
   <div class="align-right">
     <button type="button" id="event-game-images-upload-button" class="submit primary w-140 mb-20">Bild hinzufügen</button>
-    <input id="game-images-upload" type="file" name="pictures[]">
+    <input id="game-images-upload" type="file" name="pictures[]" />
   </div>
   <div id="game-images-content-container"></div>
 </div>
 
 <button id="geo-test-btn" style="padding: 20px; font-size: 20px;">Standort freigeben</button>
 
-<script src="includes/js/geoMaps.js"></script>
+<script type="text/javascript" src="includes/js/geoMaps.js"></script>
 
-<script>
-  document.getElementById('geo-test-btn').addEventListener('click', () => {
-    console.log("Button geklickt. Starte GPS...");
-    navigator.geolocation.getCurrentPosition(
-      (pos) => { alert(`Erfolg! Lat: ${pos.coords.latitude}`); },
-      (err) => { alert(`Fehler: ${err.message} (Code: ${err.code})`); },
-      { enableHighAccuracy: true, timeout: 5000 }
-    );
-  });
-</script>
-
-<script>
-  window[ appAlias ].systemRole   = '{{Player::role}}';
-  window[ appAlias ].objects.game = new Game();
-  window[ appAlias ].objects.game.addGameImagesContent();
-  window[ appAlias ].objects.game.addGameplayDataToTemplate();
-</script>
-
-<script src="includes/js/statistic.js"></script>
-<script>
-  window.addEventListener( 'load', function() {
-    window[ appAlias ].objects.statistic = new Statistic( '.player-dashboard-container' );
-
-    window[ appAlias ].objects.statistic.getGameStatistics();
+<script type="text/javascript">
+  ( function() {
+    document.getElementById( 'geo-test-btn' ).addEventListener( 'click', () => {
+      navigator.geolocation.getCurrentPosition(
+        ( pos ) => { alert(`Erfolg! Lat: ${pos.coords.latitude}`); },
+        ( err ) => { alert(`Fehler: ${err.message} (Code: ${err.code})`); },
+        { enableHighAccuracy: true, timeout: 5000 }
+      );
+      return;
+    } );
     return;
-  } );
+  } )();
+</script>
+
+<script type="text/javascript">
+  ( function() {
+    window[ appAlias ].systemRole   = '{{Player::role}}';
+    window[ appAlias ].objects.game = new Game();
+    window[ appAlias ].objects.game.addGameImagesContent();
+    window[ appAlias ].objects.game.addGameplayDataToTemplate();
+    return;
+  } )();
+</script>
+
+<script type="text/javascript" src="includes/js/statistic.js"></script>
+
+<script type="text/javascript">
+  ( function() {
+    window.addEventListener( 'load', function() {
+      window[ appAlias ].objects.statistic = new Statistic( '.player-dashboard-container' );
+      window[ appAlias ].objects.statistic.getGameStatistics();
+      return;
+    } );
+  } )();
 </script>

@@ -3,7 +3,7 @@
   <div class="content-container first-child" >
     <h1 class="align-left float-left">Neuer Player</h1>
     <div class="align-right">
-      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player">Zurück</button>
     </div>
   </div>
   <div class="content-container align-left">
@@ -31,11 +31,14 @@
     <label class="mw-200" for="description">Beschreibung </label>
     <textarea autocomplete="description" class="mb-10 mt-5 h-60 w-350" name="description" id="description" placeholder="Eingabe Beschreibung"></textarea>
     <div class="align-left mb-10">
-      <button type="button" disabled="disabled" class="primary submit event-new-player w-140" id="event-new-player" />Player anlegen</button>
+      <button type="button" disabled="disabled" class="primary submit event-new-player w-140" id="event-new-player">Player anlegen</button>
     </div>
   </div>
 </form>
 
 <script type="text/javascript">
-  window[ appAlias ].objects.player = new Player();
+  ( function() {
+    window[ appAlias ].objects.player = new Player();
+    return;
+  } )();
 </script>

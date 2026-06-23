@@ -1,41 +1,37 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="includes/css/themes/default.css?v={{default::version}}">
-  <link rel="stylesheet" href="includes/css/core.css?v={{default::version}}">
-  <link rel="stylesheet" href="includes/css/spacer.css?v={{default::version}}">
-  <link rel="stylesheet" href="includes/css/classes.css?v={{default::version}}">
-  <link rel="stylesheet" href="includes/css/style.css?v={{default::version}}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="includes/css/themes/default.css?v={{default::version}}" />
+  <link rel="stylesheet" href="includes/css/core.css?v={{default::version}}" />
+  <link rel="stylesheet" href="includes/css/spacer.css?v={{default::version}}" />
+  <link rel="stylesheet" href="includes/css/classes.css?v={{default::version}}" />
+  <link rel="stylesheet" href="includes/css/style.css?v={{default::version}}" />
   <link rel="stylesheet" href="includes/css/gameplay.css?v={{default::version}}" />
   <link rel="stylesheet" href="includes/libs/leaflet/leaflet.css?v={{default::version}}" />
+  <link rel="manifest" href="includes/json/manifest.json" />
   <title>{{default::appName}}</title>
-  <link rel="manifest" href="includes/json/manifest.json">
+
   <script type="text/javascript">
     var appAlias                             = '{{default::appAlias}}';
     window[ appAlias ]                       = window[ appAlias ] || {};
     window[ appAlias ].objects               = window[ appAlias ].objects || {};
     window[ appAlias ].objects.object        = {{default::object}};
     window[ appAlias ].objects.fields        = {{default::fields}};
-    window[ appAlias ].objects.passwordRules = {{default::fields}};
+    window[ appAlias ].objects.passwordRules = {{default::passwordRules}};
     window[ appAlias ].objects.view          = {{default::view}};
     window[ appAlias ].id                    = '{{default::id}}';
     window[ appAlias ].class                 = '{{default::class}}';
   </script>
+
   <script type="text/javascript" src="includes/js/baseObject.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/game.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/player.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/communicator.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/utils.js?v={{default::version}}"></script>
   <script type="text/javascript" src="includes/js/validator.js?v={{default::version}}"></script>
-  <script type="text/javascript" src="includes/js/geoTracking.js?v={{default::version}}"></script>
-<!--
-  <script type="text/javascript" src="includes/js/core.js?v={{default::version}}"></script>
-  <script type="text/javascript" src="includes/js/communication.js?v={{default::version}}"></script>
-  <script type="text/javascript" src="includes/js/custom.js?v={{default::version}}"></script>
--->
-
+  <script type="text/javascript" src="includes/js/geoTracker.js?v={{default::version}}"></script>
 
   <link rel="icon" href="includes/images/favicons/friendshunt-app-icon-16x16.png" sizes="16x16" />
   <link rel="icon" href="includes/images/favicons/friendshunt-app-icon-32x32.png" sizes="32x32" />

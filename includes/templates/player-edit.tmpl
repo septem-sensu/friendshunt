@@ -2,7 +2,7 @@
   <div class="content-container first-child" >
     <h1 class="align-left float-left">Mein Account</h1>
     <div class="align-right">
-      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player" />Zurück</button>
+      <button type="button" class="warning w-140 event-link" data-link="index.php?view=player">Zurück</button>
     </div>
   </div>
   <div class="content-container" >
@@ -52,16 +52,19 @@
       <label class="mw-200" for="description">Beschreibung</label>
       <textarea autocomplete="description" class="mb-15 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
       <div class="align-left">
-        <button type="button" disabled="disabled" class="primary submit event-save-object w-140" id="event-save-object" />Speichern</button>
+        <button type="button" disabled="disabled" class="primary submit event-save-object w-140" id="event-save-object">Speichern</button>
       </div>
     </form>
   </div>
   <div class="content-container" >
     <div class="align-left">
-      <button type="button" class="primary danger event-save-object w-140" id="event-delete-player" />Spieler Löschen</button>
+      <button type="button" class="primary danger event-save-object w-140" id="event-delete-player">Spieler Löschen</button>
     </div>
   </div>
 
   <script type="text/javascript">
-    window[ appAlias ].objects.player = new Player();
+    ( function() {
+      window[ appAlias ].objects.player = new Player();
+      return;
+    } )();
   </script>
