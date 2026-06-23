@@ -38,19 +38,17 @@ class ReplayPlayer {
     this.playbackTimer            = null;
     this.speedMultiplier          = 10;
     this.isPlaying                = false;
-    this.justResized              = false;
 
     this.startTimestamp           = parseInt( this.tracking[ 0 ].timestamp );
     this.endTimestamp             = parseInt( this.tracking[ this.tracking.length - 1 ].timestamp );
-    this.totalDuration            = this.endTimestamp - this.startTimestamp;
 
     this.currentVirtualTimestamp  = this.startTimestamp;
-    this.lastProcessedIndex       = 0;
     this.playerIndices            = {};
+    this.processedHighlight       = {};
 
     this.slider                   = document.querySelector( '#replay-slider' );
     this.slider.min               = 0;
-    this.slider.max               = this.totalDuration;
+    this.slider.max               = this.endTimestamp - this.startTimestamp;
     this.slider.value             = 0;
 
     this.init();
@@ -134,7 +132,6 @@ class ReplayPlayer {
       const sliderSeconds          = parseInt( objEvent.target.value );
 
       this.currentVirtualTimestamp = this.startTimestamp + sliderSeconds;
-      this.lastProcessedIndex      = 0;
 
       this.renderTargetTime( this.currentVirtualTimestamp );
 
@@ -281,6 +278,8 @@ class ReplayPlayer {
 
                 this.playerClassesAndColors[ playerId ].isSet.capture = false;
 
+                delete this.processedHighlight[ this.playerClassesAndColors[ playerId ].capture ];
+
                 if( window[ appAlias ].playerId == playerId ) this.geoMaps.addMarkerCssClass( playerId, this.gameplay.get( 'markerCssClassMyOwn' ) );
               }
             }  else {
@@ -300,6 +299,79 @@ class ReplayPlayer {
 
     const targetTime = new Date( targetTimestamp * 1000 );
     document.querySelector( '#replay-clock' ).innerText = targetTime.toLocaleTimeString( 'de-DE' );
+
+    return;
+  }
+
+/**
+ * This method can be used for highlights, it sets the timeline by 5 tracking points
+ * of the passed player back, reduces the speed, sets the center of the map
+ * on the passed player and zooms in on this point.
+ * The “camera” then moves back to the starting point and leaves the replay in the
+ * expire old speed.
+ *
+ * @public
+ *
+ * @param     {string}   playerId             The ID of the player this highlight is about
+ * @param     {number}   highlightTimestamp   The timestamp of the timeline to the normal timeline was interrupted
+ * @param     {number}   timelineIndex        The index of the timeline where the highlight was started
+ * @return    {void}
+ *
+ * @example   replayPlayer.startHighlight( 'max@musterman.de', 1782150381, 378 );
+ *
+ */
+  startHighlight( playerId, highlightTimestamp, timelineIndex ) {
+    this.pause();
+
+    const mapInstance             = this.geoMaps.get( 'map' );
+    const oldCameraCenterPosition = mapInstance.getCenter();
+    const oldCameraZoom           = mapInstance.getZoom();
+    const oldSpeed                = this.speedMultiplier;
+    const savedTimelineTime       = this.currentVirtualTimestamp;
+    let highlightPoint            = null;
+    let foundPoints               = 0;
+
+    for( let i = timelineIndex; i >= 0; i-- ) {
+      if( this.tracking[ i ].timestamp > highlightTimestamp ) continue;
+      if( this.tracking[ i ].playerId != playerId || this.tracking[ i ].type != 'tracking' ) continue;
+
+      foundPoints++;
+
+      if( foundPoints < 5 ) continue;
+
+      highlightPoint = this.tracking[ i ];
+
+      break;
+    }
+
+    if( highlightPoint == null ) return;
+
+    this.currentVirtualTimestamp = highlightPoint.timestamp;
+
+    mapInstance.flyTo( [ parseFloat( highlightPoint.lat ), parseFloat( highlightPoint.lng ) ], 18, { 'animate': true, 'duration': 2.0 } );
+
+    mapInstance.once( 'moveend', () => {
+      this.speedMultiplier = 10;
+
+      this.play();
+
+      const highlightWatcher = setInterval( () => {
+        if( this.currentVirtualTimestamp >= highlightTimestamp ) {
+          clearInterval( highlightWatcher );
+          this.pause();
+
+          setTimeout( () => {
+            mapInstance.flyTo( oldCameraCenterPosition, oldCameraZoom, { 'animate': true, 'duration': 2.0 } );
+
+            mapInstance.once( 'moveend', () => {
+              this.currentVirtualTimestamp = highlightTimestamp;
+              this.speedMultiplier         = oldSpeed;
+              this.play();
+            } );
+          }, 2000 );
+        }
+      }, 100 );
+    } );
 
     return;
   }
@@ -336,6 +408,13 @@ class ReplayPlayer {
         this.playerClassesAndColors[ playerId ] = this.playerClassesAndColors[ playerId ] || {};
         this.playerClassesAndColors[ playerId ][ ping.type ] = pingTime;
 
+        if( ping.type == 'capture' && ! this.processedHighlight[ pingTime ] ) {
+          this.processedHighlight[ pingTime ] = true;
+          this.startHighlight( ping.playerId, pingTime, i );
+
+          break;
+        }
+
         continue;
       }
 
@@ -346,6 +425,7 @@ class ReplayPlayer {
 
       if( pingTime > targetTimestamp && nextPing === null ) {
         nextPing = ping;
+
         break;
       }
     }
@@ -380,6 +460,7 @@ class ReplayPlayer {
   toggleButtonClass( activeBtn, strInactiveBtnId ) {
     activeBtn.classList.add( 'btn-active' );
     document.querySelector( strInactiveBtnId ).classList.remove( 'btn-active' );
+
     return;
   }
 
