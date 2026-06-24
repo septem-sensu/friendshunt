@@ -249,7 +249,7 @@ class Player extends BaseObject {
         formData.append( 'class', 'Player' );
         formData.append( 'id', window[ appAlias ].id );
         formData.append( 'property', 'image' );
-        formData.append( 'method', 'Player::avatarFileUploaded' );
+        formData.append( 'method', 'avatarFileUploaded' );
         formData.append( 'redirect', '?view=' + window[ appAlias ].objects.view.alias + '&class=Player&id=' + window[ appAlias ].id );
 
         return this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'processResponse' );

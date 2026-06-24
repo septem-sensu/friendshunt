@@ -163,7 +163,7 @@ class Game extends BaseObject {
         formData.append( 'class', 'Game' );
         formData.append( 'id', window[ appAlias ].id );
         formData.append( 'property', 'tmpImageAdd' );
-        formData.append( 'method', 'Game::addGameImage' );
+        formData.append( 'method', 'addGameImage' );
 
         if( window[ appAlias ].objects.view.alias == 'gameDashboard' ) {
           formData.append( 'redirect', '?view=gameDashboard&class=Game&id=' + window[ appAlias ].id );
@@ -187,7 +187,7 @@ class Game extends BaseObject {
         formData.append( 'class', 'Game' );
         formData.append( 'id', window[ appAlias ].id );
         formData.append( 'property', 'avatar' );
-        formData.append( 'method', 'Game::avatarFileUploaded' );
+        formData.append( 'method', 'avatarFileUploaded' );
         formData.append( 'redirect', '?view=' + window[ appAlias ].objects.view.alias + '&class=Game&id=' + window[ appAlias ].id );
 
         this.communicator.request( 'POSTBIN', { "result": "json", "view": window[ appAlias ].objects.view.alias }, formData, 'processResponse' );

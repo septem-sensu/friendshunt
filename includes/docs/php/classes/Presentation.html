@@ -122,7 +122,7 @@
 
     <section class="phpdocumentor-description"><p>This Class represents the Presentation Class for the Friends Hunt App with his Properties and Methods.
 The Presentation Class contains the Template Engine, the server-side Validation, E-Mail Management and different Utils like:
-formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cors Utils, Logging, URL Utils and cleaning Ids.</p>
+formatting Date Time and Timestamps, Cookie Management, short Text, Header and CORS Utils, Logging, URL Utils and cleaning Ids.</p>
 </section>
 
 
@@ -273,7 +273,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>This Method delete the current Player with all Files and Directories.</dd>
+<dd>This Method assigns Template Variables to the Template Engine.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Presentation.html#method_cleanId">cleanId()</a>
@@ -385,7 +385,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>This static Method convert a Timestamp to a formated Date Time String.</dd>
+<dd>This static Method convert a Timestamp to a formatted Date Time String.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Presentation.html#method_validateFields">validateFields()</a>
@@ -626,11 +626,11 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method delete the current Player with all Files and Directories.</p>
+        <p class="phpdocumentor-summary">This Method assigns Template Variables to the Template Engine.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -717,16 +717,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;assignTemplateVar( $mixProperty, strClass, objFields, mixValue );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objPresentation-&gt;assignTemplateVar( $mixProperty, strClass, objFields, mixValue );</p>
+                                                 <section class="phpdocumentor-description"><p>$objPresentation-&gt;assignTemplateVar( $mixProperty, $strClass, $objFields, $mixValue );</p>
 </section>
 
                                     </dd>
@@ -750,7 +741,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">446</span>
+    <span class="phpdocumentor-element-found-in__line">435</span>
 
     </aside>
 
@@ -814,15 +805,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::cleanId( $strContent );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strContent = Presentation::cleanId( $strContent );</p>
 </section>
 
@@ -855,7 +837,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">467</span>
+    <span class="phpdocumentor-element-found-in__line">455</span>
 
     </aside>
 
@@ -907,15 +889,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;cors();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objPresentation-&gt;cors();</p>
 </section>
 
@@ -940,7 +913,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+    <span class="phpdocumentor-element-found-in__line">210</span>
 
     </aside>
 
@@ -992,15 +965,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this::deleteCookie();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>Presentation::deleteCookie();</p>
 </section>
 
@@ -1025,7 +989,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">287</span>
+    <span class="phpdocumentor-element-found-in__line">276</span>
 
     </aside>
 
@@ -1077,15 +1041,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strBaseUrl = $this::getBaseUrl();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strBaseUrl = Presentation::getBaseUrl();</p>
 </section>
 
@@ -1118,7 +1073,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">241</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
@@ -1182,15 +1137,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strCookieValue = $this::getCookieProperty( $strCookieProperty );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strCookieValue = Presentation::getCookieProperty( $strCookieProperty );</p>
 </section>
 
@@ -1223,7 +1169,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">298</span>
 
     </aside>
 
@@ -1275,15 +1221,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strFullRequestUrl = $this::getFullUrl();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strFullRequestUrl = Presentation::getFullUrl();</p>
 </section>
 
@@ -1316,7 +1253,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">520</span>
+    <span class="phpdocumentor-element-found-in__line">508</span>
 
     </aside>
 
@@ -1368,15 +1305,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;getJavaScriptHeader();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objPresentation-&gt;getJavaScriptHeader();</p>
 </section>
 
@@ -1401,7 +1329,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">502</span>
+    <span class="phpdocumentor-element-found-in__line">491</span>
 
     </aside>
 
@@ -1453,15 +1381,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;getJsonHeader();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objPresentation-&gt;getJsonHeader();</p>
 </section>
 
@@ -1486,7 +1405,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1538,15 +1457,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;initTemplateVars();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objPresentation-&gt;initTemplateVars();</p>
 </section>
 
@@ -1571,7 +1481,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">400</span>
+    <span class="phpdocumentor-element-found-in__line">391</span>
 
     </aside>
 
@@ -1653,16 +1563,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this::logToFile( $strMessage, $boolTimestamp, strFile );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>Presentation::logToFile( $strMessage, $boolTimestamp, strFile );</p>
+                                                 <section class="phpdocumentor-description"><p>Presentation::logToFile( $strMessage, $boolTimestamp, $strFile );</p>
 </section>
 
                                     </dd>
@@ -1686,7 +1587,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">266</span>
+    <span class="phpdocumentor-element-found-in__line">256</span>
 
     </aside>
 
@@ -1759,15 +1660,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objFormError = $this::newFormError( $strField, $strMessage );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objFormError = Presentation::newFormError( $strField, $strMessage );</p>
 </section>
 
@@ -1800,7 +1692,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -1864,15 +1756,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strTemplateName = $this-&gt;processTemplate( $strTemplateName );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strTemplateName = $objPresentation-&gt;processTemplate( $strTemplateName );</p>
 </section>
 
@@ -1905,7 +1788,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">325</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 
     </aside>
 
@@ -1969,15 +1852,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;sendHtmlMail( $objEmail );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objPresentation-&gt;sendHtmlMail( $objEmail );</p>
 </section>
 
@@ -2002,7 +1876,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">426</span>
+    <span class="phpdocumentor-element-found-in__line">416</span>
 
     </aside>
 
@@ -2084,16 +1958,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strShortedText = $this-&gt;shortText( $strText, $boolPoints, intLength );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strShortedText = $objPresentation-&gt;shortText( $strText, $boolPoints, intLength );</p>
+                                                 <section class="phpdocumentor-description"><p>$strShortedText = $objPresentation-&gt;shortText( $strText, $boolPoints, $intLength );</p>
 </section>
 
                                     </dd>
@@ -2125,7 +1990,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -2189,15 +2054,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$intTimestamp = $this::stringToTimestamp( $strTimestamp );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$intTimestamp = Presentation::stringToTimestamp( $strTimestamp );</p>
 </section>
 
@@ -2230,11 +2086,11 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">171</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This static Method convert a Timestamp to a formated Date Time String.</p>
+        <p class="phpdocumentor-summary">This static Method convert a Timestamp to a formatted Date Time String.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2294,15 +2150,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strTimestamp = $this::timestampToString( $intTimestamp );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strTimestamp = Presentation::timestampToString( $intTimestamp );</p>
 </section>
 
@@ -2335,7 +2182,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">348</span>
 
     </aside>
 
@@ -2356,7 +2203,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Standard Class Object the Field Configuration</p>
+                    <section class="phpdocumentor-description"><p>The Standard Class Object with the Field Configuration</p>
 </section>
 
             </dd>
@@ -2408,15 +2255,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objFormErrors = $this::validateFields( $objFields, $objObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objFormErrors = Presentation::validateFields( $objFields, $objObject );</p>
 </section>
 
@@ -2449,7 +2287,7 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -2509,15 +2347,6 @@ formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cor
                                              
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this::writeCookie( $objParams );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">

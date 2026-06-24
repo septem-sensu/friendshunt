@@ -2,14 +2,14 @@
 
 declare( strict_types = 1 );
 
-include_once ( __DIR__ . '/../classes/baseObject.php' );
+require_once ( __DIR__ . '/../classes/baseObject.php' );
 
 /**
  * Presentation Class for the Friends Hunt App.
  *
  * This Class represents the Presentation Class for the Friends Hunt App with his Properties and Methods.
  * The Presentation Class contains the Template Engine, the server-side Validation, E-Mail Management and different Utils like:
- * formatig Date Time and Timestamps, Cookie Management, short Text, Header and Cors Utils, Logging, URL Utils and cleaning Ids.
+ * formatting Date Time and Timestamps, Cookie Management, short Text, Header and CORS Utils, Logging, URL Utils and cleaning Ids.
  *
  * @category    class
  * @package     Application
@@ -57,12 +57,11 @@ class Presentation {
  *
  * @return     void
  *
- * @example    $this->initTemplateVars();
  * @example    $objPresentation->initTemplateVars();
  *
 */
   public function initTemplateVars() {
-    $this->templateVars = new StdClass();
+    $this->templateVars = new stdClass();
 
     $this->assignTemplateVar( 'appAlias', 'default', null, $this->config->appAlias );
     $this->assignTemplateVar( 'appName', 'default', null, $this->config->appName );
@@ -74,7 +73,7 @@ class Presentation {
   }
 
 /**
- * This Method delete the current Player with all Files and Directories.
+ * This Method assigns Template Variables to the Template Engine.
  *
  * @access     public
  * @since      2026-06-05
@@ -86,8 +85,7 @@ class Presentation {
  * @param      mixed     $mixValue       The Value to set to Template
  * @return     void
  *
- * @example    $this->assignTemplateVar( $mixProperty, strClass, objFields, mixValue );
- * @example    $objPresentation->assignTemplateVar( $mixProperty, strClass, objFields, mixValue );
+ * @example    $objPresentation->assignTemplateVar( $mixProperty, $strClass, $objFields, $mixValue );
  *
 */
   public function assignTemplateVar( mixed $mixProperty, string $strClass, object | null $objFields = null, string | null $mixValue = null ) : void {
@@ -96,12 +94,11 @@ class Presentation {
         $strTemplateVarName                       = $strClass . '::' . $strProperty;
         $this->templateVars->$strTemplateVarName  = $strValue;
 
-        if( isset( $objFields ) && isset( $objFields->$strProperty ) && isset( $objFields->$strProperty->options ) && isset( $objFields->$strProperty->options->$strValue ) ) {
-          $strTemplateVarName                      = 'Translate::' . $strClass . '::' . $strProperty;
-          $this->templateVars->$strTemplateVarName = $objFields->$strProperty->options->$strValue;
-        }
+        $strTranslateVarName = 'Translate::' . $strClass . '::' . $strProperty;
 
-        $this->templateVars->$strTemplateVarName = isset( $objFields ) && isset( $objFields->$strProperty ) && isset( $objFields->$strProperty->options ) && isset( $objFields->$strProperty->options->$strValue ) ? $objFields->$strProperty->options->$strValue : $strValue;
+        if( isset( $objFields ) && isset( $objFields->$strProperty ) && isset( $objFields->$strProperty->options ) && isset( $objFields->$strProperty->options->$strValue ) ) {
+          $this->templateVars->$strTranslateVarName = $objFields->$strProperty->options->$strValue;
+        }
       }
     } else {
       $strTemplateVarName = $strClass . '::' . $mixProperty;
@@ -121,7 +118,6 @@ class Presentation {
  * @param      string    $strTemplateName       The Template File Name
  * @return     string    $strTemplateName       The rendered Content Template
  *
- * @example    $strTemplateName = $this->processTemplate( $strTemplateName );
  * @example    $strTemplateName = $objPresentation->processTemplate( $strTemplateName );
  *
 */
@@ -146,7 +142,6 @@ class Presentation {
  * @param      string    $strTimestamp       The Date Time String
  * @return     int       $intTimestamp       The Timestamp
  *
- * @example    $intTimestamp = $this::stringToTimestamp( $strTimestamp );
  * @example    $intTimestamp = Presentation::stringToTimestamp( $strTimestamp );
  *
 */
@@ -155,7 +150,7 @@ class Presentation {
   }
 
 /**
- * This static Method convert a Timestamp to a formated Date Time String.
+ * This static Method convert a Timestamp to a formatted Date Time String.
  *
  * @access     public
  * @since      2026-06-05
@@ -164,7 +159,6 @@ class Presentation {
  * @param      int      $intTimestamp       The Timestamp
  * @return     string   $strTimestamp       The formated Date Time String
  *
- * @example    $strTimestamp = $this::timestampToString( $intTimestamp );
  * @example    $strTimestamp = Presentation::timestampToString( $intTimestamp );
  *
 */
@@ -182,14 +176,13 @@ class Presentation {
  * @param      object      $objParams   The Cookie Variables to set
  * @return     void
  *
- * @example    $this::writeCookie( $objParams );
  * @example    Presentation::writeCookie( $objParams );
  *
 */
   public static function writeCookie( object $objParams ) : void {
     $objConfig      = BaseObject::getConfig();
     $strCookieName  = $objConfig->cookieName;
-    $objCookie      = new StdClass();
+    $objCookie      = new stdClass();
 
     if( isset( $_COOKIE ) && isset( $_COOKIE[ $strCookieName ] ) ) $objCookie = json_decode( $_COOKIE[ $strCookieName ] );
 
@@ -211,7 +204,6 @@ class Presentation {
  *
  * @return     void
  *
- * @example    $this::deleteCookie();
  * @example    Presentation::deleteCookie();
  *
 */
@@ -234,7 +226,6 @@ class Presentation {
  * @param      string    $strCookieProperty   The Cookie Property to get the Value
  * @return     mixed     $strCookieValue      The Cookie Value from the Hand over Property
  *
- * @example    $strCookieValue = $this::getCookieProperty( $strCookieProperty );
  * @example    $strCookieValue = Presentation::getCookieProperty( $strCookieProperty );
  *
 */
@@ -259,12 +250,11 @@ class Presentation {
  * @param      string    $strMessage    The Error Message
  * @return     object    $objFormError  The Form Error Object
  *
- * @example    $objFormError = $this::newFormError( $strField, $strMessage );
  * @example    $objFormError = Presentation::newFormError( $strField, $strMessage );
  *
 */
   public static function newFormError( string $strField, string $strMessage ) : object {
-    $objFormError          = new StdClass();
+    $objFormError          = new stdClass();
     $objFormError->field   =  $strField;
     $objFormError->message = $strMessage;
 
@@ -280,15 +270,17 @@ class Presentation {
  *
  * @return     string    $strBaseUrl   The Base Url from the App
  *
- * @example    $strBaseUrl = $this::getBaseUrl();
  * @example    $strBaseUrl = Presentation::getBaseUrl();
  *
 */
   public static function getBaseUrl() : string {
-    $strUrl  = Presentation::getFullUrl();
-    $strPath = parse_url( $strUrl, PHP_URL_PATH );
+    $objConfig = BaseObject::getConfig();
+    $strUrl    = Presentation::getFullUrl();
+    $strPath   = parse_url( $strUrl, PHP_URL_PATH );
 
-    return 'https://' . $_SERVER[ 'HTTP_HOST' ] . $strPath;
+    $strHost = isset( $_SERVER[ 'HTTP_HOST' ] ) && in_array( $_SERVER[ 'HTTP_HOST' ], $objConfig->allowedHosts ) ? $_SERVER[ 'HTTP_HOST' ] : $objConfig->defaultHost;
+
+    return 'https://' . $strHost . $strPath;
   }
 
 /**
@@ -300,12 +292,14 @@ class Presentation {
  *
  * @return     string    $strFullRequestUrl   The full Request Url from the App
  *
- * @example    $strFullRequestUrl = $this::getFullUrl();
  * @example    $strFullRequestUrl = Presentation::getFullUrl();
  *
 */
   public static function getFullUrl() : string {
-    return 'https://' . $_SERVER[ 'HTTP_HOST' ] . $_SERVER[ 'REQUEST_URI' ];
+    $objConfig = BaseObject::getConfig();
+    $strHost   = isset( $_SERVER[ 'HTTP_HOST' ] ) && in_array( $_SERVER[ 'HTTP_HOST' ], $objConfig->allowedHosts ) ? $_SERVER[ 'HTTP_HOST' ] : $objConfig->defaultHost;
+
+    return 'https://' . $strHost . $_SERVER[ 'REQUEST_URI' ];
   }
 
 /**
@@ -318,7 +312,6 @@ class Presentation {
  * @param      object    $objEmail      The Standard Class Object with all E-Mail Parameters
  * @return     void
  *
- * @example    $this->sendHtmlMail( $objEmail );
  * @example    $objPresentation->sendHtmlMail( $objEmail );
  *
 */
@@ -345,17 +338,16 @@ class Presentation {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object    $objFields      The Standard Class Object the Field Configuration
+ * @param      object    $objFields      The Standard Class Object with the Field Configuration
  * @param      object    $objObject      The Standard Class Object all Fields and Values of the Form
  * @return     object    $objFormErrors   The Standard Class Object with the Result of Validation
  *
- * @example    $objFormErrors = $this::validateFields( $objFields, $objObject );
  * @example    $objFormErrors = Presentation::validateFields( $objFields, $objObject );
  *
 */
   public static function validateFields( object $objFields, object $objObject ) : object {
     $objConfig             = BaseObject::getConfig();
-    $objResult             = new StdClass();
+    $objResult             = new stdClass();
     $objResult->formErrors = [];
 
     foreach( $objFields as $strFieldname => $objField ) {
@@ -367,7 +359,7 @@ class Presentation {
       }
       if( $objField->type == 'checkbox' ) continue;
       if( strlen( $objObject->$strFieldname ) < $intMinLengt ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Field has too few characters' ) );
-      if( isset( $objField->mail ) && $objField->mail && ! filter_var( $objObject->$strFieldname, FILTER_VALIDATE_EMAIL ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Not a E-Mail Address' ) );
+      if( isset( $objField->mail ) && $objField->mail && ! filter_var( $objObject->$strFieldname, FILTER_VALIDATE_EMAIL ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Not an E-Mail Address' ) );
       if( $objField->type == 'password' ) {
         if( $objConfig->passwordRules->passwordHasCapitalLetters && ! preg_match( '/[A-Z]/', $objObject->$strFieldname ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Password has no Capital Letters' ) );
         if( $objConfig->passwordRules->passwordHasLowercaseLetters && ! preg_match( '/[a-z]/', $objObject->$strFieldname ) ) array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Password has no Lowercase Letters' ) );
@@ -393,11 +385,10 @@ class Presentation {
  * @param      mixed    $strFile         The Log File with Path
  * @return     void
  *
- * @example    $this::logToFile( $strMessage, $boolTimestamp, strFile );
- * @example    Presentation::logToFile( $strMessage, $boolTimestamp, strFile );
+ * @example    Presentation::logToFile( $strMessage, $boolTimestamp, $strFile );
  *
 */
-  public static function logToFile( $strMessage, bool $boolTimestamp = true, string | null $strFile = null  ) : void {
+  public static function logToFile( string | array | object $strMessage, bool $boolTimestamp = true, string | null $strFile = null  ) : void {
     $strFile    = isset( $strFile ) ? $strFile : __DIR__ . '/../logs/messages.log';
     $strMessage = is_object( $strMessage ) || is_array( $strMessage ) ? json_encode( $strMessage ) : strval( $strMessage );
     $strMessage = $boolTimestamp ? date( "Y-m-d H:i:s" ) . ' ' . $strMessage : $strMessage;
@@ -419,8 +410,7 @@ class Presentation {
  * @param      mixed     $intLength        The Length of the shorted String
  * @return     string    $strShortedText   The Shorted Text
  *
- * @example    $strShortedText = $this->shortText( $strText, $boolPoints, intLength );
- * @example    $strShortedText = $objPresentation->shortText( $strText, $boolPoints, intLength );
+ * @example    $strShortedText = $objPresentation->shortText( $strText, $boolPoints, $intLength );
  *
 */
   public function shortText( string $strText, bool $boolPoints, int $intLength ) : string {
@@ -439,7 +429,6 @@ class Presentation {
  * @param      string    $strContent  The Id
  * @return     string    $strContent  The cleaned Id
  *
- * @example    $strContent = $this::cleanId( $strContent );
  * @example    $strContent = Presentation::cleanId( $strContent );
  *
 */
@@ -460,24 +449,25 @@ class Presentation {
  *
  * @return     void
  *
- * @example    $this->cors();
  * @example    $objPresentation->cors();
  *
 */
   public function cors() : void {
-    if ( isset( $_SERVER[ 'HTTP_ORIGIN' ] ) ) {
-      header( "Access-Control-Allow-Origin: {$_SERVER[ 'HTTP_ORIGIN']}" );
+    $objConfig = BaseObject::getConfig();
+
+    if( isset( $_SERVER[ 'HTTP_ORIGIN' ] ) && isset( $objConfig->allowedOrigins ) && in_array( $_SERVER[ 'HTTP_ORIGIN' ], $objConfig->allowedOrigins ) ) {
+      header( "Access-Control-Allow-Origin: {$_SERVER[ 'HTTP_ORIGIN' ]}" );
       header( 'Access-Control-Allow-Credentials: true' );
       header( 'Access-Control-Max-Age: 86400' );
     }
 
-    if ($_SERVER[ 'REQUEST_METHOD' ] == 'OPTIONS') {
-      if (isset( $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] )){
+    if( $_SERVER[ 'REQUEST_METHOD' ] == 'OPTIONS' ) {
+      if( isset( $_SERVER[ 'HTTP_ACCESS_CONTROL_REQUEST_METHOD' ] ) ) {
         header( "Access-Control-Allow-Methods: GET, POST, OPTIONS" );
       }
 
-      if ( isset( $_SERVER[ 'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' ] ) ) {
-        header( "Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}" );
+      if( isset( $_SERVER[ 'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' ] ) ) {
+        header( "Access-Control-Allow-Headers: {$_SERVER[ 'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' ]}" );
       }
 
       exit(0);
@@ -495,11 +485,10 @@ class Presentation {
  *
  * @return     void
  *
- * @example    $this->getJsonHeader();
  * @example    $objPresentation->getJsonHeader();
  *
 */
-  public function getJsonHeader() {
+  public function getJsonHeader() : void {
     header( 'Content-type: application/json' );
     return;
   }
@@ -513,11 +502,10 @@ class Presentation {
  *
  * @return     void
  *
- * @example    $this->getJavaScriptHeader();
  * @example    $objPresentation->getJavaScriptHeader();
  *
 */
-  public function getJavaScriptHeader() {
+  public function getJavaScriptHeader() : void {
     header( 'Content-type: text/javascript' );
     return;
   }

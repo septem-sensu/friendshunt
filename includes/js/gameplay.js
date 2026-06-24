@@ -56,6 +56,8 @@ class Gameplay extends Game {
     this.steps                  = 0;
     this.gameplayRole           = '';
     this.lastMessageId          = '';
+    this.isTrackingMode         = false;
+    this.mapInstance            = null;
 
     this.gameSettings           = gameSettings;
     this.isRunning              = false;
@@ -75,7 +77,7 @@ class Gameplay extends Game {
     this.gameplayMessages       = [];
     this.systemMessagesDontShow = {};
     this.replayData             = null;
-    this.registeredEventHandler   = {};
+    this.registeredEventHandler = {};
 
     this.init();
 
@@ -320,6 +322,22 @@ class Gameplay extends Game {
       } );
     }
 
+    const iconIsTrackingModeButton = document.querySelector( '#icon-is-tracking-mode' );
+
+    if( iconIsTrackingModeButton != null ) {
+      document.querySelector( '#icon-is-tracking-mode' ).addEventListener( 'click', ( event ) => {
+        this.isTrackingMode = ! this.isTrackingMode;
+
+        if( this.isTrackingMode ) {
+          event.target.innerText = '⨀';
+        } else {
+          event.target.innerText = '⨁';
+        }
+
+        return;
+      } );
+    }
+
     return;
   }
 
@@ -394,6 +412,20 @@ class Gameplay extends Game {
     } else {
       this.track( lat, lng, precision, message );
     }
+
+    this.mapInstance = this.geoMaps.get( 'map' );
+
+    this.mapInstance.on( 'dragstart', () => {
+      if( this.isTrackingMode ) document.querySelector( '#icon-is-tracking-mode' ).click();
+
+      return;
+    } );
+
+    this.mapInstance.on( 'click', () => {
+      if( this.isTrackingMode ) document.querySelector( '#icon-is-tracking-mode' ).click();
+
+      return;
+    } );
 
     return;
   }
@@ -569,7 +601,7 @@ class Gameplay extends Game {
 
     if( ! showLayer ) return;
 
-    Utils.playMessagePiep();
+    Utils.playMessageBeep();
     Utils.triggerMessageVibration();
 
     if( this.replayData && replayPanel ) replayPanel.classList.add( 'hidden' );
@@ -758,6 +790,13 @@ class Gameplay extends Game {
       if( tracking.id === this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
     }
 
+    if( this.isTrackingMode && tracking.id === this.playerId ) {
+      this.mapInstance.panTo( [ lastPosition.lat, lastPosition.lng ], {
+        'animate': true,
+        'duration': 0.2
+      } );
+    }
+
     return;
   }
 
@@ -886,12 +925,14 @@ class Gameplay extends Game {
 
     messageContainer.scrollTo( { 'top': messageContainer.scrollHeight, 'behavior': 'smooth' } );
 
+
+
     if( lastMessageId !== this.lastMessageId ) {
       this.lastMessageId = lastMessageId;
 
       this.setLocalStorage( this.gameId, 'lastMessageId', this.lastMessageId );
 
-      Utils.playMessagePiep();
+      Utils.playMessageBeep();
       Utils.triggerMessageVibration();
 
       if( document.querySelector( '#game-message-layer' ).classList.contains( 'hidden' ) ) document.querySelector( '.icon-new-message' ).classList.remove( 'hidden' );

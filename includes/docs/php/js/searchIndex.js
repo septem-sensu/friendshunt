@@ -18,7 +18,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseObject\u003A\u003AfillObject\u0028\u0029",
             "name": "fillObject",
-            "summary": "This\u0020Method\u0020load\u0020the\u0020Objects\u0020File\u0020of\u0020the\u0020Class\u0020decryted\u0020his\u0020and\u0020fill\u0020the\u0020Object\u0020with\u0020his\u0020data.",
+            "summary": "This\u0020Method\u0020loads\u0020the\u0020Objects\u0020File\u0020of\u0020the\u0020Class,\u0020decrypts\u0020it\u0020and\u0020fills\u0020the\u0020Object\u0020with\u0020its\u0020data.",
             "url": "classes/BaseObject.html#method_fillObject"
         },                {
             "fqsen": "\\BaseObject\u003A\u003A\u0024id",
@@ -103,7 +103,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseObject\u003A\u003AserializeObject\u0028\u0029",
             "name": "serializeObject",
-            "summary": "This\u0020method\u0020serialize\u0020a\u0020Object,\u0020removes\u0020particular\u0020Properties\u0020and\u0020returns\u0020the\u0020Standard\u0020Class\u0020Object.",
+            "summary": "This\u0020method\u0020serializes\u0020an\u0020Object,\u0020removes\u0020particular\u0020Properties\u0020and\u0020returns\u0020the\u0020Standard\u0020Class\u0020Object.",
             "url": "classes/BaseObject.html#method_serializeObject"
         },                {
             "fqsen": "\\BaseObject\u003A\u003AremoveFromArray\u0028\u0029",
@@ -118,12 +118,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseObject\u003A\u003AdeleteDirectory\u0028\u0029",
             "name": "deleteDirectory",
-            "summary": "This\u0020Method\u0020delelte\u0020a\u0020Directory\u0020with\u0020all\u0020Files\u0020and\u0020Sub\u0020Directories\u0020recursiv.",
+            "summary": "This\u0020Method\u0020delete\u0020a\u0020Directory\u0020with\u0020all\u0020Files\u0020and\u0020Sub\u0020Directories\u0020recursively.",
             "url": "classes/BaseObject.html#method_deleteDirectory"
         },                {
             "fqsen": "\\BaseObject\u003A\u003AgenerateRandomString\u0028\u0029",
             "name": "generateRandomString",
-            "summary": "This\u0020ststic\u0020Method\u0020generate\u0020a\u0020random\u0020String\u0020with\u0020a\u0020defined\u0020length.",
+            "summary": "This\u0020static\u0020Method\u0020generates\u0020a\u0020random\u0020String\u0020with\u0020a\u0020defined\u0020length.",
             "url": "classes/BaseObject.html#method_generateRandomString"
         },                {
             "fqsen": "\\BaseObject\u003A\u003AFILEPATHBASE",
@@ -163,7 +163,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "This\u0020Method\u0020init\u0020the\u0020Controler\u0020Properties.",
+            "summary": "This\u0020Method\u0020initializes\u0020the\u0020Controller\u0020Properties.",
             "url": "classes/Controller.html#method_init"
         },                {
             "fqsen": "\\Controller\u003A\u003AgetPresentationObject\u0028\u0029",
@@ -193,7 +193,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller\u003A\u003Aexecute\u0028\u0029",
             "name": "execute",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020Main\u0020Method\u0020of\u0020the\u0020Controler\u0020Class\u0020and\u0020controls\u0020the\u0020Requests\u0020and\u0020the\u0020Response.",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020Main\u0020Method\u0020of\u0020the\u0020Controller\u0020Class\u0020and\u0020controls\u0020the\u0020Requests\u0020and\u0020the\u0020Response.",
             "url": "classes/Controller.html#method_execute"
         },                {
             "fqsen": "\\Controller\u003A\u003AcheckRole\u0028\u0029",
@@ -211,20 +211,15 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020is\u0020the\u0020JSON\u0020View\u0020Method\u0020for\u0020the\u0020Json\u0020Content.",
             "url": "classes/Controller.html#method_json"
         },                {
-            "fqsen": "\\Controller\u003A\u003AsavePostData\u0028\u0029",
-            "name": "savePostData",
+            "fqsen": "\\Controller\u003A\u003Apost\u0028\u0029",
+            "name": "post",
             "summary": "This\u0020Method\u0020save\u0020all\u0020Post\u0020Data\u0020to\u0020File\u0020and\u0020set\u0020the\u0020Properties\u0020of\u0020the\u0020Request\u0020Object.",
-            "url": "classes/Controller.html#method_savePostData"
+            "url": "classes/Controller.html#method_post"
         },                {
             "fqsen": "\\Controller\u003A\u003AcheckPermissions\u0028\u0029",
             "name": "checkPermissions",
             "summary": "This\u0020Method\u0020checked\u0020the\u0020System\u0020Role\u0020of\u0020the\u0020current\u0020User\u0020for\u0020a\u0020Method\u0020in\u0020a\u0020Class.",
             "url": "classes/Controller.html#method_checkPermissions"
-        },                {
-            "fqsen": "\\Controller\u003A\u003AresponseData\u0028\u0029",
-            "name": "responseData",
-            "summary": "This\u0020Method\u0020handled\u0020the\u0020Response\u0020Object\u0020of\u0020the\u0020Request.",
-            "url": "classes/Controller.html#method_responseData"
         },                {
             "fqsen": "\\Controller\u003A\u003ArenderView\u0028\u0029",
             "name": "renderView",
@@ -233,13 +228,18 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller\u003A\u003AexecuteActions\u0028\u0029",
             "name": "executeActions",
-            "summary": "This\u0020Method\u0020execute\u0020the\u0020Actions\u0020before\u0020rendering\u0020the\u0020View\u0020Content.",
+            "summary": "This\u0020Method\u0020executes\u0020the\u0020Actions\u0020before\u0020rendering\u0020the\u0020View\u0020Content.",
             "url": "classes/Controller.html#method_executeActions"
         },                {
             "fqsen": "\\Controller\u003A\u003A\u0024resultType",
             "name": "resultType",
             "summary": "",
             "url": "classes/Controller.html#property_resultType"
+        },                {
+            "fqsen": "\\Controller\u003A\u003A\u0024requestType",
+            "name": "requestType",
+            "summary": "",
+            "url": "classes/Controller.html#property_requestType"
         },                {
             "fqsen": "\\Controller\u003A\u003A\u0024viewName",
             "name": "viewName",
@@ -313,7 +313,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Game\u003A\u003AavatarFileUploaded\u0028\u0029",
             "name": "avatarFileUploaded",
-            "summary": "This\u0020static\u0020Method\u0020set\u0020a\u0020uploaded\u0020Game\u0020Avatar\u0020to\u0020the\u0020Game\u0020Object\u0020and\u0020renamed\u0020the\u0020Image.",
+            "summary": "This\u0020Method\u0020sets\u0020a\u0020uploaded\u0020Game\u0020Avatar\u0020to\u0020the\u0020Game\u0020Object\u0020and\u0020renames\u0020the\u0020Image.",
             "url": "classes/Game.html#method_avatarFileUploaded"
         },                {
             "fqsen": "\\Game\u003A\u003AstartGame\u0028\u0029",
@@ -368,7 +368,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Game\u003A\u003Agameplay\u0028\u0029",
             "name": "gameplay",
-            "summary": "This\u0020Method\u0020controlls\u0020the\u0020Gameplay\u0020and\u0020redirect\u0020the\u0020Requests\u0020to\u0020the\u0020Gameplay\u0020Object.",
+            "summary": "This\u0020Method\u0020controls\u0020the\u0020Gameplay\u0020and\u0020redirects\u0020the\u0020Requests\u0020to\u0020the\u0020Gameplay\u0020Object.",
             "url": "classes/Game.html#method_gameplay"
         },                {
             "fqsen": "\\Game\u003A\u003AGAMEROLES",
@@ -498,12 +498,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020init\u0020the\u0020Gameplay,\u0020set\u0020all\u0020Properties\u0020and\u0020create\u0020the\u0020Directories\u0020and\u0020Files\u0020for\u0020the\u0020Game.",
+            "summary": "This\u0020Method\u0020initializes\u0020the\u0020Gameplay,\u0020sets\u0020all\u0020Properties\u0020and\u0020creates\u0020the\u0020Directories\u0020and\u0020Files\u0020for\u0020the\u0020Game.",
             "url": "classes/Gameplay.html#method_init"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AtransferStatistics\u0028\u0029",
             "name": "transferStatistics",
-            "summary": "This\u0020Method\u0020generate\u0020the\u0020Statistics\u0020and\u0020set\u0020the\u0020Gameplay\u0020Values\u0020at\u0020the\u0020Player\u0020Objects.",
+            "summary": "This\u0020Method\u0020generates\u0020the\u0020Statistics\u0020and\u0020sets\u0020the\u0020Gameplay\u0020Values\u0020at\u0020the\u0020Player\u0020Objects.",
             "url": "classes/Gameplay.html#method_transferStatistics"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AsetStatisticProperty\u0028\u0029",
@@ -516,10 +516,10 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020save\u0020the\u0020Tracking\u0020and\u0020the\u0020Steps\u0020that\u0020have\u0020been\u0020run\u0020since\u0020the\u0020last\u0020Tracking.",
             "url": "classes/Gameplay.html#method_addTracking"
         },                {
-            "fqsen": "\\Gameplay\u003A\u003AisDrived\u0028\u0029",
-            "name": "isDrived",
+            "fqsen": "\\Gameplay\u003A\u003AisDriven\u0028\u0029",
+            "name": "isDriven",
             "summary": "This\u0020Method\u0020checks\u0020whether\u0020the\u0020Player\u0020covered\u0020the\u0020last\u0020distance\u0020by\u0020driving\u0020or\u0020running.",
-            "url": "classes/Gameplay.html#method_isDrived"
+            "url": "classes/Gameplay.html#method_isDriven"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AgetGameSettings\u0028\u0029",
             "name": "getGameSettings",
@@ -538,12 +538,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay\u003A\u003AgetAllPlayerPositions\u0028\u0029",
             "name": "getAllPlayerPositions",
-            "summary": "This\u0020Method\u0020returs\u0020a\u0020Standard\u0020Object\u0020with\u0020the\u0020Position\u0020Coordinates\u0020from\u0020all\u0020Players.",
+            "summary": "This\u0020Method\u0020returns\u0020a\u0020Standard\u0020Object\u0020with\u0020the\u0020Position\u0020Coordinates\u0020from\u0020all\u0020Players.",
             "url": "classes/Gameplay.html#method_getAllPlayerPositions"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AgetPlayerPosition\u0028\u0029",
             "name": "getPlayerPosition",
-            "summary": "This\u0020Method\u0020returs\u0020a\u0020Standard\u0020Object\u0020with\u0020the\u0020Position\u0020Coordinates\u0020from\u0020one\u0020Player.",
+            "summary": "This\u0020Method\u0020returns\u0020a\u0020Standard\u0020Object\u0020with\u0020the\u0020Position\u0020Coordinates\u0020from\u0020one\u0020Player.",
             "url": "classes/Gameplay.html#method_getPlayerPosition"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AsaveGameplay\u0028\u0029",
@@ -558,7 +558,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay\u003A\u003AsilentHunt\u0028\u0029",
             "name": "silentHunt",
-            "summary": "This\u0020Method\u0020controlls\u0020a\u0020silent\u0020Hunt\u0020from\u0020the\u0020Current\u0020Player\u0020and\u0020added\u0020to\u0020the\u0020Response\u0020State\u0020Object.",
+            "summary": "This\u0020Method\u0020controls\u0020a\u0020silent\u0020Hunt\u0020from\u0020the\u0020Current\u0020Player\u0020and\u0020added\u0020to\u0020the\u0020Response\u0020State\u0020Object.",
             "url": "classes/Gameplay.html#method_silentHunt"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AcheckRulesAndAddSystemMessages\u0028\u0029",
@@ -588,22 +588,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay\u003A\u003AspeedHunt\u0028\u0029",
             "name": "speedHunt",
-            "summary": "This\u0020Method\u0020controlls\u0020the\u0020Speed\u0020Hunts\u0020and\u0020returns\u0020the\u0020State\u0020of\u0020the\u0020Speed\u0020Hunts.",
+            "summary": "This\u0020Method\u0020controls\u0020the\u0020Speed\u0020Hunts\u0020and\u0020returns\u0020the\u0020State\u0020of\u0020the\u0020Speed\u0020Hunts.",
             "url": "classes/Gameplay.html#method_speedHunt"
         },                {
             "fqsen": "\\Gameplay\u003A\u003Atrack\u0028\u0029",
             "name": "track",
-            "summary": "This\u0020Method\u0020controlls\u0020and\u0020adds\u0020the\u0020Player\u0020Tracking\u0020for\u0020the\u0020current\u0020Player.",
+            "summary": "This\u0020Method\u0020controls\u0020and\u0020adds\u0020the\u0020Player\u0020Tracking\u0020for\u0020the\u0020current\u0020Player.",
             "url": "classes/Gameplay.html#method_track"
         },                {
             "fqsen": "\\Gameplay\u003A\u003Amessage\u0028\u0029",
             "name": "message",
-            "summary": "This\u0020Method\u0020controlls\u0020a\u0020new\u0020Message\u0020from\u0020the\u0020current\u0020Player\u0020and\u0020adds\u0020the\u0020Message\u0020Queue\u0020for\u0020the\u0020Response.",
+            "summary": "This\u0020Method\u0020controls\u0020a\u0020new\u0020Message\u0020from\u0020the\u0020current\u0020Player\u0020and\u0020adds\u0020the\u0020Message\u0020Queue\u0020for\u0020the\u0020Response.",
             "url": "classes/Gameplay.html#method_message"
         },                {
             "fqsen": "\\Gameplay\u003A\u003Astopped\u0028\u0029",
             "name": "stopped",
-            "summary": "This\u0020Method\u0020set\u0020the\u0020requirered\u0020Response\u0020Object\u0020if\u0020the\u0020Game\u0020is\u0020stopped.",
+            "summary": "This\u0020Method\u0020sets\u0020the\u0020required\u0020Response\u0020Object\u0020if\u0020the\u0020Game\u0020is\u0020stopped.",
             "url": "classes/Gameplay.html#method_stopped"
         },                {
             "fqsen": "\\Gameplay\u003A\u003Astatistic\u0028\u0029",
@@ -713,7 +713,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Player\u003A\u003AavatarFileUploaded\u0028\u0029",
             "name": "avatarFileUploaded",
-            "summary": "This\u0020static\u0020Method\u0020renamed\u0020the\u0020Avatar\u0020Image\u0020File\u0020after\u0020Upload.",
+            "summary": "This\u0020Method\u0020renamed\u0020the\u0020Avatar\u0020Image\u0020File\u0020after\u0020Upload.",
             "url": "classes/Player.html#method_avatarFileUploaded"
         },                {
             "fqsen": "\\Player\u003A\u003AdeletePlayer\u0028\u0029",
@@ -728,7 +728,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Player\u003A\u003Asetup\u0028\u0029",
             "name": "setup",
-            "summary": "This\u0020Method\u0020is\u0020the\u0020Setup\u0020Routine\u0020for\u0020the\u0020App.\u0020The\u0020Method\u0020genedoes\u0020the\u0020following\u003A\n\u002D\u0020creates\u0020the\u0020dataPlayer.json\u0020file\u0020with\u0020the\u0020Admininistrator\u0020Data\u0020from\u0020the\u0020Setup\u0020Form\n\u002D\u0020creates\u0020the\u0020dataGame.json\n\u002D\u0020creates\u0020the\u0020Player\u0020File\u0020Directory\u0020and\u0020copies\u0020the\u0020default\u0020Avatar\u0020in\u0020the\u0020Directory\n\u002D\u0020set\u0020the\u0020Prephases\u0020in\u0020the\u0020PHP\u0020Config\u0020Package",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020Setup\u0020Routine\u0020for\u0020the\u0020App.\u0020The\u0020Method\u0020generates\u0020the\u0020following\u003A\n\u002D\u0020creates\u0020the\u0020dataPlayer.json\u0020file\u0020with\u0020the\u0020Administrator\u0020Data\u0020from\u0020the\u0020Setup\u0020Form\n\u002D\u0020creates\u0020the\u0020dataGame.json\n\u002D\u0020creates\u0020the\u0020Player\u0020File\u0020Directory\u0020and\u0020copies\u0020the\u0020default\u0020Avatar\u0020in\u0020the\u0020Directory\n\u002D\u0020sets\u0020the\u0020Passphrases\u0020in\u0020the\u0020PHP\u0020Config\u0020Package",
             "url": "classes/Player.html#method_setup"
         },                {
             "fqsen": "\\Player\u003A\u003AgetPlayerList\u0028\u0029",
@@ -748,7 +748,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Player\u003A\u003AdeleteArchiveGame\u0028\u0029",
             "name": "deleteArchiveGame",
-            "summary": "This\u0020Method\u0020delete\u0020a\u0020Game\u0020with\u0020all\u0020Files\u0020and\u0020the\u0020Directory\u0020in\u0020the\u0020the\u0020Archive.",
+            "summary": "This\u0020Method\u0020delete\u0020a\u0020Game\u0020with\u0020all\u0020Files\u0020and\u0020the\u0020Directory\u0020in\u0020the\u0020Archive.",
             "url": "classes/Player.html#method_deleteArchiveGame"
         },                {
             "fqsen": "\\Player\u003A\u003A\u0024name",
@@ -926,20 +926,20 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Player.html#property_asManagementCountMessagesAll"
         },                {
-            "fqsen": "\\Player\u003A\u003A\u0024asPlayerDistanceDrived",
-            "name": "asPlayerDistanceDrived",
+            "fqsen": "\\Player\u003A\u003A\u0024asPlayerDistanceDriven",
+            "name": "asPlayerDistanceDriven",
             "summary": "",
-            "url": "classes/Player.html#property_asPlayerDistanceDrived"
+            "url": "classes/Player.html#property_asPlayerDistanceDriven"
         },                {
-            "fqsen": "\\Player\u003A\u003A\u0024asHunterDistanceDrived",
-            "name": "asHunterDistanceDrived",
+            "fqsen": "\\Player\u003A\u003A\u0024asHunterDistanceDriven",
+            "name": "asHunterDistanceDriven",
             "summary": "",
-            "url": "classes/Player.html#property_asHunterDistanceDrived"
+            "url": "classes/Player.html#property_asHunterDistanceDriven"
         },                {
-            "fqsen": "\\Player\u003A\u003A\u0024asManagementDistanceDrived",
-            "name": "asManagementDistanceDrived",
+            "fqsen": "\\Player\u003A\u003A\u0024asManagementDistanceDriven",
+            "name": "asManagementDistanceDriven",
             "summary": "",
-            "url": "classes/Player.html#property_asManagementDistanceDrived"
+            "url": "classes/Player.html#property_asManagementDistanceDriven"
         },                {
             "fqsen": "\\Presentation",
             "name": "Presentation",
@@ -958,7 +958,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Presentation\u003A\u003AassignTemplateVar\u0028\u0029",
             "name": "assignTemplateVar",
-            "summary": "This\u0020Method\u0020delete\u0020the\u0020current\u0020Player\u0020with\u0020all\u0020Files\u0020and\u0020Directories.",
+            "summary": "This\u0020Method\u0020assigns\u0020Template\u0020Variables\u0020to\u0020the\u0020Template\u0020Engine.",
             "url": "classes/Presentation.html#method_assignTemplateVar"
         },                {
             "fqsen": "\\Presentation\u003A\u003AprocessTemplate\u0028\u0029",
@@ -973,7 +973,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Presentation\u003A\u003AtimestampToString\u0028\u0029",
             "name": "timestampToString",
-            "summary": "This\u0020static\u0020Method\u0020convert\u0020a\u0020Timestamp\u0020to\u0020a\u0020formated\u0020Date\u0020Time\u0020String.",
+            "summary": "This\u0020static\u0020Method\u0020convert\u0020a\u0020Timestamp\u0020to\u0020a\u0020formatted\u0020Date\u0020Time\u0020String.",
             "url": "classes/Presentation.html#method_timestampToString"
         },                {
             "fqsen": "\\Presentation\u003A\u003AwriteCookie\u0028\u0029",

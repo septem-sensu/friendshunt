@@ -54,11 +54,11 @@ body, html {
 
 @media screen and (max-width: 650px) {
   body .icon-game-camera {
-    left: 222px;
+    left: 178px;
   }
 
   body .icon-game-message {
-    left: 116px;
+    left: 99px;
   }
 
   body .icon-game-reload {
@@ -70,7 +70,11 @@ body, html {
   }
 
   body .icon-new-message {
-    left: 109px;
+    left: 92px;
+  }
+
+  body .icon-is-tracking-mode {
+    left: 251px;
   }
 
   body #game-message-layer {
@@ -314,29 +318,50 @@ body, html {
 .icon-game-camera {
   width: 35px;
   height: 37px;
-  left: 320px;
+  left: 278px;
   top: 6px;
 }
 
 .icon-game-message {
   width: 35px;
   height: 40px;
-  left: 215px;
+  left: 181px;
   top: 5px;
 }
 
 .icon-game-reload {
   width: 35px;
   height: 30px;
-  left: 110px;
+  left: 82px;
   top: 10px;
 }
 
 .icon-game-back {
   width: 35px;
   height: 30px;
-  left: 420px;
+  left: 457px;
   top: 10px;
+}
+
+.icon-is-tracking-mode {
+  position: absolute;
+  opacity: 0.75;
+  transition: opacity 0.3s;
+  transition: transform 0.2s;
+  font-size: 39px;
+  font-weight: 900;
+  left: 368px;
+  top: -1px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.icon-is-tracking-mode:hover {
+  opacity: 0.5;
+}
+
+.icon-is-tracking-mode:active {
+  transform: scale(0.85);
 }
 
 #game-scrolling-info-text-container {
@@ -412,7 +437,7 @@ body, html {
   pointer-events: none;
   width: 19px;
   height: 19px;
-  left: 209px;
+  left: 173px;
   top: 5px;
   z-index: 6000;
 }

@@ -479,7 +479,7 @@ The Game Class controls the Game Settings.</p>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>This static Method set a uploaded Game Avatar to the Game Object and renamed the Image.</dd>
+<dd>This Method sets a uploaded Game Avatar to the Game Object and renames the Image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_cleanObject">cleanObject()</a>
@@ -500,7 +500,7 @@ The Game Class controls the Game Settings.</p>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>This Method delelte a Directory with all Files and Sub Directories recursiv.</dd>
+<dd>This Method delete a Directory with all Files and Sub Directories recursively.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Game.html#method_deleteGame">deleteGame()</a>
@@ -549,21 +549,21 @@ The Game Class controls the Game Settings.</p>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>This Method load the Objects File of the Class decryted his and fill the Object with his data.</dd>
+<dd>This Method loads the Objects File of the Class, decrypts it and fills the Object with its data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Game.html#method_gameplay">gameplay()</a>
     <span>
                                 &nbsp;: object    </span>
 </dt>
-<dd>This Method controlls the Gameplay and redirect the Requests to the Gameplay Object.</dd>
+<dd>This Method controls the Gameplay and redirects the Requests to the Gameplay Object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_generateRandomString">generateRandomString()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>This ststic Method generate a random String with a defined length.</dd>
+<dd>This static Method generates a random String with a defined length.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_get">get()</a>
@@ -668,7 +668,7 @@ The Game Class controls the Game Settings.</p>
     <span>
                                 &nbsp;: object    </span>
 </dt>
-<dd>This method serialize a Object, removes particular Properties and returns the Standard Class Object.</dd>
+<dd>This method serializes an Object, removes particular Properties and returns the Standard Class Object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_set">set()</a>
@@ -1909,7 +1909,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objBaseObject = new BasObject( $strObjectId );</p>
+                                                 <section class="phpdocumentor-description"><p>$objBaseObject = new BaseObject( $strObjectId );</p>
 </section>
 
                                     </dd>
@@ -1923,7 +1923,7 @@ The Game Class controls the Game Settings.</p>
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-element__name" id="method_addGameImage">
         addGameImage()
@@ -1933,7 +1933,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
@@ -1941,7 +1941,7 @@ The Game Class controls the Game Settings.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">addGameImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strFileName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">addGameImage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strFileName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1997,16 +1997,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>Game::addGameImage( $strFileName );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this::addGameImage( $strFileName );</p>
+                                                 <section class="phpdocumentor-description"><p>$objGame-&gt;addGameImage( $strFileName );</p>
 </section>
 
                                     </dd>
@@ -2030,7 +2021,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
@@ -2094,16 +2085,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this-&gt;addGamePlayDataToGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $objGame-&gt;addGamePlayDataToGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $objGame-&gt;addGamePlayDataToGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -2135,7 +2117,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">424</span>
+    <span class="phpdocumentor-element-found-in__line">406</span>
 
     </aside>
 
@@ -2199,16 +2181,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = Game::addHunterToGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this::addHunterToGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = Game::addHunterToGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -2240,7 +2213,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">455</span>
+    <span class="phpdocumentor-element-found-in__line">436</span>
 
     </aside>
 
@@ -2304,16 +2277,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = Game::addManagementToGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this::addManagementToGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = Game::addManagementToGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -2345,7 +2309,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">393</span>
+    <span class="phpdocumentor-element-found-in__line">376</span>
 
     </aside>
 
@@ -2409,16 +2373,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = Game::addPlayerToGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this::addPlayerToGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = Game::addPlayerToGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -2450,7 +2405,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">518</span>
+    <span class="phpdocumentor-element-found-in__line">497</span>
 
     </aside>
 
@@ -2514,16 +2469,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this-&gt;archiveGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $objGame-&gt;archiveGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $objGame-&gt;archiveGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -2545,7 +2491,7 @@ The Game Class controls the Game Settings.</p>
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-element__name" id="method_avatarFileUploaded">
         avatarFileUploaded()
@@ -2555,15 +2501,15 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This static Method set a uploaded Game Avatar to the Game Object and renamed the Image.</p>
+        <p class="phpdocumentor-summary">This Method sets a uploaded Game Avatar to the Game Object and renames the Image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">avatarFileUploaded</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strFileName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">avatarFileUploaded</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strFileName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2619,16 +2565,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>Game::avatarFileUploaded( $strFileName );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this::avatarFileUploaded( $strFileName );</p>
+                                                 <section class="phpdocumentor-description"><p>$objPlayer-&gt;avatarFileUploaded( $strFileName );</p>
 </section>
 
                                     </dd>
@@ -2652,7 +2589,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">578</span>
+    <span class="phpdocumentor-element-found-in__line">541</span>
 
     </aside>
 
@@ -2736,15 +2673,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this::cleanObject( $objObject, $objFields );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2773,7 +2701,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">427</span>
+    <span class="phpdocumentor-element-found-in__line">413</span>
 
     </aside>
 
@@ -2848,15 +2776,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::deCrypte( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2885,11 +2804,11 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">568</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method delelte a Directory with all Files and Sub Directories recursiv.</p>
+        <p class="phpdocumentor-summary">This Method delete a Directory with all Files and Sub Directories recursively.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2906,7 +2825,7 @@ The Game Class controls the Game Settings.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Path to Direrctory to be deleted</p>
+                    <section class="phpdocumentor-description"><p>Path to Directory to be deleted</p>
 </section>
 
             </dd>
@@ -2949,16 +2868,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$boolSucsess = $this-&gt;deleteDirectory( $strPath );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$boolSucsess = $objBaseObject-&gt;deleteDirectory( $strPath );</p>
+                                                 <section class="phpdocumentor-description"><p>$boolSuccess = $objBaseObject-&gt;deleteDirectory( $strPath );</p>
 </section>
 
                                     </dd>
@@ -2970,7 +2880,7 @@ The Game Class controls the Game Settings.</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>$boolSucsess    Is deleted</p>
+                <section class="phpdocumentor-description"><p>$boolSuccess    Is deleted</p>
 </section>
 
             </section>
@@ -2990,7 +2900,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
@@ -3054,16 +2964,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this-&gt;deleteGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $objGame-&gt;deleteGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $objGame-&gt;deleteGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -3159,16 +3060,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this-&gt;deleteGameImage( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $objGame-&gt;deleteGameImage( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $objGame-&gt;deleteGameImage( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -3200,7 +3092,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">191</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
@@ -3252,15 +3144,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;deleteObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;deleteObject();</p>
 </section>
 
@@ -3285,7 +3168,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">401</span>
+    <span class="phpdocumentor-element-found-in__line">388</span>
 
     </aside>
 
@@ -3360,15 +3243,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::enCrypte( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -3397,7 +3271,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">382</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 
     </aside>
 
@@ -3461,16 +3335,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strContent = BaseObject::isJson( $strContent );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::isJson( $strContent );</p>
+                                                 <section class="phpdocumentor-description"><p>$strContent = BaseObject::enCrypteOnly( $strContent );</p>
 </section>
 
                                     </dd>
@@ -3502,7 +3367,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
@@ -3570,15 +3435,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objAllFields = $this::fields( $strProperty );</p>
-</section>
-
-                                    </dd>
                         </dl>
 
     
@@ -3607,11 +3463,11 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method load the Objects File of the Class decryted his and fill the Object with his data.</p>
+        <p class="phpdocumentor-summary">This Method loads the Objects File of the Class, decrypts it and fills the Object with its data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -3659,15 +3515,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;fillObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;fillObject();</p>
 </section>
 
@@ -3692,11 +3539,11 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">560</span>
+    <span class="phpdocumentor-element-found-in__line">538</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method controlls the Gameplay and redirect the Requests to the Gameplay Object.</p>
+        <p class="phpdocumentor-summary">This Method controls the Gameplay and redirects the Requests to the Gameplay Object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -3756,16 +3603,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this-&gt;gameplay( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $objGame-&gt;gameplay( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $objGame-&gt;gameplay( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -3797,11 +3635,11 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">632</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This ststic Method generate a random String with a defined length.</p>
+        <p class="phpdocumentor-summary">This static Method generates a random String with a defined length.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -3861,15 +3699,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strRandomString = $this::generateRandomString( $intLength );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strRandomString = BaseObject::generateRandomString( $intLength );</p>
 </section>
 
@@ -3902,7 +3731,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
@@ -3966,15 +3795,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$value = $this-&gt;get( $strProperty );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$value = $objBaseObject-&gt;get( $strProperty );</p>
 </section>
 
@@ -4007,7 +3827,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">319</span>
+    <span class="phpdocumentor-element-found-in__line">308</span>
 
     </aside>
 
@@ -4070,15 +3890,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objConfig = $this::getConfig();</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -4107,7 +3918,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">343</span>
 
     </aside>
 
@@ -4163,15 +3974,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$arrCryptKeys = $this::getCryptKeys( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -4200,7 +4002,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">301</span>
+    <span class="phpdocumentor-element-found-in__line">291</span>
 
     </aside>
 
@@ -4275,15 +4077,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObjects = $this::getObjects( $strClassName );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -4312,7 +4105,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -4364,15 +4157,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strId = $this-&gt;id();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strId = $objBaseObject-&gt;id();</p>
 </section>
 
@@ -4405,7 +4189,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 
     </aside>
 
@@ -4473,15 +4257,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$boolResult = $this::isJson( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -4510,7 +4285,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">488</span>
+    <span class="phpdocumentor-element-found-in__line">467</span>
 
     </aside>
 
@@ -4585,15 +4360,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this::loadFileDeCrypted( $strFile );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -4622,7 +4388,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">273</span>
 
     </aside>
 
@@ -4686,15 +4452,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strId = $this-&gt;newId( $strPrefix );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strId = $objBaseObject-&gt;newId( $strPrefix );</p>
 </section>
 
@@ -4727,7 +4484,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">551</span>
+    <span class="phpdocumentor-element-found-in__line">520</span>
 
     </aside>
 
@@ -4811,15 +4568,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$arrArray = $this::removeFromArray( $arrArray, $intIndex );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -4848,7 +4596,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">350</span>
 
     </aside>
 
@@ -4912,16 +4660,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objPlayer = Game::removePlayerProperties( $objPlayer );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objPlayer = $this::removePlayerProperties( $objPlayer );</p>
+                                                 <section class="phpdocumentor-description"><p>$objPlayer = Game::removePlayerProperties( $objPlayer );</p>
 </section>
 
                                     </dd>
@@ -4953,7 +4692,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">454</span>
+    <span class="phpdocumentor-element-found-in__line">439</span>
 
     </aside>
 
@@ -5037,15 +4776,6 @@ The Game Class controls the Game Settings.</p>
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this::saveFileEnCrypted( $strFile, $objObject );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -5066,7 +4796,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">250</span>
+    <span class="phpdocumentor-element-found-in__line">251</span>
 
     </aside>
 
@@ -5130,16 +4860,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = Game::saveNewGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this::saveNewGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = Game::saveNewGame( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -5171,7 +4892,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
@@ -5223,15 +4944,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;saveObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;saveObject();</p>
 </section>
 
@@ -5256,7 +4968,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">236</span>
 
     </aside>
 
@@ -5320,15 +5032,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $this-&gt;saveRequestObject( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objRequestObject = $objBaseObject-&gt;saveRequestObject( $objRequestObject );</p>
 </section>
 
@@ -5361,11 +5064,11 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">520</span>
+    <span class="phpdocumentor-element-found-in__line">490</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This method serialize a Object, removes particular Properties and returns the Standard Class Object.</p>
+        <p class="phpdocumentor-summary">This method serializes an Object, removes particular Properties and returns the Standard Class Object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -5384,13 +5087,6 @@ The Game Class controls the Game Settings.</p>
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">static</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">access</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -5416,15 +5112,6 @@ The Game Class controls the Game Settings.</p>
                                              
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this-&gt;serializeObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -5461,7 +5148,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -5534,15 +5221,6 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;set( $mixProperty, $mixValue );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;set( $mixProperty, $mixValue );</p>
 </section>
 
@@ -5567,7 +5245,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">486</span>
+    <span class="phpdocumentor-element-found-in__line">466</span>
 
     </aside>
 
@@ -5588,7 +5266,7 @@ The Game Class controls the Game Settings.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Controler Object</p>
+                    <section class="phpdocumentor-description"><p>The Controller Object</p>
 </section>
 
             </dd>
@@ -5631,16 +5309,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objController = Game::setPlayerIdToTemplate( $objController );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objController = $this::setPlayerIdToTemplate( $objController );</p>
+                                                 <section class="phpdocumentor-description"><p>$objController = Game::setPlayerIdToTemplate( $objController );</p>
 </section>
 
                                     </dd>
@@ -5652,7 +5321,7 @@ The Game Class controls the Game Settings.</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>$objController    The Controler Object</p>
+                <section class="phpdocumentor-description"><p>$objController    The Controller Object</p>
 </section>
 
             </section>
@@ -5672,7 +5341,7 @@ The Game Class controls the Game Settings.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">164</span>
+    <span class="phpdocumentor-element-found-in__line">168</span>
 
     </aside>
 
@@ -5736,16 +5405,7 @@ The Game Class controls the Game Settings.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $this-&gt;startGame( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>objRequestObject = $objGame-&gt;startGame( $objRequestObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $objGame-&gt;startGame( $objRequestObject );</p>
 </section>
 
                                     </dd>

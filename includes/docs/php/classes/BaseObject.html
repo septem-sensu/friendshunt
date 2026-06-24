@@ -309,7 +309,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>This Method delelte a Directory with all Files and Sub Directories recursiv.</dd>
+<dd>This Method delete a Directory with all Files and Sub Directories recursively.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_deleteObject">deleteObject()</a>
@@ -344,14 +344,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>This Method load the Objects File of the Class decryted his and fill the Object with his data.</dd>
+<dd>This Method loads the Objects File of the Class, decrypts it and fills the Object with its data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_generateRandomString">generateRandomString()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>This ststic Method generate a random String with a defined length.</dd>
+<dd>This static Method generates a random String with a defined length.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_get">get()</a>
@@ -442,7 +442,7 @@
     <span>
                                 &nbsp;: object    </span>
 </dt>
-<dd>This method serialize a Object, removes particular Properties and returns the Standard Class Object.</dd>
+<dd>This method serializes an Object, removes particular Properties and returns the Standard Class Object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_set">set()</a>
@@ -802,7 +802,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objBaseObject = new BasObject( $strObjectId );</p>
+                                                 <section class="phpdocumentor-description"><p>$objBaseObject = new BaseObject( $strObjectId );</p>
 </section>
 
                                     </dd>
@@ -826,7 +826,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">578</span>
+    <span class="phpdocumentor-element-found-in__line">541</span>
 
     </aside>
 
@@ -910,15 +910,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this::cleanObject( $objObject, $objFields );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -947,7 +938,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">427</span>
+    <span class="phpdocumentor-element-found-in__line">413</span>
 
     </aside>
 
@@ -1022,15 +1013,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::deCrypte( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -1059,11 +1041,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">568</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method delelte a Directory with all Files and Sub Directories recursiv.</p>
+        <p class="phpdocumentor-summary">This Method delete a Directory with all Files and Sub Directories recursively.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1080,7 +1062,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Path to Direrctory to be deleted</p>
+                    <section class="phpdocumentor-description"><p>Path to Directory to be deleted</p>
 </section>
 
             </dd>
@@ -1123,16 +1105,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$boolSucsess = $this-&gt;deleteDirectory( $strPath );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$boolSucsess = $objBaseObject-&gt;deleteDirectory( $strPath );</p>
+                                                 <section class="phpdocumentor-description"><p>$boolSuccess = $objBaseObject-&gt;deleteDirectory( $strPath );</p>
 </section>
 
                                     </dd>
@@ -1144,7 +1117,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>$boolSucsess    Is deleted</p>
+                <section class="phpdocumentor-description"><p>$boolSuccess    Is deleted</p>
 </section>
 
             </section>
@@ -1164,7 +1137,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">191</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
@@ -1216,15 +1189,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;deleteObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;deleteObject();</p>
 </section>
 
@@ -1249,7 +1213,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">401</span>
+    <span class="phpdocumentor-element-found-in__line">388</span>
 
     </aside>
 
@@ -1324,15 +1288,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::enCrypte( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -1361,7 +1316,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">382</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 
     </aside>
 
@@ -1425,16 +1380,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strContent = BaseObject::isJson( $strContent );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this::isJson( $strContent );</p>
+                                                 <section class="phpdocumentor-description"><p>$strContent = BaseObject::enCrypteOnly( $strContent );</p>
 </section>
 
                                     </dd>
@@ -1466,7 +1412,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
@@ -1534,15 +1480,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objAllFields = $this::fields( $strProperty );</p>
-</section>
-
-                                    </dd>
                         </dl>
 
     
@@ -1571,11 +1508,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method load the Objects File of the Class decryted his and fill the Object with his data.</p>
+        <p class="phpdocumentor-summary">This Method loads the Objects File of the Class, decrypts it and fills the Object with its data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1623,15 +1560,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;fillObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;fillObject();</p>
 </section>
 
@@ -1656,11 +1584,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">632</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This ststic Method generate a random String with a defined length.</p>
+        <p class="phpdocumentor-summary">This static Method generates a random String with a defined length.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1720,15 +1648,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strRandomString = $this::generateRandomString( $intLength );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strRandomString = BaseObject::generateRandomString( $intLength );</p>
 </section>
 
@@ -1761,7 +1680,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
@@ -1825,15 +1744,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$value = $this-&gt;get( $strProperty );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$value = $objBaseObject-&gt;get( $strProperty );</p>
 </section>
 
@@ -1866,7 +1776,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">319</span>
+    <span class="phpdocumentor-element-found-in__line">308</span>
 
     </aside>
 
@@ -1929,15 +1839,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objConfig = $this::getConfig();</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -1966,7 +1867,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">343</span>
 
     </aside>
 
@@ -2022,15 +1923,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$arrCryptKeys = $this::getCryptKeys( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2059,7 +1951,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">301</span>
+    <span class="phpdocumentor-element-found-in__line">291</span>
 
     </aside>
 
@@ -2134,15 +2026,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObjects = $this::getObjects( $strClassName );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2171,7 +2054,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -2223,15 +2106,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strId = $this-&gt;id();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strId = $objBaseObject-&gt;id();</p>
 </section>
 
@@ -2264,7 +2138,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 
     </aside>
 
@@ -2332,15 +2206,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$boolResult = $this::isJson( $strContent );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2369,7 +2234,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">488</span>
+    <span class="phpdocumentor-element-found-in__line">467</span>
 
     </aside>
 
@@ -2444,15 +2309,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this::loadFileDeCrypted( $strFile );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2481,7 +2337,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">273</span>
 
     </aside>
 
@@ -2545,15 +2401,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strId = $this-&gt;newId( $strPrefix );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strId = $objBaseObject-&gt;newId( $strPrefix );</p>
 </section>
 
@@ -2586,7 +2433,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">551</span>
+    <span class="phpdocumentor-element-found-in__line">520</span>
 
     </aside>
 
@@ -2670,15 +2517,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$arrArray = $this::removeFromArray( $arrArray, $intIndex );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2707,7 +2545,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">454</span>
+    <span class="phpdocumentor-element-found-in__line">439</span>
 
     </aside>
 
@@ -2791,15 +2629,6 @@
 </section>
 
                                     </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this::saveFileEnCrypted( $strFile, $objObject );</p>
-</section>
-
-                                    </dd>
                                             </dl>
 
     
@@ -2820,7 +2649,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">208</span>
 
     </aside>
 
@@ -2872,15 +2701,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;saveObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objBaseObject-&gt;saveObject();</p>
 </section>
 
@@ -2905,7 +2725,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">236</span>
 
     </aside>
 
@@ -2969,15 +2789,6 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objRequestObject = $this-&gt;saveRequestObject( $objRequestObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objRequestObject = $objBaseObject-&gt;saveRequestObject( $objRequestObject );</p>
 </section>
 
@@ -3010,11 +2821,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">520</span>
+    <span class="phpdocumentor-element-found-in__line">490</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This method serialize a Object, removes particular Properties and returns the Standard Class Object.</p>
+        <p class="phpdocumentor-summary">This method serializes an Object, removes particular Properties and returns the Standard Class Object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -3033,13 +2844,6 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">static</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">access</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -3065,15 +2869,6 @@
                                              
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this-&gt;serializeObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -3110,7 +2905,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -3179,15 +2974,6 @@
                                              
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;set( $mixProperty, $mixValue );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">

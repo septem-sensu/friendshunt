@@ -41,7 +41,7 @@ class ReplayPlayer {
     this.playbackTimer            = null;
     this.speedMultiplier          = 10;
     this.isPlaying                = false;
-    this.isTrackingMode           = false;
+    this.isTrackingMode           = this.gameplay.get( 'isTrackingMode' );
     this.isHighlightActive        = false;
 
     this.startTimestamp           = parseInt( this.tracking[ 0 ].timestamp );
@@ -173,32 +173,6 @@ class ReplayPlayer {
       playerCounter[ this.replayData.names[ playerId ].role ]++;
     }
 
-    document.querySelector( '#btn-replay-track' ).addEventListener( 'click', ( event ) => {
-      this.isTrackingMode = ! this.isTrackingMode;
-
-      if( this.isTrackingMode ) {
-        event.target.classList.add( 'btn-active' );
-        event.target.innerText = '⨀';
-      } else {
-        event.target.classList.remove( 'btn-active' );
-        event.target.innerText = '⨁';
-      }
-
-      return;
-    } );
-
-    this.mapInstance.on( 'dragstart', () => {
-      if( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
-
-      return;
-    } );
-
-    this.mapInstance.on( 'click', () => {
-      if( this.isTrackingMode ) document.querySelector( '#btn-replay-track' ).click();
-
-      return;
-    } );
-
     document.querySelector( '.replay-panel' ).addEventListener( 'custom_moveend', ( event ) => {
       if( ! event || ! event.detail || ! event.detail.method ) return;
       if( typeof event.detail.method !== 'function' ) return;
@@ -289,11 +263,15 @@ class ReplayPlayer {
       if( floatingPoint !== null ) {
         marker[ playerId ].setLatLng( [ floatingPoint.lat, floatingPoint.lng ] );
 
-        if( this.isTrackingMode && ! this.isHighlightActive && playerId === this.currentPlayerId ) {
-          this.mapInstance.panTo( [ floatingPoint.lat, floatingPoint.lng ], {
-            'animate': true,
-            'duration': 0.1
-          } );
+        if( playerId === this.currentPlayerId ) {
+          const isTrackingMode = this.gameplay.get( 'isTrackingMode' );
+
+          if( isTrackingMode && ! this.isHighlightActive ) {
+            this.mapInstance.panTo( [ floatingPoint.lat, floatingPoint.lng ], {
+              'animate': true,
+              'duration': 0.1
+            } );
+          }
         }
 
         if( this.playerClassesAndColors[ playerId ] ) {

@@ -303,7 +303,7 @@
     "unit": "",
     "position": 3200
   },
-  "asPlayerDistanceDrived": {
+  "asPlayerDistanceDriven": {
     "nameDe": "Gefahrene km als Spieler",
     "element": "input",
     "type": "number",
@@ -311,7 +311,7 @@
     "unit": "",
     "position": 3000
   },
-  "asHunterDistanceDrived": {
+  "asHunterDistanceDriven": {
     "nameDe": "Gefahrene km als Jäger",
     "element": "input",
     "type": "number",
@@ -319,7 +319,7 @@
     "unit": "",
     "position": 3100
   },
-  "asManagementDistanceDrived": {
+  "asManagementDistanceDriven": {
     "nameDe": "Gefahrene km als Jäger",
     "element": "input",
     "type": "number",

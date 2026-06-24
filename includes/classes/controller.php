@@ -2,10 +2,10 @@
 
 declare( strict_types = 1 );
 
-include_once ( __DIR__ . '/../classes/baseObject.php' );
-include_once ( __DIR__ . '/../classes/presentation.php' );
-include_once ( __DIR__ . '/../classes/player.php' );
-include_once ( __DIR__ . '/../classes/game.php' );
+require_once ( __DIR__ . '/../classes/baseObject.php' );
+require_once ( __DIR__ . '/../classes/presentation.php' );
+require_once ( __DIR__ . '/../classes/player.php' );
+require_once ( __DIR__ . '/../classes/game.php' );
 
 /**
  * Controller Class for the Friends Hunt App.
@@ -29,6 +29,7 @@ class Controller {
 
 /* Class Properties */
   protected string        $resultType;
+  protected string        $requestType;
   protected string        $viewName;
   protected object        $viewObject;
   protected string        $objectId;
@@ -58,7 +59,7 @@ class Controller {
   }
 
 /**
- * This Method init the Controler Properties.
+ * This Method initializes the Controller Properties.
  *
  * @access     public
  * @since      2026-06-05
@@ -66,7 +67,6 @@ class Controller {
  *
  * @return     void
  *
- * @example    $this->init();
  * @example    $objController->init();
  *
 */
@@ -78,8 +78,7 @@ class Controller {
     $this->response->object   = new stdClass();
     $this->response->result   = new stdClass();
     $this->response->errors   = [];
-    $this->resultType         = isset( $_GET[ 'result' ] ) && $_GET[ 'result' ] != '' ? $_GET[ 'result' ] : 'content';
-    $this->viewName           = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : $this->config->defaultView;
+    $this->viewName           = isset( $_GET[ 'view' ] ) ? basename( $_GET[ 'view' ] ) : $this->config->defaultView;
     $this->objectId           = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : '';
     $this->objectId           = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
 
@@ -93,6 +92,14 @@ class Controller {
     $this->templates          = $this->viewObject->templates;
     $this->actions            = $this->viewObject->actions;
 
+    if( isset( $_GET[ 'result' ] ) ) {
+      $this->resultType  = 'json';
+      $this->requestType = empty( $_POST[ 'class' ] ) ? 'json' : 'post';
+    } else {
+      $this->resultType  = 'content';
+      $this->requestType = 'json';
+    }
+
     return;
   }
 
@@ -105,7 +112,6 @@ class Controller {
  *
  * @return     Presentation   $objPresentation  The Presentation Object
  *
- * @example    $objPresentation = $this->getPresentationObject();
  * @example    $objPresentation = $objController->getPresentationObject();
  *
 */
@@ -122,7 +128,6 @@ class Controller {
  *
  * @return     object   $objViewObject  The current View Object
  *
- * @example    $objViewObject = $this->getViewObject();
  * @example    $objViewObject = $objController->getViewObject();
  *
 */
@@ -139,7 +144,6 @@ class Controller {
  *
  * @return     string   $strResultType  The Result Type (json or content)
  *
- * @example    $strResultType = $this->getResultType();
  * @example    $strResultType = $objController->getResultType();
  *
 */
@@ -157,8 +161,7 @@ class Controller {
  * @param      object   $objObject The Object to set
  * @return     void
  *
- * @example    $this->setObject( objObject );
- * @example    $objController->setObject( objObject );
+ * @example    $objController->setObject( $objObject );
  *
 */
   public function setObject( object $objObject ) : void {
@@ -177,8 +180,7 @@ class Controller {
  * @param      string   $strRole  The current User System Role
  * @return     void
  *
- * @example    $this->setRole( strRole );
- * @example    $this->objController( strRole );
+ * @example    $objController->setRole( $strRole );
  *
 */
   public function setRole( string $strRole ) : void {
@@ -190,7 +192,7 @@ class Controller {
   }
 
 /**
- * This Method is the Main Method of the Controler Class and controls the Requests and the Response.
+ * This Method is the Main Method of the Controller Class and controls the Requests and the Response.
  *
  * @access     public
  * @since      2026-06-05
@@ -198,18 +200,13 @@ class Controller {
  *
  * @return     mixed    $mixResult    The Result of the Response
  *
- * @example    $mixResult = $this->execute();
  * @example    $mixResult = $objController->execute();
  *
 */
   public function execute() : mixed {
-    if( isset( $_GET[ 'result' ] ) ) {
-      $this->resultType = 'json';
-
-      return $this->json();
+    if( $this->resultType == 'json' ) {
+      return $this->requestType == 'json' ? $this->json() : $this->post();
     }
-
-    $this->resultType = 'content';
 
     return $this->view();
   }
@@ -223,7 +220,6 @@ class Controller {
  *
  * @return     void
  *
- * @example    $this->checkRole();
  * @example    $objController->checkRole();
  *
 */
@@ -250,7 +246,6 @@ class Controller {
  *
  * @return     string    $strContent    The Response Content
  *
- * @example    $strContent = $this->view();
  * @example    $strContent = $objController->view();
  *
 */
@@ -259,7 +254,6 @@ class Controller {
 
     if( $this->role !=  $this->config->defaultRole && $this->viewName == $this->config->defaultView ) header( 'Location: index.php?view=' . $this->config->defaultLoginView );
 
-    if( $this->role !=  $this->config->defaultRole && $this->viewName == $this->config->defaultView ) header( 'Location: index.php?view=' . $this->config->defaultLoginView );
     if( ! in_array( $this->role, $this->viewObject->roles ) )  header( 'Location: index.php?view=' . $this->config->defaultView );
     if( file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {
       if( $this->viewName == $this->config->defaultSetupView ) header( 'Location: index.php?view=' . $this->config->defaultView );
@@ -281,26 +275,47 @@ class Controller {
  *
  * @return     string    $strJsonContent    The Json Content
  *
- * @example    $strJsonContent = $this->json();
  * @example    $strJsonContent = $objController->json();
  *
 */
   private function json() : string {
-    $this->checkRole();
+    $objRequestObject = json_decode( file_get_contents( 'php://input' ) );
+    $strClassName     = isset( $objRequestObject->class ) && $objRequestObject->class != '' ? $objRequestObject->class : null;
+    $strMethod        = isset( $objRequestObject->method ) && $objRequestObject->method != '' ? $objRequestObject->method : null;
+    $strObjectId      = isset( $objRequestObject->id ) && $objRequestObject->id != '' ? $objRequestObject->id : null;
+    $boolHasErrors    = false;
 
-    if( ! in_array( $this->role, $this->viewObject->roles )   ) {
-        $objError           = new stdClass();
-        $objError->message  = 'Zugriff verweigert';
-        $objError->redirect = 'index.php?view=' . $this->config->defaultView;
-
-        array_push( $this->response->errors, $objError );
-
-        return json_encode( $this->response );
+    if( isset( $strClassName ) && isset( $strMethod ) && $strClassName . '::' . $strMethod == $this->config->loginMethod ) {
+      $this->object = ( $this->config->loginMethod )( $objRequestObject );
     }
 
-    //$this->executeActions();
-    $this->response->object = $this->savePostData();
-    $this->responseData();
+    $this->checkRole();
+
+    if( ! isset( $strClassName ) || ! isset( $strMethod ) ) $boolHasErrors = true;
+    if( ! $boolHasErrors && ! in_array( $this->role, $this->viewObject->roles ) ) $boolHasErrors = true;
+    if( ! $boolHasErrors && ! $this->checkPermissions( $strClassName, $strMethod, false ) ) $boolHasErrors = true;
+
+    if( $boolHasErrors ) {
+      $objError           = new stdClass();
+      $objError->message  = 'Zugriff verweigert';
+      $objError->redirect = 'index.php?view=' . $this->config->defaultView;
+
+      array_push( $this->response->errors, $objError );
+
+      $this->presentationObject->getJsonHeader();
+
+      return json_encode( $this->response );
+    }
+
+    $objRequestObject->controller = $this;
+
+    if( isset( $strObjectId ) ) {
+      $objObject              = new $strClassName( $strObjectId );
+      $this->response->result = $objObject->$strMethod( $objRequestObject );
+    } else {
+      $this->response->result = $strClassName::$strMethod( $objRequestObject );
+    }
+
     $this->presentationObject->getJsonHeader();
 
     return json_encode( $this->response );
@@ -313,42 +328,75 @@ class Controller {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @return     object    $objObject    The Result Object
+ * @return     string  $strJsonContent  The Json Content
  *
- * @example    $objObject = $this->savePostData();
- * @example    $objObject = $objController->savePostData();
+ * @example    $strJsonContent = $objController->post();
  *
 */
-  private function savePostData() {
-    $strClass     = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
-    $strId        = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
-    $strProperty  = isset( $_POST[ 'property' ] ) ? $_POST[ 'property' ] : null;
-    $strRedirect  = isset( $_POST[ 'redirect' ] ) ? $_POST[ 'redirect' ] : null;
-    $strFile      = isset( $_FILES[ 'files' ] ) ? $_FILES[ 'files' ] : null;
-    $strPath      = __DIR__ . '/../files/';
+  private function post() : string {
+    $strClassName  = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
+    $strMethod     = isset( $_POST[ 'method' ] ) ? $_POST[ 'method' ] : null;
+    $strId         = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+    $strProperty   = isset( $_POST[ 'property' ] ) ? $_POST[ 'property' ] : null;
+    $strRedirect   = isset( $_POST[ 'redirect' ] ) ? $_POST[ 'redirect' ] : null;
+    $strFile       = isset( $_FILES[ 'files' ] ) ? $_FILES[ 'files' ] : null;
+    $strPath       = __DIR__ . '/../files/';
+    $boolHasErrors = false;
 
-    if( ! isset( $strClass ) || ! isset( $strId ) || ! isset( $strProperty ) || ! isset( $strFile ) ) return;
-    if( ! file_exists( $strPath . lcfirst( $strClass ) . '/' ) ) mkdir( $strPath . lcfirst( $strClass ) );
-    if( ! file_exists( $strPath . lcfirst( $strClass ) . '/' . $strId ) ) mkdir( $strPath . lcfirst( $strClass ) . '/' . $strId );
+    $this->checkRole();
 
-    $objObject    = new $strClass( $strId );
-    $strPath      = $strPath . lcfirst( $strClass ) . '/' . $strId . '/';
+    if( empty( $strClassName ) || empty( $strId ) || empty( $strProperty ) || empty( $strFile ) || empty( $strMethod ) ) $boolHasErrors = true;
+    if( ! $boolHasErrors && ! in_array( $this->role, $this->viewObject->roles ) ) $boolHasErrors = true;
+    if( ! $boolHasErrors && $strClassName !== 'Player' && $strClassName !== 'Game' ) $boolHasErrors = true;
+    if( ! $boolHasErrors && ! $this->checkPermissions( $strClassName, $strMethod, false ) ) $boolHasErrors = true;
+
+    if( $boolHasErrors ) {
+      $objError           = new stdClass();
+      $objError->message  = 'Zugriff verweigert';
+      $objError->redirect = 'index.php?view=' . $this->config->defaultView;
+
+      array_push( $this->response->errors, $objError );
+
+      $this->presentationObject->getJsonHeader();
+
+      return json_encode( $this->response );
+    }
+
+    $strTargetPath = realpath( $strPath ) . DIRECTORY_SEPARATOR . lcfirst( $strClassName ) . DIRECTORY_SEPARATOR . $strId;
+
+    if( ! str_starts_with( realpath( $strTargetPath ), realpath( $strPath ) ) ) {
+      $objError           = new stdClass();
+      $objError->message  = 'Zugriff verweigert';
+      $objError->redirect = 'index.php?view=' . $this->config->defaultView;
+
+      array_push( $this->response->errors, $objError );
+
+      $this->presentationObject->getJsonHeader();
+
+      return json_encode( $this->response );
+    }
+
+    if( ! file_exists( $strPath . lcfirst( $strClassName ) . '/' ) ) mkdir( $strPath . lcfirst( $strClassName ) );
+    if( ! file_exists( $strPath . lcfirst( $strClassName ) . '/' . $strId ) ) mkdir( $strPath . lcfirst( $strClassName ) . '/' . $strId );
+
+    $objObject    = new $strClassName( $strId );
+    $strPath      = $strPath . lcfirst( $strClassName ) . '/' . $strId . '/';
     $strTmpName   = $_FILES[ 'files' ][ 'tmp_name' ];
     $strName      = basename( $_FILES[ 'files' ][ 'name' ] );
     $strName      = $objObject->newId( 'file' ) . '_' . $strName;
 
-    $objObject->set( $strProperty, $strName );
-
     move_uploaded_file( $strTmpName, $strPath . $strName );
 
-    if( isset( $_POST[ 'method' ] ) ) {
-      $_POST[ 'method' ]( $strName );
-      $objObject->fillObject();
-      $objObject = $objObject->serializeObject();
-      if( isset( $strRedirect ) ) $objObject->redirect = $strRedirect;
-    }
+    $objObject->set( $strProperty, $strName );
+    $objObject->$strMethod( $strName );
 
-    return $objObject;
+    $this->response->object = $objObject->serializeObject();
+
+    if( ! empty( $strRedirect ) ) $this->response->object->redirect = $strRedirect;
+
+    $this->presentationObject->getJsonHeader();
+
+    return json_encode( $this->response );
   }
 
 /**
@@ -358,63 +406,30 @@ class Controller {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      string   $strClass     The Class Name of the Method
- * @param      string   $strMethod   The Method to check
- * @return     bool     $boolAllowed  True if the User is allowed to call this Method
+ * @param      string   $strClass      The Class Name of the Method
+ * @param      string   $strMethod     The Method to check
+ * @param      bool     $boolAddError  Specifies whether an error should be pushed into the response if the permission check is incorrect
+ * @return     bool     $boolAllowed   True if the User is allowed to call this Method
  *
- * @example    $boolAllowed = $this->checkPermissions( strClass, strMethod );
- * @example    $boolAllowed = $objController->checkPermissions( strClass, strMethod );
+ * @example    $boolAllowed = $objController->checkPermissions( $strClass, $strMethod, $boolAddError );
  *
 */
-  private function checkPermissions( string $strClass, string $strMethod ) : bool {
+  private function checkPermissions( string $strClass, string $strMethod, bool $boolAddError ) : bool {
     $objPermissions = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'dataPermissions.json' );
     $strRole         = $this->role;
 
     if( ! in_array( $strClass . '::' . $strMethod, $objPermissions->$strRole->methods ) ) {
-      $objError           = new stdClass();
-      $objError->message  = 'Zugriff verweigert';
+      if( $boolAddError ) {
+        $objError           = new stdClass();
+        $objError->message  = 'Zugriff verweigert';
 
-      array_push( $this->response->errors, $objError );
+        array_push( $this->response->errors, $objError );
+      }
 
       return false;
     }
 
     return true;
-  }
-
-/**
- * This Method handled the Response Object of the Request.
- *
- * @access     private
- * @since      2026-06-05
- * @version    0.1.0
- *
- * @return     void
- *
- * @example    $this->responseData();
- * @example    $objController->responseData();
- *
-*/
-  private function responseData() : void {
-    $objRequestObject             = json_decode( file_get_contents( 'php://input' ) );
-
-    if( ! isset( $objRequestObject ) ) return;
-
-    $objRequestObject->controller = $this;
-    $strClassName                 = isset( $objRequestObject->class ) && $objRequestObject->class != '' ? $objRequestObject->class : null;
-    $strMethod                    = isset( $objRequestObject->method ) && $objRequestObject->method != '' ? $objRequestObject->method : null;
-    $strObjectId                  = isset( $objRequestObject->id ) && $objRequestObject->id != '' ? $objRequestObject->id : null;
-
-    if( ! $this->checkPermissions( $strClassName, $strMethod ) ) return;
-
-    if( isset( $strObjectId ) ) {
-      $objObject              = new $strClassName( $strObjectId );
-      $this->response->result = $objObject->$strMethod( $objRequestObject );
-    } else {
-      $this->response->result = $strClassName::$strMethod( $objRequestObject );
-    }
-
-    return;
   }
 
 /**
@@ -426,7 +441,6 @@ class Controller {
  *
  * @return     string   $strContent   The Content for the Response
  *
- * @example    $strContent = $this->renderView();
  * @example    $strContent = $objController->renderView();
  *
 */
@@ -456,15 +470,15 @@ class Controller {
       $this->presentationObject->assignTemplateVar( 'object', 'default', null, json_encode( new stdClass() ) );
     }
 
-    for( $i = 0; $i < count( $this->templates ); $i++ ) {
-      $strContent .= $this->presentationObject->processTemplate( $this->templates[ $i ] );
+    foreach( $this->templates as $strTemplate ) {
+      $strContent .= $this->presentationObject->processTemplate( $strTemplate );
     }
 
     return $strContent;
   }
 
 /**
- * This Method execute the Actions before rendering the View Content.
+ * This Method executes the Actions before rendering the View Content.
  *
  * @access     private
  * @since      2026-06-05
@@ -472,7 +486,6 @@ class Controller {
  *
  * @return     void
  *
- * @example    $this->executeActions();
  * @example    $objController->executeActions();
  *
 */
@@ -480,16 +493,18 @@ class Controller {
     $strObjectId      = isset( $_GET[ 'id' ] ) ? $_GET[ 'id' ] : null;
     $strObjectId      = ( ! isset( $strObjectId ) || $strObjectId == '' ) && isset( $this->object ) ? $this->object->id() : $strObjectId;
 
-    for( $i = 0; $i < count( $this->actions ); $i++ ) {
+    foreach( $this->actions as $strAction ) {
       $strObjectId    = ( ! isset( $this->objectId ) || $this->objectId == '' ) && isset( $this->object ) ? $this->object->id() : $this->objectId;
-      $arrActionParts = explode( '::', $this->actions[ $i ] );
+      $arrActionParts = explode( '::', $strAction );
+
+      if( ! $this->checkPermissions( $arrActionParts[ 0 ], $arrActionParts[ 1 ], true ) ) continue;
 
       if( isset( $strObjectId ) && $strObjectId != '' && $arrActionParts[ 0 ] == $this->className ) {
         $objObject        = new $this->className( $strObjectId );
         $strAction        = $arrActionParts[ 1 ];
         $objObject->$strAction( $this );
       } else {
-        $this->actions[ $i ]( $this );
+        $strAction( $this );
       }
     }
 

@@ -264,6 +264,12 @@ The Controller Class controls all Requests and Response with the App.</p>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/Controller.html#property_requestType">$requestType</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a class="" href="classes/Controller.html#property_response">$response</a>
     <span>
                         &nbsp;: object            </span>
@@ -319,7 +325,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>This Method is the Main Method of the Controler Class and controls the Requests and the Response.</dd>
+<dd>This Method is the Main Method of the Controller Class and controls the Requests and the Response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controller.html#method_getPresentationObject">getPresentationObject()</a>
@@ -375,14 +381,14 @@ The Controller Class controls all Requests and Response with the App.</p>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>This Method execute the Actions before rendering the View Content.</dd>
+<dd>This Method executes the Actions before rendering the View Content.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controller.html#method_init">init()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>This Method init the Controler Properties.</dd>
+<dd>This Method initializes the Controller Properties.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controller.html#method_json">json()</a>
@@ -392,25 +398,18 @@ The Controller Class controls all Requests and Response with the App.</p>
 <dd>This Method is the JSON View Method for the Json Content.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Controller.html#method_post">post()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>This Method save all Post Data to File and set the Properties of the Request Object.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controller.html#method_renderView">renderView()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>This Method is rendering the Content and set the Template Variables for the Response.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Controller.html#method_responseData">responseData()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>This Method handled the Response Object of the Request.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/Controller.html#method_savePostData">savePostData()</a>
-    <span>
-                                &nbsp;: object    </span>
-</dt>
-<dd>This Method save all Post Data to File and set the Properties of the Request Object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Controller.html#method_view">view()</a>
@@ -449,7 +448,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -487,7 +486,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -525,7 +524,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -563,7 +562,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -601,7 +600,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -639,7 +638,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -649,6 +648,44 @@ The Controller Class controls all Requests and Response with the App.</p>
         <span class="phpdocumentor-signature__visibility">protected</span>
             <span class="phpdocumentor-signature__type"><a href="classes/Presentation.html"><abbr title="\Presentation">Presentation</abbr></a></span>
     <span class="phpdocumentor-signature__name">$presentationObject</span>
+    </code>
+
+    
+    
+    
+
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_requestType">
+        $requestType
+        <a href="classes/Controller.html#property_requestType" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">32</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$requestType</span>
     </code>
 
     
@@ -677,7 +714,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -753,7 +790,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
@@ -791,7 +828,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -829,7 +866,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -867,7 +904,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -910,7 +947,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
@@ -986,11 +1023,11 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method is the Main Method of the Controler Class and controls the Requests and the Response.</p>
+        <p class="phpdocumentor-summary">This Method is the Main Method of the Controller Class and controls the Requests and the Response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1038,15 +1075,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$mixResult = $this-&gt;execute();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$mixResult = $objController-&gt;execute();</p>
 </section>
 
@@ -1079,7 +1107,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
@@ -1131,15 +1159,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objPresentation = $this-&gt;getPresentationObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objPresentation = $objController-&gt;getPresentationObject();</p>
 </section>
 
@@ -1172,7 +1191,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -1224,15 +1243,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strResultType = $this-&gt;getResultType();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strResultType = $objController-&gt;getResultType();</p>
 </section>
 
@@ -1265,7 +1275,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">134</span>
 
     </aside>
 
@@ -1317,15 +1327,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objViewObject = $this-&gt;getViewObject();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objViewObject = $objController-&gt;getViewObject();</p>
 </section>
 
@@ -1358,7 +1359,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">164</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -1422,16 +1423,7 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;setObject( objObject );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objController-&gt;setObject( objObject );</p>
+                                                 <section class="phpdocumentor-description"><p>$objController-&gt;setObject( $objObject );</p>
 </section>
 
                                     </dd>
@@ -1455,7 +1447,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">184</span>
+    <span class="phpdocumentor-element-found-in__line">186</span>
 
     </aside>
 
@@ -1519,16 +1511,7 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;setRole( strRole );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;objController( strRole );</p>
+                                                 <section class="phpdocumentor-description"><p>$objController-&gt;setRole( $strRole );</p>
 </section>
 
                                     </dd>
@@ -1552,7 +1535,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">369</span>
+    <span class="phpdocumentor-element-found-in__line">417</span>
 
     </aside>
 
@@ -1560,7 +1543,7 @@ The Controller Class controls all Requests and Response with the App.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">checkPermissions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strClass</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strMethod</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">checkPermissions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strClass</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strMethod</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boolAddError</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1583,6 +1566,15 @@ The Controller Class controls all Requests and Response with the App.</p>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The Method to check</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$boolAddError</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Specifies whether an error should be pushed into the response if the permission check is incorrect</p>
 </section>
 
             </dd>
@@ -1625,16 +1617,7 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$boolAllowed = $this-&gt;checkPermissions( strClass, strMethod );</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$boolAllowed = $objController-&gt;checkPermissions( strClass, strMethod );</p>
+                                                 <section class="phpdocumentor-description"><p>$boolAllowed = $objController-&gt;checkPermissions( $strClass, $strMethod, $boolAddError );</p>
 </section>
 
                                     </dd>
@@ -1646,7 +1629,7 @@ The Controller Class controls all Requests and Response with the App.</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>$boolAllowed  True if the User is allowed to call this Method</p>
+                <section class="phpdocumentor-description"><p>$boolAllowed   True if the User is allowed to call this Method</p>
 </section>
 
             </section>
@@ -1666,7 +1649,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">230</span>
+    <span class="phpdocumentor-element-found-in__line">226</span>
 
     </aside>
 
@@ -1718,15 +1701,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;checkRole();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objController-&gt;checkRole();</p>
 </section>
 
@@ -1751,11 +1725,11 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">479</span>
+    <span class="phpdocumentor-element-found-in__line">492</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method execute the Actions before rendering the View Content.</p>
+        <p class="phpdocumentor-summary">This Method executes the Actions before rendering the View Content.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1803,15 +1777,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;executeActions();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objController-&gt;executeActions();</p>
 </section>
 
@@ -1840,7 +1805,7 @@ The Controller Class controls all Requests and Response with the App.</p>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method init the Controler Properties.</p>
+        <p class="phpdocumentor-summary">This Method initializes the Controller Properties.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1888,15 +1853,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;init();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$objController-&gt;init();</p>
 </section>
 
@@ -1921,7 +1877,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">288</span>
+    <span class="phpdocumentor-element-found-in__line">281</span>
 
     </aside>
 
@@ -1973,15 +1929,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strJsonContent = $this-&gt;json();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strJsonContent = $objController-&gt;json();</p>
 </section>
 
@@ -2006,6 +1953,90 @@ The Controller Class controls all Requests and Response with the App.</p>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_post">
+        post()
+        <a href="classes/Controller.html#method_post" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">336</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This Method save all Post Data to File and set the Properties of the Request Object.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">post</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Controller.html#method_post#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>private</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-06-05</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>$strJsonContent = $objController-&gt;post();</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>$strJsonContent  The Json Content</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_renderView">
         renderView()
         <a href="classes/Controller.html#method_renderView" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2014,7 +2045,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">433</span>
+    <span class="phpdocumentor-element-found-in__line">447</span>
 
     </aside>
 
@@ -2066,15 +2097,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this-&gt;renderView();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
                                                  <section class="phpdocumentor-description"><p>$strContent = $objController-&gt;renderView();</p>
 </section>
 
@@ -2099,184 +2121,6 @@ The Controller Class controls all Requests and Response with the App.</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_responseData">
-        responseData()
-        <a href="classes/Controller.html#method_responseData" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">398</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">This Method handled the Response Object of the Request.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">responseData</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Controller.html#method_responseData#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">access</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>private</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">2026-06-05</span>
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">version</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">0.1.0</span>
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$this-&gt;responseData();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objController-&gt;responseData();</p>
-</section>
-
-                                    </dd>
-                                            </dl>
-
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_savePostData">
-        savePostData()
-        <a href="classes/Controller.html#method_savePostData" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">322</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">This Method save all Post Data to File and set the Properties of the Request Object.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">savePostData</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Controller.html#method_savePostData#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">access</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>private</p>
-</section>
-
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">2026-06-05</span>
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">version</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">0.1.0</span>
-                                                                                
-                                             
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $this-&gt;savePostData();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$objObject = $objController-&gt;savePostData();</p>
-</section>
-
-                                    </dd>
-                                            </dl>
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">object</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>$objObject    The Result Object</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_view">
         view()
         <a href="classes/Controller.html#method_view" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2285,7 +2129,7 @@ The Controller Class controls all Requests and Response with the App.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/controller.php"><a href="files/includes-classes-controller.html"><abbr title="includes/classes/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">257</span>
+    <span class="phpdocumentor-element-found-in__line">252</span>
 
     </aside>
 
@@ -2333,15 +2177,6 @@ The Controller Class controls all Requests and Response with the App.</p>
                                              
                                     </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">example</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>$strContent = $this-&gt;view();</p>
-</section>
-
-                                    </dd>
-                            <dt class="phpdocumentor-tag-list__entry">
                     <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
@@ -2485,6 +2320,7 @@ The Controller Class controls all Requests and Response with the App.</p>
                                                     <li class=""><a href="classes/Controller.html#property_object">$object</a></li>
                                                     <li class=""><a href="classes/Controller.html#property_objectId">$objectId</a></li>
                                                     <li class=""><a href="classes/Controller.html#property_presentationObject">$presentationObject</a></li>
+                                                    <li class=""><a href="classes/Controller.html#property_requestType">$requestType</a></li>
                                                     <li class=""><a href="classes/Controller.html#property_response">$response</a></li>
                                                     <li class=""><a href="classes/Controller.html#property_resultType">$resultType</a></li>
                                                     <li class=""><a href="classes/Controller.html#property_role">$role</a></li>
@@ -2509,9 +2345,8 @@ The Controller Class controls all Requests and Response with the App.</p>
                                             <li class=""><a href="classes/Controller.html#method_executeActions">executeActions()</a></li>
                                             <li class=""><a href="classes/Controller.html#method_init">init()</a></li>
                                             <li class=""><a href="classes/Controller.html#method_json">json()</a></li>
+                                            <li class=""><a href="classes/Controller.html#method_post">post()</a></li>
                                             <li class=""><a href="classes/Controller.html#method_renderView">renderView()</a></li>
-                                            <li class=""><a href="classes/Controller.html#method_responseData">responseData()</a></li>
-                                            <li class=""><a href="classes/Controller.html#method_savePostData">savePostData()</a></li>
                                             <li class=""><a href="classes/Controller.html#method_view">view()</a></li>
                                     </ul>
             </li>

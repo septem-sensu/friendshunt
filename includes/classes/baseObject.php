@@ -40,7 +40,7 @@ class BaseObject {
  * @param      string   $strObjectId    Object Id
  * @return     void
  *
- * @example    $objBaseObject = new BasObject( $strObjectId );
+ * @example    $objBaseObject = new BaseObject( $strObjectId );
  *
 */
   public function __construct( string | null $strObjectId = null ) {
@@ -67,7 +67,6 @@ class BaseObject {
  * @return     object  $objAllFields   The Fields Object with all Properties
  *
  * @example    $objAllFields = BaseObject::fields( $strProperty );
- * @example    $objAllFields = $this::fields( $strProperty );
  *
 */
   public static function fields( string $strClassname ) {
@@ -77,7 +76,7 @@ class BaseObject {
   }
 
 /**
- * This Method load the Objects File of the Class decryted his and fill the Object with his data.
+ * This Method loads the Objects File of the Class, decrypts it and fills the Object with its data.
  *
  * @access     public
  * @since      2026-06-05
@@ -85,7 +84,6 @@ class BaseObject {
  *
  * @return     void
  *
- * @example    $this->fillObject();
  * @example    $objBaseObject->fillObject();
  *
 */
@@ -111,11 +109,10 @@ class BaseObject {
  *
  * @return     string  $strId   The Id from the Object
  *
- * @example    $strId = $this->id();
  * @example    $strId = $objBaseObject->id();
  *
 */
-  public function id() {
+  public function id() : string {
     return $this->id;
   }
 
@@ -129,7 +126,6 @@ class BaseObject {
  * @param      string  $strProperty   Property
  * @return     mixed   $value         Value of Property
  *
- * @example    $value = $this->get( $strProperty );
  * @example    $value = $objBaseObject->get( $strProperty );
  *
 */
@@ -150,19 +146,18 @@ class BaseObject {
  * @param      mixed    $mixValue       Value of Property
  * @return     void
  *
- * @example    $this->set( $mixProperty, $mixValue );
  * @example    $objBaseObject->set( $mixProperty, $mixValue );
 */
   public function set( string | int | array | object $mixProperty, string | int | array | object | null $mixValue = null ) : void {
-    if( gettype( $mixProperty ) == 'string' || gettype( $mixValue ) == 'integer' ) {
+    if( is_string( $mixProperty ) ) {
       if( ! property_exists( $this->fields, $mixProperty ) ) throw new Exception("Property not exists or protected");
       if( isset( $this->fields->$mixProperty->crypt ) && $this->fields->$mixProperty->crypt === true ) $mixValue = $this->enCrypteOnly( $mixValue );
       $this->$mixProperty = $mixValue;
     } else {
       foreach( $mixProperty as $strProperty => $mixValueArray ) {
-        if( ! property_exists( $this->fields, $strProperty ) ) continue;//throw new Exception("Property not exists or protected");
+        if( ! property_exists( $this->fields, $strProperty ) ) continue;
         if( isset( $this->fields->$strProperty->crypt ) && $this->fields->$strProperty->crypt === true ) $mixValueArray = $this->enCrypteOnly( $mixValueArray );
-        if( $this->fields->$strProperty->type == 'number' ) {
+        if( isset( $this->fields->$strProperty->type ) && $this->fields->$strProperty->type == 'number' ) {
           $this->$strProperty =  intval( $mixValueArray );
         } else {
           $this->$strProperty =  $mixValueArray;
@@ -184,7 +179,6 @@ class BaseObject {
  *
  * @return     void
  *
- * @example    $this->deleteObject();
  * @example    $objBaseObject->deleteObject();
  *
 */
@@ -208,7 +202,6 @@ class BaseObject {
  *
  * @return     void
  *
- * @example    $this->saveObject();
  * @example    $objBaseObject->saveObject();
  *
 */
@@ -237,7 +230,6 @@ class BaseObject {
  * @param      object    $objRequestObject     Request Object
  * @return     object    $objRequestObject     Request Object
  *
- * @example    $objRequestObject = $this->saveRequestObject( $objRequestObject );
  * @example    $objRequestObject = $objBaseObject->saveRequestObject( $objRequestObject );
  *
 */
@@ -251,7 +243,7 @@ class BaseObject {
     foreach( $objRequestObject as $strProperty => $mixValue ) {
       if( ! isset( $objFields->$strProperty ) ) continue;
       if( isset( $objFields->$strProperty->readOnly ) && $objFields->$strProperty->readOnly ) continue;
-      if( $objFields->$strProperty->element == 'img' ) {
+      if( isset( $objFields->$strProperty->element ) && $objFields->$strProperty->element == 'img' ) {
         $arrImage                       = explode( '/', $mixValue );
         $objSave->$strProperty          = $arrImage[ count( $arrImage ) - 1 ];
         $objRequestObject->$strProperty = $objSave->$strProperty;
@@ -275,7 +267,6 @@ class BaseObject {
  * @param      string   $strPrefix   Perfix of the GUID
  * @return     string   $strId       The generated GUID
  *
- * @example    $strId = $this->newId( $strPrefix );
  * @example    $strId = $objBaseObject->newId( $strPrefix );
  *
 */
@@ -295,7 +286,6 @@ class BaseObject {
  * @return     object   $objObjects     The Main Config Object of Friends Hunt
  *
  * @example    $objObjects = BaseObject::getObjects( $strClassName );
- * @example    $objObjects = $this::getObjects( $strClassName );
  *
 */
   public static function getObjects( string $strClassName ) {
@@ -313,7 +303,6 @@ class BaseObject {
  * @return     object   $objConfig    The Main Config Object of Friends Hunt
  *
  * @example    $objConfig = BaseObject::getConfig();
- * @example    $objConfig = $this::getConfig();
  *
 */
   public static function getConfig() : object {
@@ -331,7 +320,6 @@ class BaseObject {
  * @return     bool     $boolResult  Is the String a Json
  *
  * @example    $boolResult = BaseObject::isJson( $strContent );
- * @example    $boolResult = $this::isJson( $strContent );
  *
 */
   public static function isJson( string $strContent ) : bool {
@@ -350,16 +338,17 @@ class BaseObject {
  * @return     array  $arrCryptKeys  The crypt passphrases Keys
  *
  * @example    $arrCryptKeys = BaseObject::getCryptKeys( $strContent );
- * @example    $arrCryptKeys = $this::getCryptKeys( $strContent );
  *
 */
   public static function getCryptKeys() : array {
-    $arrCryptKeys = [];
+    static $arrCryptKeys = null;
 
-    if( file_exists( __DIR__ . '/../classes/.config.php' ) ) {
-      $arrCryptKeys = include __DIR__ . '/../classes/.config.php';
-    } else {
-      $arrCryptKeys = include __DIR__ . '/../classes/config.php';
+    if( $arrCryptKeys === null ) {
+      if( file_exists( __DIR__ . '/../classes/.config.php' ) ) {
+        $arrCryptKeys = include __DIR__ . '/../classes/.config.php';
+      } else {
+        $arrCryptKeys = include __DIR__ . '/../classes/config.php';
+      }
     }
 
     return $arrCryptKeys;
@@ -375,8 +364,7 @@ class BaseObject {
  * @param      string   $strContent  String to encrypt
  * @return     string   $strContent  The encrypted Content String
  *
- * @example    $strContent = BaseObject::isJson( $strContent );
- * @example    $strContent = $this::isJson( $strContent );
+ * @example    $strContent = BaseObject::enCrypteOnly( $strContent );
  *
 */
   public static function enCrypteOnly ( string $strContent ) : string {
@@ -395,7 +383,6 @@ class BaseObject {
  * @return     string   $strContent   Encrypted String
  *
  * @example    $strContent = BaseObject::enCrypte( $strContent );
- * @example    $strContent = $this::enCrypte( $strContent );
  *
 */
   public static function enCrypte( string $strContent ) : string {
@@ -421,7 +408,6 @@ class BaseObject {
  * @return     string   $strContent   String to be decrypted
  *
  * @example    $strContent = BaseObject::deCrypte( $strContent );
- * @example    $strContent = $this::deCrypte( $strContent );
  *
 */
   public static function deCrypte( string $strContent ) : string {
@@ -448,21 +434,15 @@ class BaseObject {
  * @return     void
  *
  * @example    BaseObject::saveFileEnCrypted( $strFile, $objObject );
- * @example    $this::saveFileEnCrypted( $strFile, $objObject );
  *
 */
   public static function saveFileEnCrypted( string $strFile, object $objObject ) : void {
-    $strContent   = json_encode( $objObject );
-    $arrCryptKeys = BaseObject::getCryptKeys();
+    $strContent = json_encode( $objObject );
 
     file_put_contents( $strFile . '.json', $strContent, LOCK_EX );
 
     if( BaseObject::isJson( $strContent ) ) {
-      $strContent = openssl_encrypt(
-        $strContent, "AES-256-CBC",
-        hash( 'sha256', $arrCryptKeys[ 'passphrase1' ] ), 0,
-        substr( hash( 'sha256', $arrCryptKeys[ 'passphrase2' ] ), 0, 16 )
-      );
+      $strContent = BaseObject::enCrypte( $strContent );
     }
 
     file_put_contents( $strFile, $strContent, LOCK_EX );
@@ -482,38 +462,28 @@ class BaseObject {
  * @return     object    $objObject   The decrypted Object from the encrypted json File
  *
  * @example    $objObject = BaseObject::loadFileDeCrypted( $strFile );
- * @example    $objObject = $this::loadFileDeCrypted( $strFile );
  *
 */
   public static function loadFileDeCrypted( string $strFile ) : object | array {
-    $strContent   = file_get_contents( $strFile );
-    $strContent   = str_replace( array( "\r", "\n" ), '', $strContent );
-    $arrCryptKeys = BaseObject::getCryptKeys();
+    $strContent = file_get_contents( $strFile );
+    $strContent = str_replace( array( "\r", "\n" ), '', $strContent );
 
     if( ! BaseObject::isJson( $strContent ) ) {
-      $strContent = openssl_decrypt(
-        $strContent, "AES-256-CBC",
-        hash( 'sha256', $arrCryptKeys[ 'passphrase1' ] ), 0,
-        substr( hash( 'sha256', $arrCryptKeys[ 'passphrase2' ] ), 0, 16 )
-      );
+      $strContent = BaseObject::deCrypte( $strContent );
     }
 
-    $objObject = json_decode( $strContent );
-
-    return $objObject;
+    return json_decode( $strContent );
   }
 
 /**
- * This method serialize a Object, removes particular Properties and returns the Standard Class Object.
+ * This method serializes an Object, removes particular Properties and returns the Standard Class Object.
  *
- * @static
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
  *
  * @return     object    $objObject   The cleaned Standard Class Object
  *
- * @example    $objObject = $this->serializeObject();
  * @example    $objObject = $objBaseObject->serializeObject();
  *
 */
@@ -521,7 +491,7 @@ class BaseObject {
     $objStdObject  = new StdClass();
     $objProperties = get_object_vars( $this );
 
-    foreach ( $objProperties as $strKey => $strValue ) {
+    foreach( $objProperties as $strKey => $strValue ) {
       if( ! property_exists( $this->fields, $strKey ) ) continue;
       if( isset( $this->fields->$strKey->skipSave ) && $this->fields->$strKey->skipSave === true ) continue;
       if( ! isset( $strValue ) ) continue;
@@ -545,18 +515,12 @@ class BaseObject {
  * @return     array    $arrArray     The Array without the Element.
  *
  * @example    $arrArray = BaseObject::removeFromArray( $arrArray, $intIndex );
- * @example    $arrArray = $this::removeFromArray( $arrArray, $intIndex );
  *
 */
   public static function removeFromArray( array $arrArray, int $intIndex ) : array {
-    $arrNewArray = [];
+    array_splice( $arrArray, $intIndex, 1 );
 
-    for( $i = 0; $i < count( $arrArray ); $i++ ) {
-      if( $i == $intIndex ) continue;
-      array_push( $arrNewArray, $arrArray[ $i ] );
-    }
-
-    return $arrNewArray;
+    return $arrArray;
   }
 
 /**
@@ -572,14 +536,13 @@ class BaseObject {
  * @return     object    $objObject     The cleaned Object
  *
  * @example    $objObject = BaseObject::cleanObject( $objObject, $objFields );
- * @example    $objObject = $this::cleanObject( $objObject, $objFields );
  *
 */
   public static function cleanObject( object $objObject, object $objFields ) : object {
     $objStdObject  = new StdClass();
     $objProperties = get_object_vars( $objObject );
 
-    foreach ( $objProperties as $strKey => $strValue ) {
+    foreach( $objProperties as $strKey => $strValue ) {
       if( ! property_exists( $objFields, $strKey ) ) continue;
       if( ! isset( $strValue ) ) continue;
 
@@ -590,25 +553,27 @@ class BaseObject {
   }
 
 /**
- * This Method delelte a Directory with all Files and Sub Directories recursiv.
+ * This Method delete a Directory with all Files and Sub Directories recursively.
  *
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      string   $strPath        Path to Direrctory to be deleted
- * @return     bool     $boolSucsess    Is deleted
+ * @param      string   $strPath        Path to Directory to be deleted
+ * @return     bool     $boolSuccess    Is deleted
  *
- * @example    $boolSucsess = $this->deleteDirectory( $strPath );
- * @example    $boolSucsess = $objBaseObject->deleteDirectory( $strPath );
+ * @example    $boolSuccess = $objBaseObject->deleteDirectory( $strPath );
  *
 */
   public function deleteDirectory( string $strPath ) : bool {
+    $strRealPath = realpath( $strPath );
+    if( $strRealPath === false || ! str_starts_with( $strRealPath, realpath( self::FILEPATHBASE ) ) ) return false;
+
     if( ! is_dir( $strPath ) ) return unlink( $strPath );
 
     $arrFiles = substr( $strPath, 0, -1 ) == '/' ? glob( $strPath . '*' ) : glob( $strPath . '/*' );
 
-    foreach ( $arrFiles as $strFile ) {
+    foreach( $arrFiles as $strFile ) {
       $this->deleteDirectory( $strFile );
     }
 
@@ -616,7 +581,7 @@ class BaseObject {
   }
 
 /**
- * This ststic Method generate a random String with a defined length.
+ * This static Method generates a random String with a defined length.
  *
  * @access     public
  * @since      2026-06-05
@@ -625,7 +590,6 @@ class BaseObject {
  * @param      int      $intLength        The length of the random result String
  * @return     string   $strRandomString  The result random String with a defined length
  *
- * @example    $strRandomString = $this::generateRandomString( $intLength );
  * @example    $strRandomString = BaseObject::generateRandomString( $intLength );
  *
 */
@@ -634,7 +598,7 @@ class BaseObject {
     $intCharactersLength  = strlen( $strCharacters );
     $strRandomString      = '';
 
-    for ( $i = 0; $i < $intLength; $i++ ) {
+    for( $i = 0; $i < $intLength; $i++ ) {
         $strRandomString .= $strCharacters[ random_int( 0, $intCharactersLength - 1 ) ];
     }
 

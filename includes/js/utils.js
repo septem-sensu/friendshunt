@@ -18,10 +18,10 @@ class Utils {
  *
  * @static
  *
- * @type      {Object<string, boolean>}   One Key-Value-Pair (Class Name: Status)
+ * @type      {Object<string, boolean>}
  *
  * @example   if( Utils.globalRegisteredEvents[ 'Gameplay' ] ) return;
- *            Utils.globalRegisteredEvents[ 'Gameplay' ] = true;
+ * Utils.globalRegisteredEvents[ 'Gameplay' ] = true;
  *
  */
   static globalRegisteredEvents = {};

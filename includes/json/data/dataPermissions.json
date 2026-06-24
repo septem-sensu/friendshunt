@@ -10,8 +10,18 @@
       "Player::saveRequestObject",
       "Player::deletePlayer",
       "Player::avatarFileUploaded",
+      "Player::addGamesToTemplate",
       "Game::startGame",
-      "Game::gameplay"
+      "Game::gameplay",
+      "Game::setPlayerIdToTemplate",
+      "Game::addGamePlayDataToGame",
+      "Game::addGameImage",
+      "Game::avatarFileUploaded",
+      "Gameplay::statistic",
+      "Gameplay::message",
+      "Gameplay::track",
+      "Gameplay::speedHunt",
+      "Gameplay::captured"
     ]
   },
   "administrator": {
@@ -25,6 +35,7 @@
       "Player::getGameArchiveList",
       "Player::backFromArchiveGame",
       "Player::deleteArchiveGame",
+      "Player::addGamesToTemplate",
       "Game::addPlayerToGame",
       "Game::addHunterToGame",
       "Game::addManagementToGame",
@@ -33,7 +44,16 @@
       "Game::archiveGame",
       "Game::startGame",
       "Game::gameplay",
-      "Game::deleteGameImage"
+      "Game::deleteGameImage",
+      "Game::setPlayerIdToTemplate",
+      "Game::addGamePlayDataToGame",
+      "Game::addGameImage",
+      "Game::avatarFileUploaded",
+      "Gameplay::statistic",
+      "Gameplay::message",
+      "Gameplay::track",
+      "Gameplay::speedHunt",
+      "Gameplay::captured"
     ]
   }
 }

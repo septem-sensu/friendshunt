@@ -2,8 +2,8 @@
 
 declare( strict_types = 1 );
 
-include_once ( __DIR__ . '/../classes/baseObject.php' );
-include_once ( __DIR__ . '/../classes/presentation.php' );
+require_once ( __DIR__ . '/../classes/baseObject.php' );
+require_once ( __DIR__ . '/../classes/presentation.php' );
 
 /**
  * Player Class for the Friends Hunt App.
@@ -61,9 +61,9 @@ class Player extends BaseObject {
   protected int $asPlayerCountMessagesAll        = 0;
   protected int $asHunterCountMessagesAll        = 0;
   protected int $asManagementCountMessagesAll    = 0;
-  protected int $asPlayerDistanceDrived          = 0;
-  protected int $asHunterDistanceDrived          = 0;
-  protected int $asManagementDistanceDrived      = 0;
+  protected int $asPlayerDistanceDriven          = 0;
+  protected int $asHunterDistanceDriven          = 0;
+  protected int $asManagementDistanceDriven      = 0;
 
 /**
  * This static Method add a new Player to the App.
@@ -76,7 +76,6 @@ class Player extends BaseObject {
  * @return     object     $objNewPlayerRequestObject    The Request Object
  *
  * @example    $objNewPlayerRequestObject = Player::newPlayer( $objNewPlayerRequestObject );
- * @example    $objNewPlayerRequestObject = $this::newPlayer( $objNewPlayerRequestObject );
  *
 */
   public static function newPlayer( object $objNewPlayerRequestObject ) : object {
@@ -124,7 +123,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->addGamesToTemplate( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->addGamesToTemplate( $objRequestObject );
  *
 */
@@ -134,8 +132,8 @@ class Player extends BaseObject {
 
     if( ! is_array( $arrGameIds ) ) return $objRequestObject;
 
-    for( $i = 0; $i < count( $arrGameIds ); $i++ ) {
-      $objGame         = new Game( $arrGameIds[ $i ] );
+    foreach( $arrGameIds as $gameId ) {
+      $objGame         = new Game( $gameId );
       array_push( $arrGames, $objGame->serializeObject() );
     }
 
@@ -156,7 +154,6 @@ class Player extends BaseObject {
  * @return     bool      $boolLoginTrue    The Login
  *
  * @example    $boolLoginTrue = Player::checkLogin( $objController );
- * @example    $boolLoginTrue = $this::checkLogin( $objController );
  *
 */
   public static function checkLogin( object | null $objController = null ) : bool {
@@ -170,11 +167,12 @@ class Player extends BaseObject {
     $objAllPlayer          = BaseObject::getObjects( $objConfig->userClass );
     $objCookie             = json_decode( $_COOKIE[ $strCookieName ] );
     $strToken              = BaseObject::deCrypte( $objCookie->token );
-    $strPlayerIdFromCookie = explode( '|||', html_entity_decode( $strToken )  )[0];
-    $strPasswordFromCookie = explode( '|||', html_entity_decode( $strToken )  )[1];
+    $arrToken              = explode( '|||', html_entity_decode( $strToken ) );
+    $strPlayerIdFromCookie = $arrToken[0];
+    $strPasswordFromCookie = $arrToken[1];
 
     if( ! isset( $objAllPlayer ) || ! isset( $objAllPlayer->$strPlayerIdFromCookie ) ) return false;
-    if( ! isset( $objAllPlayer->$strPlayerIdFromCookie->password ) || $strPasswordFromCookie != $objAllPlayer->$strPlayerIdFromCookie->password ) return false;
+    if( ! isset( $objAllPlayer->$strPlayerIdFromCookie->password ) || ! hash_equals( $objAllPlayer->$strPlayerIdFromCookie->password, $strPasswordFromCookie ) ) return false;
 
     if( isset( $objController ) ) {
       $objController->setRole( $objAllPlayer->$strPlayerIdFromCookie->role );
@@ -199,7 +197,6 @@ class Player extends BaseObject {
  * @return     mixed   $strPlayerId | null    The PlayerId from the Cookie if available
  *
  * @example    $strPlayerId = Player::getPlayerIdFromCookie();
- * @example    $strPlayerId = $this::getPlayerIdFromCookie();
  *
 */
   public static function getPlayerIdFromCookie() : string | null {
@@ -220,7 +217,6 @@ class Player extends BaseObject {
  * @return     object     $objLoginObject    The Request Object
  *
  * @example    $objLoginObject = Player::login( $objLoginObject );
- * @example    $objLoginObject = $this::login( $objLoginObject );
  *
 */
   public static function login( object $objLoginObject ) : object {
@@ -232,7 +228,7 @@ class Player extends BaseObject {
 
     if( Player::checkLogin( null ) ) {
       $objLoginObject->redirect = $strRedirect;
-      $objLoginObject->succsess = true;
+      $objLoginObject->success = true;
 
       return $objLoginObject;
     }
@@ -241,10 +237,10 @@ class Player extends BaseObject {
     $strPasswordInput   = isset( $objLoginObject->password ) ? $objLoginObject->password : null;
     $objPlayer          = isset( $strPlayerInput ) && isset( $objAllPlayer->$strPlayerInput ) ? $objAllPlayer->$strPlayerInput : null;
 
-    if( ! isset( $objPlayer ) || ! isset( $strPasswordInput ) || BaseObject::enCrypteOnly( $strPasswordInput ) != $objPlayer->password ) {
+    if( ! isset( $objPlayer ) || ! isset( $strPasswordInput ) || ! hash_equals( $objPlayer->password, BaseObject::enCrypteOnly( $strPasswordInput ) ) ) {
       array_push( $objLoginObject->formErrors, Presentation::newFormError( '#name', 'Login fehlgeschlagen' ) );
       array_push( $objLoginObject->formErrors, Presentation::newFormError( '#password', 'Login fehlgeschlagen' ) );
-      $objLoginObject->succsess = false;
+      $objLoginObject->success = false;
 
       return $objLoginObject;
     }
@@ -254,13 +250,13 @@ class Player extends BaseObject {
     Presentation::writeCookie( $objParams );
 
     $objLoginObject->redirect = $strRedirect;
-    $objLoginObject->succsess = true;
+    $objLoginObject->success = true;
 
     return $objLoginObject;
   }
 
 /**
- * This static Method renamed the Avatar Image File after Upload.
+ * This Method renamed the Avatar Image File after Upload.
  *
  * @access     public
  * @since      2026-06-05
@@ -269,15 +265,19 @@ class Player extends BaseObject {
  * @param      string     $strFileName    The Avatar Image File Name after Upload
  * @return     void
  *
- * @example    Player::avatarFileUploaded( $strFileName );
- * @example    $this::avatarFileUploaded( $strFileName );
+ * @example    $objPlayer->avatarFileUploaded( $strFileName );
  *
 */
-  public static function avatarFileUploaded( string $strFileName ) : void {
-    $strView   = isset( $_GET[ 'view' ] ) ? $_GET[ 'view' ] : null;
+  public function avatarFileUploaded( string $strFileName ) : void {
     $strClass  = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId     = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+
+    if( $strClass !== 'Player' ) return;
+
     $strPath   = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
+    $strRealPath = realpath( $strPath );
+
+    if( $strRealPath === false || ! str_starts_with( $strRealPath, realpath( __DIR__ . '/../files/' ) ) ) return;
 
     if( file_exists( $strPath . 'avatar.png' ) ) unlink( $strPath . 'avatar.png' );
     if( file_exists( $strPath . 'avatar.jpg' ) ) unlink( $strPath . 'avatar.jpg' );
@@ -288,7 +288,7 @@ class Player extends BaseObject {
     rename( $strPath . $strFileName, $strPath . 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) );
 
     $objPlayer = new $strClass( $strId );
-    $objPlayer->set( 'image', 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) . '?v=' . time() );
+    $objPlayer->set( 'image', 'avatar.' . strtolower( $arrPathInfo[ 'extension' ] ) );
 
     return;
   }
@@ -303,7 +303,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->deletePlayer( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->deletePlayer( $objRequestObject );
  *
 */
@@ -330,7 +329,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->deletePlayerFromApp( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->deletePlayerFromApp( $objRequestObject );
  *
 */
@@ -348,11 +346,11 @@ class Player extends BaseObject {
   }
 
 /**
- * This Method is the Setup Routine for the App. The Method genedoes the following:
- * - creates the dataPlayer.json file with the Admininistrator Data from the Setup Form
+ * This Method is the Setup Routine for the App. The Method generates the following:
+ * - creates the dataPlayer.json file with the Administrator Data from the Setup Form
  * - creates the dataGame.json
  * - creates the Player File Directory and copies the default Avatar in the Directory
- * - set the Prephases in the PHP Config Package
+ * - sets the Passphrases in the PHP Config Package
  *
  * @access     public
  * @since      2026-06-05
@@ -361,7 +359,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->setup( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->setup( $objRequestObject );
  *
 */
@@ -377,7 +374,7 @@ class Player extends BaseObject {
     $objSetupPlayer->image       = 'avatar.png?v=' . time();
     $objSetupPlayer->role        = 'administrator';
     $objSetupPlayer->games       = [];
-    $objFields                   = BaseObject::Fields( 'player' );
+    $objFields                   = BaseObject::fields( 'player' );
     $objValidationResult         = Presentation::validateFields( $objFields, $objSetupPlayer );
     $strConfig                   = file_get_contents( __DIR__ . '/../classes/config.php' );
     $strConfig                   = str_replace( '{{PASSPHRASE1}}', BaseObject::generateRandomString( 15 ), $strConfig );
@@ -390,7 +387,7 @@ class Player extends BaseObject {
 
     file_put_contents( __DIR__ . '/../classes/config.php', $strConfig );
 
-    if ( function_exists( 'opcache_invalidate' ) ) opcache_invalidate( __DIR__ . '/../classes/config.php', true );
+    if( function_exists( 'opcache_invalidate' ) ) opcache_invalidate( __DIR__ . '/../classes/config.php', true );
 
     if( ! file_exists( __DIR__ . '/../json/data/dataGame.json' ) ) BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', new stdClass() );
 
@@ -423,12 +420,11 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->getPlayerList( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->getPlayerList( $objRequestObject );
  *
 */
   public function getPlayerList( object $objRequestObject ) : object {
-    $objRequestObject->playerList = $this->loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
+    $objRequestObject->playerList = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataPlayer.json' );
 
     return $objRequestObject;
   }
@@ -443,7 +439,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->getGameArchiveList( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->getGameArchiveList( $objRequestObject );
  *
 */
@@ -452,10 +447,10 @@ class Player extends BaseObject {
     $strArchiveDir                  = __DIR__ . '/../files/game/archive/';
     $arrGameArchiveDirs             = scandir( $strArchiveDir );
 
-    foreach ( $arrGameArchiveDirs as $strGameId ) {
+    foreach( $arrGameArchiveDirs as $strGameId ) {
       $strPath = $strArchiveDir  . '/' . $strGameId . '/';
 
-      if( ! is_dir( $strPath ) || $strGameId == '.' || $strGameId == '..' ) continue;
+      if( ! is_dir( $strPath ) || $strGameId === '.' || $strGameId === '..' ) continue;
 
       $objRequestObject->archiveGames->$strGameId = $this->loadFileDeCrypted( $strPath . 'dataGame.json' );
     }
@@ -473,7 +468,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->backFromArchiveGame( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->backFromArchiveGame( $objRequestObject );
  *
 */
@@ -483,31 +477,28 @@ class Player extends BaseObject {
     $strGameId             = $objRequestObject->gameId;
     $strPathSource         = __DIR__ . '/../files/game/archive/' . $strGameId . '/';
     $strPathTarget         = __DIR__ . '/../files/game/' . $strGameId . '/';
-    $objGames              = $this->loadFileDeCrypted( __DIR__ . '/../json/data/dataGame.json' );
-    $objGame               = $this->loadFileDeCrypted( $strPathSource . 'dataGame.json' );
+    $objGames              = BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataGame.json' );
+    $objGame               = BaseObject::loadFileDeCrypted( $strPathSource . 'dataGame.json' );
     $objGames->$strGameId  = $objGame;
     $arrSourceFiles        = scandir( $strPathSource );
 
-    $this->saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', $objGames );
+    BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', $objGames );
 
     if( ! file_exists( $strPathTarget ) ) mkdir( $strPathTarget );
 
-    foreach ( $arrSourceFiles as $strFile ) {
-      if ( $strFile == '.' || $strFile == '..' ) continue;
+    foreach( $arrSourceFiles as $strFile ) {
+      if( $strFile == '.' || $strFile == '..' ) continue;
 
       $strSourceFile = $strPathSource . $strFile;
       $strTargetFile = $strPathTarget . $strFile;
 
-      if ( is_file( $strSourceFile ) ) copy( $strSourceFile, $strTargetFile );
+      if( is_file( $strSourceFile ) ) copy( $strSourceFile, $strTargetFile );
     }
 
-    for( $i = 0; $i < count( $arrGameRoles ); $i++ ) {
-      $strGameplayRole =  $arrGameRoles[ $i ];
+    foreach( $arrGameRoles as $strGameplayRole ) {
       $arrPlayer       = isset( $objGame->$strGameplayRole ) ? $objGame->$strGameplayRole : [];
 
-      for( $j = 0; $j < count( $arrPlayer ); $j++ ) {
-        $strPlayerId  = $arrPlayer[ $j ];
-
+      foreach( $arrPlayer as $strPlayerId ) {
         if( ! isset( $objAllPlayer->$strPlayerId ) ) continue;
         if( ! isset( $objAllPlayer->$strPlayerId->games ) ) $objAllPlayer->$strPlayerId->games = [];
         if( in_array( $strGameId, $objAllPlayer->$strPlayerId->games ) ) continue;
@@ -526,7 +517,7 @@ class Player extends BaseObject {
   }
 
 /**
- * This Method delete a Game with all Files and the Directory in the the Archive.
+ * This Method delete a Game with all Files and the Directory in the Archive.
  *
  * @access     public
  * @since      2026-06-05
@@ -535,7 +526,6 @@ class Player extends BaseObject {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->deleteArchiveGame( $objRequestObject );
  * @example    $objRequestObject = $objPlayer->deleteArchiveGame( $objRequestObject );
  *
 */

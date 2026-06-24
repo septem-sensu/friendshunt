@@ -99,7 +99,7 @@ class Statistic {
       'steps': 0,
       'outOfPlayfield': [],
       'distance': 0,
-      'drived': 0,
+      'driven': 0,
       'messages': 0,
       'messageSize': 0,
       'speedHunts': 0,
@@ -116,7 +116,7 @@ class Statistic {
           'captured': null,
           'steps': 0,
           'distance': 0,
-          'drived': 0,
+          'driven': 0,
           'messages': 0,
           'messageSize': 0,
           'outOfPlayfield': [],
@@ -209,7 +209,7 @@ class Statistic {
 
     content    += '<div class="card-content-flex">';
     content    += '<span>Gefahren</span>';
-    content    += '<span>' + this.statistic.drived + ' km</span>';
+    content    += '<span>' + this.statistic.driven + ' km</span>';
     content    += '</div>';
 
     content    += '<div class="card-content-flex">';
@@ -461,7 +461,7 @@ class Statistic {
       let show         = false;
       let stepAll      = 0;
       let distanceAll  = 0;
-      let drivedAll    = 0;
+      let drivenAll    = 0;
 
       content    += '<div class="card card-full">';
       content    += '<div class="card-title">Distanzen als ' + this.statistic.roles[ role ] + '</div>';
@@ -483,7 +483,7 @@ class Statistic {
         show          = true;
         stepAll       += this.statistic.names[ playerId ].steps;
         distanceAll   += this.statistic.names[ playerId ].distance;
-        drivedAll     += this.statistic.names[ playerId ].drived;
+        drivenAll     += this.statistic.names[ playerId ].driven;
 
         content       += '<tr>';
         content       += '<td class="align-left pr-10' + cssClass + '">' + this.statistic.names[ playerId ].name + '</td>';
@@ -491,9 +491,9 @@ class Statistic {
         content       += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].distance + ' km</td>';
 
         if( this.statistic.names[ playerId ].role === 'player' ) {
-          content  += '<td class="align-right warning-text pr-10">' + this.statistic.names[ playerId ].drived + ' km</td>';
+          content  += '<td class="align-right warning-text pr-10">' + this.statistic.names[ playerId ].driven + ' km</td>';
         } else {
-          content  += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].drived + ' km</td>';
+          content  += '<td class="align-right pr-10">' + this.statistic.names[ playerId ].driven + ' km</td>';
         }
 
         if( this.statistic.names[ playerId ].captured ) {
@@ -510,7 +510,7 @@ class Statistic {
       content    += '<th class="align-left pr-10"></th>';
       content    += '<th class="align-right pr-10">' + stepAll + '</th>';
       content    += '<th class="align-right pr-10">' + ( Math.round( distanceAll * 10 ) ) / 10 + ' km</th>';
-      content    += '<th class="align-right pr-10">' + ( Math.round( drivedAll * 10 ) ) / 10 + ' km</th>';
+      content    += '<th class="align-right pr-10">' + ( Math.round( drivenAll * 10 ) ) / 10 + ' km</th>';
       content    += '<th class="align-right"></th>';
       content    += '</tr></tfoot>';
 
@@ -542,7 +542,7 @@ class Statistic {
         const tracking         = this.response.positions[ role ][ playerId ];
         let countSteps         = 0;
         let distance           = 0;
-        let drived             = 0;
+        let driven             = 0;
         let batteryMin         = 100;
         let batteryMax         = 0;
         let batteryIsCharging = false;
@@ -552,7 +552,7 @@ class Statistic {
           countSteps         += tracking[ i ].steps;
           batteryMin          = batteryMin > tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMin;
           batteryMax          = batteryMax < tracking[ i ].batteryLevel ? tracking[ i ].batteryLevel : batteryMax;
-          batteryIsCharging = tracking[ i ].batteryIsCharching ? true : batteryIsCharging;
+          batteryIsCharging = tracking[ i ].batteryIsCharging ? true : batteryIsCharging;
 
           if( role !== 'management' ) {
             if( outOfPlayfield === false && tracking[ i ].outOfPlayingField === true ) {
@@ -571,8 +571,8 @@ class Statistic {
             }
           }
 
-          if( tracking[ i ].isDrived && i > 0 ) {
-            drived += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i - 1 ].lat, tracking[ i - 1 ].lng );
+          if( tracking[ i ].isDriven && i > 0 ) {
+            driven += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i - 1 ].lat, tracking[ i - 1 ].lng );
           }
 
           if( i > tracking.length - 2 ) continue;
@@ -582,11 +582,11 @@ class Statistic {
 
         this.statistic.steps                            += countSteps;
         this.statistic.distance                         += distance;
-        this.statistic.drived                           += drived;
+        this.statistic.driven                           += driven;
 
         this.statistic.names[ playerId ].steps           = countSteps;
         this.statistic.names[ playerId ].distance        = ( Math.ceil( distance / 100 ) ) / 10;
-        this.statistic.names[ playerId ].drived          = ( Math.ceil( drived / 100 ) ) / 10;
+        this.statistic.names[ playerId ].driven          = ( Math.ceil( driven / 100 ) ) / 10;
 
         this.statistic.names[ playerId ].batteryMin      = Math.round( batteryMin );
         this.statistic.names[ playerId ].batteryMax      = Math.round( batteryMax );
@@ -595,7 +595,7 @@ class Statistic {
     }
 
     this.statistic.distance = ( Math.ceil( this.statistic.distance / 100 ) ) / 10;
-    this.statistic.drived   = ( Math.ceil( this.statistic.drived / 100 ) ) / 10;
+    this.statistic.driven   = ( Math.ceil( this.statistic.driven / 100 ) ) / 10;
 
     // messages
     for( let i = 0; i < this.response.messages.length; i++ ) {

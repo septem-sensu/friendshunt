@@ -2,8 +2,8 @@
 
 declare( strict_types = 1 );
 
-include_once ( __DIR__ . '/../classes/baseObject.php' );
-include_once ( __DIR__ . '/../classes/gameplay.php' );
+require_once ( __DIR__ . '/../classes/baseObject.php' );
+require_once ( __DIR__ . '/../classes/gameplay.php' );
 
 /**
  * Game Class for the Friends Hunt App.
@@ -61,13 +61,14 @@ class Game extends BaseObject {
  * @param      string   $strFileName    The File Name of the Image
  * @return     void
  *
- * @example    Game::addGameImage( $strFileName );
- * @example    $this::addGameImage( $strFileName );
+ * @example    $objGame->addGameImage( $strFileName );
  *
 */
-  public static function addGameImage( string $strFileName ) : void {
+  public function addGameImage( string $strFileName ) : void {
     $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+
+    if( $strClass !== 'Game' ) return;
 
     $objGame   = new $strClass( $strId );
     $arrImages = $objGame->get( 'images' );
@@ -89,8 +90,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = $this->deleteGameImage( $objRequestObject );
- * @example    objRequestObject = $objGame->deleteGameImage( $objRequestObject );
+ * @example    $objRequestObject = $objGame->deleteGameImage( $objRequestObject );
  *
 */
   public function deleteGameImage( object $objRequestObject ) : object {
@@ -99,10 +99,10 @@ class Game extends BaseObject {
 
     unlink( __DIR__ . '/../files/game/' . $this->id() . '/' . $strImageName );
 
-    for( $i = 0; $i < count( $arrImages ); $i++ ) {
-      if( $arrImages[ $i ] != $strImageName ) continue;
+    foreach( $arrImages as $i => $strImage ) {
+      if( $strImage != $strImageName ) continue;
 
-      $arrImages = $this::removeFromArray( $arrImages, $i );
+      $arrImages = BaseObject::removeFromArray( $arrImages, $i );
 
       $this->set( 'images', $arrImages );
 
@@ -115,7 +115,7 @@ class Game extends BaseObject {
   }
 
 /**
- * This static Method set a uploaded Game Avatar to the Game Object and renamed the Image.
+ * This Method sets a uploaded Game Avatar to the Game Object and renames the Image.
  *
  * @access     public
  * @since      2026-06-05
@@ -124,14 +124,19 @@ class Game extends BaseObject {
  * @param      string   $strFileName    The Avatar File Name of the Image
  * @return     void
  *
- * @example    Game::avatarFileUploaded( $strFileName );
- * @example    $this::avatarFileUploaded( $strFileName );
+ * @example    $objPlayer->avatarFileUploaded( $strFileName );
  *
 */
-  public static function avatarFileUploaded( string $strFileName ) : void {
+  public function avatarFileUploaded( string $strFileName ) : void {
     $strClass        = isset( $_POST[ 'class' ] ) ? $_POST[ 'class' ] : null;
     $strId           = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : null;
+
+    if( $strClass !== 'Game' ) return;
+
     $strPath         = __DIR__ . '/../files/' . lcfirst( $strClass ) . '/' . $strId . '/';
+    $strRealPath     = realpath( $strPath );
+
+    if( $strRealPath === false || ! str_starts_with( $strRealPath, realpath( __DIR__ . '/../files/' ) ) ) return;
 
     if( file_exists( $strPath . 'avatar.png' ) ) unlink( $strPath . 'avatar.png' );
     if( file_exists( $strPath . 'avatar.jpg' ) ) unlink( $strPath . 'avatar.jpg' );
@@ -157,8 +162,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = $this->startGame( $objRequestObject );
- * @example    objRequestObject = $objGame->startGame( $objRequestObject );
+ * @example    $objRequestObject = $objGame->startGame( $objRequestObject );
  *
 */
   public function startGame( object $objRequestObject ) : object {
@@ -177,8 +181,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = $this->addGamePlayDataToGame( $objRequestObject );
- * @example    objRequestObject = $objGame->addGamePlayDataToGame( $objRequestObject );
+ * @example    $objRequestObject = $objGame->addGamePlayDataToGame( $objRequestObject );
  *
 */
   public function addGamePlayDataToGame( object $objRequestObject ) : object {
@@ -199,12 +202,11 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = $this->deleteGame( $objRequestObject );
- * @example    objRequestObject = $objGame->deleteGame( $objRequestObject );
+ * @example    $objRequestObject = $objGame->deleteGame( $objRequestObject );
  *
 */
   public function deleteGame( object $objRequestObject ) : object {
-    $arrGameRoles     = $this::GAMEROLES;
+    $arrGameRoles     = static::GAMEROLES;
     $strClass         = $objRequestObject->class;
     $strId            = $objRequestObject->id;
     $objGame          = new $strClass( $strId );
@@ -212,15 +214,15 @@ class Game extends BaseObject {
     foreach( $arrGameRoles as $strRoleId => $strRoleName ) {
       $arrPlayerIds = $objGame->get( $strRoleId );
 
-      for( $i = 0; $i < count( $arrPlayerIds ); $i++ ) {
-        $objPlayer   = new Player( $arrPlayerIds[ $i ] );
+      foreach( $arrPlayerIds as $strPlayerId ) {
+        $objPlayer   = new Player( $strPlayerId );
         $arrGames    = $objPlayer->get( 'games' );
         $arrGames    = isset( $arrGames ) ? $arrGames : [];
         $arrGamesNew = [];
 
-        for( $j = 0; $j < count( $arrGames ); $j++ ) {
-          if( $arrGames[ $j ] == $strId ) continue;
-          array_push( $arrGamesNew, $arrGames[ $j ] );
+        foreach( $arrGames as $strGameId ) {
+          if( $strGameId === $strId ) continue;
+          array_push( $arrGamesNew, $strGameId );
         }
 
         $objPlayer->set( 'games', $arrGamesNew );
@@ -243,8 +245,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = Game::saveNewGame( $objRequestObject );
- * @example    objRequestObject = $this::saveNewGame( $objRequestObject );
+ * @example    $objRequestObject = Game::saveNewGame( $objRequestObject );
  *
 */
   public static function saveNewGame( object $objRequestObject ) : object {
@@ -255,7 +256,7 @@ class Game extends BaseObject {
 
     $objRequestObject->redirect               = 'index.php?view=player';
     $strGameplayPath                          = __DIR__ . '/../files/game/' . $strGameId . '/';
-    $objGameplay                              = new StdClass();
+    $objGameplay                              = new stdClass();
     $objGameplay->player                      = [];
     $objGameplay->hunter                      = [];
     $objGameplay->management                  = [];
@@ -287,8 +288,8 @@ class Game extends BaseObject {
     foreach( $arrGameRoles as $strRoleId => $strRoleName ) {
       $arrPlayer = $objRequestObject->$strRoleId;
 
-      for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
-        $objPlayer           = new Player( $arrPlayer[ $i ] );
+      foreach( $arrPlayer as $strPlayerId ) {
+        $objPlayer           = new Player( $strPlayerId );
         $arrGames            = $objPlayer->get( 'games' );
         $arrGames            = isset( $arrGames ) ? $arrGames : [];
         $objSerializedPlayer = Game::removePlayerProperties( $objPlayer );
@@ -296,20 +297,18 @@ class Game extends BaseObject {
 
         if( isset( $strProfileImage ) && $strProfileImage != '' ) {
           $strProfileImage     = explode( '?', $strProfileImage )[ 0 ];
-          $strProfileImagePath = __DIR__ . '/../files/player/' . $arrPlayer[ $i ] . '/' . $strProfileImage;
+          $strProfileImagePath = __DIR__ . '/../files/player/' . $strPlayerId . '/' . $strProfileImage;
           if( file_exists( $strProfileImagePath ) ) {
-            copy( $strProfileImagePath, $strGameplayPath . 'profile_image_' . $arrPlayer[ $i ] . '_' . $strProfileImage );
+            copy( $strProfileImagePath, $strGameplayPath . 'profile_image_' . $strPlayerId . '_' . $strProfileImage );
           }
         }
 
-        $objPlayer->set( 'id', $arrPlayer[ $i ] );
+        $objPlayer->set( 'id', $strPlayerId );
 
         unset( $objSerializedPlayer->games );
         unset( $objSerializedPlayer->password );
 
-        for( $j = 0; $j < count( $arrStatisticProperties ); $j++ ) {
-          $strStatisticProperty = $arrStatisticProperties[ $j ];
-
+        foreach( $arrStatisticProperties as $strStatisticProperty ) {
           unset( $objSerializedPlayer->$strStatisticProperty );
         }
 
@@ -345,8 +344,7 @@ class Game extends BaseObject {
  * @param      Player   $objPlayer    The Player Object
  * @return     object   $objPlayer    The cleaned, serialized Player Object
  *
- * @example    objPlayer = Game::removePlayerProperties( $objPlayer );
- * @example    objPlayer = $this::removePlayerProperties( $objPlayer );
+ * @example    $objPlayer = Game::removePlayerProperties( $objPlayer );
  *
 */
   public static function removePlayerProperties( Player $objPlayer ) : object {
@@ -354,24 +352,10 @@ class Game extends BaseObject {
 
     unset( $objPlayer->games );
     unset( $objPlayer->password );
-    unset( $objPlayer->asPlayerCountSteps );
-    unset( $objPlayer->asHunterCountSteps );
-    unset( $objPlayer->asManagementCountSteps );
-    unset( $objPlayer->asPlayerDistance );
-    unset( $objPlayer->asHunterDistance );
-    unset( $objPlayer->asManagementDistance );
-    unset( $objPlayer->asPlayerCountGames );
-    unset( $objPlayer->asHunterCountGames );
-    unset( $objPlayer->asManagementCountGames );
-    unset( $objPlayer->asPlayerTime );
-    unset( $objPlayer->asHunterTime );
-    unset( $objPlayer->asManagementTime );
-    unset( $objPlayer->asPlayerViolationOfTheRules );
-    unset( $objPlayer->asHunterViolationOfTheRules );
-    unset( $objPlayer->asPlayerSpeedHunts );
-    unset( $objPlayer->asHunterSpeedHunts );
-    unset( $objPlayer->asPlayerCaptured );
-    unset( $objPlayer->asHunterCaptured );
+
+    foreach( Gameplay::STATISTICPROPERTIES as $strStatisticProperty ) {
+      unset( $objPlayer->$strStatisticProperty );
+    }
 
     return $objPlayer;
   }
@@ -386,8 +370,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = Game::addPlayerToGame( $objRequestObject );
- * @example    objRequestObject = $this::addPlayerToGame( $objRequestObject );
+ * @example    $objRequestObject = Game::addPlayerToGame( $objRequestObject );
  *
 */
   public static function addPlayerToGame( object $objRequestObject ) : object {
@@ -417,8 +400,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = Game::addHunterToGame( $objRequestObject );
- * @example    objRequestObject = $this::addHunterToGame( $objRequestObject );
+ * @example    $objRequestObject = Game::addHunterToGame( $objRequestObject );
  *
 */
   public static function addHunterToGame( object $objRequestObject ) : object {
@@ -448,8 +430,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = Game::addManagementToGame( $objRequestObject );
- * @example    objRequestObject = $this::addManagementToGame( $objRequestObject );
+ * @example    $objRequestObject = Game::addManagementToGame( $objRequestObject );
  *
 */
   public static function addManagementToGame( object $objRequestObject ) : object {
@@ -476,11 +457,10 @@ class Game extends BaseObject {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object   $objController    The Controler Object
- * @return     object   $objController    The Controler Object
+ * @param      object   $objController    The Controller Object
+ * @return     object   $objController    The Controller Object
  *
- * @example    objController = Game::setPlayerIdToTemplate( $objController );
- * @example    objController = $this::setPlayerIdToTemplate( $objController );
+ * @example    $objController = Game::setPlayerIdToTemplate( $objController );
  *
 */
   public static function setPlayerIdToTemplate( Controller $objController ) : object {
@@ -493,7 +473,7 @@ class Game extends BaseObject {
       $objGameSettings      = $objGameplay->getGameSettings();
       $objGameSettings->end = $objGameSettings->start + ( $objGameSettings->duration * 60 * 60 );
 
-      $objController->getPresentationObject()->assignTemplateVar( 'gameSettings', 'Gameplay', null, json_encode( $objGameSettings ) );;
+      $objController->getPresentationObject()->assignTemplateVar( 'gameSettings', 'Gameplay', null, json_encode( $objGameSettings ) );
     }
 
     $objController->getPresentationObject()->assignTemplateVar( 'playerId', 'Game', null, $strPlayerId );
@@ -511,8 +491,7 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = $this->archiveGame( $objRequestObject );
- * @example    objRequestObject = $objGame->archiveGame( $objRequestObject );
+ * @example    $objRequestObject = $objGame->archiveGame( $objRequestObject );
  *
 */
   public function archiveGame( object $objRequestObject ) : object {
@@ -527,15 +506,15 @@ class Game extends BaseObject {
     if( ! file_exists( $strPathArchive ) ) mkdir( $strPathArchive );
     if( ! file_exists( $strPathTarget ) ) mkdir( $strPathTarget );
 
-    $this->saveFileEnCrypted( $strPathTarget . 'dataGame.json', $objGame->serializeObject() );
+    BaseObject::saveFileEnCrypted( $strPathTarget . 'dataGame.json', $objGame->serializeObject() );
 
-    foreach ( $arrSourceFiles as $strFile ) {
-      if ( $strFile == '.' || $strFile == '..' ) continue;
+    foreach( $arrSourceFiles as $strFile ) {
+      if( $strFile == '.' || $strFile == '..' ) continue;
 
       $strSourceFile = $strPathSource . $strFile;
       $strTargetFile = $strPathTarget . $strFile;
 
-      if ( is_file( $strSourceFile ) ) copy( $strSourceFile, $strTargetFile );
+      if( is_file( $strSourceFile ) ) copy( $strSourceFile, $strTargetFile );
     }
 
     $this->deleteGame( $objRequestObject );
@@ -544,7 +523,7 @@ class Game extends BaseObject {
   }
 
 /**
- * This Method controlls the Gameplay and redirect the Requests to the Gameplay Object.
+ * This Method controls the Gameplay and redirects the Requests to the Gameplay Object.
  *
  * @access     public
  * @since      2026-06-05
@@ -553,15 +532,24 @@ class Game extends BaseObject {
  * @param      object   $objRequestObject    The Ajax Request Object
  * @return     object   $objRequestObject    The Ajax Request Object
  *
- * @example    objRequestObject = $this->gameplay( $objRequestObject );
- * @example    objRequestObject = $objGame->gameplay( $objRequestObject );
+ * @example    $objRequestObject = $objGame->gameplay( $objRequestObject );
  *
 */
   public function gameplay( object $objRequestObject ) : object {
+    $objPermissions   = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHDATA . 'dataPermissions.json' );
     $strPlayerId      = isset( $objRequestObject->playerId ) ? $objRequestObject->playerId : Player::getPlayerIdFromCookie();
     $objPlayer        = new Player( $strPlayerId );
-    $objGameplay      = new Gameplay( $this->id, $objPlayer );
+    $strRole          = $objPlayer->get( 'role' );
     $strMethod        = $objRequestObject->gameplayMethod;
+
+    if( ! in_array( 'Gameplay::' . $strMethod, $objPermissions->$strRole->methods ) ) {
+      $objRequestObject->formErrors = [];
+      array_push( $objRequestObject->formErrors, Presentation::newFormError( '#gameplayMethod', 'Zugriff verweigert' ) );
+
+      return $objRequestObject;
+    }
+
+    $objGameplay      = new Gameplay( $this->id, $objPlayer );
     $objRequestObject = $objGameplay->$strMethod( $objRequestObject );
 
     return $objRequestObject;

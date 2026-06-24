@@ -33,6 +33,7 @@ class BaseObject {
 
 class Controller {
   +resultType
+  +requestType
   +viewName
   +viewObject
   +objectId
@@ -55,9 +56,8 @@ class Controller {
   +checkRole()
   +view()
   +json()
-  +savePostData()
+  +post()
   +checkPermissions()
-  +responseData()
   +renderView()
   +executeActions()
 }
@@ -120,7 +120,7 @@ class Gameplay {
   +transferStatistics()
   +setStatisticProperty()
   +addTracking()
-  +isDrived()
+  +isDriven()
   +getGameSettings()
   +calcDistance()
   +calcPlayerDistances()
@@ -177,9 +177,9 @@ class Player {
   +asPlayerCountMessagesAll
   +asHunterCountMessagesAll
   +asManagementCountMessagesAll
-  +asPlayerDistanceDrived
-  +asHunterDistanceDrived
-  +asManagementDistanceDrived
+  +asPlayerDistanceDriven
+  +asHunterDistanceDriven
+  +asManagementDistanceDriven
   +newPlayer()
   +addGamesToTemplate()
   +checkLogin()

@@ -2,8 +2,8 @@
 
 declare( strict_types = 1 );
 
-include_once ( __DIR__ . '/../classes/baseObject.php' );
-include_once ( __DIR__ . '/../classes/game.php' );
+require_once ( __DIR__ . '/../classes/baseObject.php' );
+require_once ( __DIR__ . '/../classes/game.php' );
 
 /**
  * Gameplay Class for the Friends Hunt App.
@@ -53,9 +53,9 @@ class Gameplay extends Game {
     'asPlayerCountMessagesAll',
     'asHunterCountMessagesAll',
     'asManagementCountMessagesAll',
-    'asPlayerDistanceDrived',
-    'asHunterDistanceDrived',
-    'asManagementDistanceDrived'
+    'asPlayerDistanceDriven',
+    'asHunterDistanceDriven',
+    'asManagementDistanceDriven'
   ];
 
 
@@ -82,13 +82,13 @@ class Gameplay extends Game {
  * @version    0.1.0
  *
  * @param      string   $strObjectId    Object Id of the Game
- * @param      player   $objCurrentPlayer    Object Id of the Game
+ * @param      Player   $objCurrentPlayer    Object Id of the Game
  * @return     void
  *
- * @example    $objGameplay = new Gameplay( $strObjectId, objCurrentPlayer );
+ * @example    $objGameplay = new Gameplay( $strObjectId, $objCurrentPlayer );
  *
 */
-  public function __construct( string $strObjectId, player $objCurrentPlayer ) {
+  public function __construct( string $strObjectId, Player $objCurrentPlayer ) {
     $this->id               = $strObjectId;
     $this->currentPlayer    = $objCurrentPlayer;
     $this->generateTestData = false;
@@ -109,7 +109,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method is the init the Gameplay, set all Properties and create the Directories and Files for the Game.
+ * This Method initializes the Gameplay, sets all Properties and creates the Directories and Files for the Game.
  *
  * @access     private
  * @since      2026-06-05
@@ -117,29 +117,28 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $this->init();
  * @example    $objGameplay->init();
  *
 */
   private function init() : void {
     $this->gameplayPath   = __DIR__ . '/../files/game/' . $this->id . '/';
     $this->gameplayObject = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'gameplay.json' );
-    $this->fields         = $this->loadFileDeCrypted( $this::FILEPATHJSON . 'fields/gameplay.json' );
+    $this->fields         = BaseObject::loadFileDeCrypted( static::FILEPATHJSON . 'fields/gameplay.json' );
 
     if( ! isset( $this->gameplayObject->violationsOfTheRules ) ) {
       $this->gameplayObject->violationsOfTheRules = new stdClass();
       $this->saveGameplay();
     }
 
-    for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
-      if( $this->gameplayObject->player[ $i ]->id != $this->currentPlayer->id ) continue;
+    foreach( $this->gameplayObject->player as $objPlayerEntry ) {
+      if( $objPlayerEntry->id != $this->currentPlayer->id ) continue;
       $this->currentPlayerGameRole = 'player';
       break;
     }
 
     if( ! isset( $this->currentPlayerGameRole ) ) {
-      for( $i = 0; $i < count( $this->gameplayObject->hunter ); $i++ ) {
-        if( $this->gameplayObject->hunter[ $i ]->id != $this->currentPlayer->id ) continue;
+      foreach( $this->gameplayObject->hunter as $objHunterEntry ) {
+        if( $objHunterEntry->id != $this->currentPlayer->id ) continue;
         $this->currentPlayerGameRole = 'hunter';
         break;
       }
@@ -151,18 +150,18 @@ class Gameplay extends Game {
       $objTracking           = new stdClass();
       $objTracking->tracking = [];
 
-      $this->saveFileEncrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $objTracking );
+      BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $objTracking );
     }
 
     if( ! file_exists( $this->gameplayPath . 'messages.json' ) ) {
       $objMessages           = new stdClass();
       $objMessages->messages = [];
 
-      $this->saveFileEncrypted( $this->gameplayPath . 'messages.json', $objMessages );
+      BaseObject::saveFileEnCrypted( $this->gameplayPath . 'messages.json', $objMessages );
     }
 
-    $this->messages                   = $this->loadFileDeCrypted( $this->gameplayPath . 'messages.json' );
-    $this->currentPlayerTracking      = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json' );
+    $this->messages                   = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'messages.json' );
+    $this->currentPlayerTracking      = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json' );
     $this->gameSettings               = $this->getGameSettings();
     $this->gameplayRoles              = new stdClass();
     $this->gameplayRoles->player      = 'Spieler';
@@ -170,7 +169,7 @@ class Gameplay extends Game {
     $this->gameplayRoles->management  = 'Spielleitung';
     $this->startTimestamp             = $this->gameSettings->start;
     $this->endTimestamp               = $this->startTimestamp + ( $this->gameSettings->duration * 60 * 60 );
-    $this->isRunning                  = time() > $this->startTimestamp && time() < $this->endTimestamp ? true : false;
+    $this->isRunning                  = time() > $this->startTimestamp && time() < $this->endTimestamp;
     $this->gameSettings->end          = $this->endTimestamp;
 
     $this->transferStatistics();
@@ -179,8 +178,8 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method generate the Statistics and set the Gameplay Values at the Player Objects.
- * This Method is called by the end of the Game by a Administrator from the init Method.
+ * This Method generates the Statistics and sets the Gameplay Values at the Player Objects.
+ * This Method is called by the end of the Game by an Administrator from the init Method.
  *
  * @access     private
  * @since      2026-06-05
@@ -188,7 +187,6 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $this->transferStatistics();
  * @example    $objGameplay->transferStatistics();
  *
 */
@@ -197,7 +195,7 @@ class Gameplay extends Game {
     if( $this->currentPlayer->get( 'role' ) != 'administrator' ) return;
 
     $arrGameplayRoles          = [ 'player' => 'Player', 'hunter' => 'Hunter', 'management' => 'Management' ];
-    $arrPlayerProperties       = $this::STATISTICPROPERTIES;
+    $arrPlayerProperties       = static::STATISTICPROPERTIES;
     $arrSpeedHunts             = isset( $this->gameplayObject->speedHunts ) ? $this->gameplayObject->speedHunts : [];
     $arrCaptured               = isset( $this->gameplayObject->captured ) ? $this->gameplayObject->captured : [];
     $arrMessages               = isset( $this->messages->messages ) ? $this->messages->messages : [];
@@ -209,28 +207,28 @@ class Gameplay extends Game {
     foreach( $arrGameplayRoles as $strGamplayRoleId => $strGameplayRoleName ) {
       $arrPlayerGameplayObjects = $this->gameplayObject->$strGamplayRoleId;
 
-      for( $i = 0; $i < count( $arrPlayerGameplayObjects ); $i++ ) {
-        $strPlayerId            = $arrPlayerGameplayObjects[ $i ]->id;
-        $objTracking            = file_exists( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' ) ? $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' ) : new stdClass();
+      foreach( $arrPlayerGameplayObjects as $objPlayerGameplay ) {
+        $strPlayerId            = $objPlayerGameplay->id;
+        $objTracking            = file_exists( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' ) ? BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' ) : new stdClass();
         $arrTracking            = isset( $objTracking->tracking ) ? $objTracking->tracking : [];
         $objPlayer              = new Player( $strPlayerId );
         $objPlaySetObject       = new stdClass();
         $intSteps               = 0;
         $intDistance            = 0;
-        $intDistanceDrived      = 0;
+        $intDistanceDriven      = 0;
         $intViolationOfTheRules = 0;
         $intCountSpeedHunts     = 0;
         $intCountCaptured       = 0;
         $intCountMessages       = 0;
         $intCountMessagesAll    = 0;
 
-        for( $j = 0; $j < count( $arrPlayerProperties ); $j++ ) {
-          $strPlayerProperty = $arrPlayerProperties[ $j ];
+        foreach( $arrPlayerProperties as $strPlayerProperty ) {
           if( strpos( $strPlayerProperty, $strGameplayRoleName ) === false ) continue;
           $objPlaySetObject->$strPlayerProperty = intval( $objPlayer->get( $strPlayerProperty ) );
         }
 
-        for( $j = 0; $j < count( $arrTracking ); $j++ ) {
+        $intCountTracking = count( $arrTracking );
+        for( $j = 0; $j < $intCountTracking; $j++ ) {
           $intSteps += $arrTracking[ $j ]->steps;
 
           if( isset( $arrTracking[ $j ]->outOfPlayingField ) && $arrTracking[ $j ]->outOfPlayingField && $strGamplayRoleId != 'management' ) {
@@ -238,11 +236,11 @@ class Gameplay extends Game {
             $intViolationOfTheRulesAll++;
           }
 
-          if( $arrTracking[ $j ]->isDrived ) {
-            $intDistanceDrived += $this->calcDistance( $arrTracking[ $j ]->lat, $arrTracking[ $j ]->lng, $arrTracking[ $j - 1 ]->lat, $arrTracking[ $j - 1 ]->lng );
+          if( $arrTracking[ $j ]->isDriven ) {
+            $intDistanceDriven += $this->calcDistance( $arrTracking[ $j ]->lat, $arrTracking[ $j ]->lng, $arrTracking[ $j - 1 ]->lat, $arrTracking[ $j - 1 ]->lng );
           }
 
-          if( $j > count( $arrTracking ) - 2 ) continue;
+          if( $j >= $intCountTracking - 1 ) continue;
 
           $intDistance += $this->calcDistance( $arrTracking[ $j ]->lat, $arrTracking[ $j ]->lng, $arrTracking[ $j + 1 ]->lat, $arrTracking[ $j + 1 ]->lng );
         }
@@ -250,28 +248,28 @@ class Gameplay extends Game {
         if( $strGamplayRoleId == 'hunter' || $strGamplayRoleId == 'management' ) {
           $intCountSpeedHunts = count( $arrSpeedHunts );
         } else {
-          for( $j = 0; $j < count( $arrSpeedHunts ); $j++ ) {
-            $intCountSpeedHunts = $arrSpeedHunts[ $j ]->playerId == $strPlayerId ? $intCountSpeedHunts + 1 : $intCountSpeedHunts;
+          foreach( $arrSpeedHunts as $objSpeedHunt ) {
+            $intCountSpeedHunts = $objSpeedHunt->playerId == $strPlayerId ? $intCountSpeedHunts + 1 : $intCountSpeedHunts;
           }
         }
 
         if( $strGamplayRoleId == 'management' ) {
           $intCountCaptured = count( $arrCaptured );
         } else {
-          for( $j = 0; $j < count( $arrCaptured ); $j++ ) {
+          foreach( $arrCaptured as $objCapturedEntry ) {
             if( $strGamplayRoleId == 'hunter' ) {
-              $intCountCaptured = in_array( $strPlayerId, $arrCaptured[ $j ]->hunterIds ) ? $intCountCaptured + 1 : $intCountCaptured;
+              $intCountCaptured = in_array( $strPlayerId, $objCapturedEntry->hunterIds ) ? $intCountCaptured + 1 : $intCountCaptured;
             } else {
-              $intCountCaptured = $arrCaptured[ $j ]->playerId == $strPlayerId ? $intCountCaptured + 1 : $intCountCaptured;
+              $intCountCaptured = $objCapturedEntry->playerId == $strPlayerId ? $intCountCaptured + 1 : $intCountCaptured;
             }
           }
         }
 
         $intViolationOfTheRules = $strGamplayRoleId == 'management' ? $intViolationOfTheRulesAll : $intViolationOfTheRules;
 
-        for( $j = 0; $j < count( $arrMessages ); $j++ ) {
+        foreach( $arrMessages as $objMessage ) {
           $intCountMessagesAll++;
-          if( $strPlayerId != $arrMessages[ $j ]->playerId ) continue;
+          if( $strPlayerId != $objMessage->playerId ) continue;
           $intCountMessages++;
         }
 
@@ -284,7 +282,7 @@ class Gameplay extends Game {
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'Captured', $intCountCaptured );
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'CountMessages', $intCountMessages );
         $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'CountMessagesAll', $intCountMessagesAll );
-        $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'DistanceDrived', $intDistanceDrived );
+        $objPlaySetObject       = $this->setStatisticProperty( $objPlaySetObject, $strGameplayRoleName, 'DistanceDriven', $intDistanceDriven );
 
         foreach( $objPlaySetObject as $strProperty => $floatValue ) {
           $objPlaySetObject->$strProperty = intval( $floatValue );
@@ -313,15 +311,14 @@ class Gameplay extends Game {
  * @param      string   $strRoleName    The Gameplay Role Name
  * @param      string   $strProperty    The Part of the Property Name
  * @param      float    $floatValue     The Value to set
- * @return     object   $objSetObject   The Result Object with new seted Property
+ * @return     object   $objSetObject   The Result Object with new set Property
  *
- * @example    objSetObject = $this->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
- * @example    objSetObject = $objGameplay->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
+ * @example    $objSetObject = $objGameplay->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
  *
 */
   private function setStatisticProperty( object $objSetObject, string $strRoleName, string $strProperty, float $floatValue  ) : object {
     $strProperty          = 'as' . $strRoleName . $strProperty;
-    $arrPlayerProperties  = $this::STATISTICPROPERTIES;
+    $arrPlayerProperties  = static::STATISTICPROPERTIES;
 
     if( ! in_array( $strProperty, $arrPlayerProperties ) ) return $objSetObject;
 
@@ -341,16 +338,15 @@ class Gameplay extends Game {
  * @param      float   $floatLng               The Tracking coordinates
  * @param      int     $intPrecision           The Precision of the Tracking coordinates
  * @param      int     $intSteps               The count of Steps that have been run since the last Tracking
- * @param      bool    $boolOutOfPlayingField  The count of Steps that have been run since the last Tracking
+ * @param      bool    $boolOutOfPlayingField  Whether the Player is out of the Playing Field
  * @param      int     $intBatteryLevel        The current Battery Level
- * @param      bool    $boolBatteryIsCharching The is the Battery current charging
+ * @param      bool    $boolBatteryIsCharging  Whether the Battery is currently charging
  * @return     void
  *
- * @example    $this->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField, $intBatteryLevel, $boolBatteryIsCharching );
- * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField, $intBatteryLevel, $boolBatteryIsCharching );
+ * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField, $intBatteryLevel, $boolBatteryIsCharging );
  *
 */
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField, int $intBatteryLevel, bool $boolBatteryIsCharching ) : void {
+  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField, int $intBatteryLevel, bool $boolBatteryIsCharging ) : void {
     $objTracking                     = new stdClass();
     $objTracking->lat                = $floatLat;
     $objTracking->lng                = $floatLng;
@@ -358,13 +354,13 @@ class Gameplay extends Game {
     $objTracking->steps              = $intSteps;
     $objTracking->outOfPlayingField  = $boolOutOfPlayingField;
     $objTracking->batteryLevel       = $intBatteryLevel;
-    $objTracking->batteryIsCharching = $boolBatteryIsCharching;
-    $objTracking->isDrived           = $this->isDrived( $floatLat, $floatLng );
+    $objTracking->batteryIsCharging  = $boolBatteryIsCharging;
+    $objTracking->isDriven           = $this->isDriven( $floatLat, $floatLng );
     $objTracking->timestamp          = time();
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
 
-    $this->saveFileEncrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
+    BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
 
     if( $this->generateTestData ) {
       foreach( $this->testDataSource as $strTestPlayerId => $arrTestPlayerData ) {
@@ -374,9 +370,9 @@ class Gameplay extends Game {
           $objTestPlayerTracking           = new stdClass();
           $objTestPlayerTracking->tracking = [];
 
-          $this->saveFileEncrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
+          BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
         } else {
-          $objTestPlayerTracking = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json' );
+          $objTestPlayerTracking = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json' );
         }
 
         $objTrackingClone      = clone $objTracking;
@@ -385,7 +381,7 @@ class Gameplay extends Game {
 
         array_push( $objTestPlayerTracking->tracking, $objTrackingClone );
 
-        $this->saveFileEncrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
+        BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
       }
     }
 
@@ -402,17 +398,16 @@ class Gameplay extends Game {
  *
  * @param      float   $floatLat               The current Tracking coordinates
  * @param      float   $floatLng               The current Tracking coordinates
- * @return     bool    $boolIsDrived           Is the Player the distance drived or not
+ * @return     bool    $boolIsDriven           Is the Player the distance driven or not
  *
- * @example    $boolIsDrive = $this->isDrived( $floatLat, $floatLng );
- * @example    $boolIsDrive = $objGameplay->isDrived( $floatLat, $floatLng );
+ * @example    $boolIsDrive = $objGameplay->isDriven( $floatLat, $floatLng );
  *
 */
-  private function isDrived( float $floatLat, float $floatLng ) : bool {
+  private function isDriven( float $floatLat, float $floatLng ) : bool {
     if( count( $this->currentPlayerTracking->tracking ) < 1 ) return false;
 
     $arrLastPosition   = array_slice( $this->currentPlayerTracking->tracking, -1 );
-    $floatTime         = ( $arrLastPosition[ 0 ]->timestamp - time() ) / 60 / 60;
+    $floatTime         = ( time() - $arrLastPosition[ 0 ]->timestamp ) / 60 / 60;
     $floatDistance     = $this->calcDistance( $floatLat, $floatLng, $arrLastPosition[ 0 ]->lat, $arrLastPosition[ 0 ]->lng ) / 1000;
 
     if( $floatTime == 0 ) return false;
@@ -429,13 +424,12 @@ class Gameplay extends Game {
  *
  * @return     object $objGameSettings  The Game Settings Object
  *
- * @example    $objGameSettings = $this->getGameSettings();
  * @example    $objGameSettings = $objGameplay->getGameSettings();
  *
 */
   public function getGameSettings() : object {
     $objGameConfiguration                = clone $this->gameplayObject;
-    $objGameConfiguration->showReplay    = $this->getConfig()->showReplay;
+    $objGameConfiguration->showReplay    = BaseObject::getConfig()->showReplay;
     $objGameConfiguration->playerIds     = [];
     $objGameConfiguration->hunterIds     = [];
     $objGameConfiguration->managementIds = [];
@@ -449,21 +443,21 @@ class Gameplay extends Game {
 
     $objGameConfiguration->hunter = [];
 
-    for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
-      array_push( $objGameConfiguration->playerIds, $this->gameplayObject->player[ $i ]->id );
+    foreach( $this->gameplayObject->player as $objPlayerEntry ) {
+      array_push( $objGameConfiguration->playerIds, $objPlayerEntry->id );
     }
 
-    for( $i = 0; $i < count( $this->gameplayObject->hunter ); $i++ ) {
+    foreach( $this->gameplayObject->hunter as $objHunterEntry ) {
       $objHunter       = new stdClass();
-      $objHunter->id   = $this->gameplayObject->hunter[ $i ]->id;
-      $objHunter->name = $this->gameplayObject->hunter[ $i ]->name;
+      $objHunter->id   = $objHunterEntry->id;
+      $objHunter->name = $objHunterEntry->name;
 
       array_push( $objGameConfiguration->hunter, $objHunter );
-      array_push( $objGameConfiguration->hunterIds, $this->gameplayObject->hunter[ $i ]->id );
+      array_push( $objGameConfiguration->hunterIds, $objHunterEntry->id );
     }
 
-    for( $i = 0; $i < count( $this->gameplayObject->management ); $i++ ) {
-      array_push( $objGameConfiguration->managementIds, $this->gameplayObject->management[ $i ]->id );
+    foreach( $this->gameplayObject->management as $objManagementEntry ) {
+      array_push( $objGameConfiguration->managementIds, $objManagementEntry->id );
     }
 
     return $objGameConfiguration;
@@ -482,7 +476,6 @@ class Gameplay extends Game {
  * @param      float   $floatLng2        The Tracking coordinates from Point 2
  * @return     float   $floatDistance    The Distance in Meters from Point 1 to Point 2
  *
- * @example    $floatDistance = $this->calcDistance( $floatLat1, $floatLng1, $floatLat2, $floatLng2 );
  * @example    $floatDistance = $objGameplay->calcDistance( $floatLat1, $floatLng1, $floatLat2, $floatLng2 );
  *
 */
@@ -508,7 +501,6 @@ class Gameplay extends Game {
  * @param      mixed    $mixPlayer       Player Object or Player Id
  * @return     object   $objDistances    The Distances and Steps from a Player for a full Game
  *
- * @example    $objDistances = $this->calcPlayerDistances( $mixPlayer );
  * @example    $objDistances = $objGameplay->calcPlayerDistances( $mixPlayer );
  *
 */
@@ -517,7 +509,7 @@ class Gameplay extends Game {
     $objDistances->steps    = 0;
     $objDistances->distance = 0;
     $strPlayerId            = is_object( $mixPlayer ) ? $mixPlayer->id() : $mixPlayer;
-    $objTracking            = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' );
+    $objTracking            = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' );
     $arrTracking            = $objTracking->tracking;
     $intCountTracking       = count( $arrTracking );
 
@@ -541,7 +533,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method returs a Standard Object with the Position Coordinates from all Players.
+ * This Method returns a Standard Object with the Position Coordinates from all Players.
  *
  * @access     private
  * @since      2026-06-05
@@ -549,7 +541,6 @@ class Gameplay extends Game {
  *
  * @return     object   $objPositions    Standard Object with the Position Coordinates from all Players
  *
- * @example    $objPositions = $this->getAllPlayerPositions();
  * @example    $objPositions = $objGameplay->getAllPlayerPositions();
  *
 */
@@ -562,23 +553,23 @@ class Gameplay extends Game {
     $arrHunter                = $this->gameplayObject->hunter;
     $arrManagement            = $this->gameplayObject->management;
 
-    for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
+    foreach( $arrPlayer as $objPlayerEntry ) {
       if( $this->currentPlayerGameRole == 'hunter' ) {
-        $arrPlayerId = $arrPlayer[ $i ]->id;
+        $arrPlayerId = $objPlayerEntry->id;
         array_push( $objPositions->player, $this->gameplayObject->silentHunt->tracking->$arrPlayerId );
       } else {
-        $objPlayer = new Player( $arrPlayer[ $i ]->id );
+        $objPlayer = new Player( $objPlayerEntry->id );
         array_push( $objPositions->player, $this->getPlayerPosition( $objPlayer, 1 ) );
       }
     }
 
-    for( $i = 0; $i < count( $arrHunter ); $i++ ) {
-      $objPlayer = new Player( $arrHunter[ $i ]->id );
+    foreach( $arrHunter as $objHunterEntry ) {
+      $objPlayer = new Player( $objHunterEntry->id );
       array_push( $objPositions->hunter, $this->getPlayerPosition( $objPlayer, 1 ) );
     }
 
-    for( $i = 0; $i < count( $arrManagement ); $i++ ) {
-      $objPlayer = new Player( $arrManagement[ $i ]->id );
+    foreach( $arrManagement as $objManagementEntry ) {
+      $objPlayer = new Player( $objManagementEntry->id );
       array_push( $objPositions->management, $this->getPlayerPosition( $objPlayer, 1 ) );
     }
 
@@ -586,7 +577,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method returs a Standard Object with the Position Coordinates from one Player.
+ * This Method returns a Standard Object with the Position Coordinates from one Player.
  *
  * @access     private
  * @since      2026-06-05
@@ -596,7 +587,6 @@ class Gameplay extends Game {
  * @param      int        $intCount        Count of the last Trackings do you get
  * @return     object     $objPositions    Standard Object with the Position Coordinates from one Player
  *
- * @example    $objPositions = $this->getPlayerPosition( $objPlayer, $intCount );
  * @example    $objPositions = $objGameplay->getPlayerPosition( $objPlayer, $intCount );
  *
 */
@@ -605,7 +595,7 @@ class Gameplay extends Game {
     $objPositions->name      = $objPlayer->get( 'name' );
     $objPositions->id        = $objPlayer->id();
     $objPositions->timestamp = time();
-    $objTracking             = file_exists( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) ? $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) : new stdClass();
+    $objTracking             = file_exists( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) ? BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) : new stdClass();
     $arrTracking             = isset( $objTracking->tracking ) ? array_slice( $objTracking->tracking, -$intCount ) : [];
     $objPositions->position  = $arrTracking;
 
@@ -621,12 +611,11 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $this->saveGameplay();
  * @example    $objGameplay->saveGameplay();
  *
 */
   private function saveGameplay() : void {
-    BaseObject::saveFileEncrypted( $this->gameplayPath . 'gameplay.json', $this->gameplayObject );
+    BaseObject::saveFileEnCrypted( $this->gameplayPath . 'gameplay.json', $this->gameplayObject );
 
     return;
   }
@@ -640,18 +629,17 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $this->saveMessages();
  * @example    $objGameplay->saveMessages();
  *
 */
   private function saveMessages() : void {
-    BaseObject::saveFileEncrypted( $this->gameplayPath . 'messages.json', $this->messages );
+    BaseObject::saveFileEnCrypted( $this->gameplayPath . 'messages.json', $this->messages );
 
     return;
   }
 
 /**
- * This Method controlls a silent Hunt from the Current Player and added to the Response State Object.
+ * This Method controls a silent Hunt from the Current Player and added to the Response State Object.
  *
  * @access     private
  * @since      2026-06-05
@@ -660,7 +648,6 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $this->silentHunt( $objState );
  * @example    $objState = $objGameplay->silentHunt( $objState );
  *
 */
@@ -673,8 +660,8 @@ class Gameplay extends Game {
       $objSilentHunt->tracking      = new stdClass();
       $objSilentHunt->nextTimestamp = $this->startTimestamp + $intSilentHuntInterval;
 
-      for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
-        $strPlayerId                            = $this->gameplayObject->player[ $i ]->id;
+      foreach( $this->gameplayObject->player as $objPlayerEntry ) {
+        $strPlayerId                            = $objPlayerEntry->id;
         $objPlayer                              = new Player( $strPlayerId );
         $objSilentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
       }
@@ -693,8 +680,8 @@ class Gameplay extends Game {
     } else if( $objState->timestampEnd < $intNowTimestamp ) {
       $objState->nextSilentHunt             = '';
     } else if( $intNowTimestamp > $this->gameplayObject->silentHunt->nextTimestamp ) {
-      for( $i = 0; $i < count( $this->gameplayObject->player ); $i++ ) {
-        $strPlayerId  = $this->gameplayObject->player[ $i ]->id;
+      foreach( $this->gameplayObject->player as $objPlayerEntry ) {
+        $strPlayerId  = $objPlayerEntry->id;
         $objPlayer    = new Player( $strPlayerId );
         $this->gameplayObject->silentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
       }
@@ -718,7 +705,6 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $this->checkRulesAndAddSystemMessages( $objState );
  * @example    $objState = $objGameplay->checkRulesAndAddSystemMessages( $objState );
  *
 */
@@ -747,8 +733,8 @@ class Gameplay extends Game {
       foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
         $arrObjects = $this->gameplayObject->$strGameplayRole;
 
-        for( $i = 0; $i < count( $arrObjects ); $i++ ) {
-          array_push( $arrExitMeetLocation, 'bei ' . $arrObjects[ $i ]->name );
+        foreach( $arrObjects as $objEntry ) {
+          array_push( $arrExitMeetLocation, 'bei ' . $objEntry->name );
         }
       }
 
@@ -772,8 +758,8 @@ class Gameplay extends Game {
       foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
         $arrObjects = $this->gameplayObject->$strGameplayRole;
 
-        for( $i = 0; $i < count( $arrObjects ); $i++ ) {
-          array_push( $arrExitMeetLocation, 'bei ' . $arrObjects[ $i ]->name );
+        foreach( $arrObjects as $objEntry ) {
+          array_push( $arrExitMeetLocation, 'bei ' . $objEntry->name );
         }
       }
 
@@ -795,10 +781,10 @@ class Gameplay extends Game {
     if( ! $this->isRunning ) return $objState;
 
     foreach( $this->gameplayRoles as $strGameplayRole => $strGameplayRoleName ) {
-      $arrObjects = $this->gameplayObject->$strGameplayRole;
+      $arrObjects       = $this->gameplayObject->$strGameplayRole;
 
-      for( $i = 0; $i < count( $arrObjects ); $i++ ) {
-        $strPlayerId        = $arrObjects[ $i ]->id;
+      foreach( $arrObjects as $intIndex => $objEntry ) {
+        $strPlayerId        = $objEntry->id;
         $objPlayer          = new Player( $strPlayerId );
         $objPosition        = $this->getPlayerPosition( $objPlayer, 1 );
 
@@ -815,13 +801,13 @@ class Gameplay extends Game {
           $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
           $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
           $objSystemMessage->message           .= '<p class="danger-text">Ein ' . $strGameplayRoleName . ' hat das Spielfeld verlassen.</p>';
-          $objSystemMessage->message           .= $strGameplayRole == 'player' ? '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>' : '<p class="danger-text">' . $objPlayer->get( 'name' ) . ' muss ein Bier ausgeben.<p>';
+          $objSystemMessage->message           .= $strGameplayRole == 'player' ? '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.</p>' : '<p class="danger-text">' . $objPlayer->get( 'name' ) . ' muss ein Bier ausgeben.</p>';
           $objSystemMessage->applies            = $strPlayerId;
           $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
           $objSystemMessage->appliesRole        = $strGameplayRole;
           $objSystemMessage->appliesRoleName    = $strGameplayRoleName;
           $objSystemMessage->cssClass           = 'danger-text';
-          $objSystemMessage->appliesCount       = $i + 1;
+          $objSystemMessage->appliesCount       = $intIndex + 1;
           $objSystemMessage->showMessageOnlyOne = false;
           $objSystemMessage->id                 = 'outOfPlayingField_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
           $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
@@ -836,7 +822,7 @@ class Gameplay extends Game {
         }
 
         // Violations Of The Rules - Vehicle used
-        if( $objPosition->position[ 0 ]->isDrived && $this->gameplayRoles == 'player' && $this->gameSettings->sanctionForVehicleUse == '1' ) {
+        if( isset( $objPosition->position[ 0 ]->isDriven ) &&  $objPosition->position[ 0 ]->isDriven && $strGameplayRole == 'player' && $this->gameSettings->sanctionForVehicleUse == '1' ) {
 
           $this->gameplayObject->silentHunt->tracking->$strPlayerId = $objPosition;
 
@@ -846,13 +832,13 @@ class Gameplay extends Game {
           $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
           $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
           $objSystemMessage->message           .= '<p class="danger-text">Ein Spieler hat unerlaubt ein Fahrzeug benutzt.</p>';
-          $objSystemMessage->message           .= '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.<p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Das Tracking für diesen Spieler wurde aktuallisiert.</p>';
           $objSystemMessage->applies            = $strPlayerId;
           $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
           $objSystemMessage->appliesRole        = 'player';
           $objSystemMessage->appliesRoleName    = 'Spieler';
           $objSystemMessage->cssClass           = 'danger-text';
-          $objSystemMessage->appliesCount       = $i + 1;
+          $objSystemMessage->appliesCount       = $intIndex + 1;
           $objSystemMessage->showMessageOnlyOne = false;
           $objSystemMessage->id                 = 'usedVehicle_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
           $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
@@ -883,7 +869,7 @@ class Gameplay extends Game {
           $objSystemMessage->appliesRole        = 'player';
           $objSystemMessage->appliesRoleName    = 'Spieler';
           $objSystemMessage->cssClass           = 'danger-text';
-          $objSystemMessage->appliesCount       = $i + 1;
+          $objSystemMessage->appliesCount       = $intIndex + 1;
           $objSystemMessage->showMessageOnlyOne = false;
           $objSystemMessage->id                 = 'speedhunt_' . $intLastPingTimestamp;
           $objSystemMessage->timestamp          = $intLastPingTimestamp;
@@ -894,10 +880,10 @@ class Gameplay extends Game {
     }
 
     // A Player was captured
-    for( $i = 0; $i < count( $arrCaptured ); $i++ ) {
-      if( $intNowTimestamp > $arrCaptured[ $i ]->timestamp + 1200 ) continue;
+    foreach( $arrCaptured as $objCapturedEntry ) {
+      if( $intNowTimestamp > $objCapturedEntry->timestamp + 1200 ) continue;
 
-      $strPlayerId                          = $arrCaptured[ $i ]->playerId;
+      $strPlayerId                          = $objCapturedEntry->playerId;
       $objPlayer                            = new Player( $strPlayerId );
 
       $objSystemMessage                     = new stdClass();
@@ -912,10 +898,10 @@ class Gameplay extends Game {
       $objSystemMessage->appliesRole        = 'player';
       $objSystemMessage->appliesRoleName    = 'Spieler';
       $objSystemMessage->cssClass           = 'danger-text';
-      $objSystemMessage->appliesCount       = $i + 1;
+      $objSystemMessage->appliesCount       = $intIndex + 1;
       $objSystemMessage->showMessageOnlyOne = false;
-      $objSystemMessage->id                 = 'caputured_' . $strPlayerId;
-      $objSystemMessage->timestamp          = $arrCaptured[ $i ]->timestamp;
+      $objSystemMessage->id                 = 'captured_' . $strPlayerId;
+      $objSystemMessage->timestamp          = $objCapturedEntry->timestamp;
 
       array_push( $objState->systemMessages, $objSystemMessage );
     }
@@ -933,7 +919,6 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $this->getGameplayState( $objState );
  * @example    $objState = $objGameplay->getGameplayState( $objState );
  *
 */
@@ -965,7 +950,6 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $this->getGameplaySpeedHunt( $objState );
  * @example    $objState = $objGameplay->getGameplaySpeedHunt( $objState );
  *
 */
@@ -1011,7 +995,6 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->response( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->response( $objRequestObject );
  *
 */
@@ -1041,7 +1024,6 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->captured( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->captured( $objRequestObject );
  *
 */
@@ -1069,7 +1051,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method controlls the Speed Hunts and returns the State of the Speed Hunts.
+ * This Method controls the Speed Hunts and returns the State of the Speed Hunts.
  *
  * @access     public
  * @since      2026-06-05
@@ -1078,7 +1060,6 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->speedHunt( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->speedHunt( $objRequestObject );
  *
 */
@@ -1115,7 +1096,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method controlls and adds the Player Tracking for the current Player.
+ * This Method controls and adds the Player Tracking for the current Player.
  *
  * @access     public
  * @since      2026-06-05
@@ -1124,7 +1105,6 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->track( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->track( $objRequestObject );
  *
 */
@@ -1149,7 +1129,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method controlls a new Message from the current Player and adds the Message Queue for the Response.
+ * This Method controls a new Message from the current Player and adds the Message Queue for the Response.
  *
  * @access     public
  * @since      2026-06-05
@@ -1158,7 +1138,6 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->message( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->message( $objRequestObject );
  *
 */
@@ -1188,7 +1167,7 @@ class Gameplay extends Game {
   }
 
 /**
- * This Method set the requirered Response Object if the Game is stopped.
+ * This Method sets the required Response Object if the Game is stopped.
  *
  * @access     private
  * @since      2026-06-05
@@ -1197,7 +1176,6 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->stopped( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->stopped( $objRequestObject );
  *
 */
@@ -1233,12 +1211,11 @@ class Gameplay extends Game {
  * @param      object     $objRequestObject    The Request Object
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $this->statistic( $objRequestObject );
  * @example    $objRequestObject = $objGameplay->statistic( $objRequestObject );
  *
 */
   public function statistic( object $objRequestObject )  : object {
-    $arrRoles                    = $this::GAMEROLES;
+    $arrRoles                    = static::GAMEROLES;
     $objState                    = new stdClass();
     $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
 
@@ -1253,12 +1230,12 @@ class Gameplay extends Game {
       $objRequestObject->positions->$strRoleId = new stdClass();
       $arrPlayer = $objRequestObject->gameplay->$strRoleId;
 
-      for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
-        $strPlayerId = $arrPlayer[ $i ]->id;
+      foreach( $arrPlayer as $objPlayerEntry ) {
+        $strPlayerId = $objPlayerEntry->id;
 
         if( ! file_exists( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' ) ) continue;
 
-        $objTracking = $this->loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' );
+        $objTracking = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strPlayerId . '.json' );
         $objRequestObject->positions->$strRoleId->$strPlayerId = $objTracking->tracking;
       }
     }

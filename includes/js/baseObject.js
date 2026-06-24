@@ -286,7 +286,7 @@ class BaseObject {
       localStorageObject[ context ][ key ] = value;
     }
 
-    localStorage.setItem( this.appAlias,   btoa( JSON.stringify( localStorageObject ) ) );
+    localStorage.setItem( this.appAlias, btoa( JSON.stringify( localStorageObject ) ) );
 
     return;
   }
