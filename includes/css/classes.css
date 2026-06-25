@@ -22,3 +22,7 @@ body .hidden { display: none; }
 
 .relative { position: relative; }
 .absolute { position: absolute; }
+
+.overflow-hidden {
+  overflow: hidden;
+}

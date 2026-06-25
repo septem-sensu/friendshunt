@@ -3,7 +3,11 @@
   </div>
   <script type="text/javascript">
     ( function() {
-      if( 'serviceWorker' in navigator ) navigator.serviceWorker.register( 'includes/js/sw.js', { scope: 'includes/js/' } );
+      if( 'serviceWorker' in navigator ) {
+        navigator.serviceWorker.register( 'sw.js' ).then( ( objReg ) => {
+          if( this.debug ) console.log( '🛰️ [PWA-RADAR]: Service Worker erfolgreich im Root registriert!', objReg );
+        } ).catch( console.error );
+      }
       return;
     } )();
   </script>

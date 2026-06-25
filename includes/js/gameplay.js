@@ -53,6 +53,8 @@ class Gameplay extends Game {
     this.gameId                 = gameId;
     this.playerId               = playerId;
     this.playerRole             = null;
+    this.lastLatitude           = -1;
+    this.lastLongitude          = -1;
     this.steps                  = 0;
     this.gameplayRole           = '';
     this.lastMessageId          = '';
@@ -330,6 +332,8 @@ class Gameplay extends Game {
 
         if( this.isTrackingMode ) {
           event.target.innerText = '⨀';
+
+          if( this.lastLatitude != -1 && this.lastLongitude != -1 ) this.mapInstance.panTo( [ this.lastLatitude, this.lastLongitude ], { 'animate': true, 'duration': 0.2 } );
         } else {
           event.target.innerText = '⨁';
         }
@@ -426,6 +430,9 @@ class Gameplay extends Game {
 
       return;
     } );
+
+    document.querySelector( 'body' ).classList.add( 'fix-body' );
+    document.querySelector( '#map' ).classList.add( 'fix-map' );
 
     return;
   }
@@ -790,11 +797,13 @@ class Gameplay extends Game {
       if( tracking.id === this.playerId ) this.geoMaps.addMarkerCssClass( tracking.id, this.markerCssClassMyOwn );
     }
 
-    if( this.isTrackingMode && tracking.id === this.playerId ) {
-      this.mapInstance.panTo( [ lastPosition.lat, lastPosition.lng ], {
-        'animate': true,
-        'duration': 0.2
-      } );
+    if( tracking.id === this.playerId ) {
+      this.lastLatitude  = lastPosition.lat;
+      this.lastLongitude = lastPosition.lng
+
+      if( this.isTrackingMode ) {
+        this.mapInstance.panTo( [ lastPosition.lat, lastPosition.lng ], { 'animate': true, 'duration': 0.2 } );
+      }
     }
 
     return;

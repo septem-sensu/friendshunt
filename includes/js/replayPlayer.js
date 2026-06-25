@@ -265,12 +265,15 @@ class ReplayPlayer {
 
         if( playerId === this.currentPlayerId ) {
           const isTrackingMode = this.gameplay.get( 'isTrackingMode' );
-
           if( isTrackingMode && ! this.isHighlightActive ) {
-            this.mapInstance.panTo( [ floatingPoint.lat, floatingPoint.lng ], {
-              'animate': true,
-              'duration': 0.1
-            } );
+            const realLatLng   = L.latLng( floatingPoint.lat, floatingPoint.lng );
+            const pixelPoint   = this.mapInstance.latLngToContainerPoint( realLatLng );
+
+            pixelPoint.y      += 120;
+
+            const offsetLatLng = this.mapInstance.containerPointToLatLng( pixelPoint );
+
+            this.mapInstance.panTo( [ offsetLatLng.lat, offsetLatLng.lng ], { 'animate': true, 'duration': 0.1 } );
           }
         }
 
@@ -379,7 +382,14 @@ class ReplayPlayer {
 
     this.currentVirtualTimestamp = highlightPoint.timestamp;
 
-    this.mapInstance.flyTo( [ parseFloat( highlightPoint.lat ), parseFloat( highlightPoint.lng ) ], 18, { 'animate': true, 'duration': 2.0 } );
+    const realLatLng   = L.latLng( highlightPoint.lat, highlightPoint.lng );
+    const pixelPoint   = this.mapInstance.latLngToContainerPoint( realLatLng );
+
+    pixelPoint.y      += 8;
+
+    const offsetLatLng = this.mapInstance.containerPointToLatLng( pixelPoint );
+
+    this.mapInstance.flyTo( [ parseFloat( offsetLatLng.lat ), parseFloat( offsetLatLng.lng ) ], 18, { 'animate': true, 'duration': 2.0, 'paddingBottomRight': [ 0, 100 ] } );
 
     const checkIsHighlight = () => {
       if( this.mapInstance.getZoom() !== 18 ) return;

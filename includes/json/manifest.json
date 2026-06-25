@@ -1,50 +1,78 @@
 {
-  "name": "Friends Hunt",
-  "short_name": "Friends Hunt",
-  "theme_color": "#191920",
   "background_color": "#191920",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/index.php",
+  "categories": [
+    "fitness",
+    "games",
+    "navigation",
+    "social",
+    "lifestyle"
+  ],
   "description": "Friends Hunt ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.",
-  "orientation": "any",
-  "categories": ["fitness", "games", "navigation", "social", "lifestyle"],
-  "icons": [{
-      "src": "../images/favicons/friendshunt-app-icon-512x512.png",
-      "sizes": "512x512"
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "/includes/images/favicons/friendshunt-app-icon-512x512.png",
+      "type": "image/png"
     }, {
-      "src": "../images/favicons/friendshunt-app-icon-192x192.png",
-      "sizes": "192x192"
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "/includes/images/favicons/friendshunt-app-icon-512x512.png",
+      "type": "image/png"
     }, {
-      "src": "../images/favicons/friendshunt-app-icon-180x180.png",
-      "sizes": "180x180"
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "/includes/images/favicons/friendshunt-app-icon-192x192.png",
+      "type": "image/png"
     }, {
-      "src": "../images/favicons/friendshunt-app-icon-32x32.png",
-      "sizes": "32x32"
+      "purpose": "any",
+      "sizes": "180x180",
+      "src": "/includes/images/favicons/friendshunt-app-icon-180x180.png",
+      "type": "image/png"
     }, {
-      "src": "../images/favicons/friendshunt-app-icon-16x16.png",
-      "sizes": "16x16"
+      "purpose": "any",
+      "sizes": "32x32",
+      "src": "/includes/images/favicons/friendshunt-app-icon-32x32.png",
+      "type": "image/png"
+    }, {
+      "purpose": "any",
+      "sizes": "16x16",
+      "src": "/includes/images/favicons/friendshunt-app-icon-16x16.png",
+      "type": "image/png"
     }
   ],
-  "screenshots":[{
-      "src": "../images/screenshots/screenshot-friendshunt-tracking-550x1024.png",
-      "type": "image/png",
-      "size": "550x1024",
-      "label": "Friends-Hunt App - Tracking Ansicht"
+  "name": "Friends Hunt - Die Jagd beginnt",
+  "orientation": "any",
+  "scope": "/",
+  "screenshots": [
+    {
+      "form_size": "narrow",
+      "label": "Friends Hunt App - Tracking Ansicht",
+      "sizes": "550x1024",
+      "src": "/includes/images/screenshots/screenshot-friendshunt-tracking-550x1024.png",
+      "type": "image/png"
     }, {
-      "src": "../images/screenshots/screenshot-friendshunt-dashboard-550x1024.png",
-      "type": "image/png",
-      "size": "550x1024",
-      "label": "Friends-Hunt App - Game Dashboard Ansicht"
+      "form_size": "narrow",
+      "label": "Friends Hunt App - Game Dashboard Ansicht",
+      "sizes": "550x1024",
+      "src": "/includes/images/screenshots/screenshot-friendshunt-dashboard-550x1024.png",
+      "type": "image/png"
     }, {
-      "src": "../images/screenshots/screenshot-friendshunt-account-550x1024.png",
-      "type": "image/png",
-      "size": "550x1024",
-      "label": "Friends-Hunt App - My Account Ansicht"
+      "form_size": "narrow",
+      "label": "Friends Hunt App - My Account Ansicht",
+      "sizes": "550x1024",
+      "src": "/includes/images/screenshots/screenshot-friendshunt-account-550x1024.png",
+      "type": "image/png"
     }, {
-      "src": "../images/screenshots/screenshot-friendshunt-messages-550x1024.png",
-      "type": "image/png",
-      "size": "550x1024",
-      "label": "Friends-Hunt App - Nachrichten Ansicht"
+      "form_size": "narrow",
+      "label": "Friends Hunt App - Nachrichten Ansicht",
+      "sizes": "550x1024",
+      "src": "/includes/images/screenshots/screenshot-friendshunt-messages-550x1024.png",
+      "type": "image/png"
     }
-  ]}
+  ],
+  "short_name": "Friends Hunt",
+  "start_url": "/index.php",
+  "theme_color": "#191920"
+}
