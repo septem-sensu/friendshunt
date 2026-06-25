@@ -70,6 +70,9 @@ self.addEventListener( 'fetch', ( event ) => {
   const { request } = event;
   const url = new URL( request.url );
 
+  // Ignore non-HTTP(S) requests (chrome-extension, data, blob, etc.)
+  if( !url.protocol.startsWith( 'http' ) ) return;
+
   // Allow AJAX requests to pass through completely
   if( url.searchParams.has( 'result' ) ) return;
 
