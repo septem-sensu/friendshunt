@@ -516,6 +516,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020save\u0020the\u0020Tracking\u0020and\u0020the\u0020Steps\u0020that\u0020have\u0020been\u0020run\u0020since\u0020the\u0020last\u0020Tracking.",
             "url": "classes/Gameplay.html#method_addTracking"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003AisOutOfPlayField\u0028\u0029",
+            "name": "isOutOfPlayField",
+            "summary": "This\u0020method\u0020checks\u0020whether\u0020a\u0020player\u0020has\u0020left\u0020the\u0020field.",
+            "url": "classes/Gameplay.html#method_isOutOfPlayField"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003AisDriven\u0028\u0029",
             "name": "isDriven",
             "summary": "This\u0020Method\u0020checks\u0020whether\u0020the\u0020Player\u0020covered\u0020the\u0020last\u0020distance\u0020by\u0020driving\u0020or\u0020running.",

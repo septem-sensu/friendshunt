@@ -120,6 +120,7 @@ class Gameplay {
   +transferStatistics()
   +setStatisticProperty()
   +addTracking()
+  +isOutOfPlayField()
   +isDriven()
   +getGameSettings()
   +calcDistance()
