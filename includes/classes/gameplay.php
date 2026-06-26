@@ -338,21 +338,20 @@ class Gameplay extends Game {
  * @param      float   $floatLng               The Tracking coordinates
  * @param      int     $intPrecision           The Precision of the Tracking coordinates
  * @param      int     $intSteps               The count of Steps that have been run since the last Tracking
- * @param      bool    $boolOutOfPlayingField  Whether the Player is out of the Playing Field
  * @param      int     $intBatteryLevel        The current Battery Level
  * @param      bool    $boolBatteryIsCharging  Whether the Battery is currently charging
  * @return     void
  *
- * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $boolOutOfPlayingField, $intBatteryLevel, $boolBatteryIsCharging );
+ * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $intBatteryLevel, $boolBatteryIsCharging );
  *
 */
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, bool $boolOutOfPlayingField, int $intBatteryLevel, bool $boolBatteryIsCharging ) : void {
+  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, int $intBatteryLevel, bool $boolBatteryIsCharging ) : void {
     $objTracking                     = new stdClass();
     $objTracking->lat                = $floatLat;
     $objTracking->lng                = $floatLng;
     $objTracking->precision          = $intPrecision;
     $objTracking->steps              = $intSteps;
-    $objTracking->outOfPlayingField  = $boolOutOfPlayingField;
+    $objTracking->outOfPlayingField  = $this->isOutOfPlayField( $floatLat, $floatLng, $intPrecision );
     $objTracking->batteryLevel       = $intBatteryLevel;
     $objTracking->batteryIsCharging  = $boolBatteryIsCharging;
     $objTracking->isDriven           = $this->isDriven( $floatLat, $floatLng );
@@ -389,11 +388,38 @@ class Gameplay extends Game {
   }
 
 /**
+ * This method checks whether a player has left the field.
+ * The method calculates how far the player is from the center of the field and compares
+ * this value with the radius of the playing field + the precession of the tracking point + 50 meters goodwill.
+ *
+ * @access     private
+ * @since      2026-06-05
+ * @version    0.1.0
+ *
+ * @param      float   $floatLat               The current Tracking coordinates
+ * @param      float   $floatLng               The current Tracking coordinates
+ * @param      int     $intPrecision           The accuracy of the current tracking coordinates
+ * @return     bool    $boolIsDriven           Is the Player the distance driven or not
+ *
+ * @example    $boolIsOutOfPlayField = $objGameplay->isOutOfPlayField( $floatLat, $floatLng, $intPrecision );
+ *
+*/
+  private function isOutOfPlayField( float $floatLat, float $floatLng, int $intPrecision  ) : bool {
+    $arrPlayingFieldPosition = explode( ',', $this->gameplayObject->playingFieldCenterPosition );
+    $floatPlayerDistance     = $this->calcDistance( floatval( $floatLat ), floatval( $floatLng ), floatval( $arrPlayingFieldPosition[ 0 ] ), floatval( $arrPlayingFieldPosition[ 1 ] ) );
+    $intPlayingFieldSize     = intval( $this->gameplayObject->playingFieldSize );
+
+    if( $floatPlayerDistance > $intPlayingFieldSize + intval( $intPrecision ) + 50 ) return true;
+
+    return false;
+  }
+
+/**
  * This Method checks whether the Player covered the last distance by driving or running.
  * If the speed between the last position and the current position was greater than 15 km/h, then the Player was being driven.
  *
  * @access     private
- * @since      2026-06-05
+ * @since      2026-06-26
  * @version    0.1.0
  *
  * @param      float   $floatLat               The current Tracking coordinates
@@ -1119,7 +1145,6 @@ class Gameplay extends Game {
         $objRequestObject->lng,
         intval( $objRequestObject->precision ),
         intval( $objRequestObject->steps ),
-        $objRequestObject->outOfPlayingField,
         intval( $objRequestObject->batteryLevel ),
         $objRequestObject->batteryIsCharging
       );

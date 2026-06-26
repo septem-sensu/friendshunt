@@ -468,7 +468,6 @@ class Gameplay extends Game {
     post.precision            = precision;
     post.message              = message;
     post.steps                = stepCount;
-    post.outOfPlayingField    = this.outOfPlayingField;
     post.batteryLevel         = batteryState.supported ? batteryState.level : 0;
     post.batteryIsCharging    = batteryState.supported ? batteryState.charging : false;
     post.timestamp            = this.timestampNow();
@@ -502,8 +501,6 @@ class Gameplay extends Game {
         this.setPosition( gameplayRole, tracking, i + 1 );
       }
     }
-
-    this.checkRules();
 
     return;
   }
@@ -655,31 +652,6 @@ class Gameplay extends Game {
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, this.processResponse.bind( this ) );
 
     document.querySelector( '#game-capture-container' ).classList.add( 'hidden' );
-
-    return;
-  }
-
-/**
- * This method checks the game rules based on the player's game settings.
- *
- * @public
- *
- * @return    {void}
- *
- * @example   gameplay.checkRules();
- *
- */
-  checkRules() {
-    if( this.capturedPlayerIds.includes( this.playerId ) ) return;
-    if( ! this.gameplayState.isRunning ) return;
-
-    const playerDistance = this.geoMaps.getDistance( 'playingFieldCenterPosition', this.playerId );
-
-    if( playerDistance > parseInt( this.gameSettings.playingFieldSize ) + 50 ) {
-      this.outOfPlayingField = true;
-    } else {
-      this.outOfPlayingField = false;
-    }
 
     return;
   }
