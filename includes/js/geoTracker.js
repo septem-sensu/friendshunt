@@ -182,9 +182,28 @@ class GeoTracker {
     try {
       this.wakeLock = await navigator.wakeLock.request( 'screen' );
       if( this.debug ) console.log( 'Bildschirm-Sperre ist aktiv!' );
+
+      this.wakeLock.addEventListener( 'release', () => {
+        this.wakeLock = null;
+      } );
     } catch (err) {
       if( this.debug ) console.error( `${ err.name }, ${ err.message }` );
     }
+
+    document.addEventListener( 'visibilitychange', async () => {
+      if( document.visibilityState === 'visible' && this.wakeLock === null ) {
+        try {
+          this.wakeLock = await navigator.wakeLock.request( 'screen' );
+          if( this.debug ) console.log( 'Bildschirm-Sperre wurde erneuert!' );
+
+          this.wakeLock.addEventListener( 'release', () => {
+            this.wakeLock = null;
+          } );
+        } catch (err) {
+          if( this.debug ) console.error( `${ err.name }, ${ err.message }` );
+        }
+      }
+    } );
 
     return;
   }

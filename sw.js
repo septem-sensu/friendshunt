@@ -1,4 +1,4 @@
-const CACHE_NAME = 'friendshunt-v0.1.0.17';
+const CACHE_NAME = 'friendshunt-v0.1.0.19';
 
 const STATIC_ASSETS = [
   './includes/css/themes/default.css',
