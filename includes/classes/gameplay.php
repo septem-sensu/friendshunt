@@ -340,12 +340,13 @@ class Gameplay extends Game {
  * @param      int     $intSteps               The count of Steps that have been run since the last Tracking
  * @param      int     $intBatteryLevel        The current Battery Level
  * @param      bool    $boolBatteryIsCharging  Whether the Battery is currently charging
+ * @param      int     $intClientTimestamp     The Client Timestamp from the Tracking Request
  * @return     void
  *
- * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $intBatteryLevel, $boolBatteryIsCharging );
+ * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $intBatteryLevel, $boolBatteryIsCharging, $intClientTimestamp );
  *
 */
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, int $intBatteryLevel, bool $boolBatteryIsCharging ) : void {
+  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, int $intBatteryLevel, bool $boolBatteryIsCharging, int $intClientTimestamp ) : void {
     $objTracking                     = new stdClass();
     $objTracking->lat                = $floatLat;
     $objTracking->lng                = $floatLng;
@@ -356,6 +357,7 @@ class Gameplay extends Game {
     $objTracking->batteryIsCharging  = $boolBatteryIsCharging;
     $objTracking->isDriven           = $this->isDriven( $floatLat, $floatLng );
     $objTracking->timestamp          = time();
+    $objTracking->clientTimestamp    = $intClientTimestamp;
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
 
@@ -1146,7 +1148,8 @@ class Gameplay extends Game {
         intval( $objRequestObject->precision ),
         intval( $objRequestObject->steps ),
         intval( $objRequestObject->batteryLevel ),
-        $objRequestObject->batteryIsCharging
+        $objRequestObject->batteryIsCharging,
+        intval( $objRequestObject->timestamp )
       );
     }
 

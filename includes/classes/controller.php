@@ -454,6 +454,7 @@ class Controller {
       $this->presentationObject->assignTemplateVar( 'fields', $_GET[ 'fields' ], null, json_encode( BaseObject::fields( $_GET[ 'fields' ] ) ) );
     }
 
+    $this->presentationObject->assignTemplateVar( 'configuration', 'default', null, json_encode( $this->config ) );
     $this->presentationObject->assignTemplateVar( 'fields', 'default', null, json_encode( BaseObject::fields( $this->className ) ) );
     $this->presentationObject->assignTemplateVar( 'view', 'default', null, json_encode( $this->viewObject ) );
     $this->presentationObject->assignTemplateVar( 'class', 'default', null, $this->className );

@@ -37,6 +37,39 @@ class Communicator {
     this.maxRequestCount    = 4;
     this.debug              = window[ appAlias ].debug ? true : false;
 
+    this.isOnline           = navigator.onLine;
+    this.offlineDbName      = 'trackingQueue';
+    this.offlineStoreName   = window[ appAlias ].objects.configuration.cookieName + '_offline';
+    this.offlineDb          = null;
+
+    this.init();
+
+    return;
+  }
+
+/**
+ * This method initializes the Communicator class and registers the necessary event handlers,
+ * among other things, the online status for processing the offline queue.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   communicator.init();
+ *
+ */
+  init() {
+    window.addEventListener( 'online', () => {
+      this.isOnline = true;
+      this.flushOfflineQueue();
+    } );
+
+    window.addEventListener( 'offline', () => {
+      this.isOnline = false;
+    } );
+
+    if( this.isOnline ) this.flushOfflineQueue();
+
     return;
   }
 
@@ -151,18 +184,22 @@ class Communicator {
  * @param     {object}    getParams        All parameters that should be appended to the Url as Url parameters
  * @param     {object}    postParams       All parameters that should be sent as post parameters (the request object)
  * @param     {function}  callbackMethod   The callback method to which the response data should be passed
+ * @param     {boolean}   offlineRequest   Whether this request comes from the offline queue
+ * @param     {number}    offlineDbEntryId The ID of the entry in the offline database
  * @return    {void}
  *
  * @example   communicator.request( 'POST', {}, {}, ref.function );
  *
  */
-  request( method, getParams, postParams, callbackMethod ) {
+  request( method, getParams, postParams, callbackMethod, offlineRequest, offlineDbEntryId ) {
     const queueObject = { 'requestId': Utils.guid(), 'requestCount': 0 };
 
-    queueObject.method         = method;
-    queueObject.getParams      = getParams;
-    queueObject.postParams     = postParams;
-    queueObject.callbackMethod = callbackMethod;
+    queueObject.method           = method;
+    queueObject.getParams        = getParams;
+    queueObject.postParams       = postParams;
+    queueObject.callbackMethod   = callbackMethod;
+    queueObject.offlineRequest   = offlineRequest ? true : false;
+    queueObject.offlineDbEntryId = offlineDbEntryId ? offlineDbEntryId : null;
 
     this.requestQueue.push( queueObject );
     this.manageRequestQueue();
@@ -208,17 +245,28 @@ class Communicator {
 
           if( this.responses.length > this.maxResponsesLength ) this.responses = this.responses.splice( 0, 10 );
 
+          if( request.offlineDbEntryId ) this.removeFromOfflineDb( request.offlineDbEntryId );
+
           this.processResponse( request, JSON.parse( xhr.responseText ) );
 
           this.requestOnTheWay = {};
           this.manageRequestQueue();
         } else {
           if( request.requestCount > this.maxRequestCount ) {
-            const requestError           = { 'error': xhr.status + ' ' + xhr.statusText };
+            if( typeof request.postParams === 'object' && request.postParams !== null && request.postParams.gameplayMethod === 'track' && ! request.offlineRequest ) {
+              this.addToOfflineDb( this.requestOnTheWay ).catch( ( error ) => {
+                if( this.debug ) console.log( 'OfflineQueue add error: ', error );
+              } );
+            } else {
+              if( request.offlineDbEntryId ) this.removeFromOfflineDb( request.offlineDbEntryId );
 
-            requestError.requestObject = JSON.parse( JSON.stringify( this.requestOnTheWay ) );
+              const requestError           = { 'error': xhr.status + ' ' + xhr.statusText };
 
-            this.requestErrors.push( requestError );
+              requestError.requestObject = JSON.parse( JSON.stringify( this.requestOnTheWay ) );
+
+              this.requestErrors.push( requestError );
+            }
+
             this.requestOnTheWay = {};
             this.manageRequestQueue();
           } else {
@@ -329,5 +377,168 @@ class Communicator {
 
     return;
   }
+
+/**
+ * This method flushes all queued offline tracking data to the server.
+ * The requests are sent as fire-and-forget (the response is not processed)
+ * so that the map is not updated with old positions.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   communicator.flushOfflineQueue();
+ *
+ */
+  flushOfflineQueue() {
+    this.getAllFromOfflineDb().then( ( entries ) => {
+      if( entries.length < 1 ) return;
+
+      for( let i = 0; i < entries.length; i++ ) {
+        this.request( 'POST', entries[ i ].getParams, entries[ i ].postParams, '', true, entries[ i ].id );
+      }
+    } ).catch( ( error ) => {
+      if( this.debug ) console.log( 'OfflineQueue flush error: ', error );
+    } );
+
+    return;
+  }
+
+/**
+ * This method opens the IndexedDB connection.
+ * If the database does not exist, it is created with the required object store and index.
+ *
+ * @public
+ *
+ * @return    {Promise}  promise  A Promise that resolves with the IDBDatabase instance
+ *
+ * @example   communicator.openOfflineDb().then( ( db ) => { ... } );
+ *
+ */
+  openOfflineDb() {
+    return new Promise( ( resolve, reject ) => {
+      if( this.offlineDb ) { resolve( this.offlineDb ); return; }
+
+      const request = indexedDB.open( this.offlineDbName, 1 );
+
+      request.onupgradeneeded = ( event ) => {
+        const db    = event.target.result;
+        const store = db.createObjectStore( this.offlineStoreName, { keyPath: 'id', autoIncrement: true } );
+
+        store.createIndex( 'timestamp', 'postParams.timestamp', { unique: false } );
+      };
+
+      request.onsuccess = ( event ) => {
+        this.offlineDb = event.target.result;
+        resolve( this.offlineDb );
+      };
+
+      request.onerror = ( event ) => {
+        reject( event.target.error );
+      };
+    } );
+  }
+
+/**
+ * This method adds a failed request to the offline queue.
+ *
+ * @public
+ *
+ * @param     {object}   requestObject  The request object containing getParams and postParams
+ * @return    {Promise}  promise        A Promise that resolves when the entry has been added
+ *
+ * @example   communicator.addToOfflineDb( requestObject );
+ *
+ */
+  addToOfflineDb( requestObject ) {
+    return new Promise( ( resolve, reject ) => {
+      this.openOfflineDb().then( ( db ) => {
+        const transaction = db.transaction( this.offlineStoreName, 'readwrite' );
+        const store       = transaction.objectStore( this.offlineStoreName );
+        const entry       = {
+          getParams:  requestObject.getParams,
+          postParams: requestObject.postParams,
+          queuedAt:   Date.now()
+        };
+
+        const request = store.add( entry );
+
+        request.onsuccess = () => { resolve(); };
+        request.onerror   = ( event ) => { reject( event.target.error ); };
+      } ).catch( ( error ) => { reject( error ); } );
+    } );
+  }
+
+/**
+ * This method retrieves all entries from the offline queue, sorted by client timestamp (oldest first).
+ *
+ * @public
+ *
+ * @return    {Promise}  promise  A Promise that resolves with an array of queued entries
+ *
+ * @example   communicator.getAllFromOfflineDb().then( ( entries ) => { ... } );
+ *
+ */
+  getAllFromOfflineDb() {
+    return new Promise( ( resolve, reject ) => {
+      this.openOfflineDb().then( ( db ) => {
+        const transaction = db.transaction( this.offlineStoreName, 'readonly' );
+        const store       = transaction.objectStore( this.offlineStoreName );
+        const index       = store.index( 'timestamp' );
+        const request     = index.getAll();
+
+        request.onsuccess = () => { resolve( request.result ); };
+        request.onerror   = ( event ) => { reject( event.target.error ); };
+      } ).catch( ( error ) => { reject( error ); } );
+    } );
+  }
+
+/**
+ * This method removes an entry from the offline queue by its ID.
+ *
+ * @public
+ *
+ * @param     {number}   id       The ID of the entry to remove
+ * @return    {Promise}  promise  A Promise that resolves when the entry has been removed
+ *
+ * @example   communicator.removeFromOfflineDb( 1 );
+ *
+ */
+  removeFromOfflineDb( id ) {
+    return new Promise( ( resolve, reject ) => {
+      this.openOfflineDb().then( ( db ) => {
+        const transaction = db.transaction( this.offlineStoreName, 'readwrite' );
+        const store       = transaction.objectStore( this.offlineStoreName );
+        const request     = store.delete( id );
+
+        request.onsuccess = () => { resolve(); };
+        request.onerror   = ( event ) => { reject( event.target.error ); };
+      } ).catch( ( error ) => { reject( error ); } );
+    } );
+  }
+
+/**
+ * This method returns the number of entries currently in the offline queue.
+ *
+ * @public
+ *
+ * @return    {Promise<number>}  promise  A Promise that resolves with the count of entries
+ *
+ * @example   communicator.getCountFromOfflineDb().then( ( count ) => { ... } );
+ *
+ */
+  getCountFromOfflineDb() {
+    return new Promise( ( resolve, reject ) => {
+      this.openOfflineDb().then( ( db ) => {
+        const transaction = db.transaction( this.offlineStoreName, 'readonly' );
+        const store       = transaction.objectStore( this.offlineStoreName );
+        const request     = store.count();
+
+        request.onsuccess = () => { resolve( request.result ); };
+        request.onerror   = ( event ) => { reject( event.target.error ); };
+      } ).catch( () => { resolve( 0 ); } );
+    } );
+  }
+
 
 }
