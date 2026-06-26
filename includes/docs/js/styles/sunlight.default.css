@@ -518,6 +518,25 @@ body .sunlight-diff .sunlight-modified {
   color: rgb(107, 159, 209) !important;
 }
 
+body .sunlight-string,
+body .sunlight-char,
+body .sunlight-heredoc,
+body .sunlight-heredocDeclaration,
+body .sunlight-nowdoc,
+body .sunlight-longString,
+body .sunlight-rawString,
+body .sunlight-binaryString,
+body .sunlight-rawLongString,
+body .sunlight-binaryLongString,
+body .sunlight-verbatimString,
+body .sunlight-diff .sunlight-removed {
+  color: #CC6600 !important;
+}
+
+body .sunlight-javascript .sunlight-reservedWord {
+  color: #cc00aa !important;
+}
+
 .sunlight-code-container {
   background-color: #444450 !important;
   color: #cccccc !important;
