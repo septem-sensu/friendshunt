@@ -567,12 +567,13 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
+ * @param      bool     $boolOnlineOnly  Do not take offline tracking into account
  * @return     object   $objPositions    Standard Object with the Position Coordinates from all Players
  *
- * @example    $objPositions = $objGameplay->getAllPlayerPositions();
+ * @example    $objPositions = $objGameplay->getAllPlayerPositions( $boolOnlineOnly );
  *
 */
-  private function getAllPlayerPositions() : object {
+  private function getAllPlayerPositions( bool $boolOnlineOnly ) : object {
     $objPositions             = new stdClass();
     $objPositions->player     = [];
     $objPositions->hunter     = [];
@@ -587,18 +588,18 @@ class Gameplay extends Game {
         array_push( $objPositions->player, $this->gameplayObject->silentHunt->tracking->$arrPlayerId );
       } else {
         $objPlayer = new Player( $objPlayerEntry->id );
-        array_push( $objPositions->player, $this->getPlayerPosition( $objPlayer, 1 ) );
+        array_push( $objPositions->player, $this->getPlayerPosition( $objPlayer, 1, $boolOnlineOnly ) );
       }
     }
 
     foreach( $arrHunter as $objHunterEntry ) {
       $objPlayer = new Player( $objHunterEntry->id );
-      array_push( $objPositions->hunter, $this->getPlayerPosition( $objPlayer, 1 ) );
+      array_push( $objPositions->hunter, $this->getPlayerPosition( $objPlayer, 1, $boolOnlineOnly ) );
     }
 
     foreach( $arrManagement as $objManagementEntry ) {
       $objPlayer = new Player( $objManagementEntry->id );
-      array_push( $objPositions->management, $this->getPlayerPosition( $objPlayer, 1 ) );
+      array_push( $objPositions->management, $this->getPlayerPosition( $objPlayer, 1, $boolOnlineOnly ) );
     }
 
     return $objPositions;
@@ -613,19 +614,42 @@ class Gameplay extends Game {
  *
  * @param      Player     $objPlayer       Player Object
  * @param      int        $intCount        Count of the last Trackings do you get
+ * @param      bool       $boolOnlineOnly  Do not take offline tracking into account
  * @return     object     $objPositions    Standard Object with the Position Coordinates from one Player
  *
- * @example    $objPositions = $objGameplay->getPlayerPosition( $objPlayer, $intCount );
+ * @example    $objPositions = $objGameplay->getPlayerPosition( $objPlayer, $intCount, $boolOnlineOnly );
  *
 */
-  private function getPlayerPosition( Player $objPlayer, int $intCount ) : object {
+  private function getPlayerPosition( Player $objPlayer, int $intCount, bool $boolOnlineOnly ) : object {
     $objPositions            = new stdClass();
     $objPositions->name      = $objPlayer->get( 'name' );
     $objPositions->id        = $objPlayer->id();
     $objPositions->timestamp = time();
     $objTracking             = file_exists( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) ? BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) : new stdClass();
-    $arrTracking             = isset( $objTracking->tracking ) ? array_slice( $objTracking->tracking, -$intCount ) : [];
-    $objPositions->position  = $arrTracking;
+    $arrTracking             = isset( $objTracking->tracking ) ?  $objTracking->tracking : [];
+    $intTolerance            = $this->gameSettings->trackInterval * 3;
+    $arrTrackingResult       = [];
+    $intTrackingCounter      = 0;
+
+    if( $boolOnlineOnly ) {
+      for( $i = count( $arrTracking ) - 1; $i >= 0; $i-- ) {
+        if( $arrTracking[ $i ]->timestamp - $arrTracking[ $i ]->clientTimestamp > $intTolerance ) continue;
+        if( $arrTracking[ $i ]->timestamp - $arrTracking[ $i ]->clientTimestamp < - $intTolerance ) continue;
+
+        $intTrackingCounter++;
+
+        $arrTrackingResult[] = $arrTracking[ $i ];
+
+        if( $intTrackingCounter >= $intCount ) break;
+      }
+
+      $arrTrackingResult = array_reverse( $arrTrackingResult );
+    } else {
+      $arrTrackingResult = array_slice( $arrTracking, -$intCount );
+    }
+
+    $objPositions->position = $arrTrackingResult;
+    $objPositions->offline  = count( $arrTrackingResult ) > 0 && time() - ( array_slice( $arrTrackingResult, -1 )[ 0 ]->timestamp ) < $intTolerance ? false : true;
 
     return $objPositions;
   }
@@ -691,7 +715,7 @@ class Gameplay extends Game {
       foreach( $this->gameplayObject->player as $objPlayerEntry ) {
         $strPlayerId                            = $objPlayerEntry->id;
         $objPlayer                              = new Player( $strPlayerId );
-        $objSilentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
+        $objSilentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1, true );
       }
 
       $this->gameplayObject->silentHunt = $objSilentHunt;
@@ -711,7 +735,7 @@ class Gameplay extends Game {
       foreach( $this->gameplayObject->player as $objPlayerEntry ) {
         $strPlayerId  = $objPlayerEntry->id;
         $objPlayer    = new Player( $strPlayerId );
-        $this->gameplayObject->silentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
+        $this->gameplayObject->silentHunt->tracking->$strPlayerId  = $this->getPlayerPosition( $objPlayer, 1, true );
       }
 
       $this->gameplayObject->silentHunt->nextTimestamp = $this->gameplayObject->silentHunt->nextTimestamp + $intSilentHuntInterval;
@@ -814,7 +838,7 @@ class Gameplay extends Game {
       foreach( $arrObjects as $intIndex => $objEntry ) {
         $strPlayerId        = $objEntry->id;
         $objPlayer          = new Player( $strPlayerId );
-        $objPosition        = $this->getPlayerPosition( $objPlayer, 1 );
+        $objPosition        = $this->getPlayerPosition( $objPlayer, 1, true );
 
         if( count( $objPosition->position ) < 1 ) continue;
 
@@ -1033,7 +1057,7 @@ class Gameplay extends Game {
     $objState                    = $this->getGameplaySpeedHunt( $objState );
     $objState                    = $this->checkRulesAndAddSystemMessages( $objState );
 
-    $objRequestObject->positions = $this->getAllPlayerPositions();
+    $objRequestObject->positions = $this->getAllPlayerPositions( true );
     $objRequestObject->state     = $objState;
     $objRequestObject->settings  = $this->gameSettings;
     $objRequestObject->gameRole  = $this->currentPlayerGameRole;
@@ -1107,7 +1131,7 @@ class Gameplay extends Game {
     $intSpeedHuntCount                                                  = count( $this->gameplayObject->speedHunt->timestamps );
     $strSpeedHuntPlayerId                                               = $this->gameplayObject->speedHunt->playerId;
     $objPlayer                                                          = new Player( $strSpeedHuntPlayerId );
-    $this->gameplayObject->silentHunt->tracking->$strSpeedHuntPlayerId  = $this->getPlayerPosition( $objPlayer, 1 );
+    $this->gameplayObject->silentHunt->tracking->$strSpeedHuntPlayerId  = $this->getPlayerPosition( $objPlayer, 1, true );
 
     $objRequestObject                                                   = $this->response( $objRequestObject );
 
@@ -1220,7 +1244,7 @@ class Gameplay extends Game {
     $objState->systemMessages                    = [];
 
     $objState                                    = $this->checkRulesAndAddSystemMessages( $objState );
-    $objRequestObject->positions                 = $this->getAllPlayerPositions();
+    $objRequestObject->positions                 = $this->getAllPlayerPositions( true );
     $objRequestObject->state                     = $objState;
     $objRequestObject->settings                  = $this->gameSettings;
     $objRequestObject->gameRole                  = $this->currentPlayerGameRole;

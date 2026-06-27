@@ -748,6 +748,7 @@ class Gameplay extends Game {
 
     markerContent   += '<p>Letztes Tracking: ' + Utils.timestampPhpToString( lastPosition.timestamp, true ) + ' Uhr</p>';
     markerContent   += '<p>Genauigkeit: ' + lastPosition.precision + ' Meter</p>';
+    markerContent   += tracking.offline ? '<p class="danger-text bold">Offline</p>' : '<p class="success-text bold">Online</p>';
     markerContent   += this.isRunning && this.playerRole === 'player' && tracking.id === this.playerId && ! this.capturedPlayerIds.includes( tracking.id ) ? '<p class="pointer bold danger-text" onclick="javascript: window[ appAlias ].objects.gameplay.showCaptureLayer();">Ich wurde gefangen...</p>' : '';
     markerContent   += this.capturedPlayerIds.includes( tracking.id ) ? '<p class="bold">Wurde am ' + Utils.timestampPhpToString( this.capturedPlayer[ tracking.id ].timestamp ) + ' Uhr gefangen.</p>' : '';
 
