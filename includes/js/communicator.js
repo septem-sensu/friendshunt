@@ -395,6 +395,7 @@ class Communicator {
       if( entries.length < 1 ) return;
 
       for( let i = 0; i < entries.length; i++ ) {
+        entries[ i ].postParams.offlineRequest = true;
         this.request( 'POST', entries[ i ].getParams, entries[ i ].postParams, '', true, entries[ i ].id );
       }
     } ).catch( ( error ) => {

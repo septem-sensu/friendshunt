@@ -484,6 +484,12 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a class="" href="classes/Gameplay.html#property_timeTolerance">$timeTolerance</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a class="" href="classes/Game.html#property_title">$title</a>
     <span>
                         &nbsp;: string            </span>
@@ -713,6 +719,13 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
 <dd>This static Method get the Class Fields from the JSON File and returs the Object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/BaseObject.html#method_insertSortedInArray">insertSortedInArray()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>This method sorts an object into an existing array based on the passed property (must be an int property).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_isJson">isJson()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -832,6 +845,13 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
 <dd>This Method controls and adds the Player Tracking for the current Player.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Gameplay.html#method_addOfflineTracking">addOfflineTracking()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>This method adds tracking that was subsequently sent during an offline phase to the tracking in the correct place.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Gameplay.html#method_addTracking">addTracking()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -893,6 +913,14 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
                                 &nbsp;: bool    </span>
 </dt>
 <dd>This method checks whether a player has left the field.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/Gameplay.html#method_isTrackingInTimeTolerance">isTrackingInTimeTolerance()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>This method checks the passed tracking object whether the difference between server timestamp and
+client timestamp is within a certain tolerance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/Gameplay.html#method_response">response()</a>
@@ -2493,6 +2521,44 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
             -protected
                                                                     "
 >
+    <h4 class="phpdocumentor-element__name" id="property_timeTolerance">
+        $timeTolerance
+        <a href="classes/Gameplay.html#property_timeTolerance" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">76</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$timeTolerance</span>
+    </code>
+
+    
+    
+    
+
+    
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                                    "
+>
     <h4 class="phpdocumentor-element__name" id="property_title">
         $title
         <a href="classes/Game.html#property_title" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2622,7 +2688,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
@@ -3375,7 +3441,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">510</span>
+    <span class="phpdocumentor-element-found-in__line">563</span>
 
     </aside>
 
@@ -3498,7 +3564,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">535</span>
+    <span class="phpdocumentor-element-found-in__line">588</span>
 
     </aside>
 
@@ -3594,7 +3660,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1058</span>
+    <span class="phpdocumentor-element-found-in__line">1133</span>
 
     </aside>
 
@@ -3690,7 +3756,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">541</span>
+    <span class="phpdocumentor-element-found-in__line">581</span>
 
     </aside>
 
@@ -3905,7 +3971,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">568</span>
+    <span class="phpdocumentor-element-found-in__line">608</span>
 
     </aside>
 
@@ -4736,7 +4802,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">596</span>
+    <span class="phpdocumentor-element-found-in__line">636</span>
 
     </aside>
 
@@ -5103,7 +5169,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">458</span>
+    <span class="phpdocumentor-element-found-in__line">511</span>
 
     </aside>
 
@@ -5366,6 +5432,119 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_insertSortedInArray">
+        insertSortedInArray()
+        <a href="classes/BaseObject.html#method_insertSortedInArray" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">542</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This method sorts an object into an existing array based on the passed property (must be an int property).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">insertSortedInArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$arrArray</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objObject</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strProperty</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$arrArray</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The array into which the object should be sorted</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objObject</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The object to be sorted into the array</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$strProperty</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The value of this property must always be an int</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/BaseObject.html#method_insertSortedInArray#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">static</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>public</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-06-27</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>BaseObject::insertSortedInArray( $arrArray, $objObject, $strProperty );</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_isJson">
         isJson()
         <a href="classes/BaseObject.html#method_isJson" class="headerlink"><i class="fas fa-link"></i></a>
@@ -5573,7 +5752,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1172</span>
+    <span class="phpdocumentor-element-found-in__line">1245</span>
 
     </aside>
 
@@ -6622,7 +6801,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1094</span>
+    <span class="phpdocumentor-element-found-in__line">1169</span>
 
     </aside>
 
@@ -6814,7 +6993,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1245</span>
+    <span class="phpdocumentor-element-found-in__line">1318</span>
 
     </aside>
 
@@ -6910,7 +7089,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1139</span>
+    <span class="phpdocumentor-element-found-in__line">1214</span>
 
     </aside>
 
@@ -6998,23 +7177,23 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addTracking">
-        addTracking()
-        <a href="classes/Gameplay.html#method_addTracking" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_addOfflineTracking">
+        addOfflineTracking()
+        <a href="classes/Gameplay.html#method_addOfflineTracking" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">349</span>
+    <span class="phpdocumentor-element-found-in__line">402</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">This Method save the Tracking and the Steps that have been run since the last Tracking.</p>
+        <p class="phpdocumentor-summary">This method adds tracking that was subsequently sent during an offline phase to the tracking in the correct place.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">addTracking</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$floatLat</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">float&nbsp;</span><span class="phpdocumentor-signature__argument__name">$floatLng</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intPrecision</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intSteps</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intBatteryLevel</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boolBatteryIsCharging</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intClientTimestamp</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">addOfflineTracking</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objRequestObject</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -7023,65 +7202,99 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$floatLat</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
+                <span class="phpdocumentor-signature__argument__name">$objRequestObject</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Tracking coordinates</p>
+                    <section class="phpdocumentor-description"><p>The Request Object</p>
 </section>
 
             </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$floatLng</span>
-                : <span class="phpdocumentor-signature__argument__return-type">float</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Tracking coordinates</p>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Gameplay.html#method_addOfflineTracking#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>private</p>
 </section>
 
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$intPrecision</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Precision of the Tracking coordinates</p>
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-06-27</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>$objGameplay-&gt;addOfflineTracking( $objRequestObject );</p>
 </section>
 
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$intSteps</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The count of Steps that have been run since the last Tracking</p>
-</section>
+                                    </dd>
+                                            </dl>
 
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$intBatteryLevel</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The current Battery Level</p>
-</section>
+    
 
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$boolBatteryIsCharging</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Whether the Battery is currently charging</p>
-</section>
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_addTracking">
+        addTracking()
+        <a href="classes/Gameplay.html#method_addTracking" class="headerlink"><i class="fas fa-link"></i></a>
 
-            </dd>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">345</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This Method save the Tracking and the Steps that have been run since the last Tracking.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">addTracking</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objRequestObject</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$intClientTimestamp</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                <span class="phpdocumentor-signature__argument__name">$objRequestObject</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Client Timestamp from the Tracking Request</p>
+                    <section class="phpdocumentor-description"><p>The Request Object</p>
 </section>
 
             </dd>
@@ -7124,7 +7337,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objGameplay-&gt;addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $intBatteryLevel, $boolBatteryIsCharging, $intClientTimestamp );</p>
+                                                 <section class="phpdocumentor-description"><p>$objGameplay-&gt;addTracking( $objRequestObject );</p>
 </section>
 
                                     </dd>
@@ -7148,7 +7361,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">739</span>
+    <span class="phpdocumentor-element-found-in__line">814</span>
 
     </aside>
 
@@ -7244,7 +7457,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">575</span>
+    <span class="phpdocumentor-element-found-in__line">629</span>
 
     </aside>
 
@@ -7252,13 +7465,25 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getAllPlayerPositions</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
+                    <span class="phpdocumentor-signature__name">getAllPlayerPositions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boolOnlineOnly</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$boolOnlineOnly</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Do not take offline tracking into account</p>
+</section>
+
+            </dd>
+            </dl>
+
     
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
@@ -7296,7 +7521,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objPositions = $objGameplay-&gt;getAllPlayerPositions();</p>
+                                                 <section class="phpdocumentor-description"><p>$objPositions = $objGameplay-&gt;getAllPlayerPositions( $boolOnlineOnly );</p>
 </section>
 
                                     </dd>
@@ -7328,7 +7553,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">984</span>
+    <span class="phpdocumentor-element-found-in__line">1059</span>
 
     </aside>
 
@@ -7424,7 +7649,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">953</span>
+    <span class="phpdocumentor-element-found-in__line">1028</span>
 
     </aside>
 
@@ -7520,7 +7745,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">621</span>
+    <span class="phpdocumentor-element-found-in__line">676</span>
 
     </aside>
 
@@ -7528,7 +7753,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getPlayerPosition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Player.html"><abbr title="\Player">Player</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objPlayer</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intCount</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
+                    <span class="phpdocumentor-signature__name">getPlayerPosition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Player.html"><abbr title="\Player">Player</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objPlayer</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$intCount</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boolOnlineOnly</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -7551,6 +7776,15 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Count of the last Trackings do you get</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$boolOnlineOnly</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Do not take offline tracking into account</p>
 </section>
 
             </dd>
@@ -7593,7 +7827,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>$objPositions = $objGameplay-&gt;getPlayerPosition( $objPlayer, $intCount );</p>
+                                                 <section class="phpdocumentor-description"><p>$objPositions = $objGameplay-&gt;getPlayerPosition( $objPlayer, $intCount, $boolOnlineOnly );</p>
 </section>
 
                                     </dd>
@@ -7625,7 +7859,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -7701,7 +7935,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">434</span>
+    <span class="phpdocumentor-element-found-in__line">464</span>
 
     </aside>
 
@@ -7808,7 +8042,7 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">409</span>
+    <span class="phpdocumentor-element-found-in__line">439</span>
 
     </aside>
 
@@ -7917,6 +8151,103 @@ this value with the radius of the playing field + the precession of the tracking
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_isTrackingInTimeTolerance">
+        isTrackingInTimeTolerance()
+        <a href="classes/Gameplay.html#method_isTrackingInTimeTolerance" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">492</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This method checks the passed tracking object whether the difference between server timestamp and
+client timestamp is within a certain tolerance.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">isTrackingInTimeTolerance</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objTracking</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objTracking</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The tracking object to be checked</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Gameplay.html#method_isTrackingInTimeTolerance#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>private</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-06-27</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>$boolTimeIsInTolerance = $objGameplay-&gt;isTrackingInTimeTolerance( $objTracking );</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>$boolTimeIsInTolerance  The result of the test</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_response">
         response()
         <a href="classes/Gameplay.html#method_response" class="headerlink"><i class="fas fa-link"></i></a>
@@ -7925,7 +8256,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1029</span>
+    <span class="phpdocumentor-element-found-in__line">1104</span>
 
     </aside>
 
@@ -8021,7 +8352,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">645</span>
+    <span class="phpdocumentor-element-found-in__line">720</span>
 
     </aside>
 
@@ -8097,7 +8428,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">663</span>
+    <span class="phpdocumentor-element-found-in__line">738</span>
 
     </aside>
 
@@ -8173,7 +8504,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">319</span>
+    <span class="phpdocumentor-element-found-in__line">321</span>
 
     </aside>
 
@@ -8298,7 +8629,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">682</span>
+    <span class="phpdocumentor-element-found-in__line">757</span>
 
     </aside>
 
@@ -8394,7 +8725,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1210</span>
+    <span class="phpdocumentor-element-found-in__line">1283</span>
 
     </aside>
 
@@ -8490,7 +8821,7 @@ this value with the radius of the playing field + the precession of the tracking
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/gameplay.php"><a href="files/includes-classes-gameplay.html"><abbr title="includes/classes/gameplay.php">gameplay.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 
     </aside>
 
@@ -8716,6 +9047,7 @@ this value with the radius of the playing field + the precession of the tracking
                                                     <li class=""><a href="classes/Game.html#property_startPosition">$startPosition</a></li>
                                                     <li class=""><a href="classes/Gameplay.html#property_startTimestamp">$startTimestamp</a></li>
                                                     <li class=""><a href="classes/Gameplay.html#property_testDataSource">$testDataSource</a></li>
+                                                    <li class=""><a href="classes/Gameplay.html#property_timeTolerance">$timeTolerance</a></li>
                                                     <li class=""><a href="classes/Game.html#property_title">$title</a></li>
                                                     <li class=""><a href="classes/Game.html#property_tmpImageAdd">$tmpImageAdd</a></li>
                                                     <li class=""><a href="classes/Game.html#property_trackInterval">$trackInterval</a></li>
@@ -8754,6 +9086,7 @@ this value with the radius of the playing field + the precession of the tracking
                                             <li class=""><a href="classes/Gameplay.html#method_getGameSettings">getGameSettings()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_getObjects">getObjects()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_id">id()</a></li>
+                                            <li class=""><a href="classes/BaseObject.html#method_insertSortedInArray">insertSortedInArray()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_isJson">isJson()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_loadFileDeCrypted">loadFileDeCrypted()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_message">message()</a></li>
@@ -8771,6 +9104,7 @@ this value with the radius of the playing field + the precession of the tracking
                                             <li class=""><a href="classes/Game.html#method_startGame">startGame()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_statistic">statistic()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_track">track()</a></li>
+                                            <li class=""><a href="classes/Gameplay.html#method_addOfflineTracking">addOfflineTracking()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_addTracking">addTracking()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_checkRulesAndAddSystemMessages">checkRulesAndAddSystemMessages()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_getAllPlayerPositions">getAllPlayerPositions()</a></li>
@@ -8780,6 +9114,7 @@ this value with the radius of the playing field + the precession of the tracking
                                             <li class=""><a href="classes/Gameplay.html#method_init">init()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_isDriven">isDriven()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_isOutOfPlayField">isOutOfPlayField()</a></li>
+                                            <li class=""><a href="classes/Gameplay.html#method_isTrackingInTimeTolerance">isTrackingInTimeTolerance()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_response">response()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_saveGameplay">saveGameplay()</a></li>
                                             <li class=""><a href="classes/Gameplay.html#method_saveMessages">saveMessages()</a></li>

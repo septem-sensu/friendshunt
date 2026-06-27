@@ -111,6 +111,11 @@ Search.appendIndex(
             "summary": "This\u0020static\u0020method\u0020removed\u0020a\u0020Element\u0020from\u0020a\u0020Array.",
             "url": "classes/BaseObject.html#method_removeFromArray"
         },                {
+            "fqsen": "\\BaseObject\u003A\u003AinsertSortedInArray\u0028\u0029",
+            "name": "insertSortedInArray",
+            "summary": "This\u0020method\u0020sorts\u0020an\u0020object\u0020into\u0020an\u0020existing\u0020array\u0020based\u0020on\u0020the\u0020passed\u0020property\u0020\u0028must\u0020be\u0020an\u0020int\u0020property\u0029.",
+            "url": "classes/BaseObject.html#method_insertSortedInArray"
+        },                {
             "fqsen": "\\BaseObject\u003A\u003AcleanObject\u0028\u0029",
             "name": "cleanObject",
             "summary": "This\u0020static\u0020method\u0020cleans\u0020a\u0020object\u0020and\u0020removed\u0020all\u0020properties\u0020without\u0020Field\u002DEntries\u0020in\u0020the\u0020Class\u0020Field\u0020Configuration.",
@@ -516,6 +521,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020save\u0020the\u0020Tracking\u0020and\u0020the\u0020Steps\u0020that\u0020have\u0020been\u0020run\u0020since\u0020the\u0020last\u0020Tracking.",
             "url": "classes/Gameplay.html#method_addTracking"
         },                {
+            "fqsen": "\\Gameplay\u003A\u003AaddOfflineTracking\u0028\u0029",
+            "name": "addOfflineTracking",
+            "summary": "This\u0020method\u0020adds\u0020tracking\u0020that\u0020was\u0020subsequently\u0020sent\u0020during\u0020an\u0020offline\u0020phase\u0020to\u0020the\u0020tracking\u0020in\u0020the\u0020correct\u0020place.",
+            "url": "classes/Gameplay.html#method_addOfflineTracking"
+        },                {
             "fqsen": "\\Gameplay\u003A\u003AisOutOfPlayField\u0028\u0029",
             "name": "isOutOfPlayField",
             "summary": "This\u0020method\u0020checks\u0020whether\u0020a\u0020player\u0020has\u0020left\u0020the\u0020field.",
@@ -525,6 +535,11 @@ Search.appendIndex(
             "name": "isDriven",
             "summary": "This\u0020Method\u0020checks\u0020whether\u0020the\u0020Player\u0020covered\u0020the\u0020last\u0020distance\u0020by\u0020driving\u0020or\u0020running.",
             "url": "classes/Gameplay.html#method_isDriven"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003AisTrackingInTimeTolerance\u0028\u0029",
+            "name": "isTrackingInTimeTolerance",
+            "summary": "This\u0020method\u0020checks\u0020the\u0020passed\u0020tracking\u0020object\u0020whether\u0020the\u0020difference\u0020between\u0020server\u0020timestamp\u0020and\nclient\u0020timestamp\u0020is\u0020within\u0020a\u0020certain\u0020tolerance.",
+            "url": "classes/Gameplay.html#method_isTrackingInTimeTolerance"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AgetGameSettings\u0028\u0029",
             "name": "getGameSettings",
@@ -685,6 +700,11 @@ Search.appendIndex(
             "name": "testDataSource",
             "summary": "",
             "url": "classes/Gameplay.html#property_testDataSource"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003A\u0024timeTolerance",
+            "name": "timeTolerance",
+            "summary": "",
+            "url": "classes/Gameplay.html#property_timeTolerance"
         },                {
             "fqsen": "\\Player",
             "name": "Player",

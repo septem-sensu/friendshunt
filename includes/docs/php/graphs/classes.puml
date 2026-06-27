@@ -26,6 +26,7 @@ class BaseObject {
   +loadFileDeCrypted()
   +serializeObject()
   +removeFromArray()
+  +insertSortedInArray()
   +cleanObject()
   +deleteDirectory()
   +generateRandomString()
@@ -115,13 +116,16 @@ class Gameplay {
   +endTimestamp
   +generateTestData
   +testDataSource
+  +timeTolerance
   +__construct()
   +init()
   +transferStatistics()
   +setStatisticProperty()
   +addTracking()
+  +addOfflineTracking()
   +isOutOfPlayField()
   +isDriven()
+  +isTrackingInTimeTolerance()
   +getGameSettings()
   +calcDistance()
   +calcPlayerDistances()

@@ -524,6 +524,46 @@ class BaseObject {
   }
 
 /**
+ * This method sorts an object into an existing array based on the passed property (must be an int property).
+ *
+ * @static
+ * @access     public
+ * @since      2026-06-27
+ * @version    0.1.0
+ *
+ * @param      array    $arrArray       The array into which the object should be sorted
+ * @param      object   $objObject      The object to be sorted into the array
+ * @param      string   $strProperty    The value of this property must always be an int
+ * @return     void
+ *
+ * @example    BaseObject::insertSortedInArray( $arrArray, $objObject, $strProperty );
+ *
+*/
+  public static function insertSortedInArray( array &$arrArray, object $objObject, string $strProperty ) : void {
+    $intLow          = 0;
+    $intHigh         = count( $arrArray ) - 1;
+    $intTargetValue  = $objObject->$strProperty;
+
+    while ( $intLow <= $intHigh ) {
+      $intMiddle    = ( int )( ( $intLow + $intHigh ) / 2 );
+      $intMiddleVal = $arrArray[ $intMiddle ]->$strProperty;
+
+      if ( $intMiddleVal == $intTargetValue ) {
+        $intLow = $intMiddle;
+        break;
+      } else if ( $intMiddleVal < $intTargetValue ) {
+        $intLow = $intMiddle + 1;
+      } else {
+        $intHigh = $intMiddle - 1;
+      }
+    }
+
+    array_splice( $arrArray, $intLow, 0, [ $objObject ] );
+
+    return;
+  }
+
+/**
  * This static method cleans a object and removed all properties without Field-Entries in the Class Field Configuration.
  *
  * @static

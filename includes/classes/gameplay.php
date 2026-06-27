@@ -73,6 +73,7 @@ class Gameplay extends Game {
   protected int    $endTimestamp;
   protected bool   $generateTestData;
   protected array  $testDataSource;
+  protected int    $timeTolerance;
 
 /**
  * This Method is the Constructor for this Class
@@ -171,6 +172,7 @@ class Gameplay extends Game {
     $this->endTimestamp               = $this->startTimestamp + ( $this->gameSettings->duration * 60 * 60 );
     $this->isRunning                  = time() > $this->startTimestamp && time() < $this->endTimestamp;
     $this->gameSettings->end          = $this->endTimestamp;
+    $this->timeTolerance              = $this->gameSettings->trackInterval * 3;
 
     $this->transferStatistics();
 
@@ -334,30 +336,25 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      float   $floatLat               The Tracking coordinates
- * @param      float   $floatLng               The Tracking coordinates
- * @param      int     $intPrecision           The Precision of the Tracking coordinates
- * @param      int     $intSteps               The count of Steps that have been run since the last Tracking
- * @param      int     $intBatteryLevel        The current Battery Level
- * @param      bool    $boolBatteryIsCharging  Whether the Battery is currently charging
- * @param      int     $intClientTimestamp     The Client Timestamp from the Tracking Request
+ * @param      object     $objRequestObject    The Request Object
  * @return     void
  *
- * @example    $objGameplay->addTracking( $floatLat, $floatLng, $intPrecision, $intSteps, $intBatteryLevel, $boolBatteryIsCharging, $intClientTimestamp );
+ * @example    $objGameplay->addTracking( $objRequestObject );
  *
 */
-  private function addTracking( float $floatLat, float $floatLng, int $intPrecision, int $intSteps, int $intBatteryLevel, bool $boolBatteryIsCharging, int $intClientTimestamp ) : void {
+  private function addTracking( object $objRequestObject ) : void {
     $objTracking                     = new stdClass();
-    $objTracking->lat                = $floatLat;
-    $objTracking->lng                = $floatLng;
-    $objTracking->precision          = $intPrecision;
-    $objTracking->steps              = $intSteps;
-    $objTracking->outOfPlayingField  = $this->isOutOfPlayField( $floatLat, $floatLng, $intPrecision );
-    $objTracking->batteryLevel       = $intBatteryLevel;
-    $objTracking->batteryIsCharging  = $boolBatteryIsCharging;
-    $objTracking->isDriven           = $this->isDriven( $floatLat, $floatLng );
+    $objTracking->lat                = floatval( $objRequestObject->lat );
+    $objTracking->lng                = floatval( $objRequestObject->lng );
+    $objTracking->precision          = intval( $objRequestObject->precision );
+    $objTracking->steps              = intval( $objRequestObject->steps );
+    $objTracking->outOfPlayingField  = $this->isOutOfPlayField( $objTracking->lat, $objTracking->lng, $objTracking->precision );
+    $objTracking->batteryLevel       = intval( $objRequestObject->batteryLevel );
+    $objTracking->batteryIsCharging  = $objRequestObject->batteryIsCharging;
+    $objTracking->isDriven           = $this->isDriven( $objTracking->lat, $objTracking->lng );
     $objTracking->timestamp          = time();
-    $objTracking->clientTimestamp    = $intClientTimestamp;
+    $objTracking->clientTimestamp    = intval( $objRequestObject->timestamp );
+    $objTracking->offlineTracking    = false;
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
 
@@ -385,6 +382,39 @@ class Gameplay extends Game {
         BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
       }
     }
+
+    return;
+  }
+
+/**
+ * This method adds tracking that was subsequently sent during an offline phase to the tracking in the correct place.
+ *
+ * @access     private
+ * @since      2026-06-27
+ * @version    0.1.0
+ *
+ * @param      object     $objRequestObject    The Request Object
+ * @return     void
+ *
+ * @example    $objGameplay->addOfflineTracking( $objRequestObject );
+ *
+*/
+  private function addOfflineTracking( object $objRequestObject ) : void {
+    $objTracking                     = new stdClass();
+    $objTracking->lat                = floatval( $objRequestObject->lat );
+    $objTracking->lng                = floatval( $objRequestObject->lng );
+    $objTracking->precision          = intval( $objRequestObject->precision );
+    $objTracking->steps              = intval( $objRequestObject->steps );
+    $objTracking->outOfPlayingField  = false;
+    $objTracking->batteryLevel       = intval( $objRequestObject->batteryLevel );
+    $objTracking->batteryIsCharging  = $objRequestObject->batteryIsCharging;
+    $objTracking->isDriven           = false;
+    $objTracking->timestamp          = time();
+    $objTracking->clientTimestamp    = intval( $objRequestObject->timestamp );
+    $objTracking->offlineTracking    = true;
+
+    BaseObject::insertSortedInArray( $this->currentPlayerTracking->tracking, $objTracking, 'clientTimestamp' );
+    BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
 
     return;
   }
@@ -432,15 +462,38 @@ class Gameplay extends Game {
  *
 */
   private function isDriven( float $floatLat, float $floatLng ) : bool {
-    if( count( $this->currentPlayerTracking->tracking ) < 1 ) return false;
+    $arrTracking       = $this->getPlayerPosition( $this->currentPlayer, 1, true )->position;
 
-    $arrLastPosition   = array_slice( $this->currentPlayerTracking->tracking, -1 );
+    if( count( $arrTracking ) === 0 ) return false;
+
+    $arrLastPosition   = array_slice( $arrTracking, -1 );
     $floatTime         = ( time() - $arrLastPosition[ 0 ]->timestamp ) / 60 / 60;
     $floatDistance     = $this->calcDistance( $floatLat, $floatLng, $arrLastPosition[ 0 ]->lat, $arrLastPosition[ 0 ]->lng ) / 1000;
 
     if( $floatTime == 0 ) return false;
 
     return $floatDistance / $floatTime > 15 ? true : false;
+  }
+
+/**
+ * This method checks the passed tracking object whether the difference between server timestamp and
+ * client timestamp is within a certain tolerance.
+ *
+ * @access     private
+ * @since      2026-06-27
+ * @version    0.1.0
+ *
+ * @param      object   $objTracking            The tracking object to be checked
+ * @return     bool     $boolTimeIsInTolerance  The result of the test
+ *
+ * @example    $boolTimeIsInTolerance = $objGameplay->isTrackingInTimeTolerance( $objTracking );
+ *
+*/
+  private function isTrackingInTimeTolerance( object $objTracking ) : bool {
+    if( $objTracking->timestamp - $objTracking->clientTimestamp > $this->timeTolerance ) return false;
+    if( $objTracking->timestamp - $objTracking->clientTimestamp < - $this->timeTolerance ) return false;
+
+    return true;
   }
 
 /**
@@ -627,14 +680,12 @@ class Gameplay extends Game {
     $objPositions->timestamp = time();
     $objTracking             = file_exists( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) ? BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $objPlayer->id() . '.json' ) : new stdClass();
     $arrTracking             = isset( $objTracking->tracking ) ?  $objTracking->tracking : [];
-    $intTolerance            = $this->gameSettings->trackInterval * 3;
     $arrTrackingResult       = [];
     $intTrackingCounter      = 0;
 
     if( $boolOnlineOnly ) {
       for( $i = count( $arrTracking ) - 1; $i >= 0; $i-- ) {
-        if( $arrTracking[ $i ]->timestamp - $arrTracking[ $i ]->clientTimestamp > $intTolerance ) continue;
-        if( $arrTracking[ $i ]->timestamp - $arrTracking[ $i ]->clientTimestamp < - $intTolerance ) continue;
+        if( ! $this->isTrackingInTimeTolerance( $arrTracking[ $i ] ) ) continue;
 
         $intTrackingCounter++;
 
@@ -649,7 +700,7 @@ class Gameplay extends Game {
     }
 
     $objPositions->position = $arrTrackingResult;
-    $objPositions->offline  = count( $arrTrackingResult ) > 0 && time() - ( array_slice( $arrTrackingResult, -1 )[ 0 ]->timestamp ) < $intTolerance ? false : true;
+    $objPositions->offline  = count( $arrTrackingResult ) > 0 && time() - ( array_slice( $arrTrackingResult, -1 )[ 0 ]->timestamp ) < $this->timeTolerance ? false : true;
 
     return $objPositions;
   }
@@ -1166,15 +1217,13 @@ class Gameplay extends Game {
     $arrCapturedIds = array_map( fn( $obj ) => $obj->playerId, $this->gameplayObject->captured );
 
     if( ! in_array( $this->currentPlayer->id(), $arrCapturedIds ) ) {
-      $this->addTracking(
-        $objRequestObject->lat,
-        $objRequestObject->lng,
-        intval( $objRequestObject->precision ),
-        intval( $objRequestObject->steps ),
-        intval( $objRequestObject->batteryLevel ),
-        $objRequestObject->batteryIsCharging,
-        intval( $objRequestObject->timestamp )
-      );
+      if( isset( $objRequestObject->offlineRequest ) && $objRequestObject->offlineRequest ) {
+        $this->addOfflineTracking( $objRequestObject );
+
+        return $objRequestObject;
+      } else {
+        $this->addTracking( $objRequestObject );
+      }
     }
 
     return $this->response( $objRequestObject );

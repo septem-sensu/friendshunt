@@ -389,6 +389,13 @@
 <dd>This static Method get the Class Fields from the JSON File and returs the Object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/BaseObject.html#method_insertSortedInArray">insertSortedInArray()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>This method sorts an object into an existing array based on the passed property (must be an int property).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_isJson">isJson()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -826,7 +833,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">541</span>
+    <span class="phpdocumentor-element-found-in__line">581</span>
 
     </aside>
 
@@ -1041,7 +1048,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">568</span>
+    <span class="phpdocumentor-element-found-in__line">608</span>
 
     </aside>
 
@@ -1584,7 +1591,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">596</span>
+    <span class="phpdocumentor-element-found-in__line">636</span>
 
     </aside>
 
@@ -2123,6 +2130,119 @@
 
             </section>
 
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_insertSortedInArray">
+        insertSortedInArray()
+        <a href="classes/BaseObject.html#method_insertSortedInArray" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/baseObject.php"><a href="files/includes-classes-baseobject.html"><abbr title="includes/classes/baseObject.php">baseObject.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">542</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This method sorts an object into an existing array based on the passed property (must be an int property).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">insertSortedInArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$arrArray</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objObject</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strProperty</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$arrArray</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The array into which the object should be sorted</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objObject</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The object to be sorted into the array</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$strProperty</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The value of this property must always be an int</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/BaseObject.html#method_insertSortedInArray#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">static</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>public</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-06-27</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>BaseObject::insertSortedInArray( $arrArray, $objObject, $strProperty );</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3137,6 +3257,7 @@
                                             <li class=""><a href="classes/BaseObject.html#method_getCryptKeys">getCryptKeys()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_getObjects">getObjects()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_id">id()</a></li>
+                                            <li class=""><a href="classes/BaseObject.html#method_insertSortedInArray">insertSortedInArray()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_isJson">isJson()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_loadFileDeCrypted">loadFileDeCrypted()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_newId">newId()</a></li>
