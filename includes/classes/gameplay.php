@@ -118,7 +118,7 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $objGameplay->init();
+ * @example    $this->init();
  *
 */
   private function init() : void {
@@ -189,7 +189,7 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $objGameplay->transferStatistics();
+ * @example    $this->transferStatistics();
  *
 */
   private function transferStatistics() {
@@ -315,7 +315,7 @@ class Gameplay extends Game {
  * @param      float    $floatValue     The Value to set
  * @return     object   $objSetObject   The Result Object with new set Property
  *
- * @example    $objSetObject = $objGameplay->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
+ * @example    $objSetObject = $this->setStatisticProperty( $objSetObject, $strRoleName, $strProperty, $floatValue );
  *
 */
   private function setStatisticProperty( object $objSetObject, string $strRoleName, string $strProperty, float $floatValue  ) : object {
@@ -336,10 +336,10 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    {lat: float, lng: float, precision: int, steps: int, batteryLevel: int, batteryIsCharging: bool, timestamp: int}
  * @return     void
  *
- * @example    $objGameplay->addTracking( $objRequestObject );
+ * @example    $this->addTracking( $objRequestObject );
  *
 */
   private function addTracking( object $objRequestObject ) : void {
@@ -393,10 +393,10 @@ class Gameplay extends Game {
  * @since      2026-06-27
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    {lat: float, lng: float, precision: int, steps: int, batteryLevel: int, batteryIsCharging: bool, timestamp: int, offlineRequest: bool}
  * @return     void
  *
- * @example    $objGameplay->addOfflineTracking( $objRequestObject );
+ * @example    $this->addOfflineTracking( $objRequestObject );
  *
 */
   private function addOfflineTracking( object $objRequestObject ) : void {
@@ -433,7 +433,7 @@ class Gameplay extends Game {
  * @param      int     $intPrecision           The accuracy of the current tracking coordinates
  * @return     bool    $boolIsDriven           Is the Player the distance driven or not
  *
- * @example    $boolIsOutOfPlayField = $objGameplay->isOutOfPlayField( $floatLat, $floatLng, $intPrecision );
+ * @example    $boolIsOutOfPlayField = $this->isOutOfPlayField( $floatLat, $floatLng, $intPrecision );
  *
 */
   private function isOutOfPlayField( float $floatLat, float $floatLng, int $intPrecision  ) : bool {
@@ -458,7 +458,7 @@ class Gameplay extends Game {
  * @param      float   $floatLng               The current Tracking coordinates
  * @return     bool    $boolIsDriven           Is the Player the distance driven or not
  *
- * @example    $boolIsDrive = $objGameplay->isDriven( $floatLat, $floatLng );
+ * @example    $boolIsDrive = $this->isDriven( $floatLat, $floatLng );
  *
 */
   private function isDriven( float $floatLat, float $floatLng ) : bool {
@@ -486,7 +486,7 @@ class Gameplay extends Game {
  * @param      object   $objTracking            The tracking object to be checked
  * @return     bool     $boolTimeIsInTolerance  The result of the test
  *
- * @example    $boolTimeIsInTolerance = $objGameplay->isTrackingInTimeTolerance( $objTracking );
+ * @example    $boolTimeIsInTolerance = $this->isTrackingInTimeTolerance( $objTracking );
  *
 */
   private function isTrackingInTimeTolerance( object $objTracking ) : bool {
@@ -623,7 +623,7 @@ class Gameplay extends Game {
  * @param      bool     $boolOnlineOnly  Do not take offline tracking into account
  * @return     object   $objPositions    Standard Object with the Position Coordinates from all Players
  *
- * @example    $objPositions = $objGameplay->getAllPlayerPositions( $boolOnlineOnly );
+ * @example    $objPositions = $this->getAllPlayerPositions( $boolOnlineOnly );
  *
 */
   private function getAllPlayerPositions( bool $boolOnlineOnly ) : object {
@@ -670,7 +670,7 @@ class Gameplay extends Game {
  * @param      bool       $boolOnlineOnly  Do not take offline tracking into account
  * @return     object     $objPositions    Standard Object with the Position Coordinates from one Player
  *
- * @example    $objPositions = $objGameplay->getPlayerPosition( $objPlayer, $intCount, $boolOnlineOnly );
+ * @example    $objPositions = $this->getPlayerPosition( $objPlayer, $intCount, $boolOnlineOnly );
  *
 */
   private function getPlayerPosition( Player $objPlayer, int $intCount, bool $boolOnlineOnly ) : object {
@@ -714,7 +714,7 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $objGameplay->saveGameplay();
+ * @example    $this->saveGameplay();
  *
 */
   private function saveGameplay() : void {
@@ -732,7 +732,7 @@ class Gameplay extends Game {
  *
  * @return     void
  *
- * @example    $objGameplay->saveMessages();
+ * @example    $this->saveMessages();
  *
 */
   private function saveMessages() : void {
@@ -751,7 +751,7 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $objGameplay->silentHunt( $objState );
+ * @example    $objState = $this->silentHunt( $objState );
  *
 */
   private function silentHunt( object $objState ) : object {
@@ -808,7 +808,7 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $objGameplay->checkRulesAndAddSystemMessages( $objState );
+ * @example    $objState = $this->checkRulesAndAddSystemMessages( $objState );
  *
 */
   private function checkRulesAndAddSystemMessages( object $objState ) : object {
@@ -1022,7 +1022,7 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $objGameplay->getGameplayState( $objState );
+ * @example    $objState = $this->getGameplayState( $objState );
  *
 */
   private function getGameplayState( object $objState ) : object {
@@ -1053,7 +1053,7 @@ class Gameplay extends Game {
  * @param      object     $objState    Gameplay State Object for the Response
  * @return     object     $objState    Gameplay State Object for the Response
  *
- * @example    $objState = $objGameplay->getGameplaySpeedHunt( $objState );
+ * @example    $objState = $this->getGameplaySpeedHunt( $objState );
  *
 */
   private function getGameplaySpeedHunt( object $objState ) : object {
@@ -1095,10 +1095,10 @@ class Gameplay extends Game {
  * @since      2026-06-20
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    Request Object from the calling public method
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $objGameplay->response( $objRequestObject );
+ * @example    $objRequestObject = $this->response( $objRequestObject );
  *
 */
   private function response( object $objRequestObject ) : object {
@@ -1124,7 +1124,7 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    {playerId: string, hunterIds: array}
  * @return     object     $objRequestObject    The Request Object
  *
  * @example    $objRequestObject = $objGameplay->captured( $objRequestObject );
@@ -1160,7 +1160,7 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    {speedHuntPlayerId: string}
  * @return     object     $objRequestObject    The Request Object
  *
  * @example    $objRequestObject = $objGameplay->speedHunt( $objRequestObject );
@@ -1205,7 +1205,7 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    {lat: float, lng: float, precision: int, steps: int, batteryLevel: int, batteryIsCharging: bool, timestamp: int, offlineRequest: bool}
  * @return     object     $objRequestObject    The Request Object
  *
  * @example    $objRequestObject = $objGameplay->track( $objRequestObject );
@@ -1236,7 +1236,7 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    {message: string}
  * @return     object     $objRequestObject    The Request Object
  *
  * @example    $objRequestObject = $objGameplay->message( $objRequestObject );
@@ -1274,10 +1274,10 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    Request Object from the calling public method
  * @return     object     $objRequestObject    The Request Object
  *
- * @example    $objRequestObject = $objGameplay->stopped( $objRequestObject );
+ * @example    $objRequestObject = $this->stopped( $objRequestObject );
  *
 */
   private function stopped( object $objRequestObject ) : object {
@@ -1309,7 +1309,7 @@ class Gameplay extends Game {
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @param      object     $objRequestObject    The Request Object
+ * @param      object     $objRequestObject    Request Object from the calling public method
  * @return     object     $objRequestObject    The Request Object
  *
  * @example    $objRequestObject = $objGameplay->statistic( $objRequestObject );

@@ -61,13 +61,13 @@ class Controller {
 /**
  * This Method initializes the Controller Properties.
  *
- * @access     public
+ * @access     private
  * @since      2026-06-05
  * @version    0.1.0
  *
  * @return     void
  *
- * @example    $objController->init();
+ * @example    $this->init();
  *
 */
   private function init() : void {
@@ -220,7 +220,7 @@ class Controller {
  *
  * @return     void
  *
- * @example    $objController->checkRole();
+ * @example    $this->checkRole();
  *
 */
   private function checkRole() : void {
@@ -246,7 +246,7 @@ class Controller {
  *
  * @return     string    $strContent    The Response Content
  *
- * @example    $strContent = $objController->view();
+ * @example    $strContent = $this->view();
  *
 */
   private function view() : string {
@@ -275,7 +275,7 @@ class Controller {
  *
  * @return     string    $strJsonContent    The Json Content
  *
- * @example    $strJsonContent = $objController->json();
+ * @example    $strJsonContent = $this->json();
  *
 */
   private function json() : string {
@@ -330,7 +330,7 @@ class Controller {
  *
  * @return     string  $strJsonContent  The Json Content
  *
- * @example    $strJsonContent = $objController->post();
+ * @example    $strJsonContent = $this->post();
  *
 */
   private function post() : string {
@@ -411,7 +411,7 @@ class Controller {
  * @param      bool     $boolAddError  Specifies whether an error should be pushed into the response if the permission check is incorrect
  * @return     bool     $boolAllowed   True if the User is allowed to call this Method
  *
- * @example    $boolAllowed = $objController->checkPermissions( $strClass, $strMethod, $boolAddError );
+ * @example    $boolAllowed = $this->checkPermissions( $strClass, $strMethod, $boolAddError );
  *
 */
   private function checkPermissions( string $strClass, string $strMethod, bool $boolAddError ) : bool {
@@ -441,7 +441,7 @@ class Controller {
  *
  * @return     string   $strContent   The Content for the Response
  *
- * @example    $strContent = $objController->renderView();
+ * @example    $strContent = $this->renderView();
  *
 */
   private function renderView() : string {
@@ -487,7 +487,7 @@ class Controller {
  *
  * @return     void
  *
- * @example    $objController->executeActions();
+ * @example    $this->executeActions();
  *
 */
   private function executeActions() : void {
