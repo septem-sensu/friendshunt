@@ -405,7 +405,7 @@ class Gameplay extends Game {
     $objTracking->lng                = floatval( $objRequestObject->lng );
     $objTracking->precision          = intval( $objRequestObject->precision );
     $objTracking->steps              = intval( $objRequestObject->steps );
-    $objTracking->outOfPlayingField  = false;
+    $objTracking->outOfPlayingField  = $this->isOutOfPlayField( $objTracking->lat, $objTracking->lng, $objTracking->precision );
     $objTracking->batteryLevel       = intval( $objRequestObject->batteryLevel );
     $objTracking->batteryIsCharging  = $objRequestObject->batteryIsCharging;
     $objTracking->isDriven           = false;
