@@ -1,8 +1,11 @@
-const CACHE_NAME = 'friendshunt-v0.1.0.28';
+const CACHE_NAME = 'friendshunt-v0.1.0.30';
 
 const STATIC_ASSETS = [
   './includes/css/themes/default.css',
   './includes/css/themes/gray.css',
+  './includes/css/themes/rubin.css',
+  './includes/css/themes/black.css',
+
   './includes/css/classes.css',
   './includes/css/core.css',
   './includes/css/gameplay.css',
