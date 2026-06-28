@@ -3,6 +3,10 @@
   --backgroundColorContent: #0a0d14;
   --backgroundColorContentContainer: #121824;
   --backgroundColorContentAlternate: rgb(256,256,256,0.1);
+  --backgroundColorMyOwnMessage: #009900;
+
+  --pulseColorContainerDark: rgba(100, 116, 139, 0.4);
+  --pulseColorContainerBright: rgba(100, 116, 139, 0.1);
 
   --backgroundColorPrimary: #286090;
   --backgroundColorSuccess: #449d44;
@@ -27,8 +31,6 @@
   --fontSizeForms: 14px;
 
   --cardHeadlineColor: #64748b;
-
-
-
-  --border-color: #1f2a3f;
+  --borderColor: #1f2a3f;
+  --boxShadowColor: rgba(0, 0, 0, 0.5);
 }

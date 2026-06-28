@@ -94,6 +94,7 @@ class BaseObject {
 
     foreach( $this->fields as $strFieldname => $fieldValue ) {
       if( ! property_exists( $objObject, $strFieldname ) ) continue;
+
       $this->$strFieldname = $objObject->$strFieldname;
     }
 
@@ -156,6 +157,14 @@ class BaseObject {
     } else {
       foreach( $mixProperty as $strProperty => $mixValueArray ) {
         if( ! property_exists( $this->fields, $strProperty ) ) continue;
+        if( property_exists( $this->fields->$strProperty, 'element' ) && $this->fields->$strProperty->element == 'cookie' ) {
+          $objCookieElement               = new stdClass();
+          $objCookieElement->$strProperty = $mixValueArray;
+
+          Presentation::writeCookie( $objCookieElement );
+
+          continue;
+        }
         if( isset( $this->fields->$strProperty->crypt ) && $this->fields->$strProperty->crypt === true ) $mixValueArray = $this->enCrypteOnly( $mixValueArray );
         if( isset( $this->fields->$strProperty->type ) && $this->fields->$strProperty->type == 'number' ) {
           $this->$strProperty =  intval( $mixValueArray );

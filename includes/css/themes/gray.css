@@ -1,7 +1,12 @@
 :root {
-  --backgroundColorBody: #111115;
-  --backgroundColorContent: #191920;
-  --backgroundColorContentContainer: rgba(255, 255, 255, 0.1);
+  --backgroundColorBody: #333333;
+  --backgroundColorContent: #444444;
+  --backgroundColorContentContainer: #555555;
+  --backgroundColorContentAlternate: rgb(256,256,256,0.1);
+  --backgroundColorMyOwnMessage: #009900;
+
+  --pulseColorContainerDark: rgba(139, 139, 139, 0.4);
+  --pulseColorContainerBright: rgba(139, 139, 139, 0.1);
 
   --backgroundColorPrimary: #286090;
   --backgroundColorSuccess: #449d44;
@@ -18,10 +23,14 @@
   --borderColorInput: #ccc;
   --backgroundColorInput: #fff;
 
-  --textColorContent: rgb(238, 238, 238);
+  --textColorContent: rgb(226, 232, 240);
   --textColorHeadline: rgb(238, 238, 238);
   --textColorLink: rgb(238, 238, 238);
 
   --colorInput: #555;
   --fontSizeForms: 14px;
+
+  --cardHeadlineColor: #111111;
+  --borderColor: #222222;
+  --boxShadowColor: rgba(0, 0, 0, 0.3);
 }

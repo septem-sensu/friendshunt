@@ -376,7 +376,7 @@ body, html {
   font-weight: 900;
   left: 368px;
   top: -1px;
-  color: #ffffff;
+  color: var(--textColorHeadline);
   cursor: pointer;
 }
 
@@ -472,14 +472,14 @@ body, html {
 
 .game-message-from-me div {
   border-radius: 5px;
-  background-color: #009900;
+  background-color: var(--backgroundColorMyOwnMessage);
   padding: 5px;
   padding-bottom: 1px;
   max-width: 480px;
   margin-left: auto;
   color: #fff;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--borderColor);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
   border-bottom-right-radius: 0px;
 }
 
@@ -493,8 +493,8 @@ body, html {
   padding: 5px;
   padding-bottom: 1px;
   max-width: 480px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--borderColor);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
   border-bottom-left-radius: 0px;
 }
 
@@ -645,11 +645,11 @@ body, html {
   flex-grow: 1;
   -webkit-appearance: none;
   appearance: none;
-  background: #0f172a;
+  background: var(--backgroundColorContentContainer);
   height: 6px;
   border-radius: 3px;
   outline: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--borderColor);
 }
 
 #replay-slider::-webkit-slider-thumb {
@@ -658,9 +658,9 @@ body, html {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--textColorHeadline);
   cursor: pointer;
-  box-shadow: 0 0 8px #fff;
+  box-shadow: 0 0 8px var(--textColorHeadline);
   opacity: 0.8;
 }
 
@@ -679,7 +679,7 @@ body, html {
 
 .btn-tactical, .btn-speed {
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--borderColor);
   color: var(--color-text);
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 0.9rem;

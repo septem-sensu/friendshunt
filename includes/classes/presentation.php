@@ -240,6 +240,38 @@ class Presentation {
   }
 
 /**
+ * This static method returns the filenames of the passed directory.
+ * The second parameter specifies whether the file extension should be truncated.
+ *
+ * @access     public
+ * @since      2026-06-28
+ * @version    0.1.0
+ *
+ * @param      string    $strDirectoryPath       The directory path whose files should be returned
+ * @param      bool      $boolWithoutExtension   Specifies whether the file extension should be truncated
+ * @return     array     $arrFileNames           The filenames of the passed directory
+ *
+ * @example    $arrFileNames = Presentation::getFileNamesFromDirectory( $strDirectoryPath, $boolWithoutExtension );
+ *
+*/
+  public static function getFileNamesFromDirectory( string $strDirectoryPath, bool $boolWithoutExtension ) : array {
+    if( ! is_dir( $strDirectoryPath ) ) return [];
+
+    $arrFiles  = scandir( $strDirectoryPath );
+    $arrResult = [];
+
+    foreach( $arrFiles as $strFileName ) {
+      if( $strFileName == '.' ||  $strFileName == '..' ) continue;
+
+      $strFileName = $boolWithoutExtension ? pathinfo( $strFileName, PATHINFO_FILENAME ) : $strFileName;
+
+      array_push( $arrResult, $strFileName );
+    }
+
+    return $arrResult;
+  }
+
+/**
  * This static Method returns a new Form Error Object for the given Field and Message.
  *
  * @access     public

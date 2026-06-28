@@ -199,5 +199,5 @@ button[disabled] {
   border-width: 1px !important;
   border-color: #fff !important;
   border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
 }

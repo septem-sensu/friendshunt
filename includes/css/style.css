@@ -105,15 +105,15 @@
 }
 
 @keyframes pulseContainer {
-  0% { box-shadow:0 0 4px rgba(100, 116, 139, 0.1); }
-  50% { box-shadow:0 0 14px rgba(100, 116, 139, 0.4); }
-  100% { box-shadow:0 0 4px rgba(100, 116, 139, 0.1); }
+  0% { box-shadow:0 0 4px var(--pulseColorContainerBright); }
+  50% { box-shadow:0 0 14px var(--pulseColorContainerDark); }
+  100% { box-shadow:0 0 4px var(--pulseColorContainerBright); }
 }
 
 @keyframes pulseContainerReverse {
-  0% { box-shadow:0 0 14px rgba(100, 116, 139, 0.4); }
-  50% { box-shadow:0 0 4px rgba(100, 116, 139, 0.1); }
-  100% { box-shadow:0 0 14px rgba(100, 116, 139, 0.4); }
+  0% { box-shadow:0 0 14px var(--pulseColorContainerDark); }
+  50% { box-shadow:0 0 4px var(--pulseColorContainerBright); }
+  100% { box-shadow:0 0 14px var(--pulseColorContainerDark); }
 }
 
 * {
@@ -177,7 +177,7 @@ a {
 button {
   font-family: "Roboto Condensed";
   text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
   opacity: 1;
   transition: opacity 0.3s;
   transition: transform 0.2s;
@@ -296,19 +296,19 @@ button:active {
 }
 
 .card thead th {
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--borderColor);
 }
 
 .card tfoot th {
-  border-top: 2px solid var(--border-color);
+  border-top: 2px solid var(--borderColor);
 }
 
 .card {
   background-color: var(--backgroundColorContentContainer);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--borderColor);
   border-radius: 6px;
   padding: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
 }
 
 .card-content-flex {
@@ -327,7 +327,7 @@ button:active {
   text-transform: uppercase;
   color: var(--cardHeadlineColor);
   margin-bottom: 10px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--borderColor);
   padding-bottom: 5px;
   text-wrap: nowrap;
 }
@@ -381,8 +381,8 @@ button:active {
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--borderColor);
+  box-shadow: 0 4px 12px var(--boxShadowColor);
 }
 
 body .content-container.first-child {

@@ -446,6 +446,8 @@ class Controller {
 */
   private function renderView() : string {
     $strContent     = '';
+    $strPlayerTheme = Presentation::getCookieProperty( 'themes' );
+    $strTheme       = isset( $strPlayerTheme ) ? $strPlayerTheme : 'default';
 
     $this->objectId = isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] != '' ? $_GET[ 'id' ] : '';
     $this->objectId = $this->objectId == '' && isset( $this->object ) ? $this->object->id() : $this->objectId;
@@ -459,6 +461,8 @@ class Controller {
     $this->presentationObject->assignTemplateVar( 'view', 'default', null, json_encode( $this->viewObject ) );
     $this->presentationObject->assignTemplateVar( 'class', 'default', null, $this->className );
     $this->presentationObject->assignTemplateVar( 'id', 'default', null, isset( $this->objectId ) ? $this->objectId : '' );
+    $this->presentationObject->assignTemplateVar( 'theme', 'default', null, $strTheme );
+    $this->presentationObject->assignTemplateVar( 'themes', 'default', null, json_encode( Presentation::getFileNamesFromDirectory( __DIR__ . '/../css/themes/', true ) ) );
 
     if( isset( $this->object ) && get_class( $this->object ) == $this->className ) {
       $this->presentationObject->assignTemplateVar( $this->object->serializeObject( $this->object ), $this->className, BaseObject::fields( $this->className ) );

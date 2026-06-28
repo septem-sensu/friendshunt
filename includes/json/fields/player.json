@@ -87,6 +87,14 @@
     "minLength": 0,
     "position": 900
   },
+  "themes": {
+    "nameDe": "Theme",
+    "element": "cookie",
+    "type": "text",
+    "unit": "",
+    "minLength": 0,
+    "position": 950
+  },
   "asPlayerCountSteps": {
     "nameDe": "Schritte als Spieler",
     "element": "input",

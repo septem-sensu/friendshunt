@@ -33,6 +33,7 @@ class Player extends BaseObject {
   protected array  $games                        = [];
   protected string $title;
   protected string $description;
+  protected string $themes;
 
   protected int $asPlayerCountSteps              = 0;
   protected int $asHunterCountSteps              = 0;

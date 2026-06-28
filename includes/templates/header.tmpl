@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-  <link rel="stylesheet" href="includes/css/themes/default.css?v={{default::version}}" />
+  <link id="theme" rel="stylesheet" href="includes/css/themes/{{default::theme}}.css?v={{default::version}}" />
   <link rel="stylesheet" href="includes/css/core.css?v={{default::version}}" />
   <link rel="stylesheet" href="includes/css/spacer.css?v={{default::version}}" />
   <link rel="stylesheet" href="includes/css/classes.css?v={{default::version}}" />
@@ -22,8 +22,10 @@
     window[ appAlias ].objects.passwordRules = {{default::passwordRules}};
     window[ appAlias ].objects.configuration = {{default::configuration}};
     window[ appAlias ].objects.view          = {{default::view}};
+    window[ appAlias ].objects.themes        = {{default::themes}};
     window[ appAlias ].id                    = '{{default::id}}';
     window[ appAlias ].class                 = '{{default::class}}';
+    window[ appAlias ].theme                 = '{{default::theme}}';
     window[ appAlias ].debug                 = false;
   </script>
 

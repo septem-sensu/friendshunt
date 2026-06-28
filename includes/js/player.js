@@ -677,4 +677,42 @@ class Player extends BaseObject {
     return;
   }
 
+/**
+ * This method fills the select box in the edit mode of the My Account with the available themes as options.
+ * Furthermore, an event handler is registered on the select box, which immediately changes the changed theme in the body.
+ *
+ * @public
+ *
+ * @return    {void}
+ *
+ * @example   player.setThemes();
+ *
+ */
+  setThemes() {
+    const themesSelect = document.querySelector( '#themes' );
+    const themeLinkTag = document.querySelector( '#theme' );
+    const themes       = window[ appAlias ].objects.themes
+
+    if( themesSelect == null || themeLinkTag == null ) return;
+
+    for( let i = 0; i < themes.length; i++ ) {
+      const option     = document.createElement( 'option' );
+
+      option.value     = themes[ i ];
+      option.innerHTML = themes[ i ].charAt(0).toUpperCase() + themes[ i ].slice(1);
+
+      if( themes[ i ] == window[appAlias ].theme ) option.setAttribute( 'selected', 'selected' );
+
+      themesSelect.append( option )
+    }
+
+    themesSelect.addEventListener( 'change', ( event ) => {
+      themeLinkTag.href= 'includes/css/themes/' + event.target.value + '.css';
+
+      return;
+    } );
+
+    return;
+  }
+
 };
