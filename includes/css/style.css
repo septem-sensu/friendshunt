@@ -104,6 +104,18 @@
   src: url('../css/fonts/roboto-condensed-v31-latin-800.woff2') format('woff2');
 }
 
+@keyframes pulseContainer {
+  0% { box-shadow:0 0 4px rgba(100, 116, 139, 0.1); }
+  50% { box-shadow:0 0 14px rgba(100, 116, 139, 0.4); }
+  100% { box-shadow:0 0 4px rgba(100, 116, 139, 0.1); }
+}
+
+@keyframes pulseContainerReverse {
+  0% { box-shadow:0 0 14px rgba(100, 116, 139, 0.4); }
+  50% { box-shadow:0 0 4px rgba(100, 116, 139, 0.1); }
+  100% { box-shadow:0 0 14px rgba(100, 116, 139, 0.4); }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -188,6 +200,22 @@ button:active {
   margin: 0 auto;
   background-color: var(--backgroundColorContent);
   min-height: 3000px;
+}
+
+.pulse-container {
+  animation: pulseContainer 6s infinite;
+}
+
+.pulse-container-reverse {
+  animation: pulseContainerReverse 6s infinite;
+}
+
+.pulse-container-slow {
+  animation: pulseContainer 10s infinite;
+}
+
+.pulse-container-reverse-slow {
+  animation: pulseContainerReverse 10s infinite;
 }
 
 @media screen and (max-width: 650px) {

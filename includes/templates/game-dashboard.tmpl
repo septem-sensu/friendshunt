@@ -7,14 +7,14 @@
 </script>
 
 <input type="hidden" name="resetForm" value="1" />
-<div class="content-container first-child" >
+<div class="content-container first-child pulse-container" >
   <h1 class="align-left float-left">Dashboard</h1>
   <div class="align-right">
     <button type="button" class="warning w-140 event-link" data-link="index.php?view=player">Zurück</button>
   </div>
 </div>
 
-<div class="content-container">
+<div class="content-container pulse-container-reverse-slow">
   <h2 class="align-left mb-15">Spiel Informationen</h2>
   <table class="w-100p">
     <tr>
@@ -35,22 +35,22 @@
   <input type="hidden" name="game-id" value="{{Game::id}}" />
 </div>
 
-<div class="content-container minh-40">
+<div class="content-container minh-40 pulse-container-slow">
   <h2 class="align-left float-left mt-5">Spieler</h2>
 </div>
 <div id="game-content-container-player"></div>
 
-<div class="content-container minh-40">
+<div class="content-container minh-40 pulse-container-slow">
   <h2 class="align-left float-left mt-5">Jäger</h2>
 </div>
 <div id="game-content-container-hunter"></div>
 
-<div class="content-container minh-40">
+<div class="content-container minh-40 pulse-container-slow">
   <h2 class="align-left float-left mt-5">Spielleitung</h2>
 </div>
 <div id="game-content-container-management"></div>
 
-<div class="content-container">
+<div class="content-container pulse-container-reverse">
   <h2 class="align-left mb-15">Spiel Einstellungen</h2>
   <table class="w-100p" cellspacing="0">
     <tr class="background-alternate">
@@ -115,12 +115,12 @@
     </tr>
   </table>
 </div>
-<div class="content-container minh-30">
+<div class="content-container minh-30 pulse-container">
   <h2 class="align-left">Statistiken</h2>
 </div>
 <div class="player-dashboard-container"></div>
 
-<div class="content-container mt-10">
+<div class="content-container mt-10  pulse-container-reverse-slow">
   <h2 class="mb-15 align-left float-left">Bilder vom Spiel</h2>
   <div class="align-right">
     <button type="button" id="event-game-images-upload-button" class="submit primary w-140 mb-20">Bild hinzufügen</button>

@@ -295,11 +295,12 @@ class Player extends BaseObject {
  *
  */
   processResponsePlayerList( response ) {
-    const playerList = response.result.playerList;
+    const playerList  = response.result.playerList;
+    let playerCounter = 0;
 
     for( const playerId in playerList ) {
       const contentContainer      = document.createElement( 'div' );
-      let contentContainerContent = '<div class="content-container align-left">';
+      let contentContainerContent = '<div class="content-container align-left ' + this.cssContainerClasses[ playerCounter % this.cssContainerClasses.length ] + '">';
 
       contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
       contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + playerList[ playerId ].email + '/' + playerList[ playerId ].image + '" />';
@@ -314,6 +315,7 @@ class Player extends BaseObject {
 
       contentContainer.innerHTML  = contentContainerContent;
       document.querySelector( '#content-container-player' ).append( contentContainer );
+      playerCounter++;
     }
 
     return;
@@ -330,8 +332,8 @@ class Player extends BaseObject {
  *
  */
   addGamesToTemplate() {
-    const games  = this.games;
-    const fields = window[ appAlias ].objects.gameFields;
+    const games      = this.games;
+    const fields     = window[ appAlias ].objects.gameFields;
 
     for( let i = 0; i < games.length; i++ ) {
       const contentContainer      = document.createElement( 'div' );
@@ -371,6 +373,7 @@ class Player extends BaseObject {
       contentContainer.innerHTML  = contentContainerContent;
 
       contentContainer.classList.add( 'content-container' );
+      contentContainer.classList.add( this.cssContainerClasses[ i % this.cssContainerClasses.length ] );
       contentContainer.classList.add( 'align-left' );
       document.querySelector( '#game-content-container' ).append( contentContainer );
     }
@@ -440,6 +443,7 @@ class Player extends BaseObject {
     document.querySelector( '#search-player-field' ).value = '';
 
     contentContainer.classList.add( 'content-container' );
+    contentContainer.classList.add( this.cssContainerClasses[ Math.floor( Math.random() * this.cssContainerClasses.length ) % this.cssContainerClasses.length ] );
     contentContainer.classList.add( 'align-left' );
     document.querySelector( '#game-content-container-player' ).append( contentContainer );
 

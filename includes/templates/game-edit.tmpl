@@ -8,14 +8,14 @@
 
 <form>
   <input type="hidden" name="resetForm" value="1" />
-  <div class="content-container first-child" >
+  <div class="content-container first-child pulse-container" >
     <h1 class="align-left float-left">Neues Game</h1>
     <div class="align-right">
       <button type="button" class="warning w-140 event-link" data-link="index.php?view=player">Zurück</button>
     </div>
   </div>
 
-  <div class="content-container align-left">
+  <div class="content-container align-left pulse-container-reverse-slow">
     <h2 class="align-left mb-15">Spiel Informationen</h2>
     <label class="minw-200" for="name">Name des Spiels*</label>
     <input autocomplete="name" class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" />
@@ -25,28 +25,28 @@
     <input autocomplete="description" class="mb-10 mt-5 w-350" type="text" name="description" id="description" placeholder="Eingabe Beschreibung" value="{{Game::description}}" />
   </div>
 
-  <div class="content-container align-left">
+  <div class="content-container align-left pulse-container-slow">
     <h2 class="align-left float-left mt-5">Spieler*</h2>
     <input autocomplete="search-player-field email" type="email" class="w-350 mr-10 mt-15 mb-15" name="search-player-field" id="search-player-field" />
     <p class="mb-10"><button type="button" class="event-add-player-to-game success w-180" id="event-add-player-to-game">Spieler hinzufügen</button></p>
   </div>
   <div id="game-content-container-player"></div>
 
-  <div class="content-container align-left">
+  <div class="content-container align-left pulse-container-reverse">
     <h2 class="align-left float-left mt-5">Jäger*</h2>
     <input autocomplete="search-hunter-field email" type="email" class="w-350 mr-10 mt-15 mb-15" name="search-hunter-field" id="search-hunter-field" />
     <p class="mb-10"><button type="button" class="event-add-hunter-to-game success w-180" id="event-add-hunter-to-game">Jäger hinzufügen</button></p>
   </div>
   <div id="game-content-container-hunter"></div>
 
-  <div class="content-container align-left">
+  <div class="content-container align-left pulse-container">
     <h2 class="align-left float-left mt-5">Spielleitung</h2>
     <input autocomplete="search-management-field email" type="email" class="w-350 mr-10 mt-15 mb-15" name="search-management-field" id="search-management-field" />
     <p class="mb-10"><button type="button" class="event-add-management-to-game success w-180" id="event-add-management-to-game">Leitung hinzufügen</button></p>
   </div>
   <div id="game-content-container-management"></div>
 
-  <div class="content-container align-left">
+  <div class="content-container align-left pulse-container-reverse-slow">
     <h2 class="align-left mb-15">Spiel Einstellungen</h2>
     <label class="minw-200" for="start">Start des Spiels*</label>
     <input class="mb-10 mt-5 w-350" autocomplete="off" type="datetime-local" name="start" id="start" placeholder="Eingabe Start des Spiels" value="{{Game::start}}" />

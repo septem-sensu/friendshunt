@@ -30,15 +30,17 @@ class Statistic {
  *
  */
   constructor( selector ) {
-    this.geoTracker   = new GeoTracker();
-    this.communicator = new Communicator();
-    this.validator    = this.communicator.get( 'validator' );
-    this.debug        = window[ appAlias ].debug ? true : false;
+    this.geoTracker           = new GeoTracker();
+    this.communicator         = new Communicator();
+    this.validator            = this.communicator.get( 'validator' );
+    this.debug                = window[ appAlias ].debug ? true : false;
+    this.cssContainerClasses  = [ 'pulse-container-reverse', 'pulse-container', 'pulse-container-reverse-slow', 'pulse-container-slow' ];
+    this.cssContainerCounter  = 0;
 
-    this.statistic    = null;
-    this.response     = null;
-    this.selector     = selector;
-    this.isInit       = false;
+    this.statistic            = null;
+    this.response             = null;
+    this.selector             = selector;
+    this.isInit               = false;
 
     return;
   }
@@ -198,7 +200,7 @@ class Statistic {
   addGameOverviewContainer() {
     let content = '';
 
-    content    += '<div class="card">';
+    content    += '<div class="card ' + this.cssContainerClasses[ this.cssContainerCounter % this.cssContainerClasses.length ] + '">';
     content    += '<div class="card-title">Spiel-Überblick</div>';
     content    += '<div class="align-left">';
 
@@ -246,6 +248,7 @@ class Statistic {
     content    += '</div>';
 
     this.statistic.statisticContainer.innerHTML += content;
+    this.cssContainerCounter++;
 
     return;
   }
@@ -266,7 +269,7 @@ class Statistic {
 
     if( speedHunts.length < 1 ) return;
 
-    content     += '<div class="card card-full">';
+    content     += '<div class="card card-full ' + this.cssContainerClasses[ this.cssContainerCounter % this.cssContainerClasses.length ] + '">';
     content     += '<div class="card-title">Speed Hunts</div>';
     content     += '<table class="w-100p">';
     content     += '<thead><tr>';
@@ -293,6 +296,7 @@ class Statistic {
     content    += '</div>';
 
     this.statistic.statisticContainer.innerHTML += content;
+    this.cssContainerCounter++;
 
     return;
   }
@@ -312,7 +316,7 @@ class Statistic {
     let batteryMin = 100;
     let batteryMax = 0;
 
-    content     += '<div class="card card-full">';
+    content     += '<div class="card card-full ' + this.cssContainerClasses[ this.cssContainerCounter % this.cssContainerClasses.length ] + '">';
     content     += '<div class="card-title">Nachrichten & Akku Übersicht</div>';
     content     += '<table class="w-100p">';
     content     += '<thead><tr>';
@@ -360,6 +364,7 @@ class Statistic {
     content    += '</div>';
 
     this.statistic.statisticContainer.innerHTML += content;
+    this.cssContainerCounter++;
 
     return;
   }
@@ -378,7 +383,7 @@ class Statistic {
     let show                 = false;
     let content              = '';
 
-    content                 += '<div class="card card-full">';
+    content                 += '<div class="card card-full ' + this.cssContainerClasses[ this.cssContainerCounter % this.cssContainerClasses.length ] + '">';
     content                 += '<div class="card-title">Regelbruch - Spielfeld verlassen</div>';
     content                 += '<table class="w-100p">';
     content                 += '<thead><tr>';
@@ -407,6 +412,7 @@ class Statistic {
     content    += '</div>';
 
     if( show ) this.statistic.statisticContainer.innerHTML += content;
+    this.cssContainerCounter++;
 
     return;
   }
@@ -425,7 +431,7 @@ class Statistic {
     let content = '';
 
     for( let i = 0; i < this.statistic.captured.length; i++ ) {
-      content  += '<div class="card">';
+      content  += '<div class="card ' + this.cssContainerClasses[ this.cssContainerCounter % this.cssContainerClasses.length ] + '">';
       content  += '<div class="card-title">Ausgeschieden</div>';
       content  += '<div class="align-left">';
       content  += '<p class="align-left mb-10 danger-text bold">' + this.statistic.names[ this.statistic.captured[ i ].playerId ].name + '</p>';
@@ -438,6 +444,7 @@ class Statistic {
 
       content  += '</div>';
       content  += '</div>';
+      this.cssContainerCounter++;
     }
 
     this.statistic.statisticContainer.innerHTML += content;
@@ -463,7 +470,7 @@ class Statistic {
       let distanceAll  = 0;
       let drivenAll    = 0;
 
-      content    += '<div class="card card-full">';
+      content    += '<div class="card card-full ' + this.cssContainerClasses[ this.cssContainerCounter % this.cssContainerClasses.length ] + '">';
       content    += '<div class="card-title">Distanzen als ' + this.statistic.roles[ role ] + '</div>';
       content    += '<table class="w-100p">';
       content    += '<thead><tr>';
@@ -518,6 +525,7 @@ class Statistic {
       content    += '</div>';
 
       if( show ) this.statistic.statisticContainer.innerHTML += content;
+      this.cssContainerCounter++;
     }
 
     return;

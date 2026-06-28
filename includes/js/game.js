@@ -65,7 +65,7 @@ class Game extends BaseObject {
 
         mapLayer.classList.remove( 'hidden' );
 
-        mapLayer.style.height = ( window.innerHeight - 60 ) + 'px';
+        mapLayer.style.height = ( window.innerHeight - 20 ) + 'px';
 
         this.geoTracker.getCurrentPosition( this.showMapInInfoLayer.bind( this ) );
         this.geoTracker.set( 'caller', event );
@@ -273,7 +273,7 @@ class Game extends BaseObject {
       for( let j = 0; j < gameplayData[ members[ i ] ].length; j++ ) {
         const contentContainer      = document.createElement( 'div' );
         const profileImage          = 'includes/files/game/' + window[ appAlias ].id + '/profile_image_' + gameplayData[ members[ i ] ][ j ].email + '_' + gameplayData[ members[ i ] ][ j ].image;
-        let contentContainerContent = '<div class="content-container align-left">';
+        let contentContainerContent = '<div class="content-container align-left ' + this.cssContainerClasses[ j % this.cssContainerClasses.length ] + '">';
 
         contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
         contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="' + profileImage + '" />';
@@ -393,10 +393,11 @@ class Game extends BaseObject {
  */
   processResponseGameArchiveList( response ) {
     const archiveGames = response.result.archiveGames;
+    let gameCounter    = 0;
 
     for( const gameId in archiveGames ) {
       const contentContainer      = document.createElement( 'div' );
-      let contentContainerContent = '<div class="content-container align-left">';
+      let contentContainerContent = '<div class="content-container align-left ' + this.cssContainerClasses[ gameCounter % this.cssContainerClasses.length ] + '">';
 
       contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
       contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/game/archive/' + gameId + '/' + archiveGames[ gameId ].avatar + '" />';
@@ -412,6 +413,8 @@ class Game extends BaseObject {
 
       contentContainer.innerHTML  = contentContainerContent;
       document.querySelector( '#content-container-game-archive' ).append( contentContainer );
+
+      gameCounter++;
     }
 
     return;

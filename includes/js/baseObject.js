@@ -37,6 +37,7 @@ class BaseObject {
     this.appAlias                 = window.appAlias;
     this.debug                    = window[ appAlias ].debug ? true : false;
     this.registeredEventHandler   = {};
+    this.cssContainerClasses      = [ 'pulse-container-reverse', 'pulse-container', 'pulse-container-reverse-slow', 'pulse-container-slow' ];
 
     for( const property in window[ appAlias ].objects.object ) {
       if( this[ property ] ) continue;
