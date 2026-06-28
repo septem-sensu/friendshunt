@@ -388,6 +388,8 @@ button:active {
 body .content-container.first-child {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+  border-top-style: none;
+  border-top-width: 0px;
 }
 
 .friendshunt-login-logo {

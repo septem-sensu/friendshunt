@@ -1,0 +1,36 @@
+:root {
+  --backgroundColorBody: #1e0505;
+  --backgroundColorContent: #2a0808;
+  --backgroundColorContentContainer: rgba(255, 255, 255, 0.1);
+  --backgroundColorContentAlternate: rgb(256,256,256,0.1);
+  --backgroundColorMyOwnMessage: #009900;
+
+  --pulseColorContainerDark: rgba(255, 61, 129, 0.4);
+  --pulseColorContainerBright: rgba(255, 61, 129, 0.1);
+
+  --backgroundColorPrimary: #286090;
+  --backgroundColorSuccess: #449d44;
+  --backgroundColorInfo: #31b0d5;
+  --backgroundColorWarning: #ec971f;
+  --backgroundColorDanger: #d9534f;
+
+  --borderColorPrimary: #204d74;
+  --borderColorSuccess: #398439;
+  --borderColorInfo: #269abc;
+  --borderColorWarning: #d58512;
+  --borderColorDanger: #d43f3a;;
+
+  --borderColorInput: #ccc;
+  --backgroundColorInput: #fff;
+
+  --textColorContent: rgb(226, 232, 240);
+  --textColorHeadline: rgb(238, 238, 238);
+  --textColorLink: rgb(238, 238, 238);
+
+  --colorInput: #555;
+  --fontSizeForms: 14px;
+
+  --cardHeadlineColor: rgba(255, 255, 255, 0.4);
+  --borderColor: rgba(255, 61, 129, 0.7);
+  --boxShadowColor: rgba(0, 0, 0, 0.5);
+}
