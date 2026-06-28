@@ -816,6 +816,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Player.html#property_description"
         },                {
+            "fqsen": "\\Player\u003A\u003A\u0024themes",
+            "name": "themes",
+            "summary": "",
+            "url": "classes/Player.html#property_themes"
+        },                {
             "fqsen": "\\Player\u003A\u003A\u0024asPlayerCountSteps",
             "name": "asPlayerCountSteps",
             "summary": "",
@@ -1015,6 +1020,11 @@ Search.appendIndex(
             "name": "getCookieProperty",
             "summary": "This\u0020static\u0020Method\u0020get\u0020a\u0020Value\u0020from\u0020the\u0020App\u0020Cookie\u0020Json\u0020Value.",
             "url": "classes/Presentation.html#method_getCookieProperty"
+        },                {
+            "fqsen": "\\Presentation\u003A\u003AgetFileNamesFromDirectory\u0028\u0029",
+            "name": "getFileNamesFromDirectory",
+            "summary": "This\u0020static\u0020method\u0020returns\u0020the\u0020filenames\u0020of\u0020the\u0020passed\u0020directory.",
+            "url": "classes/Presentation.html#method_getFileNamesFromDirectory"
         },                {
             "fqsen": "\\Presentation\u003A\u003AnewFormError\u0028\u0029",
             "name": "newFormError",

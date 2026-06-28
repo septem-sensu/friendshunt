@@ -155,6 +155,7 @@ class Player {
   +games
   +title
   +description
+  +themes
   +asPlayerCountSteps
   +asHunterCountSteps
   +asManagementCountSteps
@@ -212,6 +213,7 @@ class Presentation {
   +writeCookie()
   +deleteCookie()
   +getCookieProperty()
+  +getFileNamesFromDirectory()
   +newFormError()
   +getBaseUrl()
   +getFullUrl()
