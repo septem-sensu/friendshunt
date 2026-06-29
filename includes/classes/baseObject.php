@@ -448,7 +448,7 @@ class BaseObject {
   public static function saveFileEnCrypted( string $strFile, object $objObject ) : void {
     $strContent = json_encode( $objObject );
 
-    file_put_contents( $strFile . '.json', $strContent, LOCK_EX );
+    // file_put_contents( $strFile . '.json', $strContent, LOCK_EX );
 
     if( BaseObject::isJson( $strContent ) ) {
       $strContent = BaseObject::enCrypte( $strContent );

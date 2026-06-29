@@ -71,8 +71,6 @@ class Gameplay extends Game {
   protected bool   $isRunning;
   protected int    $startTimestamp;
   protected int    $endTimestamp;
-  protected bool   $generateTestData;
-  protected array  $testDataSource;
   protected int    $timeTolerance;
 
 /**
@@ -92,17 +90,6 @@ class Gameplay extends Game {
   public function __construct( string $strObjectId, Player $objCurrentPlayer ) {
     $this->id               = $strObjectId;
     $this->currentPlayer    = $objCurrentPlayer;
-    $this->generateTestData = false;
-    $this->testDataSource   = [
-      'curly@media-island-design.de' => [
-        'latShift' => -0.0025,
-        'lngShift' => -0.0023
-      ],
-      'katharina@septem-sensu.de' => [
-        'latShift' => 0.0012,
-        'lngShift' => 0.0024
-      ]
-    ];
 
     $this->init();
 
@@ -360,29 +347,6 @@ class Gameplay extends Game {
 
     BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
 
-    if( $this->generateTestData ) {
-      foreach( $this->testDataSource as $strTestPlayerId => $arrTestPlayerData ) {
-        $objTestPlayerTracking = null;
-
-        if( ! file_exists( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json' ) ) {
-          $objTestPlayerTracking           = new stdClass();
-          $objTestPlayerTracking->tracking = [];
-
-          BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
-        } else {
-          $objTestPlayerTracking = BaseObject::loadFileDeCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json' );
-        }
-
-        $objTrackingClone      = clone $objTracking;
-        $objTrackingClone->lat = $objTrackingClone->lat + $arrTestPlayerData[ 'latShift' ];
-        $objTrackingClone->lng = $objTrackingClone->lng + $arrTestPlayerData[ 'lngShift' ];
-
-        array_push( $objTestPlayerTracking->tracking, $objTrackingClone );
-
-        BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $strTestPlayerId . '.json', $objTestPlayerTracking );
-      }
-    }
-
     return;
   }
 
@@ -490,6 +454,7 @@ class Gameplay extends Game {
  *
 */
   private function isTrackingInTimeTolerance( object $objTracking ) : bool {
+    if( ! isset( $objTracking->clientTimestamp ) ) return true;
     if( $objTracking->timestamp - $objTracking->clientTimestamp > $this->timeTolerance ) return false;
     if( $objTracking->timestamp - $objTracking->clientTimestamp < - $this->timeTolerance ) return false;
 
