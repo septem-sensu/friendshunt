@@ -217,7 +217,7 @@ class Game extends BaseObject {
     const caller          = this.geoTracker.get( 'caller' ).target;
     const selectorRadius  = '#playingFieldSize';
     const markerId        = caller.id === 'startPosition' ? 'start' : 'exit';
-    const color        = '#00aa00';
+    const color           = '#00aa00';
     const selector        = '#' + caller.id;
     const content         = caller.id === 'startPosition' ? '<span class="bold">Start Position</span>' : '<span class="bold">Exit Position</span>';
     const defaultRadius   = 1000;
@@ -229,6 +229,8 @@ class Game extends BaseObject {
     } else {
       this.geoMaps.setMarkerInteractive( markerId, markerId, color, content, selector );
     }
+
+    document.querySelector( '#map' ).classList.add( 'crosshair' );
 
     return;
   }

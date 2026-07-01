@@ -1,11 +1,6 @@
-@keyframes moveTicker	{
-  from {
-    transform: translate3d(0%, 0%, 0px);
-    left: 100%;
-  }	to {
-    transform: translate3d(-200%, 0%, 0px);
-    left: 0%;
-  }
+@keyframes ticker-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 @keyframes speedhunt-pulse {
@@ -21,7 +16,6 @@
   }
   50% {
     transform: scale(1.25);
-    /* Erzeugt eine leuchtende Schockwelle, die sich unter dem Icon ausbreitet */
     box-shadow: 0 0 0 15px rgba(255, 51, 51, 0);
     border-radius: 50%;
   }
@@ -37,48 +31,27 @@
   100% { opacity: 0.4; filter: brightness(0.8); }
 }
 
+@keyframes overlay-enter {
+  0% { opacity: 0; filter: blur(4px); }
+  100% { opacity: 1; filter: blur(0); }
+}
+
+.overlay-enter {
+  animation: overlay-enter 0.5s ease-out both;
+}
 
 body, html {
-    /* Zwingt das Layout, sich an den sicheren Display-Rändern auszurichten */
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-
-    /* Verhindert, dass Text beim Drehen des Handys unkontrolliert mitskaliert */
-    -webkit-text-size-adjust: 100%;
-
-    /* Verhindert den bläulichen Klick-Schatten, den Safari standardmäßig auf Buttons legt */
-    -webkit-tap-highlight-color: transparent;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @media screen and (max-width: 650px) {
-  body .icon-game-camera {
-    left: 178px;
-  }
-
-  body .icon-game-message {
-    left: 99px;
-  }
-
-  body .icon-game-reload {
-    left: 21px;
-  }
-
-  body .icon-game-back {
-    left: 323px;
-  }
-
-  body .icon-new-message {
-    left: 92px;
-  }
-
-  body .icon-is-tracking-mode {
-    left: 251px;
-  }
-
   body #game-message-layer {
-    width: 377px;
+    width: 371px;
     left: calc(50% - 189px);
   }
 
@@ -109,12 +82,12 @@ body, html {
 
   body #game-capture-container,
   body #game-system-message-container {
-    width: 360px;
+    width: 351px;
   }
 
   body .game-permission-pedometer {
-    width: 338px;
-    left: calc(50% - 189px);
+    width: 332px;
+    left: calc(50% - 190px);
   }
 
   body #gameplay-button-replay {
@@ -122,7 +95,7 @@ body, html {
   }
 
   body .replay-panel {
-    width: 350px;
+    width: 349px;
     left: calc(50% - 185px);
   }
 
@@ -136,6 +109,15 @@ body, html {
     justify-content: center;
   }
 
+  body #game-scrolling-info-text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+}
+
+body .leaflet-interactive {
+  cursor: crosshair;
 }
 
 .fix-body {
@@ -214,16 +196,18 @@ body, html {
 .game-permission-pedometer {
   position: absolute;
   top: 60px;
-  width: 539px;
+  width: 532px;
   height: 200px;
   background-color: var(--backgroundColorContent);
   z-index: 4000;
   border-radius: 10px;
-  left: calc(50% - 289px);
+  left: calc(50% - 290px);
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 35px;
   padding-bottom: 10px;
+  border-left: 4px solid var(--backgroundColorInfo);
+  border-right: 4px solid var(--backgroundColorInfo);
 }
 
 #map {
@@ -255,31 +239,24 @@ body, html {
 }
 
 .tactical-marker-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Wir zentrieren das SVG oben und lassen den Text nach unten fließen */
-    justify-content: flex-start;
-    width: 30px;
-    height: 30px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30px;
+  height: 30px;
+  position: relative;
 }
 
-/* 3. Dein Namens-Tag (Exakt nach deinem Styleguide) */
 .marker-label {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    white-space: nowrap;
-
-    /* Absolute Positionierung unterhalb des 36px großen SVGs */
-    position: absolute;
-    top: 30px; /* Schiebt den Text exakt 2 Pixel unter den Marker-Rand */
-    left: 50%;
-    transform: translateX(-50%); /* Zentriert den Namen mathematisch exakt in der Mitte */
-
-    /* Der bewährte taktische Schatten für perfekte Lesbarkeit auf der OSM-Karte */
-    /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .game-menu-top {
@@ -296,96 +273,82 @@ body, html {
   z-index: 1020;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  box-shadow: 0 2px 12px var(--boxShadowColor);
 }
 
 .game-menu-bottom {
   width: 580px;
   height: 50px;
-  text-align: left;
   margin: 0 auto;
   position: fixed;
   bottom: 0px;
   left: calc(50% - 290px);
   background-color: var(--backgroundColorContent);
-  overflow: hidden;
+  overflow: visible;
   transition: height 0.5s ease-in-out;
   z-index: 1020;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-}
-
-.icon-game-state-stop {
-  width: 35px;
-  height: 35px;
-  margin-left: 10px;
-  margin-top: 6px;
-  opacity: 0.8;
+  box-shadow: 0 -2px 12px var(--boxShadowColor);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .icons-gamplay-menu-bottom {
   filter: invert(1);
-  color: #000000 !important;
-  position: absolute;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-  transition: transform 0.2s;
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.2s, filter 0.3s;
 }
 
 .icons-gamplay-menu-bottom:hover {
-  opacity: 0.5;
+  opacity: 1;
+  filter: invert(1) drop-shadow(0 0 6px rgba(0, 240, 255, 0.4));
 }
 
 .icons-gamplay-menu-bottom:active {
   transform: scale(0.85);
+  opacity: 0.6;
 }
 
 .icon-game-camera {
   width: 35px;
   height: 37px;
-  left: 278px;
-  top: 6px;
 }
 
 .icon-game-message {
   width: 35px;
   height: 40px;
-  left: 181px;
-  top: 5px;
 }
 
 .icon-game-reload {
   width: 35px;
   height: 30px;
-  left: 82px;
-  top: 10px;
 }
 
 .icon-game-back {
   width: 35px;
   height: 30px;
-  left: 457px;
-  top: 10px;
 }
 
 .icon-is-tracking-mode {
-  position: absolute;
   opacity: 0.75;
-  transition: opacity 0.3s;
-  transition: transform 0.2s;
+  transition: opacity 0.3s, transform 0.2s;
   font-size: 39px;
   font-weight: 900;
-  left: 368px;
-  top: -1px;
   color: var(--textColorHeadline);
   cursor: pointer;
+  margin: -4px 0 0 0;
 }
 
 .icon-is-tracking-mode:hover {
-  opacity: 0.5;
+  opacity: 1;
+  text-shadow: 0 0 12px var(--color-hunter, #00f0ff);
 }
 
 .icon-is-tracking-mode:active {
   transform: scale(0.85);
+  opacity: 0.6;
 }
 
 #game-scrolling-info-text-container {
@@ -395,16 +358,22 @@ body, html {
   max-width: 450px;
   overflow: hidden;
   white-space: nowrap;
-  left: 56px;
+  left: 50px;
   min-width: 500px;
 }
 
 #game-scrolling-info-text {
   position: relative;
-  animation: moveTicker 20s linear infinite;
   font-size: 19px;
   top: 0px;
   opacity: 0.8;
+}
+
+#game-scrolling-info-text .ticker-cursor {
+  display: inline;
+  margin-left: 2px;
+  animation: ticker-cursor 0.7s step-end infinite;
+  color: var(--color-hunter, #00f0ff);
 }
 
 #map p {
@@ -415,12 +384,14 @@ body, html {
 #game-message-layer {
   position: absolute;
   top: 60px;
-  width: 575px;
+  width: 569px;
   height: calc(100vh - 220px);
   background-color: var(--backgroundColorContent);
   z-index: 4000;
   border-radius: 10px;
-  left: calc(50% - 287px);
+  left: calc(50% - 288px);
+  border-left: 4px solid var(--backgroundColorPrimary);
+  border-right: 4px solid var(--backgroundColorPrimary);
 }
 
 #game-message-content {
@@ -456,13 +427,20 @@ body, html {
   pointer-events: none;
 }
 
+.game-menu-bottom-message-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .icon-new-message {
-  position: absolute;
   pointer-events: none;
   width: 19px;
   height: 19px;
-  left: 173px;
-  top: 5px;
+  position: absolute;
+  top: 0px;
+  right: -8px;
   z-index: 6000;
 }
 
@@ -550,16 +528,18 @@ body, html {
   position: fixed;
   top: 58px;
   background-color: var(--backgroundColorContent);
-  width: 560px;
+  width: 552px;
   height: 200px;
   padding: 10px;
   padding-left: 0px;
   padding-right: 0px;
   overflow: hidden;
   z-index: 5000;
-  margin-left: 11px;
+  margin-left: 10px;
   border-radius: 10px;
   padding: 10px;
+  border-left: 4px solid var(--backgroundColorDanger);
+  border-right: 4px solid var(--backgroundColorDanger);
 }
 
 #game-capture-ok-button {
@@ -579,16 +559,18 @@ body, html {
   position: fixed;
   top: 58px;
   background-color: var(--backgroundColorContent);
-  width: 560px;
+  width: 552px;
   height: 200px;
   padding: 10px;
   padding-left: 0px;
   padding-right: 0px;
   overflow: hidden;
   z-index: 5000;
-  margin-left: 11px;
+  margin-left: 10px;
   border-radius: 10px;
   padding: 10px;
+  border-left: 4px solid var(--backgroundColorWarning);
+  border-right: 4px solid var(--backgroundColorWarning);
 }
 
 #game-system-message-container .game-system-message {
@@ -633,6 +615,7 @@ body, html {
   z-index: 5000;
   width: 550px;
   left: calc(50% - 290px);
+  box-shadow: 0 -2px 12px var(--boxShadowColor);
 }
 
 .replay-timeline-row {
@@ -705,3 +688,10 @@ body, html {
   gap: 8px;
 }
 
+#icon-game-state-stop {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+}

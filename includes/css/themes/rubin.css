@@ -4,6 +4,7 @@
   --backgroundColorContentContainer: rgba(255, 255, 255, 0.1);
   --backgroundColorContentAlternate: rgb(256,256,256,0.1);
   --backgroundColorMyOwnMessage: #009900;
+  --backgroundColorStripe: rgba(255, 61, 129, 0.7);
 
   --pulseColorContainerDark: rgba(255, 61, 129, 0.4);
   --pulseColorContainerBright: rgba(255, 61, 129, 0.1);
@@ -20,14 +21,14 @@
   --borderColorWarning: #d58512;
   --borderColorDanger: #d43f3a;;
 
-  --borderColorInput: #ccc;
-  --backgroundColorInput: #fff;
+  --borderColorInput: rgba(255, 61, 129, 0.35);
+  --backgroundColorInput: #1a0608;
 
   --textColorContent: rgb(226, 232, 240);
   --textColorHeadline: rgb(238, 238, 238);
   --textColorLink: rgb(238, 238, 238);
 
-  --colorInput: #555;
+  --colorInput: rgb(226, 232, 240);
   --fontSizeForms: 14px;
 
   --cardHeadlineColor: rgba(255, 255, 255, 0.4);

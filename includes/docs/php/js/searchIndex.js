@@ -691,16 +691,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Gameplay.html#property_endTimestamp"
         },                {
-            "fqsen": "\\Gameplay\u003A\u003A\u0024generateTestData",
-            "name": "generateTestData",
-            "summary": "",
-            "url": "classes/Gameplay.html#property_generateTestData"
-        },                {
-            "fqsen": "\\Gameplay\u003A\u003A\u0024testDataSource",
-            "name": "testDataSource",
-            "summary": "",
-            "url": "classes/Gameplay.html#property_testDataSource"
-        },                {
             "fqsen": "\\Gameplay\u003A\u003A\u0024timeTolerance",
             "name": "timeTolerance",
             "summary": "",

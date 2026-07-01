@@ -279,6 +279,42 @@ button:active {
 
 }
 
+#game-system-message-container::before,
+#game-capture-container::before,
+#game-message-layer::before,
+.game-permission-pedometer::before,
+.card::before,
+.content-container::before,
+.replay-panel::before,
+.game-menu-top::before {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--backgroundColorStripe), transparent);
+  opacity: 0.4;
+}
+
+#game-system-message-container::after,
+#game-capture-container::after,
+#game-message-layer::after,
+.game-permission-pedometer::after,
+.card::after,
+.content-container::after,
+.replay-panel::after,
+.game-menu-bottom::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--backgroundColorStripe), transparent);
+  opacity: 0.4;
+}
+
 .card td {
   padding-top: 1px;
   padding-bottom: 1px;
@@ -304,6 +340,7 @@ button:active {
 }
 
 .card {
+  position: relative;
   background-color: var(--backgroundColorContentContainer);
   border: 1px solid var(--borderColor);
   border-radius: 6px;
@@ -383,6 +420,7 @@ button:active {
   margin-bottom: 10px;
   border: 1px solid var(--borderColor);
   box-shadow: 0 4px 12px var(--boxShadowColor);
+  position: relative;
 }
 
 body .content-container.first-child {

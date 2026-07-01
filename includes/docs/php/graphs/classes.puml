@@ -114,8 +114,6 @@ class Gameplay {
   +isRunning
   +startTimestamp
   +endTimestamp
-  +generateTestData
-  +testDataSource
   +timeTolerance
   +__construct()
   +init()

@@ -27,10 +27,12 @@
 <div class="game-menu-bottom">
   <img class="pointer icon-game-reload icons-gamplay-menu-bottom" src="includes/images/icon-reload.png" alt="Seite neu laden" onclick="javascript: window.location.reload();" />
   <img id="event-game-images-upload-button" class="pointer icon-game-camera icons-gamplay-menu-bottom" src="includes/images/icon-camera.png" alt="Bild speichern" />
-  <img id="menu-bottom-messages-button" class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" />
-  <img class="icon-new-message hidden" src="includes/images/icon-new-message.png" alt="Neue Nachricht" />
-  <img class="pointer icon-game-back icons-gamplay-menu-bottom" src="includes/images/icon-back.png" alt="Zurück zum Profil" onclick="javascript: history.back();" />
+  <div class="game-menu-bottom-message-wrapper">
+    <img id="menu-bottom-messages-button" class="pointer icon-game-message icons-gamplay-menu-bottom" src="includes/images/icon-message.png" alt="Messages" />
+    <img class="icon-new-message hidden" src="includes/images/icon-new-message.png" alt="Neue Nachricht" />
+  </div>
   <p id="icon-is-tracking-mode" class="icon-is-tracking-mode">⨁</p>
+  <img class="pointer icon-game-back icons-gamplay-menu-bottom" src="includes/images/icon-back.png" alt="Zurück zum Profil" onclick="javascript: history.back();" />
   <input id="game-images-upload" type="file" name="pictures[]" />
 </div>
 

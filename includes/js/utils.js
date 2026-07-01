@@ -195,6 +195,29 @@ class Utils {
   }
 
 /**
+ * This static method shows an overlay element by removing the hidden class
+ * and adding a fade-in animation.
+ *
+ * @public
+ *
+ * @param     {HTMLElement}  element   The overlay DOM element to show
+ * @return    {void}
+ *
+ * @example   Utils.showOverlay( document.querySelector( '#game-capture-container' ) );
+ *
+ */
+  static showOverlay( element ) {
+    if( element == null ) return;
+
+    element.classList.remove( 'hidden' );
+    element.classList.remove( 'overlay-enter' );
+    void element.offsetWidth;
+    element.classList.add( 'overlay-enter' );
+
+    return;
+  }
+
+/**
  * This static method closes the full screen view layer.
  *
  * @public

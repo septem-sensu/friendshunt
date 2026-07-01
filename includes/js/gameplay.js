@@ -80,6 +80,8 @@ class Gameplay extends Game {
     this.systemMessagesDontShow = {};
     this.replayData             = null;
     this.registeredEventHandler = {};
+    this.typewriterTimer        = null;
+    this.typewriterWords        = [];
 
     this.init();
 
@@ -149,13 +151,13 @@ class Gameplay extends Game {
 
     if( this.timestampNow() < this.gameSettings.start ) {
       this.state        = 0;
-      this.stateMessage = 'Das Spiel Startet am ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr. ';
+      this.stateMessage = 'Das Spiel Startet am ' + Utils.timestampPhpToString( this.gameSettings.start ) + ' Uhr.';
     } else if( this.timestampNow() > this.gameSettings.end ) {
       this.state        = 3;
-      this.stateMessage = 'Das Spiel ist beendet. ';
+      this.stateMessage = 'Das Spiel ist beendet.';
     } else {
       this.state        = 1;
-      this.stateMessage = 'Das Spiel ist läuft. ';
+      this.stateMessage = 'Das Spiel ist läuft.';
     }
 
     if( this.isRunning ) {
@@ -176,7 +178,7 @@ class Gameplay extends Game {
 
         if( this.gameplayState.capturedPlayer.length >= this.gameSettings.playerIds.length ) {
           this.state        = 2;
-          this.stateMessage = 'Alle Spieler wurden gefangen. Die Jäger haben das Spiel gewonnen. Das Spiel ist beendet. ';
+          this.stateMessage = 'Die Jäger haben das Spiel gewonnen. Spiel ist beendet.';
           this.isRunning    = false;
         }
       }
@@ -184,24 +186,24 @@ class Gameplay extends Game {
       // Silent Hunt
       if( this.gameplayState.nextSilentHunt ) {
         if( this.gameplayState.nextSilentHunt >= this.gameSettings.end ) {
-          this.silentHuntMessage = 'Es gibt keinen Silent Hunt vor Spielende mehr. ';
+          this.silentHuntMessage = 'Kein Silent Hunt vor Spielende.';
         } else {
-          this.silentHuntMessage = 'Der nächste Silent Hunt ist am ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr. ';
+          this.silentHuntMessage = 'Nächster Silent Hunt: ' + Utils.timestampPhpToString( this.gameplayState.nextSilentHunt ) + ' Uhr.';
         }
       }
 
       // Speed Hunt
       if( this.gameplayState.speedHuntState ) {
         if( this.gameplayState.speedHuntState.speedHuntCount > 0 ) {
-          this.speedHuntMessage = 'Es läuft ein Speedhunt, Ping ' + this.gameplayState.speedHuntState.speedHuntCount + ' von ' + this.gameplayState.speedHuntState.speedHuntCountMax + '. ';
+          this.speedHuntMessage = 'Speedhunt läuft: Ping ' + this.gameplayState.speedHuntState.speedHuntCount + ' von ' + this.gameplayState.speedHuntState.speedHuntCountMax + '.';
           this.speedHuntPlayerIds.push( this.gameplayState.speedHuntState.playerId );
           this.affectedPlayerIds.push( this.gameplayState.speedHuntState.playerId );
         } else if( typeof this.gameplayState.speedHuntState.next === 'undefined' ) {
-          this.speedHuntMessage = 'Speedhunt ist verfügbar. ';
+          this.speedHuntMessage = 'Speed Hunt ist verfügbar.';
         } else if( this.gameplayState.speedHuntState.next > this.gameSettings.end ) {
-          this.speedHuntMessage = 'Es gibt keinen Speed Hunt vor Spielende mehr. ';
+          this.speedHuntMessage = 'Kein Speed Hunt vor Spielende.';
         } else {
-          this.speedHuntMessage = 'Der nächste Speedhunt ist am ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar. ';
+          this.speedHuntMessage = 'Nächster Speed Hunt: ' + Utils.timestampPhpToString( this.gameplayState.speedHuntState.next )  + ' Uhr verfügbar.';
         }
       }
 
@@ -544,7 +546,7 @@ class Gameplay extends Game {
       captureLayerInner.append( newHunterDiv );
     }
 
-    captureLayer.classList.remove( 'hidden' );
+    Utils.showOverlay( captureLayer );
     captureLayer.style.height = ( window.innerHeight - 137 ) + 'px';
 
     return;
@@ -610,7 +612,7 @@ class Gameplay extends Game {
 
     if( this.replayData && replayPanel ) replayPanel.classList.add( 'hidden' );
 
-    systemMessageLayer.classList.remove( 'hidden' );
+    Utils.showOverlay( systemMessageLayer );
 
     systemMessageLayer.style.height = ( window.innerHeight - 137 ) + 'px';
 
@@ -671,25 +673,112 @@ class Gameplay extends Game {
   setStateLine() {
     let stateLine = '';
 
+    this.typewriterWords = [];
+
     if( this.isRunning ) {
       if( this.gameplayState.speedHuntState.speedHuntCount > 0 &&  this.gameplayRole !== 'hunter' ) {
-        stateLine += '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">' + this.speedHuntMessage + '</span> ';
+        this.typewriterWords.push( '<span class="danger-text bold">ACHTUNG: </span><span class="danger-text">' + this.speedHuntMessage + '</span> ' );
       } else {
-        stateLine += this.speedHuntMessage;
+        this.typewriterWords.push( this.speedHuntMessage );
       }
 
-      stateLine += this.silentHuntMessage;
+      this.typewriterWords.push( this.silentHuntMessage );
 
       document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-play.png';
       document.querySelector( '#game-state-icon-container' ).setAttribute( 'onclick', 'javascript: window[ appAlias ].objects.gameplay.checkSystemMessages();' );
     } else {
-      stateLine += this.stateMessage;
+      this.typewriterWords.push( this.stateMessage );
 
       document.querySelector( '#icon-game-state-stop' ).src = 'includes/images/icon-stop.png';
       document.querySelector( '#game-state-icon-container' ).removeAttribute( 'onclick' );
     }
 
-    document.querySelector( '#game-scrolling-info-text' ).innerHTML = stateLine;
+    this.typewriter( 0 );
+
+    return;
+  }
+
+/**
+ * This method displays the status line as a typewriter ticker.
+ * HTML tags can be pushed to the typewriterWords array.
+ * HTML tags are inserted as a whole, plain characters appear one by one
+ * with a blinking cursor at the end.
+ *
+ * @public
+ *
+ * @param     {number}   wordsIndex   The index of the typewriterWords array where the ticker should start
+ * @return    {void}
+ *
+ * @example   this.typewriterWords.push( 'Tiking Text' );
+ *            gameplay.typewriter( 0 );
+ *
+ */
+  typewriter( wordsIndex ) {
+    if( this.typewriterWords.length == 0 ) return;
+    if( wordsIndex > this.typewriterWords.length - 1 ) wordsIndex = 0;
+    if( this.typewriterTimer != null ) clearInterval( this.typewriterTimer );
+
+    const element = document.querySelector( '#game-scrolling-info-text' );
+    const tokens  = [];
+    let inTag     = false;
+    let token     = '';
+
+    for( let i = 0; i < this.typewriterWords[ wordsIndex ].length; i++ ) {
+      if( this.typewriterWords[ wordsIndex ][ i ] === '<' ) {
+        if( token ) tokens.push( { type: 'char', value: token } );
+        token = '<';
+        inTag = true;
+      } else if( this.typewriterWords[ wordsIndex ][ i ] === '>' && inTag ) {
+        token += '>';
+        tokens.push( { type: 'tag', value: token } );
+        token = '';
+        inTag = false;
+      } else {
+        token += this.typewriterWords[ wordsIndex ][ i ];
+      }
+    }
+
+    if( token ) tokens.push( { type: 'char', value: token } );
+
+    let index         = 0;
+    let output        = '';
+    const cursor      = '<span class="ticker-cursor">_</span>';
+
+    element.innerHTML = cursor;
+
+    this.typewriterTimer = setInterval( () => {
+      if( index >= tokens.length ) {
+        clearInterval( this.typewriterTimer );
+        this.typewriterTimer = null;
+
+        setTimeout( () => {
+          wordsIndex++;
+          this.typewriter( wordsIndex );
+
+          return;
+        }, 2000 );
+
+        return;
+      }
+
+      const t = tokens[ index ];
+
+      if( t.type === 'tag' ) {
+        output += t.value;
+        index++;
+        const next = index < tokens.length ? tokens[ index ] : null;
+        if( next && next.type === 'char' && next.value.length === 1 ) {
+          output += next.value;
+          index++;
+        }
+      } else {
+        output += t.value.charAt( 0 );
+        if( t.value.length > 1 ) tokens[ index ] = { type: 'char', value: t.value.slice( 1 ) };
+        else index++;
+      }
+
+      element.innerHTML = output + cursor;
+    }, 60 );
 
     return;
   }
@@ -822,7 +911,7 @@ class Gameplay extends Game {
     const replayPanel      = document.querySelector( '.replay-panel' );
 
     if( messageLayer.classList.contains( 'hidden' ) ) {
-      messageLayer.classList.remove( 'hidden' );
+      Utils.showOverlay( messageLayer );
       document.querySelector( '.icon-new-message' ).classList.add( 'hidden' );
       messageContainer.scrollTo( { 'top': messageContainer.scrollHeight, 'behavior': 'smooth' } );
 
@@ -1086,7 +1175,7 @@ class Gameplay extends Game {
 
     if( systemMessageLayer != null && ! systemMessageLayer.classList.contains( 'hidden' ) ) return;
 
-    document.querySelector( '.replay-panel' ).classList.remove( 'hidden' );
+    Utils.showOverlay( document.querySelector( '.replay-panel' ) );
 
     return;
   }

@@ -19,10 +19,9 @@
 body .hidden { display: none; }
 
 .pointer { cursor: pointer; }
+.crosshair { cursor: crosshair !important; }
 
 .relative { position: relative; }
 .absolute { position: absolute; }
 
-.overflow-hidden {
-  overflow: hidden;
-}
+.overflow-hidden { overflow: hidden; }

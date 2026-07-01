@@ -63,6 +63,11 @@ input[type="password"] {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+textarea::placeholder,
+input::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
 input[type="number"],
 input[type="datetime-local"] {
   text-align: right;
