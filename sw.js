@@ -1,4 +1,6 @@
 const CACHE_NAME = 'friendshunt-v0.1.0.30';
+const TILE_CACHE_NAME = 'friendshunt-tiles-v1';
+const TILE_MAX_AGE_MS = 2 * 60 * 60 * 1000; // 2 hours
 
 const STATIC_ASSETS = [
   './includes/css/themes/default.css',
@@ -49,6 +51,29 @@ const STATIC_ASSETS = [
   './includes/images/favicons/friendshunt-app-icon-16x16.png'
 ];
 
+// Tile-URLs recognize (OpenStreetMap, OpenTopoMap etc.)
+const TILE_HOSTS = [ 'tile.openstreetmap.org', 'tile.opentopomap.org' ];
+
+function isTileRequest( url ) {
+  return TILE_HOSTS.some( ( host ) => url.hostname === host );
+}
+
+// Remove expired tiles from the tile cache
+function cleanExpiredTiles( cache ) {
+  const now = Date.now();
+  return cache.keys().then( ( keys ) =>
+    Promise.all(
+      keys.map( ( key ) =>
+        cache.match( key ).then( ( response ) => {
+          const dateHeader = response.headers.get( 'sw-cached-at' );
+          if( dateHeader && ( now - parseInt( dateHeader, 10 ) ) > TILE_MAX_AGE_MS ) {
+            return cache.delete( key );
+          }
+        } )
+      )
+    )
+  );
+}
 // INSTALL: Precaching static assets, not PHP endpoints
 self.addEventListener( 'install', ( event ) => {
   event.waitUntil(
@@ -63,9 +88,13 @@ self.addEventListener( 'activate', ( event ) => {
   event.waitUntil(
     caches.keys().then( ( names ) =>
       Promise.all(
-        names.filter( ( name ) => name !== CACHE_NAME ).map( ( name ) => caches.delete( name ) )
+        names
+          .filter( ( name ) => name !== CACHE_NAME && name !== TILE_CACHE_NAME )
+          .map( ( name ) => caches.delete( name ) )
       )
-    ).then( () => self.clients.claim() )
+    )
+    .then( () => caches.open( TILE_CACHE_NAME ).then( cleanExpiredTiles ) )
+    .then( () => self.clients.claim() )
   );
 });
 
@@ -99,6 +128,31 @@ self.addEventListener( 'fetch', ( event ) => {
             )
           )
         )
+    );
+    return;
+  }
+
+  // Map tiles: Stale-While-Revalidate with a 2 hour process
+  if( isTileRequest( url ) ) {
+    event.respondWith(
+      caches.open( TILE_CACHE_NAME ).then( ( cache ) =>
+        cache.match( request ).then( ( cached ) => {
+          // Update in the background (Revalidate)
+          const revalidate = fetch( request ).then( ( response ) => {
+            if( response.ok ) {
+              const headers = new Headers( response.headers );
+              headers.set( 'sw-cached-at', Date.now().toString() );
+              const stamped = new Response( response.body, { status: response.status, statusText: response.statusText, headers } );
+              cache.put( request, stamped );
+            }
+            return response;
+          } ).catch( () => {} ); // Ignore network errors, cache is enough
+
+          // Return the cached tile immediately, otherwise wait for the network
+          if( cached ) return cached;
+          return revalidate;
+        } )
+      )
     );
     return;
   }

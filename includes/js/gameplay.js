@@ -536,7 +536,7 @@ class Gameplay extends Game {
       const newHunterDiv     = document.createElement( 'div' );
       let hunterContent      = '';
       hunterContent         += '<div class="content-container">';
-      hunterContent         += '<p class="align-left"><input type="checkbox" name="hunterId" value="' + hunter[ i ].id + '" /> ' + hunter[ i ].id + '</p>';
+      hunterContent         += '<p class="align-left"><input type="checkbox" name="hunterId" value="' + hunter[ i ].id + '" /> ' + hunter[ i ].name + '</p>';
       hunterContent         += '</div>';
 
       newHunterDiv.innerHTML = hunterContent;
