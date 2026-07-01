@@ -158,6 +158,7 @@ body .leaflet-interactive {
   display: flex;
   align-items: center;
   gap: 8px;
+  box-shadow: 0 2px 12px var(--boxShadowColor);
   animation: tactical-rec-blink 1s infinite alternate ease-in-out;
   opacity: 0.8;
 }
@@ -206,6 +207,7 @@ body .leaflet-interactive {
   padding-right: 20px;
   padding-top: 35px;
   padding-bottom: 10px;
+  box-shadow: 0 2px 12px var(--boxShadowColor);
   border-left: 4px solid var(--backgroundColorInfo);
   border-right: 4px solid var(--backgroundColorInfo);
 }
@@ -384,12 +386,13 @@ body .leaflet-interactive {
 #game-message-layer {
   position: absolute;
   top: 60px;
-  width: 569px;
+  width: 571px;
   height: calc(100vh - 220px);
   background-color: var(--backgroundColorContent);
   z-index: 4000;
   border-radius: 10px;
-  left: calc(50% - 288px);
+  left: calc(50% - 290px);
+  box-shadow: 0 2px 12px var(--boxShadowColor);
   border-left: 4px solid var(--backgroundColorPrimary);
   border-right: 4px solid var(--backgroundColorPrimary);
 }
@@ -538,6 +541,7 @@ body .leaflet-interactive {
   margin-left: 10px;
   border-radius: 10px;
   padding: 10px;
+  box-shadow: 0 2px 12px var(--boxShadowColor);
   border-left: 4px solid var(--backgroundColorDanger);
   border-right: 4px solid var(--backgroundColorDanger);
 }
@@ -569,6 +573,7 @@ body .leaflet-interactive {
   margin-left: 10px;
   border-radius: 10px;
   padding: 10px;
+  box-shadow: 0 2px 12px var(--boxShadowColor);
   border-left: 4px solid var(--backgroundColorWarning);
   border-right: 4px solid var(--backgroundColorWarning);
 }

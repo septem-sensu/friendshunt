@@ -279,6 +279,10 @@ button:active {
 
 }
 
+.first-child::before {
+  background: none !important;
+}
+
 #game-system-message-container::before,
 #game-capture-container::before,
 #game-message-layer::before,
@@ -286,10 +290,10 @@ button:active {
 .card::before,
 .content-container::before,
 .replay-panel::before,
-.game-menu-top::before {
+.game-menu-bottom::before {
   content: "";
   position: absolute;
-  bottom: 2px;
+  top: 2px;
   left: 10%;
   right: 10%;
   height: 2px;
@@ -304,10 +308,10 @@ button:active {
 .card::after,
 .content-container::after,
 .replay-panel::after,
-.game-menu-bottom::after {
+.game-menu-top::after {
   content: "";
   position: absolute;
-  top: 2px;
+  bottom: 2px;
   left: 10%;
   right: 10%;
   height: 2px;
