@@ -25,16 +25,16 @@
 
 <table>
   <tr>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-setup-550x1024.png" alt="Friends-Hunt App - Setup Ansicht"  width="230" title="Friends-Hunt App - Setup Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-gameplay-550x1024.png" alt="Friends-Hunt App - Gameplay Ansicht"  width="230" title="Friends-Hunt App - Gameplay Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-dashboard-550x1024.png" alt="Friends-Hunt App - Game Dashboard Ansicht"  width="230" title="Friends-Hunt App - Game Dashboard Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-messages-550x1024.png" alt="Friends-Hunt App - Messages Ansicht"  width="230" title="Friends-Hunt App - Messages Ansicht" /></td>
+    <td align="center"><p>Setup Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-setup-550x1024.png" alt="Friends-Hunt App - Setup Ansicht"  width="230" title="Friends-Hunt App - Setup Ansicht" /></td>
+    <td align="center"><p>Gameplay Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-gameplay-550x1024.png" alt="Friends-Hunt App - Gameplay Ansicht"  width="230" title="Friends-Hunt App - Gameplay Ansicht" /></td>
+    <td align="center"><p>Game Dashboard Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-dashboard-550x1024.png" alt="Friends-Hunt App - Game Dashboard Ansicht"  width="230" title="Friends-Hunt App - Game Dashboard Ansicht" /></td>
+    <td align="center"><p>Messages Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-messages-550x1024.png" alt="Friends-Hunt App - Messages Ansicht"  width="230" title="Friends-Hunt App - Messages Ansicht" /></td>
   </tr>
   <tr>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-my-account-550x1024.png" alt="Friends-Hunt App - My Account Ansicht"  width="230" title="Friends-Hunt App - My Account Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-system-messages-550x1024.png" alt="Friends-Hunt App - System Messages Ansicht"  width="230" title="Friends-Hunt App - System Messages Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-replay-player-550x1024.png" alt="Friends-Hunt App - Replay Player Ansicht"  width="230" title="Friends-Hunt App - Replay Player Ansicht" /></td>
-    <td><img src="includes/images/screenshots/screenshot-friends-hunt-themes-550x1024.png" alt="Friends-Hunt App - Themes Ansicht"  width="230" title="Friends-Hunt App - Themes Ansicht" /></td>
+    <td align="center"><p>My Account Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-my-account-550x1024.png" alt="Friends-Hunt App - My Account Ansicht"  width="230" title="Friends-Hunt App - My Account Ansicht" /></td>
+    <td align="center"><p>System Messages Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-system-messages-550x1024.png" alt="Friends-Hunt App - System Messages Ansicht"  width="230" title="Friends-Hunt App - System Messages Ansicht" /></td>
+    <td align="center"><p>Replay Player Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-replay-player-550x1024.png" alt="Friends-Hunt App - Replay Player Ansicht"  width="230" title="Friends-Hunt App - Replay Player Ansicht" /></td>
+    <td align="center"><p>Themes Ansicht</p><img src="includes/images/screenshots/screenshot-friends-hunt-themes-550x1024.png" alt="Friends-Hunt App - Themes Ansicht"  width="230" title="Friends-Hunt App - Themes Ansicht" /></td>
   </tr>
 </table>
 
@@ -66,7 +66,7 @@ Ein oder mehrere **Spieler (Gejagte)** versuchen, sich in einem definierten Gebi
 
 ## 🚀 Installation & Setup
 
-1. Klicke auf GitHub auf **Code -> Download ZIP** oder klone das Repository:
+1. Klicke in GitHub auf **Code -> Download ZIP** oder klone das Repository:
    ```bash
    git clone https://github.com/septem-sensu/friendshunt.git
    ```
