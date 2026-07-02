@@ -1,4 +1,4 @@
-const CACHE_NAME      = 'friendshunt-v0.1.0.42';
+const CACHE_NAME      = 'friendshunt-v0.1.0.44';
 const TILE_CACHE_NAME = 'friendshunt-tiles-v1';
 const TILE_MAX_AGE_MS = 2 * 60 * 60 * 1000; // 2 hours
 
@@ -48,7 +48,16 @@ const STATIC_ASSETS = [
   './includes/images/favicons/friendshunt-app-icon-192x192.png',
   './includes/images/favicons/friendshunt-app-icon-180x180.png',
   './includes/images/favicons/friendshunt-app-icon-32x32.png',
-  './includes/images/favicons/friendshunt-app-icon-16x16.png'
+  './includes/images/favicons/friendshunt-app-icon-16x16.png',
+
+  './includes/images/screenshots/screenshot-friends-hunt-setup-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-gameplay-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-dashboard-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-messages-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-my-account-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-system-messages-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-replay-player-550x1024.png',
+  './includes/images/screenshots/screenshot-friends-hunt-themes-550x1024.png'
 ];
 
 // Tile-URLs recognize (OpenStreetMap, OpenTopoMap etc.)
