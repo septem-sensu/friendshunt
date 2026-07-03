@@ -256,6 +256,30 @@ class Player extends BaseObject {
       } );
     }
 
+    const gameTitleSuggest = document.querySelectorAll( '.suggest-game-title' );
+
+    for( let i = 0; i < gameTitleSuggest.length; i++ ) {
+      gameTitleSuggest[ i ].value = window[ appAlias ].objects.titles.game[ Math.floor( Math.random() * window[ appAlias ].objects.titles.game.length - 1 ) ];
+
+      gameTitleSuggest[ i ].addEventListener( 'keyup', ( event ) => {
+        if( event.target.value === '?' ) event.target.value = window[ appAlias ].objects.titles.game[ Math.floor( Math.random() * window[ appAlias ].objects.titles.game.length - 1 ) ];
+
+        return;
+      } );
+    }
+
+    const playerTitleSuggest = document.querySelectorAll( '.suggest-player-title' );
+
+    for( let i = 0; i < playerTitleSuggest.length; i++ ) {
+      if( playerTitleSuggest[ i ].value === "" ) playerTitleSuggest[ i ].value = window[ appAlias ].objects.titles.player[ Math.floor( Math.random() * window[ appAlias ].objects.titles.player.length - 1 ) ];
+
+      playerTitleSuggest[ i ].addEventListener( 'keyup', ( event ) => {
+        if( event.target.value === '?' ) event.target.value = window[ appAlias ].objects.titles.player[ Math.floor( Math.random() * window[ appAlias ].objects.titles.player.length - 1 ) ];
+
+        return;
+      } );
+    }
+
     return;
   }
 

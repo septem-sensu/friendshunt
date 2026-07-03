@@ -83,6 +83,7 @@ function cleanExpiredTiles( cache ) {
     )
   );
 }
+
 // INSTALL: Precaching static assets, not PHP endpoints
 self.addEventListener( 'install', ( event ) => {
   event.waitUntil(

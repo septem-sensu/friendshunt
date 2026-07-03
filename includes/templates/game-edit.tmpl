@@ -20,7 +20,7 @@
     <label class="minw-200" for="name">Name des Spiels*</label>
     <input autocomplete="name" class="mb-10 mt-5 w-350" type="text" name="name" id="name" placeholder="Eingabe Name des Spiels" value="{{Game::name}}" />
     <label class="minw-200" for="title">Titel des Spiels*</label>
-    <input autocomplete="title" class="mb-10 mt-5 w-350" type="text" name="title" id="title" placeholder="Eingabe Titel des Spiels" value="{{Game::title}}" />
+    <input autocomplete="title" class="mb-10 mt-5 w-350 suggest-game-title" title="? für einen Titel Vorschlag" type="text" name="title" id="title" placeholder="Eingabe Titel des Spiels" value="{{Game::title}}" />
     <label class="minw-200" for="description">Beschreibung</label>
     <input autocomplete="description" class="mb-10 mt-5 w-350" type="text" name="description" id="description" placeholder="Eingabe Beschreibung" value="{{Game::description}}" />
   </div>
@@ -51,15 +51,15 @@
     <label class="minw-200" for="start">Start des Spiels*</label>
     <input class="mb-10 mt-5 w-350" autocomplete="off" type="datetime-local" name="start" id="start" placeholder="Eingabe Start des Spiels" value="{{Game::start}}" />
     <label class="minw-200" for="duration">Dauer des Spiels*</label>
-    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="duration" id="duration" placeholder="Eingabe Spieldauer in Stunden" value="{{Game::duration}}" />
+    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="duration" id="duration" value="10" placeholder="Eingabe Spieldauer in Stunden" value="{{Game::duration}}" />
     <label class="minw-200" for="trackInterval">Tracking Intervall*</label>
-    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="trackInterval" id="trackInterval" placeholder="Eingabe Tracking Intervall in Sekunden" value="{{Game::trackInterval}}" />
+    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="trackInterval" id="trackInterval" value="60" placeholder="Eingabe Tracking Intervall in Sekunden" value="{{Game::trackInterval}}" />
     <label class="minw-200" for="pingInterval">Silent Hunt Intervall*</label>
-    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="pingInterval" id="pingInterval" placeholder="Eingabe Silent Hunt Interv. in Minuten" value="{{Game::pingInterval}}" />
+    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="pingInterval" id="pingInterval" value="60" placeholder="Eingabe Silent Hunt Interv. in Minuten" value="{{Game::pingInterval}}" />
     <label class="minw-200" for="speedPingInterval">Speed Hunt Intervall*</label>
-    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="speedPingInterval" id="speedPingInterval" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" />
+    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="speedPingInterval" id="speedPingInterval" value="120" placeholder="Eingabe Speed Hunt Interv. in Minuten" value="{{Game::speedPingInterval}}" />
     <label class="minw-200" for="speedPingCount">Anzahl Speed Hunt Pings*</label>
-    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="speedPingCount" id="speedPingCount" placeholder="Eingabe Speed Hunt Pings Anzahl" value="{{Game::speedPingCount}}" />
+    <input class="mb-10 mt-5 w-350" autocomplete="off" type="number" name="speedPingCount" id="speedPingCount" value="4" placeholder="Eingabe Speed Hunt Pings Anzahl" value="{{Game::speedPingCount}}" />
     <input class="hidden" type="number" name="playingFieldSize" id="playingFieldSize" placeholder="Eingabe Spielfeldgröße in Meter" value="{{Game::playingFieldSize}}" />
     <label class="minw-200" for="playingFieldCenterPosition">Spielfeld Mittelpunkt*</label>
     <input class="pointer disabled mb-10 mt-5 w-350 align-right event-open-map-layer" autocomplete="off" type="text" name="playingFieldCenterPosition" id="playingFieldCenterPosition" placeholder="Klick für den Spielfeld Mittelpunkt" value="{{Game::playingFieldCenterPosition}}" />
@@ -71,20 +71,18 @@
     <label class="minw-200" for="showPlayer">Andere Spiele anzeigen*</label>
     <select class="mb-10 mt-5 w-375 align-right" name="showPlayer" id="showPlayer">
       <option value="{{Game::showPlayer}}">{{Translate::Game::showPlayer}}</option>
-      <option value="1">Ja</option>
+      <option value="1" selected="selected">Ja</option>
       <option value="0">Nein</option>
     </select>
     <label class="minw-200" for="showNames">Spielernamen anzeigen*</label>
     <select class="mb-10 mt-5 w-375 align-right" name="showNames" id="showNames">
-      <option value="{{Game::showNames}}">{{Translate::Game::showNames}}</option>
       <option value="1">Ja</option>
-      <option value="0">Nein</option>
+      <option value="0" selected="selected">Nein</option>
     </select>
     <label class="minw-200" for="sanctionForVehicleUse">Sanktion bei Fahrzeugnutzung (Spieler)*</label>
     <select class="mb-10 mt-5 w-375 align-right" name="sanctionForVehicleUse" id="sanctionForVehicleUse">
-      <option value="{{Game::sanctionForVehicleUse}}">{{Translate::Game::sanctionForVehicleUse}}</option>
       <option value="1">Ja</option>
-      <option value="0">Nein</option>
+      <option value="0" selected="selected">Nein</option>
     </select>
   </div>
   <div id="game-content-container"></div>

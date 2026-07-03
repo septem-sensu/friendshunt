@@ -458,6 +458,7 @@ class Controller {
 
     $this->presentationObject->assignTemplateVar( 'configuration', 'default', null, json_encode( $this->config ) );
     $this->presentationObject->assignTemplateVar( 'fields', 'default', null, json_encode( BaseObject::fields( $this->className ) ) );
+    $this->presentationObject->assignTemplateVar( 'titles', 'default', null, json_encode( BaseObject::loadFileDeCrypted( __DIR__ . '/../json/data/dataTitles.json' ) ) );
     $this->presentationObject->assignTemplateVar( 'view', 'default', null, json_encode( $this->viewObject ) );
     $this->presentationObject->assignTemplateVar( 'class', 'default', null, $this->className );
     $this->presentationObject->assignTemplateVar( 'id', 'default', null, isset( $this->objectId ) ? $this->objectId : '' );
