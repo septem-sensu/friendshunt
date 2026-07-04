@@ -109,6 +109,8 @@ Alle Spieler wissen, dass gerade ein Speed Hunt aktiv ist, **nicht jedoch, welch
 
 Erst nachdem alle verfügbaren Positionsabfragen eines Speed Hunts verbraucht wurden, beginnt die Wartezeit bis zum nächsten Speed Hunt.
 
+---
+
 ## 📕 Regeln
 
 ### Allgemeine Regeln
