@@ -99,8 +99,6 @@ Beim **Silent Hunt** erhalten die Jäger in festgelegten Zeitabständen die zule
 
 Zwischen zwei Silent Hunts kennen die Jäger keine neuen Positionen und müssen anhand der letzten bekannten Informationen versuchen, die Spieler aufzuspüren.
 
----
-
 ### Speed Hunt
 
 Zusätzlich steht den Jägern in festgelegten Zeitabständen ein **Speed Hunt** zur Verfügung.
@@ -110,8 +108,6 @@ Während eines Speed Hunts wählen die Jäger **einen beliebigen Spieler** aus. 
 Alle Spieler wissen, dass gerade ein Speed Hunt aktiv ist, **nicht jedoch, welcher Spieler verfolgt wird**. Dadurch weiß auch der betroffene Spieler nicht, ob gerade seine Position abgefragt wird.
 
 Erst nachdem alle verfügbaren Positionsabfragen eines Speed Hunts verbraucht wurden, beginnt die Wartezeit bis zum nächsten Speed Hunt.
-
----
 
 ## 📕 Regeln
 
