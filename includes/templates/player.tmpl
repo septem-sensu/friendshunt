@@ -23,9 +23,11 @@
         <p>{{Player::title}}</p>
         <p>{{Player::description}}</p>
         <p><button data-link="index.php?view=playerEdit" type="button" class="primary event-link mt-10 w-160">Anpassen</button></p>
+        <p class="pt-0 pb-0"><button type="button" class="success mb-1 mt-3 app-install-button hidden w-160">App installieren</button></p>
         <p class="hidden" id="new-player-button-container"><button data-link="index.php?view=playerNew" type="button" class="info event-link mt-2 w-160">Spieler anlegen</button></p>
         <p class="hidden" id="player-list-button-container"><button data-link="index.php?view=playerList" type="button" class="warning event-link mt-2 w-160">Spielerliste</button></p>
-        <p class="hidden" id="game-archive-button-container"><button data-link="index.php?view=gameArchive" type="button" class="success event-link mt-2 mb-5 w-160">Archiv</button></p>
+        <p class="hidden" id="game-archive-button-container"><button data-link="index.php?view=gameArchive" type="button" class="danger event-link mt-2 mb-5 w-160">Archiv</button></p>
+        <p class="minh-5"></p>
       </td>
       <td class="align-right align-top">
         <img class="c-dashboard-player-image my-account-image" src="includes/files/player/{{Player::email}}/{{Player::image}}?v={{default::timestamp}}" />

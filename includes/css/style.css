@@ -198,11 +198,11 @@ button {
   transition: transform 0.2s;
 }
 
-button:hover {
+button:not(:disabled):hover {
   opacity: 0.85;
 }
 
-button:active {
+button:not(:disabled):active {
   transform: scale(0.95);
 }
 

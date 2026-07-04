@@ -280,6 +280,14 @@ class Player extends BaseObject {
       } );
     }
 
+    window.addEventListener( 'beforeinstallprompt', ( event ) => {
+      event.preventDefault();
+      this.activateInstallAppButton( event );
+
+      return;
+
+    } );
+
     return;
   }
 
@@ -735,6 +743,33 @@ class Player extends BaseObject {
 
       return;
     } );
+
+    return;
+  }
+
+/**
+ * This method activates the app installation buttons when the event is available.
+ *
+ * @public
+ *
+ * @param     {object}   installEvent  The installation event for installing the app
+ * @return    {void}
+ *
+ * @example   player.activateInstallAppButton( installEvent );
+ *
+ */
+  activateInstallAppButton( installEvent ) {
+    const appInstallButtons = document.querySelectorAll( '.app-install-button' );
+
+    for( let i = 0; i < appInstallButtons.length; i++ ) {
+      appInstallButtons[ i ].removeAttribute( 'disabled' );
+      appInstallButtons[ i ].classList.remove( 'hidden' );
+      appInstallButtons[ i ].addEventListener( 'click', ( event ) => {
+        installEvent.prompt();
+
+        return;
+     } );
+    }
 
     return;
   }
