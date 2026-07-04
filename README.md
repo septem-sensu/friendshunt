@@ -229,27 +229,27 @@ index.php → Controller::execute()
 
 ### PHP Klassenstruktur (OOP)
 ```text
-Controller/               # Steuerung der AJAX-Anfragen & Routings
-Presentation/             # UI-Rendering und Template-System
-BaseObject/               # Kern-Objekt mit Basis-Logiken
+Controller/               # Steuerung der AJAX-Anfragen, Routings, Rollen-Management
+Presentation/             # UI-Rendering, Template-Engine, Cookies, Validierung, Logging, CORS
+BaseObject/               # Basis-Logiken, AES-verschlüsselte JSON-Datei-Persistenz, CRUD, GUID
   ├── Player/             # Usermanagement, Rollen, Avatare & Auth
-  └── Game/               # Spielinstanzen & JSON-File-Handling
+  └── Game/               # Spielinstanzen, Spieleinstellungen, Archivierung
         └── Gameplay/     # Geo-Berechnungen, Intervalle & Nachrichtensystem
 ```
 
 ### JavaScript Klassenstruktur (OOP)
 ```text
-Communicator/             # Steuerung der AJAX-Anfragen
-Validator/                # Formularvalidierung
+Communicator/             # AJAX-Queue mit Retry, Offline-Request-Queue, Redirects
+Validator/                # Formularvalidierung, Fehlverwaltung
 BatteryTracker/           # Battery Status API
-GeoMaps/                  # OpenStreetMaps-Integration über Leaflet
-GeoTracker/               # GPS, Schrittzähler, Wake Lock
+GeoMaps/                  # OpenStreetMaps-Integration über Leaflet, Marker, Capture-Highlight-Flyto, Kartenverfolgung
+GeoTracker/               # GPS, Schrittzähler, Wake Lock (iPhone-Hintergrundwechsel berücksichtigt)
 Statistic/                # Dashboard-Statistiken
-ReplayPlayer/             # Spiel-Replay (Timelapse)
+ReplayPlayer/             # Spiel-Replay (Timelapse), inkl. Kartenverfolgung und Regelbrüchen
 Utils/                    # Statitische Hilfs-Methoden (GUID, Timestamps, Audio, Vibration)
 BaseObject/               # Kern-Objekt mit Basis-Logiken
   ├── Player/             # Login, Usermanagement, Rollen, Avatare & Auth
-  └── Game/               # Spielinstanzen
+  └── Game/               # Spielinstanzen, Spiel-Setup, Dashboard, Archiv
         └── Gameplay/     # Laufzeitbetrieb, Intervalle & Nachrichtensystem
 ```
 
@@ -262,6 +262,7 @@ BaseObject/               # Kern-Objekt mit Basis-Logiken
 ### Data Persistence
 - Alle Daten liegen als AES-256-CBC-verschlüsselte JSON-Dateien in `includes/json/data/`
 - `BaseObject` stellt CRUD-Operationen über `loadFileDeCrypted()` / `saveFileEnCrypted()` bereit
+- Uploads in `includes/files/player/` und `includes/files/game/`
 - Runtime-Daten während des Spiels in `includes/files/game/<gameId>/` (Tracking, Messages, Gameplay-Status)
 - Uploads in `includes/files/player/` und `includes/files/game/`
 
@@ -274,6 +275,15 @@ Field-Definitionen in `includes/json/fields/*.json` steuert Formularfeld-Metadat
 - `guest` (nicht authentifiziert), `player` (eingeloggt), `administrator`
 - Cookie-basierte Auth mit AES-verschlüsseltem Token (`playerEmail|||hashedPassword`)
 - Methoden-Zugriffskontrolle in `includes/json/data/dataPermissions.json`
+
+### PWA & Service Worker
+- **Manifest:** includes/json/manifest.json
+- **Service Worker:** registriert unter `scope: /`
+  - Statisches Asset-Caching, Versionierung über `CACHE_NAME` (z. B. `friendshunt-v0.1.0.xx`)
+  - Separater Leaflet-Kachel-Cache (`friendshunt-tiles-v1`) mit 2-Stunden-TTL und Hintergrundaktualisierung
+  - Erkennung von Tile-Hosts: `tile.openstreetmap.org`, `tile.opentopomap.org`
+  - Non-HTTP-Requests (Browser-Extensions etc.) werden robust gefiltert
+- **App Install Button** ist in Betrieb
 
 ### Client Storages
 ```text
