@@ -81,6 +81,119 @@ Ein oder mehrere **Spieler (Gejagte)** versuchen, sich in einem definierten Gebi
 
 ---
 
+## 📃 Konzept
+
+Friends Hunt ist ein Reallife-Geo-Game, das von bekannten YouTube-Verfolgungsformaten inspiriert wurde. Ein oder mehrere **Spieler (Player)** versuchen, sich innerhalb eines vorher festgelegten Spielgebiets möglichst unauffällig zu bewegen und rechtzeitig eine definierte Flucht-Zone zu erreichen.
+
+Die **Jäger (Hunter)** verfolgen die Spieler jedoch nicht in Echtzeit. Stattdessen erhalten sie die Positionen der Spieler nur zu bestimmten Zeitpunkten oder über spezielle Spielmechaniken. Dadurch entsteht ein spannendes Katz-und-Maus-Spiel, bei dem beide Seiten taktisch planen müssen.
+
+Die **Spielleitung (optional)** überwacht das Spielgeschehen, achtet auf die Einhaltung der Regeln und kann – falls gewünscht – durch Hinweise oder Ereignisse für mehr Ausgewogenheit und Spannung sorgen.
+
+Das Spiel endet, sobald **alle Spieler gefangen wurden**. In diesem Fall gewinnen die Jäger.
+
+Erreichen die Spieler das Spielende, ohne dass alle gefangen wurden, gewinnen die Spieler.
+
+### Silent Hunt
+
+Beim **Silent Hunt** erhalten die Jäger in festgelegten Zeitabständen die zuletzt bekannte Position aller Spieler. Ein typisches Intervall wäre beispielsweise **jede volle Stunde**.
+
+Zwischen zwei Silent Hunts kennen die Jäger keine neuen Positionen und müssen anhand der letzten bekannten Informationen versuchen, die Spieler aufzuspüren.
+
+---
+
+### Speed Hunt
+
+Zusätzlich steht den Jägern in festgelegten Zeitabständen ein **Speed Hunt** zur Verfügung.
+
+Während eines Speed Hunts wählen die Jäger **einen beliebigen Spieler** aus. Für diesen Spieler erhalten sie eine begrenzte Anzahl von Positionsabfragen (z. B. **vier Pings**), die sie jederzeit strategisch einsetzen können.
+
+Alle Spieler wissen, dass gerade ein Speed Hunt aktiv ist, **nicht jedoch, welcher Spieler verfolgt wird**. Dadurch weiß auch der betroffene Spieler nicht, ob gerade seine Position abgefragt wird.
+
+Erst nachdem alle verfügbaren Positionsabfragen eines Speed Hunts verbraucht wurden, beginnt die Wartezeit bis zum nächsten Speed Hunt.
+
+---
+
+## 📕 Regeln
+
+### Allgemeine Regeln
+
+- Alle geltenden lokalen und nationalen Gesetze sind jederzeit einzuhalten.
+- Körperliche Gewalt ist untersagt.
+- Jeder Teilnehmer trägt die Verantwortung für sein eigenes Handeln. Mögliche Konsequenzen (z. B. Bußgelder oder strafrechtliche Folgen) sind selbst zu tragen.
+
+### Regeln für die Spieler
+
+- Ein Spieler gilt als **gefangen**, sobald er von einem Jäger berührt wurde.
+- Der gefangene Spieler bestätigt seine Gefangennahme unmittelbar in der Friends-Hunt App.
+- Das festgelegte Spielgebiet darf nicht verlassen werden. Verlässt ein Spieler das Spielgebiet, werden die Jäger und die Spielleitung informiert. Seine Position ist für die Jäger sichtbar, bis er das Spielgebiet wieder betritt.
+- Spieler dürfen sich ausschließlich an öffentlich zugänglichen Orten aufhalten.
+- Längere Aufenthalte in Innenräumen sind nicht erlaubt.
+- Die Friends-Hunt App muss jederzeit Positionsdaten übertragen können.
+- Die Friends-Hunt App muss während des Spiels dauerhaft im Vordergrund laufen.
+- Die Nutzung privater Fahrzeuge ist nicht erlaubt.
+- Die Kommunikation mit anderen Spielern erfolgt ausschließlich über die Friends-Hunt App.
+
+### Optionale Regeln für die Spieler
+
+Je nach Spielkonfiguration können zusätzliche Regeln aktiviert werden:
+
+- Spieler können ihre Mitspieler auf der Karte sehen.
+- Die Nutzung öffentlicher Verkehrsmittel kann erlaubt oder verboten werden. Ist sie verboten und die Friends-Hunt App erkennt eine Nutzung, werden die Jäger informiert und die Position des Spielers wird sichtbar.
+
+### Regeln für die Jäger
+
+- Unbeteiligte Personen dürfen nicht aktiv an der Suche oder am Fangen der Spieler beteiligt werden. Das Nachfragen bei Passanten, ob sie einen Spieler gesehen haben, ist ausdrücklich erlaubt.
+- Jäger dürfen öffentliche und private Verkehrsmittel nutzen.
+- Alle während des Spiels entstehenden Kosten oder Strafen (z. B. Parktickets oder Geschwindigkeitsverstöße) tragen die Jäger selbst.
+- Jäger dürfen ihre Kommunikationsmittel frei wählen.
+- Gefangene Spieler dürfen zu den verbleibenden Spielern befragt werden.
+- Eigenständiges Tracking außerhalb der Friends-Hunt App ist nicht erlaubt.
+- Längere Unterbrechungen der Jagd gelten als Regelverstoß.
+
+### Optionale Regeln für die Jäger
+
+Je nach Spielkonfiguration können die Namen der Spieler auf der Karte angezeigt oder ausgeblendet werden.
+
+---
+
+## 👯 Tipps für ein gelungenes Spiel
+
+Friends Hunt lebt nicht nur von der Jagd, sondern vor allem von den gemeinsamen Erlebnissen. Mit ein paar einfachen Tipps wird aus einer Spielrunde schnell ein unvergesslicher Tag.
+
+### 📍 Wählt ein interessantes Spielgebiet
+
+Ein abwechslungsreiches Gebiet mit Parks, kleinen Gassen, Fußgängerzonen oder Wäldern sorgt für spannende Entscheidungen und kreative Verstecke.
+
+### 👟 Bequeme Schuhe sind Gold wert
+
+Je nach Spielkonfiguration kommen schnell einige Kilometer zusammen. Festes Schuhwerk und wettergerechte Kleidung machen den Tag deutlich angenehmer.
+
+### 🔋 Denkt an euren Akku
+
+Die Friends-Hunt App benötigt während des Spiels GPS. Ein vollständig geladener Akku oder eine kleine Powerbank können den entscheidenden Unterschied machen.
+
+### 💧 Ausreichend trinken
+
+Vor allem an warmen Tagen solltet ihr genügend Wasser dabeihaben. Das Spiel macht deutlich mehr Spaß, wenn niemand wegen Hitze oder Erschöpfung aufgeben muss.
+
+### 🤝 Fair Play macht mehr Spaß
+
+Friends Hunt lebt von spannenden Entscheidungen und überraschenden Wendungen. Haltet euch an die Regeln und gebt auch euren Mitspielern die Chance auf ein faires und spannendes Spiel.
+
+### 🍻 Lasst den Tag gemeinsam ausklingen
+
+Der eigentliche Gewinner eines Spieltages ist oft die gemeinsame Zeit. Trefft euch nach dem Spiel in einem Biergarten, Restaurant oder bei einem gemütlichen Grillabend, schaut euch gemeinsam das Replay an und erinnert euch an die lustigsten Situationen. Oft entstehen dabei die besten Geschichten – und die Diskussion, wer wen eigentlich fast schon gehabt hätte.
+
+### Viel wichtiger als der Sieg...
+
+...sind die gemeinsamen Erinnerungen.
+
+Friendshunt soll Menschen zusammenbringen, für Bewegung sorgen und einen Tag schaffen, an den man sich noch lange erinnert. Ob Spieler oder Hunter am Ende gewinnen, ist oft schon auf dem Heimweg nicht mehr das Gesprächsthema – sondern die verrückten Situationen, die unterwegs entstanden sind.
+
+Also: Spiel starten, Handy einpacken und viel Spaß bei der Jagd!
+
+---
+
 ## ⚙️ Spiel-Konfiguration
 
 Jedes Match lässt sich im Administrationsbereich exakt an das Gelände und die Spieleranzahl anpassen:
