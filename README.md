@@ -3,7 +3,11 @@
 <table>
   <tr>
     <td><br /><img src="includes/images/favicons/friendshunt-app-icon-180x180.png" alt="Friends-Hunt App - Logo Icon" width="150" /><br /><br /></td>
-    <td><b>Friends-Hunt</b> ist eine selbst-hostbare Progressive Web App (PWA) für Reallife-Geo-Games im Stil bekannter YouTube-Formate. Präzise GPS-Wegpunkte und Intervalle machen dein Smartphone zur mobilen Einsatzzentrale.</td>
+    <td>
+      <p><b>Friendshunt ist kein Spiel für das Smartphone.</b></p>
+      <p><b>Es ist ein Spiel für Freunde – das Smartphone sorgt nur dafür, dass es funktioniert.</b></p>
+      <p><b>Friends-Hunt</b> ist eine selbst-hostbare Progressive Web App (PWA) für Reallife-Geo-Games im Stil bekannter YouTube-Formate. Präzise GPS-Wegpunkte und Intervalle machen dein Smartphone zur mobilen Einsatzzentrale.</p>
+    </td>
   </tr>
 </table>
 
