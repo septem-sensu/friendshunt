@@ -1,6 +1,6 @@
 # 🛰️ Friends-Hunt
 
-<p><b>Friendshunt ist kein Spiel für das Smartphone.</b></p>
+<p><b>Friends-Hunt ist kein Spiel für das Smartphone.</b></p>
 <p><b>Es ist ein Spiel für Freunde – das Smartphone sorgt nur dafür, dass es funktioniert.</b></p>
 
 <table>
@@ -186,7 +186,7 @@ Der eigentliche Gewinner eines Spieltages ist oft die gemeinsame Zeit. Trefft eu
 
 ...sind die gemeinsamen Erinnerungen.
 
-Friendshunt soll Menschen zusammenbringen, für Bewegung sorgen und einen Tag schaffen, an den man sich noch lange erinnert. Ob Spieler oder Hunter am Ende gewinnen, ist oft schon auf dem Heimweg nicht mehr das Gesprächsthema – sondern die verrückten Situationen, die unterwegs entstanden sind.
+Friends-Hunt soll Menschen zusammenbringen, für Bewegung sorgen und einen Tag schaffen, an den man sich noch lange erinnert. Ob Spieler oder Hunter am Ende gewinnen, ist oft schon auf dem Heimweg nicht mehr das Gesprächsthema – sondern die verrückten Situationen, die unterwegs entstanden sind.
 
 Also: Spiel starten, Handy einpacken und viel Spaß bei der Jagd!
 
