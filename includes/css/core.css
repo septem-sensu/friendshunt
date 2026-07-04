@@ -97,6 +97,21 @@ button,
   color: #333;
 }
 
+button.help {
+  color: var(--textColorHeadline);
+  font-size: 17px;
+  font-family: Orbitron;
+  width: 30px;
+  height: 30px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--textColorHeadline);
+  border-radius: 4px;
+  opacity: 0.5;
+  padding-top: 3px;
+  padding-left: 9px;
+}
+
 button.default {
   color: #333;
   background-color: #e6e6e6;

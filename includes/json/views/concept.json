@@ -1,0 +1,12 @@
+{
+  "alias": "concept",
+  "class": "Player",
+  "roles": [ "guest", "player", "administrator" ],
+  "templates": [
+    "header.tmpl",
+    "concept.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+  ]
+}

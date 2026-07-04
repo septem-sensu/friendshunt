@@ -121,6 +121,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Roboto Condensed" !important;
   font-weight: 300;
@@ -129,11 +133,11 @@ body {
   color: var(--textColorContent);
 }
 
+.concept-rules-tips h3,
 h2,
 h1 {
   font-family: Orbitron;
   text-transform: uppercase;
-
 }
 
 h1 {
@@ -147,10 +151,21 @@ h1 {
   background-repeat: no-repeat;
 }
 
+.concept-rules-tips h3,
 h2 {
   top: 4px;
   position: relative;
-  text-transform: uppercase
+  text-transform: uppercase;
+  scroll-margin-top: 10px;
+}
+
+ul {
+  padding-left: 20px;
+  text-align: left;
+}
+
+li {
+  margin-bottom: 5px;
 }
 
 input[type="text"],
