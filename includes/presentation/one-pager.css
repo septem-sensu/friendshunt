@@ -144,7 +144,7 @@
 
 /* ----- Reset ----- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+html { scroll-behavior: smooth; scroll-padding-top: 60px; }
 body {
   background-color: var(--backgroundColorBody);
   color: var(--textColorContent);
@@ -335,13 +335,21 @@ button { font-family: inherit; }
   min-height: calc(100vh - 50px);
   display: flex;
   align-items: center;
-  padding: 4rem 1.5rem 5rem;
+  padding: 2rem 1.5rem 5rem;
   background:
     radial-gradient(ellipse at top, rgba(40, 96, 144, 0.15) 0%, transparent 60%),
     radial-gradient(ellipse at bottom, rgba(38, 154, 188, 0.10) 0%, transparent 70%),
     var(--backgroundColorBody);
   overflow: hidden;
 }
+
+.hero-infoline {
+  color: var(--textColorMuted);
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
 .hero::before {
   content: "";
   position: absolute;

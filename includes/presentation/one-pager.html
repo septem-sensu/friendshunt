@@ -86,6 +86,7 @@
         <li><a href="#architektur" class="nav-link" data-target="architektur">Architektur</a></li>
         <li><a href="#tipps" class="nav-link" data-target="tipps">Tipps</a></li>
         <li><a href="#installation" class="nav-link" data-target="installation">Installation</a></li>
+        <li><a href="#installation" class="nav-link" data-target="installation">Login</a></li>
       </ul>
     </div>
   </nav>
@@ -109,6 +110,10 @@
         <img class="hero-logo" src="../images/favicons/friendshunt-app-icon-180x180.png" alt="Friends Hunt Logo" width="160" height="160" />
         <h1 class="hero-title">FRIENDS HUNT</h1>
         <p class="hero-tagline">Die Jagd beginnt</p>
+        <p class="hero-infoline">
+          "Friends-Hunt ist kein Spiel für das Smartphone.<br />
+          Es ist ein Spiel für Freunde – das Smartphone sorgt nur dafür, dass es funktioniert."
+        </p>
         <p class="hero-description">
           Eine selbst-hostbare Progressive Web App (PWA) für Reallife-Geo-Games im Stil bekannter YouTube-Formate.
           Präzise GPS-Wegpunkte und Intervalle machen dein Smartphone zur mobilen Einsatzzentrale.
@@ -316,27 +321,27 @@
       <div class="arch-columns">
         <div class="arch-card">
           <h3>PHP Klassenstruktur</h3>
-<pre class="arch-code">Controller            # AJAX, Routing, Rollen-Management
-Presentation          # Template-Engine, Validierung, CORS
-BaseObject            # AES-JSON-Persistenz, CRUD, GUID
-  ├── Player          # Usermanagement, Auth
-  └── Game            # Spielinstanzen, Archiv
-        └── Gameplay  # Geo, Intervalle, Nachrichten</pre>
+<pre class="arch-code">Controller        # AJAX, Routing, Rollen-Management
+Presentation      # Template-Engine, Validierung, CORS
+BaseObject        # AES-JSON-Persistenz, CRUD, GUID
+  ├─ Player       # Usermanagement, Auth
+  └─ Game         # Spielinstanzen, Archiv
+      └─ Gameplay # Geo, Intervalle, Nachrichten</pre>
         </div>
         <div class="arch-card">
           <h3>JavaScript Klassenstruktur</h3>
-<pre class="arch-code">Communicator          # AJAX-Queue, Offline-Queue
-Validator             # Form-Validierung, Fehler
-BatteryTracker        # Battery Status API
-GeoMaps               # Leaflet, Marker, Capture-Flyto
-GeoTracker            # GPS, Schrittzähler, Wake Lock
-Statistic             # Dashboard-Statistiken
-ReplayPlayer          # Replay (Timelapse)
-Utils                 # GUID, Timestamps, Audio
-BaseObject            # Basisklasse
-  ├── Player          # Login, Usermanagement
-  └── Game            # Setup, Dashboard, Archiv
-        └── Gameplay  # Laufzeit, Intervalle</pre>
+<pre class="arch-code">Communicator      # AJAX-Queue, Offline-Queue
+Validator         # Form-Validierung, Fehler
+BatteryTracker    # Battery Status API
+GeoMaps           # Leaflet, Marker, Capture-Flyto
+GeoTracker        # GPS, Schrittzähler, Wake Lock
+Statistic         # Dashboard-Statistiken
+ReplayPlayer      # Replay (Timelapse)
+Utils             # GUID, Timestamps, Audio
+BaseObject        # Basisklasse
+  ├─ Player       # Login, Usermanagement
+  └─ Game         # Setup, Dashboard, Archiv
+      └─ Gameplay # Laufzeit, Intervalle</pre>
         </div>
       </div>
 
