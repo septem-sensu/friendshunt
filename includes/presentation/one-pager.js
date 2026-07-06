@@ -395,7 +395,7 @@
 
       // Sichtbare Slides je Breakpoint ermitteln
       const getVisibleCount = () => {
-        if (window.matchMedia('(max-width: 650px)').matches) return 1;
+        if (window.matchMedia('(max-width: 650px)').matches) return 2;
         if (window.matchMedia('(max-width: 1024px)').matches) return 2;
         return 3;
       };

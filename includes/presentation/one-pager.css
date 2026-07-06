@@ -1155,6 +1155,7 @@ ul.section-lead {
   flex: 1;
   overflow: hidden;
   border-radius: 8px;
+  padding: 3px
 }
 
 .slider-track {
@@ -1220,6 +1221,7 @@ ul.section-lead {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   background-color: var(--backgroundColorContentContainer);
+  height: 100%;
 }
 
 /* Slider Navigation */
