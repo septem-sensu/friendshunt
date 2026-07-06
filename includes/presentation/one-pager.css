@@ -255,7 +255,7 @@ button {
 
   body .hero-logo {
     float: none;
-    margin-left: calc(50% - 50px);
+    margin-left: calc(50% - 15px);
   }
 
   body .screenshots-slider {
@@ -661,18 +661,17 @@ p.quote {
 }
 
 .hero-logo {
-  margin-bottom: 1.5rem;
-  width: 135px;
-  height: 135px;
+  width: 65px;
+  height: 65px;
   float: left;
   position: relative;
-  top: 17px;
-  left: -15px;
+  top: 13px;
+  left: -8px;
   margin-bottom: 50px;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 6vw, 2.5rem);
   letter-spacing: 0.15em;
   font-weight: 800;
   margin-bottom: 0.5rem;
