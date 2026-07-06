@@ -8,9 +8,9 @@ require_once ( __DIR__ . '/../classes/player.php' );
 require_once ( __DIR__ . '/../classes/game.php' );
 
 /**
- * Controller Class for the Friends Hunt App.
+ * Controller Class for the Friends-Hunt App.
  *
- * This Class represents the Controller Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the Controller Class for the Friends-Hunt App with his Properties and Methods.
  * The Controller Class controls all Requests and Response with the App.
  *
  * @category    class

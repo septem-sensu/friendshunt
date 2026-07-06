@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Primary Meta -->
-  <title lang="de">Friends Hunt – GPS-Verfolgungsspiele | Die Jagd beginnt</title>
-  <meta name="description" content="Friends Hunt ist eine selbst-hostbare PWA für Reallife-Geo-Games. GPS-Tracking und taktische Intervalle machen dein Smartphone zur mobilen Einsatzzentrale." />
+  <title lang="de">Friends-Hunt – GPS-Verfolgungsspiele | Die Jagd beginnt</title>
+  <meta name="description" content="Friends-Hunt ist eine selbst-hostbare PWA für Reallife-Geo-Games. GPS-Tracking und taktische Intervalle machen dein Smartphone zur mobilen Einsatzzentrale." />
   <meta name="author" content="Markus Götz" />
-  <meta name="application-name" content="Friends Hunt" />
+  <meta name="application-name" content="Friends-Hunt" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0d14" />
   <!-- TODO: Canonical, og:url und og:image an Produktiv-Domain anpassen -->
@@ -22,32 +22,32 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
-  <meta property="og:site_name" content="Friends Hunt" />
-  <meta property="og:title" content="Friends Hunt – Die Jagd beginnt" />
+  <meta property="og:site_name" content="Friends-Hunt" />
+  <meta property="og:title" content="Friends-Hunt – Die Jagd beginnt" />
   <meta property="og:description" content="Selbst-hostbare PWA für Reallife-Geo-Games. GPS-Tracking und taktische Intervalle machen dein Smartphone zur mobilen Einsatzzentrale." />
   <meta property="og:url" content="https://friendshunt.example/presentation/one-pager.html" />
   <meta property="og:image" content="https://friendshunt.example/includes/images/favicons/friendshunt-app-icon-512x512.png" />
-  <meta property="og:image:alt" content="Friends Hunt – Die Jagd beginnt" />
+  <meta property="og:image:alt" content="Friends-Hunt – Die Jagd beginnt" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="512" />
   <meta property="og:image:height" content="512" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Friends Hunt – Die Jagd beginnt" />
+  <meta name="twitter:title" content="Friends-Hunt – Die Jagd beginnt" />
   <meta name="twitter:description" content="Selbst-hostbare PWA für Reallife-Geo-Games. GPS-Tracking und taktische Intervalle machen dein Smartphone zur mobilen Einsatzzentrale." />
   <meta name="twitter:image" content="https://friendshunt.example/includes/images/favicons/friendshunt-app-icon-512x512.png" />
-  <meta name="twitter:image:alt" content="Friends Hunt – Die Jagd beginnt" />
+  <meta name="twitter:image:alt" content="Friends-Hunt – Die Jagd beginnt" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="one-pager.css" />
+  <link rel="stylesheet" href="one-pager.css?v=1.0.0.0" />
 
   <!-- Strukturierte Daten (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Friends Hunt – Die Jagd beginnt",
+    "name": "Friends-Hunt – Die Jagd beginnt",
     "description": "Selbst-hostbare Progressive Web App für Reallife-Geo-Games. Spieler fliehen, Jäger verfolgen sie anhand zeitversetzter GPS-Signale.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
@@ -69,9 +69,9 @@
 <body>
   <nav class="main-nav" id="main-nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
-      <a href="#hero" class="nav-brand" aria-label="Friends Hunt – nach oben">
+      <a href="#hero" class="nav-brand" aria-label="Friends-Hunt – nach oben">
         <img src="../images/favicons/friendshunt-app-icon-180x180.png" alt="" width="28" height="28" />
-        <span>FRIENDS HUNT</span>
+        <span>FRIENDS-HUNT</span>
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-list">
         <span class="nav-toggle-bar"></span>
@@ -79,12 +79,13 @@
         <span class="nav-toggle-bar"></span>
       </button>
       <ul class="nav-list" id="nav-list">
-        <li><a href="#spielprinzip" class="nav-link" data-target="spielprinzip">Spielprinzip</a></li>
+        <li><a href="#konzept" class="nav-link" data-target="konzept">Konzept</a></li>
         <li><a href="#features" class="nav-link" data-target="features">Features</a></li>
-        <li><a href="#screenshots" class="nav-link" data-target="screenshots">Screenshots</a></li>
+        <li><a href="#regeln" class="nav-link" data-target="regeln">Regeln</a></li>
+        <li><a href="#tipps" class="nav-link" data-target="tipps">Tipps</a></li>
+        <li><a href="#screenshots" class="nav-link" data-target="screenshots">Screens</a></li>
         <li><a href="#konfiguration" class="nav-link" data-target="konfiguration">Konfiguration</a></li>
         <li><a href="#architektur" class="nav-link" data-target="architektur">Architektur</a></li>
-        <li><a href="#tipps" class="nav-link" data-target="tipps">Tipps</a></li>
         <li><a href="#installation" class="nav-link" data-target="installation">Installation</a></li>
         <li><a href="#installation" class="nav-link" data-target="installation">Login</a></li>
       </ul>
@@ -107,10 +108,10 @@
   <header class="hero" id="hero">
     <div class="hero-grid">
       <div class="hero-text">
-        <img class="hero-logo" src="../images/favicons/friendshunt-app-icon-180x180.png" alt="Friends Hunt Logo" width="160" height="160" />
-        <h1 class="hero-title">FRIENDS HUNT</h1>
+        <img class="hero-logo" src="../images/favicons/friendshunt-app-icon-180x180.png" alt="Friends-Hunt Logo" width="160" height="160" />
+        <h1 class="hero-title">FRIENDS-HUNT</h1>
         <p class="hero-tagline">Die Jagd beginnt</p>
-        <p class="hero-infoline">
+        <p class="quote">
           "Friends-Hunt ist kein Spiel für das Smartphone.<br />
           Es ist ein Spiel für Freunde – das Smartphone sorgt nur dafür, dass es funktioniert."
         </p>
@@ -147,15 +148,18 @@
   </header>
 
   <!-- ============================ SPIELPRINZIP ============================ -->
-  <section id="spielprinzip" class="section reveal">
+  <section id="konzept" class="section reveal">
     <div class="section-inner">
-      <h2 class="section-title">Spielprinzip</h2>
-      <p class="section-lead">
-        Ein oder mehrere <strong>Spieler (Gejagte)</strong> versuchen, sich in einem definierten Gebiet unentdeckt zu
-        bewegen und rechtzeitig eine Flucht-Zone zu erreichen. Die <strong>Jäger (Hunter)</strong> versuchen, sie anhand
-        zeitversetzter GPS-Signale aufzuspüren. Die <strong>Spielleitung (optional)</strong> behält die Kontrolle über
-        das Regelwerk und dirigiert das Event im Hintergrund.
-      </p>
+      <h2 class="section-title">Konzept</h2>
+      <p class="quote">"Friends-Hunt soll Menschen zusammenbringen, für Bewegung sorgen und einen Tag schaffen, an den man sich noch lange erinnert."</p>
+      <div class="section-lead">
+        <p>Friends-Hunt ist ein <strong>Reallife-Geo-Game</strong>, das von bekannten YouTube-Verfolgungsformaten inspiriert wurde.</p>
+        <p>Ein oder mehrere <strong>Spieler (Player)</strong> versuchen, sich innerhalb eines vorher festgelegten Spielgebiets möglichst unauffällig zu bewegen und rechtzeitig eine definierte <strong>Flucht-Zone</strong> zu erreichen.</p>
+        <p>Die <strong>Jäger (Hunter)</strong> verfolgen die Spieler jedoch nicht in Echtzeit. Stattdessen erhalten sie die Positionen der Spieler nur zu bestimmten Zeitpunkten oder über spezielle Spielmechaniken. Dadurch entsteht ein spannendes Katz-und-Maus-Spiel, bei dem beide Seiten taktisch planen müssen.</p>
+        <p>Die <strong>Spielleitung (optional)</strong> überwacht das Spielgeschehen, achtet auf die Einhaltung der Regeln und kann – falls gewünscht – durch Hinweise oder Ereignisse für mehr Ausgewogenheit und Spannung sorgen.</p>
+        <p>Das Spiel endet, sobald alle Spieler gefangen wurden. In diesem Fall gewinnen die Jäger.</p>
+        <p>Erreichen die Spieler das Spielende, ohne dass alle gefangen wurden, gewinnen die Spieler.</p>
+      </div>
 
       <div class="role-cards">
         <article class="role-card">
@@ -199,6 +203,9 @@
   <section id="features" class="section section-alt reveal">
     <div class="section-inner">
       <h2 class="section-title">Key Features</h2>
+      <div class="section-lead">
+        <p class="quote">"Der eigentliche Gewinner eines Spieltages ist oft die gemeinsame Zeit."</p>
+      </div>
       <div class="feature-grid">
         <article class="feature-card">
           <div class="feature-icon">📌</div>
@@ -249,10 +256,110 @@
     </div>
   </section>
 
+  <!-- ============================ KEY REGELN ============================ -->
+  <section id="regeln" class="section reveal">
+    <div class="section-inner">
+      <h2 class="section-title">Regeln</h2>
+      <p class="quote">"Friends-Hunt lebt nicht nur von der Jagd, sondern vor allem von den gemeinsamen Erlebnissen."</p>
+
+      <ul class="section-lead">
+        <li>Alle geltenden lokalen und nationalen Gesetze sind jederzeit einzuhalten.</li>
+        <li>Körperliche Gewalt ist untersagt.</li>
+        <li>Jeder Teilnehmer trägt die Verantwortung für sein eigenes Handeln. Mögliche Konsequenzen (z. B. Bußgelder oder strafrechtliche Folgen) sind selbst zu tragen.</li>
+      </ul>
+
+      <div class="rules-tabs" role="tablist">
+        <button class="rules-tab active" role="tab" data-tab="player">Spieler</button>
+        <button class="rules-tab" role="tab" data-tab="hunter">Jäger</button>
+        <button class="rules-tab" role="tab" data-tab="optional">Optional</button>
+      </div>
+      <div class="rules-pane active" data-pane="player">
+        <h3>Regeln für die Spieler</h3>
+        <ul>
+          <li>Ein Spieler gilt als gefangen, sobald er von einem Jäger berührt wurde.</li>
+          <li>Der gefangene Spieler bestätigt seine Gefangennahme unmittelbar in der Friends-Hunt App.</li>
+          <li>Das festgelegte Spielgebiet darf nicht verlassen werden. Verlässt ein Spieler das Spielgebiet, werden die Jäger und die Spielleitung informiert. Seine Position ist für die Jäger sichtbar, bis er das Spielgebiet wieder betritt.</li>
+          <li>Spieler dürfen sich ausschließlich an öffentlich zugänglichen Orten aufhalten.</li>
+          <li>Längere Aufenthalte in Innenräumen sind nicht erlaubt.</li>
+          <li>Die Friends-Hunt App muss jederzeit Positionsdaten übertragen können.</li>
+          <li>Die Friends-Hunt App muss während des Spiels dauerhaft im Vordergrund laufen.</li>
+          <li>Die Nutzung privater Fahrzeuge ist nicht erlaubt.</li>
+          <li>Die Kommunikation mit anderen Spielern erfolgt ausschließlich über die Friends-Hunt App.</li>
+        </ul>
+      </div>
+      <div class="rules-pane" data-pane="hunter">
+        <h3>Regeln für die Jäger</h3>
+        <ul>
+          <li>Unbeteiligte Personen dürfen nicht aktiv an der Suche oder am Fangen der Spieler beteiligt werden. Das Nachfragen bei Passanten, ob sie einen Spieler gesehen haben, ist ausdrücklich erlaubt.</li>
+          <li>Jäger dürfen öffentliche und private Verkehrsmittel nutzen.</li>
+          <li>Alle während des Spiels entstehenden Kosten oder Strafen (z. B. Parktickets oder Geschwindigkeitsverstöße) tragen die Jäger selbst.</li>
+          <li>Jäger dürfen ihre Kommunikationsmittel frei wählen.</li>
+          <li>Gefangene Spieler dürfen zu den verbleibenden Spielern befragt werden.</li>
+          <li>Eigenständiges Tracking außerhalb der Friends-Hunt App ist nicht erlaubt.</li>
+          <li>Längere Unterbrechungen der Jagd gelten als Regelverstoß.</li>
+        </ul>
+      </div>
+      <div class="rules-pane" data-pane="optional">
+        <h3>Optionale Regeln</h3>
+        <p>Je nach Spielkonfiguration können zusätzliche Regeln aktiviert werden:</p>
+        <ul>
+          <li>Spieler können ihre Mitspieler auf der Karte sehen.</li>
+          <li>Die Nutzung öffentlicher Verkehrsmittel kann erlaubt oder verboten werden. Ist sie verboten und die Friends-Hunt App erkennt eine Nutzung, werden die Jäger informiert und die Position des Spielers wird sichtbar.</li>
+          <li>Je nach Spielkonfiguration können die Namen der Spieler auf der Karte angezeigt oder ausgeblendet werden.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ TIPPS ============================ -->
+  <section id="tipps" class="section section-alt reveal">
+    <div class="section-inner">
+      <h2 class="section-title">Tipps für ein gelungenes Spiel</h2>
+      <div class="section-lead">
+        <p class="quote">"Viel wichtiger als der Sieg … sind die gemeinsamen Erinnerungen."</p>
+      </div>
+      <div class="tipps-grid">
+        <article class="tipp-card">
+          <div class="tipp-icon">📍</div>
+          <h3>Interessantes Spielgebiet</h3>
+          <p>Parks, kleine Gassen, Fußgängerzonen oder Wälder sorgen für spannende Entscheidungen und kreative Verstecke.</p>
+        </article>
+        <article class="tipp-card">
+          <div class="tipp-icon">👟</div>
+          <h3>Bequeme Schuhe</h3>
+          <p>Je nach Spielkonfiguration kommen schnell einige Kilometer zusammen. Festes Schuhwerk macht den Tag angenehm.</p>
+        </article>
+        <article class="tipp-card">
+          <div class="tipp-icon">🔋</div>
+          <h3>Akku denken</h3>
+          <p>Die App benötigt GPS. Ein vollständig geladener Akku oder eine kleine Powerbank können den entscheidenden Unterschied machen.</p>
+        </article>
+        <article class="tipp-card">
+          <div class="tipp-icon">💧</div>
+          <h3>Ausreichend trinken</h3>
+          <p>Vor allem an warmen Tagen genügend Wasser dabeihaben. Mehr Spaß, wenn niemand wegen Hitze aufgeben muss.</p>
+        </article>
+        <article class="tipp-card">
+          <div class="tipp-icon">🤝</div>
+          <h3>Fair Play</h3>
+          <p>Haltet euch an die Regeln und gebt auch euren Mitspielern die Chance auf ein faires und spannendes Spiel.</p>
+        </article>
+        <article class="tipp-card">
+          <div class="tipp-icon">🍻</div>
+          <h3>Gemeinsam ausklingen</h3>
+          <p>Trefft euch nach dem Spiel in einem Biergarten, Restaurant oder beim Grillabend und schaut gemeinsam das Replay.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================ SCREENSHOTS ============================ -->
   <section id="screenshots" class="section reveal">
     <div class="section-inner">
       <h2 class="section-title">Screenshots</h2>
+      <div class="section-lead">
+        <p class="quote">"Bilder zeigen die Oberfläche. Das eigentliche Spiel entsteht jedoch draußen – zwischen Freunden, Straßen und spontanen Entscheidungen."</p>
+      </div>
       <div class="screenshots-slider" id="screenshots-slider" aria-roledescription="Karussell" aria-label="Screenshot-Galerie">
         <button class="slider-nav slider-prev" type="button" data-prev aria-label="Vorheriger Screenshot">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -289,6 +396,9 @@
   <section id="konfiguration" class="section section-alt reveal">
     <div class="section-inner">
       <h2 class="section-title">Spiel-Konfiguration</h2>
+      <div class="section-lead">
+        <p class="quote">"Jede Spielrunde ist anders. Mit wenigen Einstellungen entsteht aus derselben Idee immer wieder ein neues Abenteuer."</p>
+      </div>
       <p class="section-lead">Jedes Match lässt sich im Administrationsbereich exakt an das Gelände und die Spieleranzahl anpassen:</p>
       <div class="config-table-wrapper">
         <table class="config-table">
@@ -309,39 +419,60 @@
   <section id="architektur" class="section reveal">
     <div class="section-inner">
       <h2 class="section-title">Technische Architektur</h2>
+      <div class="section-lead">
+        <p class="quote">"Friends-Hunt wurde nicht entwickelt, um veröffentlicht zu werden. Es wurde veröffentlicht, weil es entwickelt wurde."</p>
+      </div>
       <p class="section-lead">
         Das Projekt trennt Logik und Darstellung. Custom MVC, kein Framework. Die Anwendung benötigt keine schwere
         relationale Datenbank und läuft dank optimierter JSON-Strukturen extrem ressourcensparend auf fast jedem Webspace.
       </p>
 
       <pre class="request-flow">index.php → Controller::execute()
-  ├─ ?view=   → HTML-Antwort (Seitenansicht)
+  ├─ ?view=   → HTML-Antwort (Seitenans.)
   └─ ?result= → JSON-Antwort (AJAX)</pre>
 
       <div class="arch-columns">
         <div class="arch-card">
           <h3>PHP Klassenstruktur</h3>
-<pre class="arch-code">Controller        # AJAX, Routing, Rollen-Management
-Presentation      # Template-Engine, Validierung, CORS
-BaseObject        # AES-JSON-Persistenz, CRUD, GUID
-  ├─ Player       # Usermanagement, Auth
-  └─ Game         # Spielinstanzen, Archiv
-      └─ Gameplay # Geo, Intervalle, Nachrichten</pre>
+<pre class="arch-code-full">Controller        # AJAX-Anfragen, Routings, Rollen-Management
+Presentation      # Template-Engine, Cookies, Validierung
+BaseObject        # Basis-Logiken, CRUD, GUID
+  ├─ Player       # Usermanagement, Rollen, Auth
+  └─ Game         # Spielinstanzen, Spieleinstellungen
+      └─ Gameplay # Laufzeitbetrieb, Geo-Berechnungen</pre>
+<pre class="arch-code">Controller        # AJAX-Anfragen
+Presentation      # Template-Engine
+BaseObject        # Basis-Logiken
+  ├─ Player       # Usermanagement
+  └─ Game         # Spielinstanzen
+      └─ Gameplay # Laufzeitbetrieb</pre>
         </div>
         <div class="arch-card">
           <h3>JavaScript Klassenstruktur</h3>
-<pre class="arch-code">Communicator      # AJAX-Queue, Offline-Queue
-Validator         # Form-Validierung, Fehler
+<pre class="arch-code-full">Communicator      # AJAX-Queue, Offline-Queue, Redirects
+Validator         # Formularvalidierung, Fehlverwaltung
 BatteryTracker    # Battery Status API
-GeoMaps           # Leaflet, Marker, Capture-Flyto
+GeoMaps           # OpenStreetMaps-Integration über Leaflet
 GeoTracker        # GPS, Schrittzähler, Wake Lock
 Statistic         # Dashboard-Statistiken
-ReplayPlayer      # Replay (Timelapse)
-Utils             # GUID, Timestamps, Audio
-BaseObject        # Basisklasse
-  ├─ Player       # Login, Usermanagement
-  └─ Game         # Setup, Dashboard, Archiv
-      └─ Gameplay # Laufzeit, Intervalle</pre>
+ReplayPlayer      # Timelapse, inkl. Kartenverfolgung
+Utils             # Statitische Hilfs-Methoden
+BaseObject        # Kern-Objekt mit Basis-Logiken
+  ├─ Player       # Usermanagement, Rollen, Auth
+  └─ Game         # Spielinstanzen, Dashboard, Archiv
+      └─ Gameplay # Laufzeitbetrieb, Nachrichtensystem</pre>
+<pre class="arch-code">Communicator      # AJAX-Queue
+Validator         # Formularvalidierung
+BatteryTracker    # Battery Status API
+GeoMaps           # Leaflet
+GeoTracker        # GPS, Schrittzähler
+Statistic         # Dashboard-Statistiken
+ReplayPlayer      # Timelapse
+Utils             # Hilfs-Methoden
+BaseObject        # Basis-Logiken
+  ├─ Player       # Usermanagement
+  └─ Game         # Spielinstanzen
+      └─ Gameplay # Laufzeitbetrieb</pre>
         </div>
       </div>
 
@@ -362,52 +493,13 @@ BaseObject        # Basisklasse
     </div>
   </section>
 
-  <!-- ============================ TIPPS ============================ -->
-  <section id="tipps" class="section section-alt reveal">
-    <div class="section-inner">
-      <h2 class="section-title">Tipps für ein gelungenes Spiel</h2>
-      <div class="tipps-grid">
-        <article class="tipp-card">
-          <div class="tipp-icon">📍</div>
-          <h3>Interessantes Spielgebiet</h3>
-          <p>Parks, kleine Gassen, Fußgängerzonen oder Wälder sorgen für spannende Entscheidungen und kreative Verstecke.</p>
-        </article>
-        <article class="tipp-card">
-          <div class="tipp-icon">👟</div>
-          <h3>Bequeme Schuhe</h3>
-          <p>Je nach Spielkonfiguration kommen schnell einige Kilometer zusammen. Festes Schuhwerk macht den Tag angenehm.</p>
-        </article>
-        <article class="tipp-card">
-          <div class="tipp-icon">🔋</div>
-          <h3>Akku denken</h3>
-          <p>Die App benötigt GPS. Ein vollständig geladener Akku oder eine kleine Powerbank können den entscheidenden Unterschied machen.</p>
-        </article>
-        <article class="tipp-card">
-          <div class="tipp-icon">💧</div>
-          <h3>Ausreichend trinken</h3>
-          <p>Vor allem an warmen Tagen genügend Wasser dabeihaben. Mehr Spaß, wenn niemand wegen Hitze aufgeben muss.</p>
-        </article>
-        <article class="tipp-card">
-          <div class="tipp-icon">🤝</div>
-          <h3>Fair Play</h3>
-          <p>Haltet euch an die Regeln und gebt auch euren Mitspielern die Chance auf ein faires und spannendes Spiel.</p>
-        </article>
-        <article class="tipp-card">
-          <div class="tipp-icon">🍻</div>
-          <h3>Gemeinsam ausklingen</h3>
-          <p>Trefft euch nach dem Spiel in einem Biergarten, Restaurant oder beim Grillabend und schaut gemeinsam das Replay.</p>
-        </article>
-      </div>
-      <blockquote class="tipp-quote">
-        Viel wichtiger als der Sieg … sind die gemeinsamen Erinnerungen.
-      </blockquote>
-    </div>
-  </section>
-
   <!-- ============================ INSTALLATION ============================ -->
-  <section id="installation" class="section reveal">
+  <section id="installation" class="section section-alt reveal">
     <div class="section-inner">
       <h2 class="section-title">Installation & Setup</h2>
+      <div class="section-lead">
+        <p class="quote">„Ich glaube, Friends-Hunt profitiert davon, nicht wie ein Produkt zu wirken, sondern wie ein Herzensprojekt.“</p>
+      </div>
       <ol class="install-steps">
         <li>In GitHub auf <strong>Code → Download ZIP</strong> klicken oder das Repository klonen.</li>
         <li>Den Ordner auf einen PHP-fähigen Webserver (Apache / Nginx) hochladen.</li>

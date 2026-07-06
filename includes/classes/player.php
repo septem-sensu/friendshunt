@@ -6,9 +6,9 @@ require_once ( __DIR__ . '/../classes/baseObject.php' );
 require_once ( __DIR__ . '/../classes/presentation.php' );
 
 /**
- * Player Class for the Friends Hunt App.
+ * Player Class for the Friends-Hunt App.
  *
- * This Class represents the Player Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the Player Class for the Friends-Hunt App with his Properties and Methods.
  *
  * @category    class
  * @package     Application

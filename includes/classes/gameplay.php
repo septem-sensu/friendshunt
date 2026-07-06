@@ -6,9 +6,9 @@ require_once ( __DIR__ . '/../classes/baseObject.php' );
 require_once ( __DIR__ . '/../classes/game.php' );
 
 /**
- * Gameplay Class for the Friends Hunt App.
+ * Gameplay Class for the Friends-Hunt App.
  *
- * This Class represents the Gameplay Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the Gameplay Class for the Friends-Hunt App with his Properties and Methods.
  * The Gameplay Class controls the complete Gameplay with Tracking and save all Informations to the Gameplay.
  *
  * @category    class

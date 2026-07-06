@@ -5,9 +5,9 @@ declare( strict_types = 1 );
 require_once ( __DIR__ . '/../classes/baseObject.php' );
 
 /**
- * Presentation Class for the Friends Hunt App.
+ * Presentation Class for the Friends-Hunt App.
  *
- * This Class represents the Presentation Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the Presentation Class for the Friends-Hunt App with his Properties and Methods.
  * The Presentation Class contains the Template Engine, the server-side Validation, E-Mail Management and different Utils like:
  * formatting Date Time and Timestamps, Cookie Management, short Text, Header and CORS Utils, Logging, URL Utils and cleaning Ids.
  *

@@ -3,9 +3,9 @@
 declare( strict_types = 1 );
 
 /**
- * Base Class for the Friends Hunt App.
+ * Base Class for the Friends-Hunt App.
  *
- * This Class represents the base Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the base Class for the Friends-Hunt App with his Properties and Methods.
  *
  * @category    class
  * @package     Application
@@ -292,7 +292,7 @@ class BaseObject {
  * @version    0.1.0
  *
  * @param      string   $strClassName   The Class Name
- * @return     object   $objObjects     The Main Config Object of Friends Hunt
+ * @return     object   $objObjects     The Main Config Object of Friends-Hunt
  *
  * @example    $objObjects = BaseObject::getObjects( $strClassName );
  *
@@ -302,14 +302,14 @@ class BaseObject {
   }
 
 /**
- * This static method returns the Main Config Object of Friends Hunt.
+ * This static method returns the Main Config Object of Friends-Hunt.
  *
  * @static
  * @access     public
  * @since      2026-06-05
  * @version    0.1.0
  *
- * @return     object   $objConfig    The Main Config Object of Friends Hunt
+ * @return     object   $objConfig    The Main Config Object of Friends-Hunt
  *
  * @example    $objConfig = BaseObject::getConfig();
  *

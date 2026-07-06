@@ -2,7 +2,7 @@
   'use strict';
 
   /* ===============================================================
-     Friends Hunt – One-Pager JavaScript
+     Friends-Hunt – One-Pager JavaScript
      Vanilla ES6 — kein Framework
      Sektionen: Crosshair-Pointer, Scroll-Reveal, Hunt-Tabs,
                 Mini-Demo (Spieler-Marker bewegt sich auf Radar)
@@ -13,6 +13,7 @@
       this.initCrosshair();
       this.initScrollReveal();
       this.initHuntTabs();
+      this.initRulesTabs();
       this.initRadarDemo();
       this.initNav();
       this.initSlider();
@@ -81,6 +82,27 @@
     initHuntTabs() {
       const tabs = document.querySelectorAll('.hunt-tab');
       const panes = document.querySelectorAll('.hunt-pane');
+      if (tabs.length === 0) return;
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach((t) => t.classList.remove('active'));
+          tab.classList.add('active');
+          panes.forEach((p) => {
+            p.classList.toggle('active', p.dataset.pane === target);
+          });
+        });
+      });
+    },
+
+    /**
+     * Tab-Switch zwischen Spieler Regeln und Jäger Regeln.
+     * Toggle .active auf den Tabs und zugehörigen Panes.
+     */
+    initRulesTabs() {
+      const tabs = document.querySelectorAll('.rules-tab');
+      const panes = document.querySelectorAll('.rules-pane');
       if (tabs.length === 0) return;
 
       tabs.forEach((tab) => {

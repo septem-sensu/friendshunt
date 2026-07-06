@@ -83,7 +83,7 @@ Ein oder mehrere **Spieler (Gejagte)** versuchen, sich in einem definierten Gebi
 
 ## 📃 Konzept
 
-Friends Hunt ist ein Reallife-Geo-Game, das von bekannten YouTube-Verfolgungsformaten inspiriert wurde. Ein oder mehrere **Spieler (Player)** versuchen, sich innerhalb eines vorher festgelegten Spielgebiets möglichst unauffällig zu bewegen und rechtzeitig eine definierte Flucht-Zone zu erreichen.
+Friends-Hunt ist ein Reallife-Geo-Game, das von bekannten YouTube-Verfolgungsformaten inspiriert wurde. Ein oder mehrere **Spieler (Player)** versuchen, sich innerhalb eines vorher festgelegten Spielgebiets möglichst unauffällig zu bewegen und rechtzeitig eine definierte Flucht-Zone zu erreichen.
 
 Die **Jäger (Hunter)** verfolgen die Spieler jedoch nicht in Echtzeit. Stattdessen erhalten sie die Positionen der Spieler nur zu bestimmten Zeitpunkten oder über spezielle Spielmechaniken. Dadurch entsteht ein spannendes Katz-und-Maus-Spiel, bei dem beide Seiten taktisch planen müssen.
 
@@ -156,7 +156,7 @@ Je nach Spielkonfiguration können die Namen der Spieler auf der Karte angezeigt
 
 ## 👯 Tipps für ein gelungenes Spiel
 
-Friends Hunt lebt nicht nur von der Jagd, sondern vor allem von den gemeinsamen Erlebnissen. Mit ein paar einfachen Tipps wird aus einer Spielrunde schnell ein unvergesslicher Tag.
+Friends-Hunt lebt nicht nur von der Jagd, sondern vor allem von den gemeinsamen Erlebnissen. Mit ein paar einfachen Tipps wird aus einer Spielrunde schnell ein unvergesslicher Tag.
 
 ### 📍 Wählt ein interessantes Spielgebiet
 
@@ -176,7 +176,7 @@ Vor allem an warmen Tagen solltet ihr genügend Wasser dabeihaben. Das Spiel mac
 
 ### 🤝 Fair Play macht mehr Spaß
 
-Friends Hunt lebt von spannenden Entscheidungen und überraschenden Wendungen. Haltet euch an die Regeln und gebt auch euren Mitspielern die Chance auf ein faires und spannendes Spiel.
+Friends-Hunt lebt von spannenden Entscheidungen und überraschenden Wendungen. Haltet euch an die Regeln und gebt auch euren Mitspielern die Chance auf ein faires und spannendes Spiel.
 
 ### 🍻 Lasst den Tag gemeinsam ausklingen
 
@@ -211,7 +211,7 @@ Jedes Match lässt sich im Administrationsbereich exakt an das Gelände und die 
 ## 🛠️ Technische Architektur
 
 Das Projekt trennt Logik und Darstellung.
-Friends Hunt wurde nach dem Prinzip „Maximale Unabhängigkeit & Sicherheit“ entwickelt. Die Anwendung benötigt keine schwere relationale Datenbank (wie MySQL) und läuft dank optimierter JSON-Strukturen extrem ressourcensparend auf fast jedem Webspace.
+Friends-Hunt wurde nach dem Prinzip „Maximale Unabhängigkeit & Sicherheit“ entwickelt. Die Anwendung benötigt keine schwere relationale Datenbank (wie MySQL) und läuft dank optimierter JSON-Strukturen extrem ressourcensparend auf fast jedem Webspace.
 
 Custom MVC, kein Framework. Alle Requests laufen über einen Single Entry Point:
 ```text

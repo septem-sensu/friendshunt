@@ -1,7 +1,7 @@
 /**
- * Geo Maps Class for the Friends Hunt App.
+ * Geo Maps Class for the Friends-Hunt App.
  *
- * This Class represents the Geo Maps Class for the Friends Hunt App with his Properties and Methods.
+ * This Class represents the Geo Maps Class for the Friends-Hunt App with his Properties and Methods.
  * The Class is for handling Leaflet with OpenStreetMap.
  *
  * @class

@@ -3,7 +3,7 @@ Search.appendIndex(
                 {
             "fqsen": "\\BaseObject",
             "name": "BaseObject",
-            "summary": "Base\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
+            "summary": "Base\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
             "url": "classes/BaseObject.html"
         },                {
             "fqsen": "\\BaseObject\u003A\u003A__construct\u0028\u0029",
@@ -63,7 +63,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseObject\u003A\u003AgetConfig\u0028\u0029",
             "name": "getConfig",
-            "summary": "This\u0020static\u0020method\u0020returns\u0020the\u0020Main\u0020Config\u0020Object\u0020of\u0020Friends\u0020Hunt.",
+            "summary": "This\u0020static\u0020method\u0020returns\u0020the\u0020Main\u0020Config\u0020Object\u0020of\u0020Friends\u002DHunt.",
             "url": "classes/BaseObject.html#method_getConfig"
         },                {
             "fqsen": "\\BaseObject\u003A\u003AisJson\u0028\u0029",
@@ -158,7 +158,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controller",
             "name": "Controller",
-            "summary": "Controller\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
+            "summary": "Controller\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
             "url": "classes/Controller.html"
         },                {
             "fqsen": "\\Controller\u003A\u003A__construct\u0028\u0029",
@@ -303,7 +303,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Game",
             "name": "Game",
-            "summary": "Game\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
+            "summary": "Game\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
             "url": "classes/Game.html"
         },                {
             "fqsen": "\\Game\u003A\u003AaddGameImage\u0028\u0029",
@@ -493,7 +493,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Gameplay",
             "name": "Gameplay",
-            "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
+            "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
             "url": "classes/Gameplay.html"
         },                {
             "fqsen": "\\Gameplay\u003A\u003A__construct\u0028\u0029",
@@ -698,7 +698,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Player",
             "name": "Player",
-            "summary": "Player\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
+            "summary": "Player\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
             "url": "classes/Player.html"
         },                {
             "fqsen": "\\Player\u003A\u003AnewPlayer\u0028\u0029",
@@ -963,7 +963,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Presentation",
             "name": "Presentation",
-            "summary": "Presentation\u0020Class\u0020for\u0020the\u0020Friends\u0020Hunt\u0020App.",
+            "summary": "Presentation\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
             "url": "classes/Presentation.html"
         },                {
             "fqsen": "\\Presentation\u003A\u003A__construct\u0028\u0029",

@@ -7,7 +7,7 @@
     "social",
     "lifestyle"
   ],
-  "description": "Friends Hunt ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.",
+  "description": "Friends-Hunt ist eine Progressive Web App (PWA) für spektakuläre Reallife-Geo-Games im Stil bekannter YouTube-Formate. Eine präzise GPS-Fährte und taktische Intervalle dein Smartphone zur mobilen Einsatzzentrale.",
   "display": "standalone",
   "icons": [
     {
@@ -42,61 +42,61 @@
       "type": "image/png"
     }
   ],
-  "name": "Friends Hunt - Die Jagd beginnt",
+  "name": "Friends-Hunt - Die Jagd beginnt",
   "orientation": "any",
   "scope": "/",
   "screenshots": [
     {
       "form_size": "narrow",
-      "label": "Friends Hunt App - Setup Ansicht",
+      "label": "Friends-Hunt App - Setup Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-setup-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - Gameplay Ansicht",
+      "label": "Friends-Hunt App - Gameplay Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-gameplay-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - Game Dashboard Ansicht",
+      "label": "Friends-Hunt App - Game Dashboard Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-dashboard-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - Messages Ansicht",
+      "label": "Friends-Hunt App - Messages Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-messages-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - My Account Ansicht",
+      "label": "Friends-Hunt App - My Account Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-my-account-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - System Messages Ansicht",
+      "label": "Friends-Hunt App - System Messages Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-system-messages-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - Replay Player Ansicht",
+      "label": "Friends-Hunt App - Replay Player Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-replay-player-550x1024.png",
       "type": "image/png"
     }, {
       "form_size": "narrow",
-      "label": "Friends Hunt App - Themes Ansicht",
+      "label": "Friends-Hunt App - Themes Ansicht",
       "sizes": "550x1024",
       "src": "/includes/images/screenshots/screenshot-friends-hunt-themes-550x1024.png",
       "type": "image/png"
     }
   ],
-  "short_name": "Friends Hunt",
+  "short_name": "Friends-Hunt",
   "start_url": "/index.php",
   "theme_color": "#191920"
 }

@@ -1,7 +1,7 @@
 /**
- * BatteryTracker Class for the Friends Hunt App.
+ * BatteryTracker Class for the Friends-Hunt App.
  *
- * This Class represents the Battery Tracker Class for the Friends Hunt App with its Properties and Methods.
+ * This Class represents the Battery Tracker Class for the Friends-Hunt App with its Properties and Methods.
  * The Class is for handling Battery Level and is charging.
  * Unfortunately, accessing the battery does not work on the iPhone.
  *
