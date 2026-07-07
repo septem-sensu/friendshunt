@@ -273,7 +273,7 @@ button {
   }
 
   body .screenshot-slide {
-    flex: 0 0 100%;
+    flex: 0 0 100% !important;
   }
 
   body .screenshot-slide img {
@@ -1211,6 +1211,7 @@ ul.section-lead {
   margin-left: auto;
   margin-right: auto;
   margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .screenshot-slide figcaption {
