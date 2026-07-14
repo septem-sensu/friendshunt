@@ -12,12 +12,12 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0d14" />
   <!-- TODO: Canonical, og:url und og:image an Produktiv-Domain anpassen -->
-  <link rel="canonical" href="https://friendshunt.example/presentation/one-pager.html" />
+  <link rel="canonical" href="https://friends-hunt.zockability.de/index.html" />
 
   <!-- Icons & PWA -->
-  <link rel="icon" href="../images/favicons/friendshunt-app-icon-180x180.png" />
-  <link rel="apple-touch-icon" href="../images/favicons/friendshunt-app-icon-180x180.png" />
-  <link rel="manifest" href="../json/manifest.json" />
+  <link rel="icon" href="/app/includes/images/favicons/friendshunt-app-icon-180x180.png" />
+  <link rel="apple-touch-icon" href="/app/includes/images/favicons/friendshunt-app-icon-180x180.png" />
+  <link rel="manifest" href="/app/includes/json/manifest.json" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -25,8 +25,8 @@
   <meta property="og:site_name" content="Friends-Hunt" />
   <meta property="og:title" content="Friends-Hunt – Die Jagd beginnt" />
   <meta property="og:description" content="Selbst-hostbare PWA für Reallife-Geo-Games. GPS-Tracking und taktische Intervalle machen dein Smartphone zur mobilen Einsatzzentrale." />
-  <meta property="og:url" content="https://friendshunt.example/presentation/one-pager.html" />
-  <meta property="og:image" content="https://friendshunt.example/includes/images/favicons/friendshunt-app-icon-512x512.png" />
+  <meta property="og:url" content="https://friends-hunt.zockability.de/index.html" />
+  <meta property="og:image" content="https://friends-hunt.zockability.de/app/includes/images/favicons/friendshunt-app-icon-512x512.png" />
   <meta property="og:image:alt" content="Friends-Hunt – Die Jagd beginnt" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="512" />
@@ -36,7 +36,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Friends-Hunt – Die Jagd beginnt" />
   <meta name="twitter:description" content="Selbst-hostbare PWA für Reallife-Geo-Games. GPS-Tracking und taktische Intervalle machen dein Smartphone zur mobilen Einsatzzentrale." />
-  <meta name="twitter:image" content="https://friendshunt.example/includes/images/favicons/friendshunt-app-icon-512x512.png" />
+  <meta name="twitter:image" content="https://friends-hunt.zockability.de/app/includes/images/favicons/friendshunt-app-icon-512x512.png" />
   <meta name="twitter:image:alt" content="Friends-Hunt – Die Jagd beginnt" />
 
   <!-- Stylesheet -->
@@ -51,8 +51,8 @@
     "description": "Selbst-hostbare Progressive Web App für Reallife-Geo-Games. Spieler fliehen, Jäger verfolgen sie anhand zeitversetzter GPS-Signale.",
     "applicationCategory": "GameApplication",
     "operatingSystem": "Web",
-    "url": "https://friendshunt.example/presentation/one-pager.html",
-    "image": "https://friendshunt.example/includes/images/favicons/friendshunt-app-icon-512x512.png",
+    "url": "https://friends-hunt.zockability.de/index.html",
+    "image": "https://friends-hunt.zockability.de/app/includes/images/favicons/friendshunt-app-icon-512x512.png",
     "author": {
       "@type": "Person",
       "name": "Markus Götz"
@@ -70,7 +70,7 @@
   <nav class="main-nav" id="main-nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
       <a href="#hero" class="nav-brand" aria-label="Friends-Hunt – nach oben">
-        <img src="../images/favicons/friendshunt-app-icon-180x180.png" alt="" width="28" height="28" />
+        <img src="/app/includes/images/favicons/friendshunt-app-icon-180x180.png" alt="" width="28" height="28" />
         <span>FRIENDS-HUNT</span>
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-list">
@@ -87,7 +87,7 @@
         <li><a href="#konfiguration" class="nav-link" data-target="konfiguration">Konfiguration</a></li>
         <li><a href="#architektur" class="nav-link" data-target="architektur">Architektur</a></li>
         <li><a href="#installation" class="nav-link" data-target="installation">Installation</a></li>
-        <li><a href="#installation" class="nav-link" data-target="installation">Login</a></li>
+        <li><a href="/app/index.php" class="nav-link" data-target="app" target="_blank">Login</a></li>
       </ul>
     </div>
   </nav>
@@ -108,7 +108,7 @@
   <header class="hero" id="hero">
     <div class="hero-grid">
       <div class="hero-text">
-        <img class="hero-logo" src="../images/favicons/friendshunt-app-icon-180x180.png" alt="Friends-Hunt Logo" width="160" height="160" />
+        <img class="hero-logo" src="/app/includes/images/favicons/friendshunt-app-icon-180x180.png" alt="Friends-Hunt Logo" width="160" height="160" />
         <h1 class="hero-title">FRIENDS-HUNT</h1>
         <p class="hero-tagline">Die Jagd beginnt</p>
         <p class="quote">
@@ -369,14 +369,14 @@
 
         <div class="slider-viewport" id="slider-viewport">
           <div class="slider-track" id="slider-track">
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="0" role="button" tabindex="0" aria-label="Setup Ansicht vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-setup-550x1024.png" alt="Setup Ansicht" width="550" height="1024" loading="lazy" /><figcaption>Setup</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="1" role="button" tabindex="0" aria-label="Gameplay Ansicht vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-gameplay-550x1024.png" alt="Gameplay Ansicht" width="550" height="1024" loading="lazy" /><figcaption>Gameplay</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="2" role="button" tabindex="0" aria-label="Game Dashboard vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-dashboard-550x1024.png" alt="Game Dashboard" width="550" height="1024" loading="lazy" /><figcaption>Dashboard</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="3" role="button" tabindex="0" aria-label="Messages Ansicht vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-messages-550x1024.png" alt="Messages Ansicht" width="550" height="1024" loading="lazy" /><figcaption>Messages</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="4" role="button" tabindex="0" aria-label="My Account Ansicht vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-my-account-550x1024.png" alt="My Account Ansicht" width="550" height="1024" loading="lazy" /><figcaption>My Account</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="5" role="button" tabindex="0" aria-label="System Messages vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-system-messages-550x1024.png" alt="System Messages" width="550" height="1024" loading="lazy" /><figcaption>System Messages</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="6" role="button" tabindex="0" aria-label="Replay Player vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-replay-player-550x1024.png" alt="Replay Player" width="550" height="1024" loading="lazy" /><figcaption>Replay Player</figcaption></figure>
-            <figure class="screenshot-figure screenshot-slide" data-screenshot="7" role="button" tabindex="0" aria-label="Themes vergrößern"><img src="../images/screenshots/screenshot-friends-hunt-themes-550x1024.png" alt="Themes" width="550" height="1024" loading="lazy" /><figcaption>Themes</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="0" role="button" tabindex="0" aria-label="Setup Ansicht vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-setup-550x1024.png" alt="Setup Ansicht" width="550" height="1024" loading="lazy" /><figcaption>Setup</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="1" role="button" tabindex="0" aria-label="Gameplay Ansicht vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-gameplay-550x1024.png" alt="Gameplay Ansicht" width="550" height="1024" loading="lazy" /><figcaption>Gameplay</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="2" role="button" tabindex="0" aria-label="Game Dashboard vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-dashboard-550x1024.png" alt="Game Dashboard" width="550" height="1024" loading="lazy" /><figcaption>Dashboard</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="3" role="button" tabindex="0" aria-label="Messages Ansicht vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-messages-550x1024.png" alt="Messages Ansicht" width="550" height="1024" loading="lazy" /><figcaption>Messages</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="4" role="button" tabindex="0" aria-label="My Account Ansicht vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-my-account-550x1024.png" alt="My Account Ansicht" width="550" height="1024" loading="lazy" /><figcaption>My Account</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="5" role="button" tabindex="0" aria-label="System Messages vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-system-messages-550x1024.png" alt="System Messages" width="550" height="1024" loading="lazy" /><figcaption>System Messages</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="6" role="button" tabindex="0" aria-label="Replay Player vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-replay-player-550x1024.png" alt="Replay Player" width="550" height="1024" loading="lazy" /><figcaption>Replay Player</figcaption></figure>
+            <figure class="screenshot-figure screenshot-slide" data-screenshot="7" role="button" tabindex="0" aria-label="Themes vergrößern"><img src="/app/includes/images/screenshots/screenshot-friends-hunt-themes-550x1024.png" alt="Themes" width="550" height="1024" loading="lazy" /><figcaption>Themes</figcaption></figure>
           </div>
         </div>
 
