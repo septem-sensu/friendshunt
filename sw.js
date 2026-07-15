@@ -1,4 +1,4 @@
-const CACHE_NAME      = 'friendshunt-v0.1.0.47';
+const CACHE_NAME      = 'friendshunt-v0.1.0.49';
 const TILE_CACHE_NAME = 'friendshunt-tiles-v1';
 const TILE_MAX_AGE_MS = 2 * 60 * 60 * 1000; // 2 hours
 
