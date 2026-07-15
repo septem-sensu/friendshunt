@@ -50,6 +50,7 @@ class Game extends BaseObject {
   protected string $playingFieldCenterPosition;
   protected int    $playingFieldSize;
   protected string $sanctionForVehicleUse;
+  protected int    $minimumDistancePlayer;
 
 /**
  * This static Method set a uploaded Game Image to the Game Object.
@@ -278,6 +279,7 @@ class Game extends BaseObject {
     $objGameplay->playingFieldCenterPosition  = $objRequestObject->playingFieldCenterPosition;
     $objGameplay->sanctionForVehicleUse       = $objRequestObject->sanctionForVehicleUse;
     $objGameplay->playingFieldSize            = $objRequestObject->playingFieldSize;
+    $objGameplay->minimumDistancePlayer       = $objRequestObject->minimumDistancePlayer;
     $objGameplay->violationsOfTheRules        = new stdClass();
     $objGameplay->isTransfered                = false;
 

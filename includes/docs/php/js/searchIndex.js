@@ -491,6 +491,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Game.html#property_sanctionForVehicleUse"
         },                {
+            "fqsen": "\\Game\u003A\u003A\u0024minimumDistancePlayer",
+            "name": "minimumDistancePlayer",
+            "summary": "",
+            "url": "classes/Game.html#property_minimumDistancePlayer"
+        },                {
             "fqsen": "\\Gameplay",
             "name": "Gameplay",
             "summary": "Gameplay\u0020Class\u0020for\u0020the\u0020Friends\u002DHunt\u0020App.",
@@ -520,6 +525,11 @@ Search.appendIndex(
             "name": "addTracking",
             "summary": "This\u0020Method\u0020save\u0020the\u0020Tracking\u0020and\u0020the\u0020Steps\u0020that\u0020have\u0020been\u0020run\u0020since\u0020the\u0020last\u0020Tracking.",
             "url": "classes/Gameplay.html#method_addTracking"
+        },                {
+            "fqsen": "\\Gameplay\u003A\u003AisTeamBuilding\u0028\u0029",
+            "name": "isTeamBuilding",
+            "summary": "This\u0020method\u0020checks\u0020whether\u0020the\u0020current\u0020player\u0020is\u0020at\u0020an\u0020illegal\u0020distance\u0020from\u0020another\u0020player.",
+            "url": "classes/Gameplay.html#method_isTeamBuilding"
         },                {
             "fqsen": "\\Gameplay\u003A\u003AaddOfflineTracking\u0028\u0029",
             "name": "addOfflineTracking",

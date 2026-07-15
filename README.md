@@ -137,6 +137,7 @@ Je nach Spielkonfiguration können zusätzliche Regeln aktiviert werden:
 
 - Spieler können ihre Mitspieler auf der Karte sehen.
 - Die Nutzung öffentlicher Verkehrsmittel kann erlaubt oder verboten werden. Ist sie verboten und die Friends-Hunt App erkennt eine Nutzung, werden die Jäger informiert und die Position des Spielers wird sichtbar.
+- Ein Mindestabstand zwischen Spielern kann konfiguriert werden. Nähern sich Spieler nach dem ersten Silent Ping einander näher als dieser Abstand, gilt dies als Regelverstoß — die Jäger werden informiert und die Positionen der betroffenen Spieler werden sichtbar.
 
 ### Regeln für die Jäger
 

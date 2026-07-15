@@ -110,6 +110,7 @@ class Game extends BaseObject {
         post.sanctionForVehicleUse       = document.querySelector('#sanctionForVehicleUse') != null ? document.querySelector('#sanctionForVehicleUse').value : null;
         post.playingFieldCenterPosition  = document.querySelector('#playingFieldCenterPosition') != null ? document.querySelector('#playingFieldCenterPosition').value : null;
         post.playingFieldSize            = document.querySelector('#playingFieldSize') != null ? document.querySelector('#playingFieldSize').value : null;
+        post.minimumDistancePlayer       = document.querySelector('#minimumDistancePlayer') != null ? document.querySelector('#minimumDistancePlayer').value : null;
 
         if( playerHtmlObjects.length < 1 ) {
           this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );

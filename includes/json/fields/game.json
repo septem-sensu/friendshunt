@@ -210,5 +210,14 @@
     "unit": "Meter",
     "minLength": 2,
     "position": 2100
+  },
+  "minimumDistancePlayer": {
+    "nameDe": "Mindestabstand Spieler",
+    "element": "input",
+    "type": "number",
+    "mandatory": true,
+    "unit": "Meter",
+    "minLength": 2,
+    "position": 2200
   }
 }

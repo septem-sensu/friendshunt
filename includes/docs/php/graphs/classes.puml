@@ -86,6 +86,7 @@ class Game {
   +playingFieldCenterPosition
   +playingFieldSize
   +sanctionForVehicleUse
+  +minimumDistancePlayer
   +addGameImage()
   +deleteGameImage()
   +avatarFileUploaded()
@@ -120,6 +121,7 @@ class Gameplay {
   +transferStatistics()
   +setStatisticProperty()
   +addTracking()
+  +isTeamBuilding()
   +addOfflineTracking()
   +isOutOfPlayField()
   +isDriven()

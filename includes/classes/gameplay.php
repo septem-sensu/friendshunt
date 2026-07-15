@@ -342,12 +342,59 @@ class Gameplay extends Game {
     $objTracking->timestamp          = time();
     $objTracking->clientTimestamp    = intval( $objRequestObject->timestamp );
     $objTracking->offlineTracking    = false;
+    $objTracking->isTeamBuilding     = $this->isTeamBuilding( $objTracking->lat, $objTracking->lng, $objTracking->precision );
 
     array_push( $this->currentPlayerTracking->tracking, $objTracking );
 
     BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
 
     return;
+  }
+
+/**
+ * This method checks whether the current player is at an illegal distance from another player.
+ * If the current player does not maintain the minimum distance from other players, a string with the IDs of the other players is created
+ * where the minimum distance is not maintained, the pipe is returned separately.
+ *
+ * @access     private
+ * @since      2026-07-15
+ * @version    0.1.0
+ *
+ * @param      float   $floatLat               The current Tracking coordinates
+ * @param      float   $floatLng               The current Tracking coordinates
+ * @param      int     $intPrecision           The accuracy of the current tracking coordinates
+ * @return     string  $strPlayerIds           Player Ids Pipe separates which ones are in the environment
+ *
+ * @example    $strPlayerIds = $this->isTeamBuilding( $floatLat, $floatLng, $intPrecision );
+ *
+*/
+  private function isTeamBuilding( float $floatLat, float $floatLng, int $intPrecision  ) : string {
+    if( ! isset( $this->gameSettings->minimumDistancePlayer ) || intval( $this->gameSettings->minimumDistancePlayer ) < 1 ) return '';
+    if( $this->startTimestamp + ( $this->gameSettings->pingInterval * 60 ) > time() ) return '';
+    if( $this->currentPlayerGameRole != 'player' ) return '';
+
+    $arrPlayer = $this->gameplayObject->player;
+    $strResult = '';
+
+    for( $i = 0; $i < count( $arrPlayer ); $i++ ) {
+      if( $arrPlayer[ $i ]->id == $this->currentPlayer->id() ) continue;
+
+      $objOtherPlayer         = new Player( $arrPlayer[ $i ]->id );
+      $objOtherPlayerPosition = $this->getPlayerPosition( $objOtherPlayer, 1, true );
+      $objTracking            = isset( $objOtherPlayerPosition->position ) && count( $objOtherPlayerPosition->position ) > 0 ? $objOtherPlayerPosition->position[ 0 ] : null;
+
+      if( ! isset( $objTracking ) ) continue;
+      if( time() - $objTracking->timestamp > $this->timeTolerance  ) continue;
+
+      $floatDistance = $this->calcDistance( $floatLat, $floatLng, $objTracking->lat, $objTracking->lng );
+
+      if( intval( $this->gameSettings->minimumDistancePlayer ) + $intPrecision + intval( $objTracking->precision ) < $floatDistance ) continue;
+
+      $strResult .= $strResult == '' ?  $this->currentPlayer->id() . '|' : '|';
+      $strResult .= $arrPlayer[ $i ]->id;
+    }
+
+    return $strResult;
   }
 
 /**
@@ -909,6 +956,43 @@ class Gameplay extends Game {
           $objSystemMessage->appliesCount       = $intIndex + 1;
           $objSystemMessage->showMessageOnlyOne = false;
           $objSystemMessage->id                 = 'usedVehicle_' . $strPlayerId . '_' . $objPosition->position[ 0 ]->timestamp;
+          $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
+
+          array_push( $objState->systemMessages, $objSystemMessage );
+
+          if( ! isset( $this->gameplayObject->violationsOfTheRules->$strPlayerId ) ) $this->gameplayObject->violationsOfTheRules->$strPlayerId = [];
+
+          array_push( $this->gameplayObject->violationsOfTheRules->$strPlayerId, $objPosition->position[ 0 ]->timestamp );
+
+          $this->saveGameplay();
+        }
+
+        // Violations Of The Rules - Team Building
+        if( isset( $objPosition->position[ 0 ]->isTeamBuilding ) && $objPosition->position[ 0 ]->isTeamBuilding != '' ) {
+
+          $arrPlayerIds = explode( '|', $objPosition->position[ 0 ]->isTeamBuilding );
+
+          for( $i = 0; $i < count( $arrPlayerIds ); $i++ ) {
+            $objOtherPlayer = new Player( $arrPlayerIds[ $i ] );
+
+            $this->gameplayObject->silentHunt->tracking->$arrPlayerIds[ $i ] = $this->getPlayerPosition( $objOtherPlayer, 1, true );
+          }
+
+          $objSystemMessage                     = new stdClass();
+          $objSystemMessage->type               = 'violationoftherules';
+          $objSystemMessage->subType            = 'teambuilding';
+          $objSystemMessage->for                = [ 'player', 'hunter', 'management' ];
+          $objSystemMessage->message            = '<p class="danger-text bold">REGELVERSTOSS</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Unerlaubtes Teambuilding zwischen Spielern.</p>';
+          $objSystemMessage->message           .= '<p class="danger-text">Das Tracking für diese Spieler wurde aktuallisiert.</p>';
+          $objSystemMessage->applies            = $strPlayerId;
+          $objSystemMessage->appliesName        = $objPlayer->get( 'name' );
+          $objSystemMessage->appliesRole        = 'player';
+          $objSystemMessage->appliesRoleName    = 'Spieler';
+          $objSystemMessage->cssClass           = 'danger-text';
+          $objSystemMessage->appliesCount       = $intIndex + 1;
+          $objSystemMessage->showMessageOnlyOne = false;
+          $objSystemMessage->id                 = 'teambuilding_' . $objPosition->position[ 0 ]->isTeamBuilding . '_' . $objPosition->position[ 0 ]->timestamp;
           $objSystemMessage->timestamp          = $objPosition->position[ 0 ]->timestamp;
 
           array_push( $objState->systemMessages, $objSystemMessage );
