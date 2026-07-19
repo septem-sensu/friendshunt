@@ -217,7 +217,7 @@
     "type": "number",
     "mandatory": true,
     "unit": "Meter",
-    "minLength": 2,
+    "minLength": 1,
     "position": 2200
   }
 }
