@@ -580,13 +580,13 @@ class Statistic {
           }
 
           if( tracking[ i ].isDriven && i > 0 ) {
-            if( tracking[ i ].lat != -1 && tracking[ i ].lng != - 1 && tracking[ i - 1 ].lat != -1 && tracking[ i - 1 ].lng != -1 ) {
+            if( tracking[ i ].precision != - 1 && tracking[ i - 1 ].precision != -1 ) {
               driven += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i - 1 ].lat, tracking[ i - 1 ].lng );
             }
           }
 
           if( i > tracking.length - 2 ) continue;
-          if( tracking[ i ].lat == -1 || tracking[ i ].lng == - 1 || tracking[ i + 1 ].lat == -1 || tracking[ i + 1 ].lng == -1 ) continue;
+          if( tracking[ i ].precision == - 1 || tracking[ i + 1 ].precision == -1 ) continue;
 
           distance += this.geoTracker.calcDistance( tracking[ i ].lat, tracking[ i ].lng, tracking[ i + 1 ].lat, tracking[ i + 1 ].lng );
         }

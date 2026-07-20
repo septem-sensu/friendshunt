@@ -338,7 +338,7 @@ class Gameplay extends Game {
     $objTracking->outOfPlayingField  = $this->isOutOfPlayField( $objTracking->lat, $objTracking->lng, $objTracking->precision );
     $objTracking->batteryLevel       = intval( $objRequestObject->batteryLevel );
     $objTracking->batteryIsCharging  = $objRequestObject->batteryIsCharging;
-    $objTracking->isDriven           = $this->isDriven( $objTracking->lat, $objTracking->lng );
+    $objTracking->isDriven           = $this->isDriven( $objTracking->lat, $objTracking->lng, $objTracking->precision );
     $objTracking->timestamp          = time();
     $objTracking->clientTimestamp    = intval( $objRequestObject->timestamp );
     $objTracking->offlineTracking    = false;
@@ -372,6 +372,7 @@ class Gameplay extends Game {
     if( ! isset( $this->gameSettings->minimumDistancePlayer ) || intval( $this->gameSettings->minimumDistancePlayer ) < 1 ) return '';
     if( $this->startTimestamp + ( $this->gameSettings->pingInterval * 60 ) > time() ) return '';
     if( $this->currentPlayerGameRole != 'player' ) return '';
+    if( $intPrecision < 0 ) return '';
 
     $arrPlayer = $this->gameplayObject->player;
     $strResult = '';
@@ -385,6 +386,7 @@ class Gameplay extends Game {
 
       if( ! isset( $objTracking ) ) continue;
       if( time() - $objTracking->timestamp > $this->timeTolerance  ) continue;
+      if( $objTracking->precision < 0 ) continue;
 
       $floatDistance = $this->calcDistance( $floatLat, $floatLng, $objTracking->lat, $objTracking->lng );
 
@@ -423,6 +425,7 @@ class Gameplay extends Game {
     $objTracking->timestamp          = time();
     $objTracking->clientTimestamp    = intval( $objRequestObject->timestamp );
     $objTracking->offlineTracking    = true;
+    $objTracking->isTeamBuilding     = false;
 
     BaseObject::insertSortedInArray( $this->currentPlayerTracking->tracking, $objTracking, 'clientTimestamp' );
     BaseObject::saveFileEnCrypted( $this->gameplayPath . 'tracking_' . $this->currentPlayer->id() . '.json', $this->currentPlayerTracking );
@@ -452,6 +455,7 @@ class Gameplay extends Game {
     $floatPlayerDistance     = $this->calcDistance( floatval( $floatLat ), floatval( $floatLng ), floatval( $arrPlayingFieldPosition[ 0 ] ), floatval( $arrPlayingFieldPosition[ 1 ] ) );
     $intPlayingFieldSize     = intval( $this->gameplayObject->playingFieldSize );
 
+    if( $intPrecision < 0 ) return false;
     if( $floatPlayerDistance > $intPlayingFieldSize + intval( $intPrecision ) + 50 ) return true;
 
     return false;
@@ -467,12 +471,13 @@ class Gameplay extends Game {
  *
  * @param      float   $floatLat               The current Tracking coordinates
  * @param      float   $floatLng               The current Tracking coordinates
+ * @param      int     $intPrecision           The accuracy of the current tracking coordinates
  * @return     bool    $boolIsDriven           Is the Player the distance driven or not
  *
- * @example    $boolIsDrive = $this->isDriven( $floatLat, $floatLng );
+ * @example    $boolIsDrive = $this->isDriven( $floatLat, $floatLng, $intPrecision );
  *
 */
-  private function isDriven( float $floatLat, float $floatLng ) : bool {
+  private function isDriven( float $floatLat, float $floatLng, int $intPrecision ) : bool {
     $arrTracking       = $this->getPlayerPosition( $this->currentPlayer, 1, true )->position;
 
     if( count( $arrTracking ) === 0 ) return false;
@@ -482,6 +487,7 @@ class Gameplay extends Game {
     $floatDistance     = $this->calcDistance( $floatLat, $floatLng, $arrLastPosition[ 0 ]->lat, $arrLastPosition[ 0 ]->lng ) / 1000;
 
     if( $floatTime == 0 ) return false;
+    if( $intPrecision < 0 || $arrLastPosition[ 0 ]->precision < 0 ) return false;
 
     return $floatDistance / $floatTime > 15 ? true : false;
   }
