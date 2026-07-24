@@ -335,7 +335,7 @@ class Player extends BaseObject {
       let contentContainerContent = '<div class="content-container align-left ' + this.cssContainerClasses[ playerCounter % this.cssContainerClasses.length ] + '">';
 
       contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
-      contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + playerList[ playerId ].email + '/' + playerList[ playerId ].image + '" />';
+      contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/player/' + playerList[ playerId ].email + '/' + playerList[ playerId ].image + '" alt="Profilbild" />';
       contentContainerContent    += '</td><td class="align-top">';
       contentContainerContent    += '<p class="bold mb-10">' + playerList[ playerId ].name + '</p>';
       contentContainerContent    += '<p>' + playerList[ playerId ].email + '</p>';
@@ -393,7 +393,7 @@ class Player extends BaseObject {
       contentContainerContent    += '<div class="w-100p hidden game-delete-button"><button onclick="javascript: window[ appAlias ].objects.player.deleteGame( this );" type="button" class="w-160 mt-4 event-delete-game danger">Spiel löschen</button></div>';
       contentContainerContent    += '</td>';
       contentContainerContent    += '<td class="w-160 align-top align-right">';
-      contentContainerContent    += '<img class="c-dashboard-player-image my-account-image" src="includes/files/game/' + games[ i ].id + '/' + games[ i ].avatar + '" />';
+      contentContainerContent    += '<img class="c-dashboard-player-image my-account-image" src="includes/files/game/' + games[ i ].id + '/' + games[ i ].avatar + '" alt="Spiel Avatar" />';
       contentContainerContent    += '</td>';
       contentContainerContent    += '</tr></table>';
       contentContainerContent    += '<table><tr><td class="h-30"><span class="bold">Name:</span></td><td class="h-30"><span class="bold">' + games[ i ].name + '</span></td></tr>';
@@ -585,7 +585,7 @@ class Player extends BaseObject {
     if( typeof player !== 'object' || player == null ) return;
 
     contentContainerContent    += '<table class="w-100p"><tr><td class="w-160 align-top">';
-    contentContainerContent    += '<img class="c-dashboard-player-image" src="includes/files/player/' + player.email + '/' + player.image + '" />';
+    contentContainerContent    += '<img class="c-dashboard-player-image" src="includes/files/player/' + player.email + '/' + player.image + '" alt="Profilbild" />';
     contentContainerContent    += '<div class="align-left w-100p mt-10"><button onclick="javascript: this.closest(\'.content-container\').remove();" type="button" class="w-140 warning event-remove-player-from-game">Spieler entfernen</button></div>';
     contentContainerContent    += '</td><td class="align-top">';
     contentContainerContent    += '<p class="bold mb-10">' + player.name + '</p>';

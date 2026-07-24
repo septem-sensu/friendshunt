@@ -147,7 +147,7 @@ class BaseObject {
         document.querySelector('.full-image-layer').style.display = 'block';
         document.querySelector('.full-image').style.display = 'block';
 
-        const tagImage = '<img src="' + event.target.src + '" />';
+        const tagImage = '<img src="' + event.target.src + '" alt="Zoom Image" />';
 
         document.querySelector('.full-image').innerHTML = tagImage;
 

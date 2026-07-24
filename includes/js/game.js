@@ -279,7 +279,7 @@ class Game extends BaseObject {
         let contentContainerContent = '<div class="content-container align-left ' + this.cssContainerClasses[ j % this.cssContainerClasses.length ] + '">';
 
         contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
-        contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="' + profileImage + '" />';
+        contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="' + profileImage + '" alt="Profilbild" />';
         contentContainerContent    += '</td><td class="align-top">';
         contentContainerContent    += '<p class="bold mb-10">' + gameplayData[ members[ i ] ][ j ].name + '</p>';
         contentContainerContent    += '<p><a href="mailto:' + gameplayData[ members[ i ] ][ j ].email + '">✉ ' + gameplayData[ members[ i ] ][ j ].email + '</a></p>';
@@ -403,7 +403,7 @@ class Game extends BaseObject {
       let contentContainerContent = '<div class="content-container align-left ' + this.cssContainerClasses[ gameCounter % this.cssContainerClasses.length ] + '">';
 
       contentContainerContent    += '<table class="w-100p"><tr><td class="align-top mr-15" style="width: 195px">';
-      contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/game/archive/' + gameId + '/' + archiveGames[ gameId ].avatar + '" />';
+      contentContainerContent    += '<img class="c-dashboard-player-image my-account-image mr-10" src="includes/files/game/archive/' + gameId + '/' + archiveGames[ gameId ].avatar + '" alt="Spiel Avatar" />';
       contentContainerContent    += '</td><td class="align-top">';
       contentContainerContent    += '<p class="bold mb-10">' + archiveGames[ gameId ].name + '</p>';
       contentContainerContent    += '<p>' + archiveGames[ gameId ].title + '</p>';
