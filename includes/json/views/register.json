@@ -1,0 +1,12 @@
+{
+  "alias": "register",
+  "class": "Player",
+  "roles": [ "guest" ],
+  "templates": [
+    "header.tmpl",
+    "register.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+  ]
+}

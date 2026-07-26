@@ -1,0 +1,12 @@
+{
+  "alias": "registerSuccess",
+  "class": "Player",
+  "roles": [ "guest" ],
+  "templates": [
+    "header.tmpl",
+    "register-success.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+  ]
+}

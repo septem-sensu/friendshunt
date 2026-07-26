@@ -103,7 +103,6 @@ class Player extends BaseObject {
     $objAllPlayer->$strEmail                = $objNewPlayerRequestObject;
     $objNewPlayerRequestObject->redirect    = 'index.php?view=player';
 
-
     BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataPlayer.json', $objAllPlayer );
 
     if( ! file_exists( __DIR__ . '/../files/player/' ) ) mkdir( __DIR__ . '/../files/player' );
@@ -112,6 +111,125 @@ class Player extends BaseObject {
     copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
 
     return $objNewPlayerRequestObject;
+  }
+
+/**
+ * This static method creates a new player via the registration template.
+ * The new player's data is initially saved in the dataRegister.json file.
+ * The player will be sent an email with a confirmation link.
+ *
+ * @access     public
+ * @since      2026-07-26
+ * @version    0.1.0
+ *
+ * @param      object     $objRequestObject    The Request Object
+ * @return     object     $objRequestObject    The Request Object
+ *
+ * @example    Player::register( $objRequestObject );
+ *
+*/
+  public static function register( object $objRequestObject ) : object {
+    $objRequestObject->role     = 'player';
+    $objRequestObject->image    = 'avatar.png';
+    $objAllPlayer               = BaseObject::getObjects( 'Player' );
+    $objRegisteredPlayer        = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'data/dataRegister.json' );
+    $objFields                  = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'fields/player.json' );
+    $strEmail                   = $objRequestObject->email;
+    $objValidateResult          = Presentation::validateFields( $objFields, $objRequestObject );
+    $objRequestObject->password = isset( $objRequestObject->password ) ? BaseObject::enCrypteOnly( $objRequestObject->password ) : null;
+
+    if( ! $objValidateResult->success ) {
+      $objRequestObject->formErrors = $objValidateResult->formErrors;
+
+      return $objRequestObject;
+    }
+
+    if( isset( $objAllPlayer->$strEmail ) || isset( $objRegisteredPlayer->$strEmail ) ) {
+      $objRequestObject->formErrors = [];
+      array_push( $objRequestObject->formErrors, Presentation::newFormError( '#email', 'Spieler existiert schon' ) );
+
+      return $objRequestObject;
+    }
+
+    $objNewPlayer                   = BaseObject::cleanObject( $objRequestObject, $objFields );
+    $strRegisterKey                 = base64_encode( BaseObject::enCrypte( $strEmail . '|||' . $objRequestObject->password ) );
+    $objNewPlayer->created          = time();
+    $objRegisteredPlayer->$strEmail = $objNewPlayer;
+    $arrCryptKeys                   = BaseObject::getCryptKeys();
+    $strRegisterLink                = Presentation::getBaseUrl() . '?view=registerFinished&register=' . $strRegisterKey;
+    $objEmail                       = new stdClass();
+    $objEmail->mailAddress          = $arrCryptKeys[ 'mailAddress' ];
+    $objEmail->to                   = $strEmail;
+    $objEmail->subject              = BaseObject::getConfig()->registerMailSubject;
+    $objEmail->message              = file_get_contents( __DIR__ . '/../templates/mail/register.tmpl' );
+    $objEmail->message              = str_replace( '{{NAME}}', $objRequestObject->name, $objEmail->message );
+    $objEmail->message              = str_replace( '{{APPNAMESHORT}}', BaseObject::getConfig()->appNameShort, $objEmail->message );
+    $objEmail->message              = str_replace( '{{APPNAME}}', BaseObject::getConfig()->appName, $objEmail->message );
+    $objEmail->message              = str_replace( '{{REGISTERLINK}}', $strRegisterLink, $objEmail->message );
+    $objRequestObject->redirect     = '?view=registerSuccess';
+
+    BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataRegister.json', $objRegisteredPlayer );
+    Presentation::sendHtmlMail( $objEmail );
+
+    return $objRequestObject;
+  }
+
+/**
+ * This static method is executed before the registerFinished View.
+ * The registerFinished view is executed from the email confirmation and is intended to add the pre-registered player to the app as a registered player.
+ *
+ * @access     public
+ * @since      2026-07-26
+ * @version    0.1.0
+ *
+ * @param      object   $objController    The Controller Object
+ * @return     object   $objController    The Controller Object
+ *
+ * @example    $objController = Player::registerFinished( $objController );
+ *
+*/
+  public static function registerFinished( Controller $objController ) : object {
+    $strRegisterKey       = isset( $_GET[ 'register' ] ) && $_GET[ 'register' ] != '' ? $_GET[ 'register' ] : null;
+    $strRegisterKey       = isset( $strRegisterKey ) ? base64_decode( $strRegisterKey ) : null;
+    $strRegisterKey       = isset( $strRegisterKey ) ? BaseObject::deCrypte( $strRegisterKey ) : null;
+    $arrRegisterKey       = isset( $strRegisterKey ) ? explode( '|||', $strRegisterKey ) : [];
+    $objAllPlayer         = BaseObject::getObjects( 'Player' );
+    $objRegisteredPlayer  = BaseObject::loadFileDeCrypted( BaseObject::FILEPATHJSON . 'data/dataRegister.json' );
+    $boolHasErrors        = false;
+    $strEmail             = null;
+
+    if( count( $arrRegisterKey ) < 2 ) $boolHasErrors = true;
+
+    $strEmail     = ! $boolHasErrors && isset( $arrRegisterKey[ 0 ] ) && $arrRegisterKey[ 0 ] != '' ? $arrRegisterKey[ 0 ] : null;
+    $strPassword  = ! $boolHasErrors && isset( $arrRegisterKey[ 1 ] ) && $arrRegisterKey[ 1 ] != '' ? $arrRegisterKey[ 1 ] : null;
+
+    if( ! isset( $strEmail ) ) $boolHasErrors = true;
+    if( ! isset( $strPassword ) ) $boolHasErrors = true;
+    if( ! $boolHasErrors && isset( $objAllPlayer->$strEmail ) ) $boolHasErrors = true;
+    if( ! $boolHasErrors && ! isset( $objRegisteredPlayer->$strEmail ) ) $boolHasErrors = true;
+
+    $objPlayer   = ! $boolHasErrors ? $objRegisteredPlayer->$strEmail : null;
+
+    if( ! isset( $objPlayer ) || $objPlayer->password != $strPassword ) $boolHasErrors = true;
+
+    if( ! $boolHasErrors ) {
+      $objPlayer->created      = time();
+      $objAllPlayer->$strEmail = $objPlayer;
+
+      if( ! file_exists( __DIR__ . '/../files/player/' ) ) mkdir( __DIR__ . '/../files/player' );
+      if( ! file_exists( __DIR__ . '/../files/player/' . $strEmail ) ) mkdir( __DIR__ . '/../files/player/' . $strEmail );
+
+      copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', __DIR__ . '/../files/player/' . $strEmail . '/avatar.png' );
+      unset( $objRegisteredPlayer->$strEmail );
+      BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataPlayer.json', $objAllPlayer );
+      BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataRegister.json', $objRegisteredPlayer );
+
+      $objController->getPresentationObject()->assignTemplateVar( 'registerFinishedSuccsess', 'Player', null, 'true' );
+    } else {
+      $objController->getPresentationObject()->assignTemplateVar( 'registerFinishedSuccsess', 'Player', null, 'false' );
+    }
+
+    return $objController;
   }
 
 /**
@@ -380,6 +498,7 @@ class Player extends BaseObject {
     $strConfig                   = file_get_contents( __DIR__ . '/../classes/config.php' );
     $strConfig                   = str_replace( '{{PASSPHRASE1}}', BaseObject::generateRandomString( 15 ), $strConfig );
     $strConfig                   = str_replace( '{{PASSPHRASE2}}', BaseObject::generateRandomString( 15 ), $strConfig );
+    $strConfig                   = str_replace( '{{MAILADDRESS}}', $objSetupPlayer->name . '<' . $objSetupPlayer->email . '>', $strConfig );
 
     if( ! $objValidationResult->success ) {
       $objRequestObject->formErrors = $objValidationResult->formErrors;
@@ -391,6 +510,7 @@ class Player extends BaseObject {
     if( function_exists( 'opcache_invalidate' ) ) opcache_invalidate( __DIR__ . '/../classes/config.php', true );
 
     if( ! file_exists( __DIR__ . '/../json/data/dataGame.json' ) ) BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', new stdClass() );
+    if( ! file_exists( __DIR__ . '/../json/data/dataRegister.json' ) ) BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataRegister.json', new stdClass() );
 
     if( ! file_exists( __DIR__ . '/../json/data/dataPlayer.json' ) ) {
       $objFirstPlayer                    = new stdClass();

@@ -65,6 +65,7 @@ class Presentation {
 
     $this->assignTemplateVar( 'appAlias', 'default', null, $this->config->appAlias );
     $this->assignTemplateVar( 'appName', 'default', null, $this->config->appName );
+    $this->assignTemplateVar( 'appNameShort', 'default', null, $this->config->appNameShort );
     $this->assignTemplateVar( 'version', 'default', null, $this->config->version );
     $this->assignTemplateVar( 'passwordRules', 'default', null, json_encode( $this->config->passwordRules ) );
     $this->assignTemplateVar( 'timestamp', 'default', null, strval( time() ) );
@@ -309,8 +310,7 @@ class Presentation {
     $objConfig = BaseObject::getConfig();
     $strUrl    = Presentation::getFullUrl();
     $strPath   = parse_url( $strUrl, PHP_URL_PATH );
-
-    $strHost = isset( $_SERVER[ 'HTTP_HOST' ] ) && in_array( $_SERVER[ 'HTTP_HOST' ], $objConfig->allowedHosts ) ? $_SERVER[ 'HTTP_HOST' ] : $objConfig->defaultHost;
+    $strHost   = isset( $_SERVER[ 'HTTP_HOST' ] ) ? $_SERVER[ 'HTTP_HOST' ] : $objConfig->defaultHost;
 
     return 'https://' . $strHost . $strPath;
   }
@@ -329,13 +329,13 @@ class Presentation {
 */
   public static function getFullUrl() : string {
     $objConfig = BaseObject::getConfig();
-    $strHost   = isset( $_SERVER[ 'HTTP_HOST' ] ) && in_array( $_SERVER[ 'HTTP_HOST' ], $objConfig->allowedHosts ) ? $_SERVER[ 'HTTP_HOST' ] : $objConfig->defaultHost;
+    $strHost   = isset( $_SERVER[ 'HTTP_HOST' ] ) ? $_SERVER[ 'HTTP_HOST' ] : $objConfig->defaultHost;
 
     return 'https://' . $strHost . $_SERVER[ 'REQUEST_URI' ];
   }
 
 /**
- * This Method send a Html E-Mail over the PHP mail Function.
+ * This static Method send a Html E-Mail over the PHP mail Function.
  *
  * @access     public
  * @since      2026-06-05
@@ -344,21 +344,23 @@ class Presentation {
  * @param      object    $objEmail      The Standard Class Object with all E-Mail Parameters
  * @return     void
  *
- * @example    $objPresentation->sendHtmlMail( $objEmail );
+ * @example    Presentation::sendHtmlMail( $objEmail );
  *
 */
-  public function sendHtmlMail( object $objEmail ) : void {
-    $objConfig   = BaseObject::getConfig();
-
+  public static function sendHtmlMail( object $objEmail ) : void {
     $arrHeader[] = 'MIME-Version: 1.0';
-    $arrHeader[] = 'Content-type: text/html; charset=iso-8859-1';
-    $arrHeader[] = 'To: ' . $objEmail->to;
-    $arrHeader[] = 'From: ' . $objConfig->mailAddress;
+    $arrHeader[] = 'Content-type: text/html; charset=utf-8';
+    $arrHeader[] = 'From: ' . $objEmail->mailAddress;
 
     if( isset( $objEmail->cc ) ) $arrHeader[] = 'Cc: ' . $objEmail->cc;
     if( isset( $objEmail->bcc ) ) $arrHeader[] = 'Bcc: ' . $objEmail->bcc;
 
-    mail( $objEmail->to, $objEmail->subject, $objEmail->message, implode( "\r\n", $arrHeader ) );
+    preg_match( '/[\w\.-]+@[\w\.-]+\.\w+/', $objEmail->mailAddress, $arrMatches );
+
+    $strCleanEmail    = isset( $arrMatches[ 0 ] ) ? $arrMatches[ 0 ] : $objEmail->mailAddress;
+    $strEnvelopeFrom  = '-f ' . $strCleanEmail;
+
+    mail( $objEmail->to, $objEmail->subject, $objEmail->message, implode( "\r\n", $arrHeader ), $strEnvelopeFrom );
 
     return;
   }
@@ -384,7 +386,7 @@ class Presentation {
 
     foreach( $objFields as $strFieldname => $objField ) {
       $intMinLengt = isset( $objField->minLength ) ? $objField->minLength : 1;
-      if( ! $objField->mandatory ) continue;
+      if( ! isset( $objField->mandatory ) || ! $objField->mandatory ) continue;
       if( ! isset( $objObject->$strFieldname ) ) {
         array_push( $objResult->formErrors, Presentation::newFormError( '#' . $strFieldname, 'Field is Mandatory' ) );
         continue;

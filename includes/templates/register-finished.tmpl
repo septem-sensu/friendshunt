@@ -1,0 +1,39 @@
+<div class="content-container first-child pulse-container" >
+  <h1 class="align-left float-left">Registrierung</h1>
+  <div class="align-right">
+    <button type="button" class="warning w-140 event-link" data-link="index.php?view=login">Zurück</button>
+  </div>
+</div>
+
+<div class="content-container align-left pulse-container-reverse-slow hidden" id="register-finished-success">
+  <h2 class="mt-10 mb-15">Deine Mail-Adresse wurde erfolgreich bestätigt</h2>
+  <p class="mb-15">Deine Mail-Adresse wurde erfolgreich bestätigt und dein {{default::appNameShort}} Konto ist nun aktiv.</p>
+  <p class="mb-15">Du kannst dich jetzt mit deinen Zugangsdaten anmelden und alle Funktionen von {{default::appNameShort}} nutzen und die Jagd beginnen.</p>
+  <p class="mb-15">Vielen Dank, dass du Teil der {{default::appNameShort}} Community bist!</p>
+  <p class="mb-15">Wir wünschen dir viel Erfolg und sehr viel Spaß.</p>
+  <p class="mb-15">— Dein <span class="bold">{{default::appNameShort}} Team</span></p>
+</div>
+
+<div class="content-container align-left pulse-container-reverse-slow hidden" id="register-finished-failed">
+  <h2 class="mt-10 mb-15">Ups... Da ging irgendetwas schief.</h2>
+  <p class="mb-15">Leider konnten wir deine Registrierung nicht finden.</p>
+  <p class="mb-15">Mögliche Ursachen:</p>
+  <p> - Die Registrierung liegt schon länger als einen Tag zurück</p>
+  <p class="mb-15"> - Irgendetwas auf unserer Seite ging schief...</p>
+  <p class="mb-15">Registriere dich einfach noch einmal neu.</p>
+</div>
+
+<script type="text/javascript">
+  ( function() {
+    const registerFinishedSuccsess    = '{{Player::registerFinishedSuccsess}}';
+    window[ appAlias ].objects.player = new Player();
+
+    if( registerFinishedSuccsess === 'true' ) {
+      document.querySelector( '#register-finished-success' ).classList.remove( 'hidden' );
+    } else {
+      document.querySelector( '#register-finished-failed' ).classList.remove( 'hidden' );
+    }
+
+    return;
+  } )();
+</script>

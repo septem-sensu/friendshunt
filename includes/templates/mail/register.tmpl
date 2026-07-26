@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitte bestätige deine Registrierung bei Bloom Pro</title>
+<style>
+body {
+background-color: #ffffff;
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+color: #000000;
+}
+.container {
+max-width: 600px;
+margin: 40px auto;
+background: #ffffff;
+border-radius: 12px;
+padding: 30px;
+}
+h1 {
+color: #2e4064;
+font-size: 22px;
+margin-bottom: 10px;
+}
+p {
+font-size: 16px;
+line-height: 1.6;
+}
+.button {
+display: inline-block;
+margin: 20px 0;
+padding: 12px 24px;
+background-color: #2e4064;
+color: #ffffff;
+text-decoration: none;
+border-radius: 8px;
+font-weight: bold;
+}
+.footer {
+font-size: 13px;
+color: #555555;
+text-align: center;
+margin-top: 30px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Willkommen bei {{APPNAMESHORT}}</h1>
+<p>Hallo {{NAME}},</p>
+<p>vielen Dank für deine Registrierung bei <strong>{{APPNAMESHORT}}</strong>! Um dein Konto zu aktivieren, bestätige bitte deine E-Mail-Adresse, indem du auf den folgenden Button klickst:</p>
+<p style="text-align:center;">
+<a href="{{REGISTERLINK}}" class="button" style="color: #ffffff;">E-Mail bestätigen</a>
+</p>
+<p>Wenn du dich nicht bei {{APPNAMESHORT}} registriert hast, kannst du diese Nachricht einfach ignorieren – es passiert dann nichts weiter.</p>
+<p>Vielen Dank und willkommen in der {{APPNAMESHORT}} Community!</p>
+<p>— Dein <strong>{{APPNAMESHORT}} Team</strong></p>
+<div class="footer">
+{{APPNAME}}
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "alias": "registerFinished",
+  "class": "Player",
+  "roles": [ "guest" ],
+  "templates": [
+    "header.tmpl",
+    "register-finished.tmpl",
+    "footer.tmpl"
+  ],
+  "actions": [
+    "Player::registerFinished"
+  ]
+}

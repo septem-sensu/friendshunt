@@ -187,6 +187,8 @@ class Player {
   +asHunterDistanceDriven
   +asManagementDistanceDriven
   +newPlayer()
+  +register()
+  +registerFinished()
   +addGamesToTemplate()
   +checkLogin()
   +getPlayerIdFromCookie()

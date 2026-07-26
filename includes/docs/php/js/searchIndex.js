@@ -716,6 +716,16 @@ Search.appendIndex(
             "summary": "This\u0020static\u0020Method\u0020add\u0020a\u0020new\u0020Player\u0020to\u0020the\u0020App.",
             "url": "classes/Player.html#method_newPlayer"
         },                {
+            "fqsen": "\\Player\u003A\u003Aregister\u0028\u0029",
+            "name": "register",
+            "summary": "This\u0020static\u0020method\u0020creates\u0020a\u0020new\u0020player\u0020via\u0020the\u0020registration\u0020template.",
+            "url": "classes/Player.html#method_register"
+        },                {
+            "fqsen": "\\Player\u003A\u003AregisterFinished\u0028\u0029",
+            "name": "registerFinished",
+            "summary": "This\u0020static\u0020method\u0020is\u0020executed\u0020before\u0020the\u0020registerFinished\u0020View.",
+            "url": "classes/Player.html#method_registerFinished"
+        },                {
             "fqsen": "\\Player\u003A\u003AaddGamesToTemplate\u0028\u0029",
             "name": "addGamesToTemplate",
             "summary": "This\u0020Method\u0020add\u0020the\u0020Game\u0020Objects\u0020to\u0020the\u0020Template\u0020Variables\u0020for\u0020the\u0020Template\u0020Engine.",
@@ -1043,7 +1053,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Presentation\u003A\u003AsendHtmlMail\u0028\u0029",
             "name": "sendHtmlMail",
-            "summary": "This\u0020Method\u0020send\u0020a\u0020Html\u0020E\u002DMail\u0020over\u0020the\u0020PHP\u0020mail\u0020Function.",
+            "summary": "This\u0020static\u0020Method\u0020send\u0020a\u0020Html\u0020E\u002DMail\u0020over\u0020the\u0020PHP\u0020mail\u0020Function.",
             "url": "classes/Presentation.html#method_sendHtmlMail"
         },                {
             "fqsen": "\\Presentation\u003A\u003AvalidateFields\u0028\u0029",

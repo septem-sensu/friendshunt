@@ -2,7 +2,9 @@
   "guest": {
     "methods": [
       "Player::login",
-      "Player::setup"
+      "Player::setup",
+      "Player::register",
+      "Player::registerFinished"
     ]
   },
   "player": {

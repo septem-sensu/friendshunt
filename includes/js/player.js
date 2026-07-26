@@ -55,6 +55,26 @@ class Player extends BaseObject {
     if( Utils.globalRegisteredEvents[ 'Player' ] ) return;
     Utils.globalRegisteredEvents[ 'Player' ] = true;
 
+    const registerButton = document.querySelector( '#event-register-new-player' );
+
+    if( registerButton != null ) {
+      registerButton.addEventListener( 'click', ( event ) => {
+        const post       = { 'class': 'Player', 'method': 'register' };
+
+        post.id          = document.querySelector( '#email' ).value;
+        post.email       = document.querySelector( '#email' ).value;
+        post.password    = document.querySelector( '#password' ).value;
+        post.password2   = document.querySelector( '#password2' ).value;
+        post.name        = document.querySelector( '#name' ).value;
+        post.title       = document.querySelector( '#title' ).value;
+        post.description = document.querySelector( '#description' ).value;
+
+        this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
+
+        return;
+      } );
+    }
+
     const loginButtons = document.querySelectorAll( '.event-login' );
 
     for( let i = 0; i < loginButtons.length; i++ ) {
