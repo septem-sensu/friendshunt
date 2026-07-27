@@ -213,9 +213,7 @@ class BaseObject {
     const deleteButtons    = document.querySelectorAll( '.game-delete-button' );
     const archiveButtons   = document.querySelectorAll( '.game-archive-button' );
     const playerListButton = document.querySelector( '#player-list-button-container' );
-    const newGameButton    = document.querySelector( '.new-game-button' );
     const newPlayerButton  = document.querySelector( '#new-player-button-container' );
-    const archiveButton    = document.querySelector( '#game-archive-button-container' );
 
     if( role === 'administrator' ) {
       for( let i = 0; i < deleteButtons.length; i++ ) {
@@ -226,10 +224,8 @@ class BaseObject {
         archiveButtons[ i ].classList.remove( 'hidden' );
       }
 
-      if( newGameButton != null ) newGameButton.classList.remove( 'hidden' );
       if( newPlayerButton != null ) newPlayerButton.classList.remove( 'hidden' );
       if( playerListButton != null ) playerListButton.classList.remove( 'hidden' );
-      if( archiveButton != null ) archiveButton.classList.remove( 'hidden' );
     }
 
     return;

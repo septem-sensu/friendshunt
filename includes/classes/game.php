@@ -51,6 +51,7 @@ class Game extends BaseObject {
   protected int    $playingFieldSize;
   protected string $sanctionForVehicleUse;
   protected int    $minimumDistancePlayer;
+  protected string $owner;
 
 /**
  * This static Method set a uploaded Game Image to the Game Object.
@@ -95,8 +96,23 @@ class Game extends BaseObject {
  *
 */
   public function deleteGameImage( object $objRequestObject ) : object {
-    $strImageName = $objRequestObject->imageId;
-    $arrImages   = $this->get( 'images' );
+    $strImageName  = $objRequestObject->imageId;
+    $arrImages     = $this->get( 'images' );
+    $strPlayerId   = $objRequestObject->playerId;
+    $objPlayer     = new Player( $strPlayerId );
+    $strPlayerRole = $objPlayer->get( 'role' );
+    $strGameOwner  = $this->owner;
+
+    if( $strPlayerRole != 'administrator' ) {
+      if( ! isset( $strGameOwner ) || $strGameOwner != $strPlayerId ) {
+        $objError           = new stdClass();
+        $objError->message  = 'Zugriff verweigert';
+
+        array_push( $objRequestObject->controller->response->errors, $objError );
+
+        return $objRequestObject;
+      }
+    }
 
     unlink( __DIR__ . '/../files/game/' . $this->id() . '/' . $strImageName );
 
@@ -211,6 +227,21 @@ class Game extends BaseObject {
     $strClass         = $objRequestObject->class;
     $strId            = $objRequestObject->id;
     $objGame          = new $strClass( $strId );
+    $strGameOwner     = $objGame->get( 'owner' );
+    $strPlayerId      = $objRequestObject->playerId;
+    $objPlayer        = new Player( $strPlayerId );
+    $strPlayerRole    = $objPlayer->get( 'role' );
+
+    if( $strPlayerRole != 'administrator' ) {
+      if( ! isset( $strGameOwner ) || $strGameOwner != $strPlayerId ) {
+        $objError           = new stdClass();
+        $objError->message  = 'Zugriff verweigert';
+
+        array_push( $objRequestObject->controller->response->errors, $objError );
+
+        return $objRequestObject;
+      }
+    }
 
     foreach( $arrGameRoles as $strRoleId => $strRoleName ) {
       $arrPlayerIds = $objGame->get( $strRoleId );
@@ -282,6 +313,7 @@ class Game extends BaseObject {
     $objGameplay->minimumDistancePlayer       = $objRequestObject->minimumDistancePlayer;
     $objGameplay->violationsOfTheRules        = new stdClass();
     $objGameplay->isTransfered                = false;
+    $objGameplay->owner                       = $objRequestObject->owner;
 
     $objGameplay->creationDate                = date( "Y-m-d H:i:s" );
 
@@ -499,11 +531,26 @@ class Game extends BaseObject {
   public function archiveGame( object $objRequestObject ) : object {
     $strClass         = $objRequestObject->class;
     $strId            = $objRequestObject->id;
+    $strPlayerId      = $objRequestObject->playerId;
     $objGame          = new $strClass( $strId );
+    $objPlayer        = new Player( $strPlayerId );
+    $strPlayerRole    = $objPlayer->get( 'role' );
+    $strGameOwner     = $objGame->get( 'owner' );
     $strPathSource    = __DIR__ . '/../files/game/' . $strId . '/';
     $strPathArchive   = __DIR__ . '/../files/game/archive/';
     $strPathTarget    = __DIR__ . '/../files/game/archive/' . $strId . '/';
     $arrSourceFiles   = scandir( $strPathSource );
+
+    if( $strPlayerRole != 'administrator' ) {
+      if( ! isset( $strGameOwner ) || $strGameOwner != $strPlayerId ) {
+        $objError           = new stdClass();
+        $objError->message  = 'Zugriff verweigert';
+
+        array_push( $objRequestObject->controller->response->errors, $objError );
+
+        return $objRequestObject;
+      }
+    }
 
     if( ! file_exists( $strPathArchive ) ) mkdir( $strPathArchive );
     if( ! file_exists( $strPathTarget ) ) mkdir( $strPathTarget );

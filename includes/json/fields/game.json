@@ -35,6 +35,15 @@
     "readOnly": false,
     "position": 400
   },
+  "owner": {
+    "nameDe": "Eigentümer",
+    "element": "input",
+    "type": "text",
+    "unit": "",
+    "mandatory": true,
+    "readOnly": false,
+    "position": 450
+  },
   "player": {
     "nameDe": "Spieler",
     "element": "array",

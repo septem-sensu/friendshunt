@@ -295,6 +295,7 @@ class Player extends BaseObject {
 
     if( isset( $objController ) ) {
       $objController->setRole( $objAllPlayer->$strPlayerIdFromCookie->role );
+      $objController->setPlayerId( $strPlayerIdFromCookie );
       $objController->setObject( new Player( $strPlayerIdFromCookie ) );
     }
 
@@ -567,13 +568,22 @@ class Player extends BaseObject {
     $objRequestObject->archiveGames = new stdClass();
     $strArchiveDir                  = __DIR__ . '/../files/game/archive/';
     $arrGameArchiveDirs             = scandir( $strArchiveDir );
+    $strPlayerId                    = $this->getPlayerIdFromCookie();
+    $objPlayer                      = new Player( $strPlayerId );
+    $strPlayerRole                  = $objPlayer->get( 'role' );
 
     foreach( $arrGameArchiveDirs as $strGameId ) {
       $strPath = $strArchiveDir  . '/' . $strGameId . '/';
 
       if( ! is_dir( $strPath ) || $strGameId === '.' || $strGameId === '..' ) continue;
 
-      $objRequestObject->archiveGames->$strGameId = $this->loadFileDeCrypted( $strPath . 'dataGame.json' );
+      $objGame = $this->loadFileDeCrypted( $strPath . 'dataGame.json' );
+
+      if( $strPlayerRole != 'administrator' ) {
+         if( ! isset( $objGame->owner ) || $objGame->owner != $strPlayerId ) continue;
+      }
+
+      $objRequestObject->archiveGames->$strGameId = $objGame;
     }
 
     return $objRequestObject;
@@ -602,6 +612,18 @@ class Player extends BaseObject {
     $objGame               = BaseObject::loadFileDeCrypted( $strPathSource . 'dataGame.json' );
     $objGames->$strGameId  = $objGame;
     $arrSourceFiles        = scandir( $strPathSource );
+    $strPlayerRole         = $this->role;
+
+    if( $strPlayerRole != 'administrator' ) {
+      if( ! isset( $objGame->owner ) || $objGame->owner != $this->id() ) {
+        $objError           = new stdClass();
+        $objError->message  = 'Zugriff verweigert';
+
+        array_push( $objRequestObject->controller->response->errors, $objError );
+
+        return $objRequestObject;
+      }
+    }
 
     BaseObject::saveFileEnCrypted( __DIR__ . '/../json/data/dataGame.json', $objGames );
 
@@ -651,7 +673,22 @@ class Player extends BaseObject {
  *
 */
   public function deleteArchiveGame( object $objRequestObject ) : object {
-    $strGameId = $objRequestObject->gameId;
+    $strGameId      = $objRequestObject->gameId;
+    $strPlayerRole  = $this->role;
+
+    if( $strPlayerRole != 'administrator' ) {
+      $strPathSource  = __DIR__ . '/../files/game/archive/' . $strGameId . '/';
+      $objGame        = BaseObject::loadFileDeCrypted( $strPathSource . 'dataGame.json' );
+
+      if( ! isset( $objGame->owner ) || $objGame->owner != $this->id() ) {
+        $objError           = new stdClass();
+        $objError->message  = 'Zugriff verweigert';
+
+        array_push( $objRequestObject->controller->response->errors, $objError );
+
+        return $objRequestObject;
+      }
+    }
 
     $this->deleteDirectory( __DIR__ . '/../files/game/archive/' . $strGameId . '/' );
 

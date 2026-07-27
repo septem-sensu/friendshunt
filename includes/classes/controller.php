@@ -39,6 +39,7 @@ class Controller {
   protected object        $config;
   protected Presentation  $presentationObject;
   protected string        $role;
+  protected string        $playerId;
   protected object        $object;
   protected object        $response;
 
@@ -187,6 +188,27 @@ class Controller {
     $this->role = $strRole;
 
     $this->presentationObject->assignTemplateVar( 'role', 'Player', null, $strRole );
+
+    return;
+  }
+
+/**
+ * This Method is the setter for the Player Id of the current User.
+ *
+ * @access     public
+ * @since      2026-07-27
+ * @version    0.1.0
+ *
+ * @param      string   $strPlayerId  The current Player Id
+ * @return     void
+ *
+ * @example    $objController->setPlayerId( $strPlayerId );
+ *
+*/
+  public function setPlayerId( string $strPlayerId ) : void {
+    $this->playerId = $strPlayerId;
+
+    $this->presentationObject->assignTemplateVar( 'playerId', 'Player', null, $strPlayerId );
 
     return;
   }

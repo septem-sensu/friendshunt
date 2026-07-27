@@ -196,6 +196,11 @@ Search.appendIndex(
             "summary": "This\u0020Method\u0020is\u0020the\u0020setter\u0020for\u0020the\u0020System\u0020Role\u0020of\u0020the\u0020current\u0020User.",
             "url": "classes/Controller.html#method_setRole"
         },                {
+            "fqsen": "\\Controller\u003A\u003AsetPlayerId\u0028\u0029",
+            "name": "setPlayerId",
+            "summary": "This\u0020Method\u0020is\u0020the\u0020setter\u0020for\u0020the\u0020Player\u0020Id\u0020of\u0020the\u0020current\u0020User.",
+            "url": "classes/Controller.html#method_setPlayerId"
+        },                {
             "fqsen": "\\Controller\u003A\u003Aexecute\u0028\u0029",
             "name": "execute",
             "summary": "This\u0020Method\u0020is\u0020the\u0020Main\u0020Method\u0020of\u0020the\u0020Controller\u0020Class\u0020and\u0020controls\u0020the\u0020Requests\u0020and\u0020the\u0020Response.",
@@ -290,6 +295,11 @@ Search.appendIndex(
             "name": "role",
             "summary": "",
             "url": "classes/Controller.html#property_role"
+        },                {
+            "fqsen": "\\Controller\u003A\u003A\u0024playerId",
+            "name": "playerId",
+            "summary": "",
+            "url": "classes/Controller.html#property_playerId"
         },                {
             "fqsen": "\\Controller\u003A\u003A\u0024object",
             "name": "object",
@@ -495,6 +505,11 @@ Search.appendIndex(
             "name": "minimumDistancePlayer",
             "summary": "",
             "url": "classes/Game.html#property_minimumDistancePlayer"
+        },                {
+            "fqsen": "\\Game\u003A\u003A\u0024owner",
+            "name": "owner",
+            "summary": "",
+            "url": "classes/Game.html#property_owner"
         },                {
             "fqsen": "\\Gameplay",
             "name": "Gameplay",

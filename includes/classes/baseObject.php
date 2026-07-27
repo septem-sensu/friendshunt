@@ -132,6 +132,7 @@ class BaseObject {
 */
   public function get( string $strProperty ) {
     if( ! property_exists( $this->fields, $strProperty ) ) throw new Exception("Property not exists or protected");
+    if( ! isset( $this->$strProperty ) ) return null;
 
     return $this->$strProperty;
   }

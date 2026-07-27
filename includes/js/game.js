@@ -93,6 +93,7 @@ class Game extends BaseObject {
         const hunterHtmlObjects          = document.querySelectorAll('input[name="hunter-id"]');
         const managementHtmlObjects      = document.querySelectorAll('input[name="management-id"]');
         const post                       = { 'player': [], 'hunter': [], 'management': [], 'class': 'Game', 'method': 'saveNewGame' };
+        let   isOwnerInGame              = false;
 
         post.name                        = document.querySelector('#name') != null ? document.querySelector('#name').value : null;
         post.title                       = document.querySelector('#title') != null ? document.querySelector('#title').value : null;
@@ -111,6 +112,7 @@ class Game extends BaseObject {
         post.playingFieldCenterPosition  = document.querySelector('#playingFieldCenterPosition') != null ? document.querySelector('#playingFieldCenterPosition').value : null;
         post.playingFieldSize            = document.querySelector('#playingFieldSize') != null ? document.querySelector('#playingFieldSize').value : null;
         post.minimumDistancePlayer       = document.querySelector('#minimumDistancePlayer') != null ? document.querySelector('#minimumDistancePlayer').value : null;
+        post.owner                       = window[ appAlias ].id;
 
         if( playerHtmlObjects.length < 1 ) {
           this.validator.manageFormErrors( [ { 'field': '#search-player-field' } ] );
@@ -126,14 +128,27 @@ class Game extends BaseObject {
 
         for( let i = 0; i < playerHtmlObjects.length; i++ ) {
           post.player.push( playerHtmlObjects[ i ].value );
+          if( playerHtmlObjects[ i ].value === post.owner ) isOwnerInGame = true;
         }
 
         for( let i = 0; i < hunterHtmlObjects.length; i++ ) {
           post.hunter.push( hunterHtmlObjects[ i ].value );
+          if( hunterHtmlObjects[ i ].value === post.owner ) isOwnerInGame = true;
         }
 
         for( let i = 0; i < managementHtmlObjects.length; i++ ) {
           post.management.push( managementHtmlObjects[ i ].value );
+          if( managementHtmlObjects[ i ].value === post.owner ) isOwnerInGame = true;
+        }
+
+        if( ! isOwnerInGame ) {
+          this.validator.manageFormErrors( [
+            { 'field': '#search-player-field' },
+            { 'field': '#search-hunter-field' },
+            { 'field': '#search-management-field' }
+          ] );
+
+          return;
         }
 
         this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
@@ -330,7 +345,7 @@ class Game extends BaseObject {
       imageTrash.setAttribute( 'data-image-id', gameImages[ i ] );
 
       imageTrash.addEventListener( 'click', ( event ) => {
-        const post = { 'class': 'Game', 'method': 'deleteGameImage', 'id': window[ appAlias ].id };
+        const post = { 'class': 'Game', 'method': 'deleteGameImage', 'id': window[ appAlias ].id, 'playerId': window[ appAlias ].playerId };
 
         post.imageId  = event.target.getAttribute( 'data-image-id' );
 
@@ -350,7 +365,11 @@ class Game extends BaseObject {
         return;
       } );
 
-      if( typeof window[ appAlias ].systemRole !== 'string' || window[ appAlias ].systemRole !== 'administrator' ) imageTrash.classList.add( 'hidden' );
+      if( typeof window[ appAlias ].systemRole !== 'string' || window[ appAlias ].systemRole !== 'administrator' ) {
+        if( typeof window[ appAlias ].objects.game.owner !== 'string' || window[ appAlias ].objects.game.owner != window[ appAlias ].playerId ) {
+          imageTrash.classList.add( 'hidden' );
+        }
+      }
 
       imageTag.src         = 'includes/files/game/' + window[ appAlias ].id + '/' + gameImages[ i ];
       imageTrash.innerHTML = '<img src="includes/images/icon-trash.png" alt="Löschbutton" />';
@@ -437,7 +456,7 @@ class Game extends BaseObject {
   bringBackArchiveGame( element ) {
     const post  = { 'class': 'Player', 'id': window[ appAlias ].id, 'method': 'backFromArchiveGame' };
 
-    post.gameId = element.getAttribute( 'data-game-id' );
+    post.gameId   = element.getAttribute( 'data-game-id' );
 
     this.communicator.request( 'POST', { "result": "json", "view": window[ appAlias ].objects.view.alias }, post, 'processResponse' );
 

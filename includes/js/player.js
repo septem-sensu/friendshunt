@@ -428,6 +428,12 @@ class Player extends BaseObject {
       contentContainer.classList.add( this.cssContainerClasses[ i % this.cssContainerClasses.length ] );
       contentContainer.classList.add( 'align-left' );
       document.querySelector( '#game-content-container' ).append( contentContainer );
+
+      if( games[ i ].owner === window[ appAlias ].id ) {
+        contentContainer.querySelector( '.game-archive-button' ).classList.remove( 'hidden' );
+        contentContainer.querySelector( '.game-delete-button' ).classList.remove( 'hidden' );
+      }
+
     }
 
     this.unhideGameAdministratorButtons();
@@ -634,7 +640,7 @@ class Player extends BaseObject {
   archiveGame( element ) {
     const htmlGamesContainer = element.closest( '.content-container' );
     const gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
-    const post               = { 'class': 'Game', 'id': gameId, 'method': 'archiveGame', 'callbackMethod': 'processResponseArchiveGame' };
+    const post               = { 'class': 'Game', 'id': gameId, 'method': 'archiveGame', 'callbackMethod': 'processResponseArchiveGame', 'playerId': window[ appAlias ].id };
 
     if( typeof gameId !== 'string' || gameId == null ) return;
 
@@ -679,7 +685,7 @@ class Player extends BaseObject {
   deleteGame( element ) {
     const htmlGamesContainer = element.closest( '.content-container' );
     const gameId             = htmlGamesContainer.querySelector( 'input[name="game-id"]' ) != null ? htmlGamesContainer.querySelector( 'input[name="game-id"]' ).value : null;
-    const post               = { 'class': 'Game', 'id': gameId, 'method': 'deleteGame', 'callbackMethod': 'processResponseDeleteGame' };
+    const post               = { 'class': 'Game', 'id': gameId, 'method': 'deleteGame', 'callbackMethod': 'processResponseDeleteGame', 'playerId': window[ appAlias ].id };
 
     if( typeof gameId !== 'string' || gameId == null ) return;
 

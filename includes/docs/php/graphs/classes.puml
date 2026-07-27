@@ -44,6 +44,7 @@ class Controller {
   +config
   +presentationObject
   +role
+  +playerId
   +object
   +response
   +__construct()
@@ -53,6 +54,7 @@ class Controller {
   +getResultType()
   +setObject()
   +setRole()
+  +setPlayerId()
   +execute()
   +checkRole()
   +view()
@@ -87,6 +89,7 @@ class Game {
   +playingFieldSize
   +sanctionForVehicleUse
   +minimumDistancePlayer
+  +owner
   +addGameImage()
   +deleteGameImage()
   +avatarFileUploaded()
