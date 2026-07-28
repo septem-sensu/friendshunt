@@ -225,7 +225,7 @@ class Gameplay extends Game {
             $intViolationOfTheRulesAll++;
           }
 
-          if( $arrTracking[ $j ]->isDriven ) {
+          if( isset( $arrTracking[ $j ]->isDriven ) && $arrTracking[ $j ]->isDriven ) {
             $intDistanceDriven += $this->calcDistance( $arrTracking[ $j ]->lat, $arrTracking[ $j ]->lng, $arrTracking[ $j - 1 ]->lat, $arrTracking[ $j - 1 ]->lng );
           }
 

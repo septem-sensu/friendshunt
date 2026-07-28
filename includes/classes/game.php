@@ -285,6 +285,7 @@ class Game extends BaseObject {
     $arrStatisticProperties                   = Gameplay::STATISTICPROPERTIES;
     $strGameId                                = uniqid( 'game_', true );
     $objGame                                  = new Game( $strGameId );
+    $objOwnerPlayer                           = new Player( $objRequestObject->owner );
 
     $objRequestObject->redirect               = 'index.php?view=player';
     $strGameplayPath                          = __DIR__ . '/../files/game/' . $strGameId . '/';
@@ -352,11 +353,14 @@ class Game extends BaseObject {
           array_push( $arrGames, $strGameId );
           $objPlayer->set( 'games', $arrGames );
         }
+
+        if( $objRequestObject->emailInvitation == 'true' && $objPlayer->get( 'emailInvitation' ) == 'true' ) {
+          Game::sendEmailInvitation( $objRequestObject, $objPlayer, $objOwnerPlayer );
+        }
       }
     }
 
     $objRequestObject->avatar  = 'avatar.png';
-
 
     copy( __DIR__ . '/../images/favicons/friendshunt-app-icon-180x180.png', $strGameplayPath . 'avatar.png' );
     BaseObject::saveFileEnCrypted( $strGameplayPath . 'gameplay.json', $objGameplay );
@@ -366,6 +370,92 @@ class Game extends BaseObject {
     $objGame->set( 'id', $strGameId );
 
     return $objRequestObject;
+  }
+
+/**
+ * This static method sends a game invitation to a player with a date attached.
+ *
+ * @access     public
+ * @since      2026-07-27
+ * @version    0.1.0
+ *
+ * @param      object   $objRequestObject    The Ajax Request Object
+ * @param      Player   $objPlayer           The player object where the invitation should be sent
+ * @param      Player   $objOwnerPlayer      The player object that created the game
+ * @return     void
+ *
+ * @example    Game::sendEmailInvitation( $objRequestObject, $objPlayer, $objOwnerPlayer );
+ *
+*/
+  public static function sendEmailInvitation( object $objRequestObject, Player $objPlayer, Player $objOwnerPlayer ) : void {
+    $objConfig              = BaseObject::getConfig();
+    $arrCryptKeys           = BaseObject::getCryptKeys();
+    $intTimestampStart      = intval( $objRequestObject->start );
+    $intTimestampEnd        = $intTimestampStart + ( intval( $objRequestObject->duration ) * 60 * 60 );
+    $strTimezone            = date_default_timezone_get();
+
+    $arrCoords              = explode( ',', $objRequestObject->startPosition );
+    $strStartPosition       = trim( $arrCoords[ 0 ] ?? '' ) . ';' . trim( $arrCoords[ 1 ] ?? '' );
+    $strStartPositionLink   = 'https://www.google.com/maps/@' . $objRequestObject->startPosition . ',14z';
+
+    $objEmail               = new stdClass();
+    $objEmail->mailAddress  = $arrCryptKeys[ 'mailAddress' ];
+    $objEmail->to           = $objPlayer->get( 'email' );
+    $objEmail->subject      = $objConfig->appNameShort . ' - Einladung zu einem Spiel';
+
+    $strIcalDescription   = 'Wir wollen zusammen das Spiel: ' . $objRequestObject->name . ' spielen.' . "\n";
+    $strIcalDescription  .= 'Spielinformationen' . "\n";
+    $strIcalDescription  .= '- Spiel: ' . $objRequestObject->name . "\n";
+    $strIcalDescription  .= '- Start: ' . Presentation::timestampToString( $intTimestampStart ) . "\n";
+    $strIcalDescription  .= '- Dauer: ' . $objRequestObject->duration . ' Stunden' . "\n";
+    $strIcalDescription  .= '- Organisator: ' . $objOwnerPlayer->get( 'name' ) . '(' . $objOwnerPlayer->get( 'email' )  . ')' . "\n";
+    $strIcalDescription  .= '- Startpunkt / Treffpunkt: ' . $strStartPositionLink . "\n";
+    $strIcalDescription  .= '- Weitere Infos: ' . Presentation::getBaseUrl();
+
+    $strIcalContent         = 'BEGIN:VCALENDAR' . "\r\n";
+    $strIcalContent        .= 'VERSION:2.0' . "\r\n";
+    $strIcalContent        .= 'PRODID:-//' . Presentation::escapeIcalText( $objConfig->appNameShort ) . '//Termin//DE' . "\r\n";
+    $strIcalContent        .= 'METHOD:PUBLISH' . "\r\n";
+    $strIcalContent        .= 'BEGIN:VEVENT' . "\r\n";
+    $strIcalContent        .= 'UID:' . uniqid( '', true ) . '@' . $objConfig->appAlias . "\r\n";
+    $strIcalContent        .= 'DTSTAMP:' . gmdate( 'Ymd\THis\Z' ) . "\r\n";
+    $strIcalContent        .= 'DTSTART;TZID=' . $strTimezone . ':' . date( 'Ymd\THis', $intTimestampStart ) . "\r\n";
+    $strIcalContent        .= 'DTEND;TZID=' . $strTimezone . ':' . date( 'Ymd\THis', $intTimestampEnd ) . "\r\n";
+    $strIcalContent        .= 'SUMMARY:' . Presentation::escapeIcalText( $objConfig->appNameShort . ' Spiel' ) . "\r\n";
+    $strIcalContent        .= 'DESCRIPTION:' . Presentation::escapeIcalText( $strIcalDescription ) . "\r\n";
+    $strIcalContent        .= 'LOCATION:' . Presentation::escapeIcalText( $objRequestObject->startPosition ) . "\r\n";
+    $strIcalContent        .= 'GEO:' . $strStartPosition . "\r\n";
+    $strIcalContent        .= 'URL:' . Presentation::getBaseUrl() . "\r\n";
+    $strIcalContent        .= 'END:VEVENT' . "\r\n";
+    $strIcalContent        .= 'END:VCALENDAR';
+
+    $objEmail->message      = '--{{BOUNDARY}}' . "\r\n";
+    $objEmail->message     .= 'Content-Type: text/html; charset=utf-8' . "\r\n";
+    $objEmail->message     .= 'Content-Transfer-Encoding: 8bit' . "\r\n\r\n";
+    $objEmail->message     .= file_get_contents( __DIR__ . '/../templates/mail/invitation.tmpl' );
+    $objEmail->message     .= "\r\n";
+
+    $objEmail->message      = str_replace( '{{PLAYERNAME}}', htmlspecialchars( $objPlayer->get( 'name' ) ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{APPNAMESHORT}}', htmlspecialchars( $objConfig->appNameShort, ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{APPNAME}}', htmlspecialchars( $objConfig->appName, ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{OWNERNAME}}', htmlspecialchars( $objOwnerPlayer->get( 'name' ) ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{OWNEREMAIL}}', htmlspecialchars( $objOwnerPlayer->get( 'email' ) ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{GAMENAME}}', htmlspecialchars( $objRequestObject->name ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8' ),$objEmail->message );
+    $objEmail->message      = str_replace( '{{GAMEDATETIME}}', htmlspecialchars( Presentation::timestampToString( $intTimestampStart ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{GAMEDURATION}}', htmlspecialchars( $objRequestObject->duration . ' Stunden', ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{GAMESTARTLINK}}', htmlspecialchars( $strStartPositionLink, ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+    $objEmail->message      = str_replace( '{{APPLINK}}', htmlspecialchars( Presentation::getBaseUrl(), ENT_QUOTES | ENT_HTML5, 'UTF-8' ), $objEmail->message );
+
+    $objEmail->message     .= '--{{BOUNDARY}}' . "\r\n";
+    $objEmail->message     .= 'Content-Type: text/calendar; method=PUBLISH; name="einladung.ics"; charset=utf-8' . "\r\n";
+    $objEmail->message     .= 'Content-Disposition: attachment; filename="einladung.ics"' . "\r\n";
+    $objEmail->message     .= 'Content-Transfer-Encoding: 8bit' . "\r\n\r\n";
+    $objEmail->message     .= $strIcalContent . "\r\n";
+    $objEmail->message     .= '--{{BOUNDARY}}--' . "\r\n";
+
+    Presentation::sendHtmlMail( $objEmail, true );
+
+    return;
   }
 
 /**

@@ -97,6 +97,7 @@ class Game {
   +addGamePlayDataToGame()
   +deleteGame()
   +saveNewGame()
+  +sendEmailInvitation()
   +removePlayerProperties()
   +addPlayerToGame()
   +addHunterToGame()
@@ -154,6 +155,7 @@ class Player {
   +password
   +role
   +email
+  +emailInvitation
   +image
   +games
   +title
@@ -227,6 +229,7 @@ class Presentation {
   +logToFile()
   +shortText()
   +cleanId()
+  +escapeIcalText()
   +cors()
   +getJsonHeader()
   +getJavaScriptHeader()

@@ -297,6 +297,13 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
 <dd>This static Method delete the App Cookie.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Presentation.html#method_escapeIcalText">escapeIcalText()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>This static Method escapes a String for the Usage in a iCal TEXT Value.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Presentation.html#method_getBaseUrl">getBaseUrl()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -748,7 +755,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">469</span>
+    <span class="phpdocumentor-element-found-in__line">478</span>
 
     </aside>
 
@@ -844,7 +851,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">489</span>
+    <span class="phpdocumentor-element-found-in__line">523</span>
 
     </aside>
 
@@ -981,6 +988,104 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     
 
     
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_escapeIcalText">
+        escapeIcalText()
+        <a href="classes/Presentation.html#method_escapeIcalText" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">500</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This static Method escapes a String for the Usage in a iCal TEXT Value.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">escapeIcalText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$strValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <section class="phpdocumentor-description"><p>Escapes Backslash, Semicolon, Comma and Newlines for RFC 5545 Conformance.</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$strValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The String to escape</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Presentation.html#method_escapeIcalText#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>public</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-07-27</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>$strValue = Presentation::escapeIcalText( $strValue );</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>$strValue    The escaped String</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1367,7 +1472,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">542</span>
+    <span class="phpdocumentor-element-found-in__line">576</span>
 
     </aside>
 
@@ -1443,7 +1548,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">525</span>
+    <span class="phpdocumentor-element-found-in__line">559</span>
 
     </aside>
 
@@ -1595,7 +1700,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">425</span>
+    <span class="phpdocumentor-element-found-in__line">434</span>
 
     </aside>
 
@@ -1910,7 +2015,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">sendHtmlMail</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objEmail</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">sendHtmlMail</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objEmail</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boolMultipart</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1926,6 +2031,13 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
                     <section class="phpdocumentor-description"><p>The Standard Class Object with all E-Mail Parameters</p>
 </section>
 
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$boolMultipart</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
             </dl>
 
@@ -1990,7 +2102,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">450</span>
+    <span class="phpdocumentor-element-found-in__line">459</span>
 
     </aside>
 
@@ -2296,7 +2408,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/presentation.php"><a href="files/includes-classes-presentation.html"><abbr title="includes/classes/presentation.php">presentation.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">382</span>
+    <span class="phpdocumentor-element-found-in__line">391</span>
 
     </aside>
 
@@ -2610,6 +2722,7 @@ formatting Date Time and Timestamps, Cookie Management, short Text, Header and C
                                             <li class=""><a href="classes/Presentation.html#method_cleanId">cleanId()</a></li>
                                             <li class=""><a href="classes/Presentation.html#method_cors">cors()</a></li>
                                             <li class=""><a href="classes/Presentation.html#method_deleteCookie">deleteCookie()</a></li>
+                                            <li class=""><a href="classes/Presentation.html#method_escapeIcalText">escapeIcalText()</a></li>
                                             <li class=""><a href="classes/Presentation.html#method_getBaseUrl">getBaseUrl()</a></li>
                                             <li class=""><a href="classes/Presentation.html#method_getCookieProperty">getCookieProperty()</a></li>
                                             <li class=""><a href="classes/Presentation.html#method_getFileNamesFromDirectory">getFileNamesFromDirectory()</a></li>

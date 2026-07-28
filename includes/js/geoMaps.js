@@ -180,6 +180,7 @@ class GeoMaps {
         const lng = event.latlng.lng;
 
         document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
+        document.querySelector( selector ).dispatchEvent( new Event( 'change' ) );
       }
 
       return;
@@ -344,6 +345,7 @@ class GeoMaps {
         const lng = event.latlng.lng;
 
         document.querySelector( selector ).value = `${lat.toFixed( 6 )},${lng.toFixed( 6 )}`;
+        document.querySelector( selector ).dispatchEvent( new Event( 'change' ) );
       }
 
       if( this.marker[ id ] ) {
@@ -416,6 +418,7 @@ class GeoMaps {
           if( this.debug ) console.log( 'Radius: ' + radiusInMeters + ' Meter' );
 
           document.querySelector( selectorRadius ).value = Math.round( radiusInMeters );
+          document.querySelector( selectorRadius ).dispatchEvent( new Event( 'change' ) );
         }
       }
 

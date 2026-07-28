@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einladung zu einer {{APPNAMESHORT}} - Spielrunde</title>
+<style>
+body {
+background-color: #ffffff;
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+color: #000000;
+}
+.container {
+max-width: 600px;
+margin: 40px auto;
+background: #ffffff;
+border-radius: 12px;
+padding: 30px;
+}
+h1 {
+color: #2e4064;
+font-size: 22px;
+margin-bottom: 10px;
+}
+p {
+font-size: 16px;
+line-height: 1.6;
+}
+.button {
+display: inline-block;
+margin: 20px 0;
+padding: 12px 24px;
+background-color: #2e4064;
+color: #ffffff;
+text-decoration: none;
+border-radius: 8px;
+font-weight: bold;
+}
+.footer {
+font-size: 13px;
+color: #555555;
+text-align: center;
+margin-top: 30px;
+}
+p.smal-height {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Einladung zu einer {{APPNAMESHORT}} - Spielrunde</h1>
+<p>Hallo {{PLAYERNAME}},</p>
+<p>Du wurdest zu einer neuen {{APPNAMESHORT}} - Spielrunde eingeladen.</p>
+<p>Ein neues Abenteuer wartet auf dich – schnapp dir bequeme Schuhe, lade dein Smartphone auf und mach dich bereit für eine spannende Jagd!</p>
+<p><strong>Spielinformationen</strong></p>
+<p class="smal-height">- Spiel: {{GAMENAME}}</p>
+<p class="smal-height">- Start: {{GAMEDATETIME}}</p>
+<p class="smal-height">- Dauer: {{GAMEDURATION}}</p>
+<p class="smal-height">- Organisator: {{OWNERNAME}} (<a href="mailto:{{OWNEREMAIL}}">{{OWNEREMAIL}}</a>)</p>
+<p class="smal-height">- Startpunkt / Treffpunkt: <a href="{{GAMESTARTLINK}}">Google Maps Link</a></p>
+<p>Den Termin findest du zusätzlich als Kalendereintrag (iCalendar) im Anhang dieser E-Mail. Mit einem Klick kannst du ihn direkt in deinen Kalender übernehmen.</p>
+<p>Weitere Informationen, die Spielregeln sowie den aktuellen Status findest du jederzeit in der {{APPNAMESHORT}} - App oder <a href="{{APPLINK}}">hier</a>.</p>
+<p>Wir wünschen dir viel Spaß und eine erfolgreiche Jagd!</p>
+<p>Viele Grüße — <strong>{{OWNERNAME}} (<a href="mailto:{{OWNEREMAIL}}">{{OWNEREMAIL}}</a>)</strong></p>
+<div class="footer">
+{{APPNAME}}
+</div>
+</div>
+</body>
+</html>

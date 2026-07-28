@@ -351,6 +351,11 @@ Search.appendIndex(
             "summary": "This\u0020static\u0020Method\u0020save\u0020all\u0020Game\u0020Data\u0020for\u0020a\u0020new\u0020Game\u0020in\u0020a\u0020encrypted\u0020JSON\u0020File.",
             "url": "classes/Game.html#method_saveNewGame"
         },                {
+            "fqsen": "\\Game\u003A\u003AsendEmailInvitation\u0028\u0029",
+            "name": "sendEmailInvitation",
+            "summary": "This\u0020static\u0020method\u0020sends\u0020a\u0020game\u0020invitation\u0020to\u0020a\u0020player\u0020with\u0020a\u0020date\u0020attached.",
+            "url": "classes/Game.html#method_sendEmailInvitation"
+        },                {
             "fqsen": "\\Game\u003A\u003AremovePlayerProperties\u0028\u0029",
             "name": "removePlayerProperties",
             "summary": "This\u0020static\u0020Method\u0020converts\u0020a\u0020Player\u0020Object\u0020in\u0020a\u0020serialized\u0020Object\u0020and\u0020removes\u0020all\u0020not\u0020used\u0020Properties\u0020in\u0020the\u0020Game\u0020from\u0020the\u0020Object.",
@@ -821,6 +826,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Player.html#property_email"
         },                {
+            "fqsen": "\\Player\u003A\u003A\u0024emailInvitation",
+            "name": "emailInvitation",
+            "summary": "",
+            "url": "classes/Player.html#property_emailInvitation"
+        },                {
             "fqsen": "\\Player\u003A\u003A\u0024image",
             "name": "image",
             "summary": "",
@@ -1090,6 +1100,11 @@ Search.appendIndex(
             "name": "cleanId",
             "summary": "This\u0020Method\u0020cleaned\u0020a\u0020Id.",
             "url": "classes/Presentation.html#method_cleanId"
+        },                {
+            "fqsen": "\\Presentation\u003A\u003AescapeIcalText\u0028\u0029",
+            "name": "escapeIcalText",
+            "summary": "This\u0020static\u0020Method\u0020escapes\u0020a\u0020String\u0020for\u0020the\u0020Usage\u0020in\u0020a\u0020iCal\u0020TEXT\u0020Value.",
+            "url": "classes/Presentation.html#method_escapeIcalText"
         },                {
             "fqsen": "\\Presentation\u003A\u003Acors\u0028\u0029",
             "name": "cors",

@@ -112,6 +112,7 @@ class Game extends BaseObject {
         post.playingFieldCenterPosition  = document.querySelector('#playingFieldCenterPosition') != null ? document.querySelector('#playingFieldCenterPosition').value : null;
         post.playingFieldSize            = document.querySelector('#playingFieldSize') != null ? document.querySelector('#playingFieldSize').value : null;
         post.minimumDistancePlayer       = document.querySelector('#minimumDistancePlayer') != null ? document.querySelector('#minimumDistancePlayer').value : null;
+        post.emailInvitation             = document.querySelector('#emailInvitation') != null ? document.querySelector('#emailInvitation').value : null;
         post.owner                       = window[ appAlias ].id;
 
         if( playerHtmlObjects.length < 1 ) {

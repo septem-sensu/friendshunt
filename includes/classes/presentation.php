@@ -347,10 +347,17 @@ class Presentation {
  * @example    Presentation::sendHtmlMail( $objEmail );
  *
 */
-  public static function sendHtmlMail( object $objEmail ) : void {
+  public static function sendHtmlMail( object $objEmail, bool $boolMultipart ) : void {
     $arrHeader[] = 'MIME-Version: 1.0';
-    $arrHeader[] = 'Content-type: text/html; charset=utf-8';
     $arrHeader[] = 'From: ' . $objEmail->mailAddress;
+
+    if( $boolMultipart ) {
+      $strBoundary        = md5( uniqid( 'boundary', true ) );
+      $arrHeader[]        = "Content-Type: multipart/mixed; boundary=\"" . $strBoundary . "\"\r\n";
+      $objEmail->message  = str_replace( '{{BOUNDARY}}', $strBoundary, $objEmail->message );
+    } else {
+      $arrHeader[] = 'Content-type: text/html; charset=utf-8';
+    }
 
     if( isset( $objEmail->cc ) ) $arrHeader[] = 'Cc: ' . $objEmail->cc;
     if( isset( $objEmail->bcc ) ) $arrHeader[] = 'Bcc: ' . $objEmail->bcc;
@@ -360,7 +367,9 @@ class Presentation {
     $strCleanEmail    = isset( $arrMatches[ 0 ] ) ? $arrMatches[ 0 ] : $objEmail->mailAddress;
     $strEnvelopeFrom  = '-f ' . $strCleanEmail;
 
-    mail( $objEmail->to, $objEmail->subject, $objEmail->message, implode( "\r\n", $arrHeader ), $strEnvelopeFrom );
+    $boolSent = mail( $objEmail->to, $objEmail->subject, $objEmail->message, implode( "\r\n", $arrHeader ), $strEnvelopeFrom );
+
+    if( ! $boolSent ) Presentation::logToFile( 'Mail Versand fehlgeschlagen: To=' . $objEmail->to . ' | Subject=' . $objEmail->subject );
 
     return;
   }
@@ -472,6 +481,31 @@ class Presentation {
     $strContent = str_replace( ' ', '_', $strContent );
 
     return $strContent;
+  }
+
+/**
+ * This static Method escapes a String for the Usage in a iCal TEXT Value.
+ * Escapes Backslash, Semicolon, Comma and Newlines for RFC 5545 Conformance.
+ *
+ * @access     public
+ * @since      2026-07-27
+ * @version    0.1.0
+ *
+ * @param      string    $strValue    The String to escape
+ * @return     string    $strValue    The escaped String
+ *
+ * @example    $strValue = Presentation::escapeIcalText( $strValue );
+ *
+*/
+  public static function escapeIcalText( ?string $strValue ) : string {
+    $strValue = $strValue ?? '';
+    $strValue = str_replace( '\\', '\\\\', $strValue );
+    $strValue = str_replace( ';',  '\\;',  $strValue );
+    $strValue = str_replace( ',',  '\\,',  $strValue );
+    $strValue = str_replace( "\n", '\\n',  $strValue );
+    $strValue = str_replace( "\r", '',     $strValue );
+
+    return $strValue;
   }
 
 /**

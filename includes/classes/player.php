@@ -29,6 +29,7 @@ class Player extends BaseObject {
   protected string $password;
   protected string $role;
   protected string $email;
+  protected string $emailInvitation              = 'false';
   protected string $image;
   protected array  $games                        = [];
   protected string $title;
@@ -169,7 +170,7 @@ class Player extends BaseObject {
     $objRequestObject->redirect     = '?view=registerSuccess';
 
     BaseObject::saveFileEnCrypted( BaseObject::FILEPATHJSON . 'data/dataRegister.json', $objRegisteredPlayer );
-    Presentation::sendHtmlMail( $objEmail );
+    Presentation::sendHtmlMail( $objEmail, false );
 
     return $objRequestObject;
   }
@@ -213,8 +214,9 @@ class Player extends BaseObject {
     if( ! isset( $objPlayer ) || $objPlayer->password != $strPassword ) $boolHasErrors = true;
 
     if( ! $boolHasErrors ) {
-      $objPlayer->created      = time();
-      $objAllPlayer->$strEmail = $objPlayer;
+      $objPlayer->created         = time();
+      $objPlayer->emailInvitation = 'false';
+      $objAllPlayer->$strEmail    = $objPlayer;
 
       if( ! file_exists( __DIR__ . '/../files/player/' ) ) mkdir( __DIR__ . '/../files/player' );
       if( ! file_exists( __DIR__ . '/../files/player/' . $strEmail ) ) mkdir( __DIR__ . '/../files/player/' . $strEmail );

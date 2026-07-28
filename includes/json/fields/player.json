@@ -18,6 +18,19 @@
     "readOnly": true,
     "position": 200
   },
+  "emailInvitation": {
+    "nameDe": "E-Mail Einladung erlaubt",
+    "element": "select",
+    "type": "text",
+    "options": {
+      "true": "Ja",
+      "false": "Nein"
+    },
+    "readOnly": false,
+    "mandatory": false,
+    "unit": "",
+    "position": 250
+  },
   "name": {
     "nameDe": "Spielername",
     "element": "input",

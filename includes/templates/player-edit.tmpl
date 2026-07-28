@@ -49,6 +49,12 @@
       </select>
       <label class="mw-200" for="title">Title </label>
       <input autocomplete="title" class="mb-10 mt-5 w-350 suggest-player-title" title="? für einen Titel Vorschlag" type="text" name="title" id="title" placeholder="Eingabe Title" value="{{Player::title}}" />
+      <label class="mw-200" for="emailInvitation">E-Mail Einladungen erlauben</label>
+      <select class="mb-10 mt-5 w-375" name="emailInvitation" id="emailInvitation">
+        <option value="{{Player::emailInvitation}}">{{Translate::Player::emailInvitation}}</option>
+        <option value="true">Ja</option>
+        <option value="false">Nein</option>
+      </select>
       <label class="mw-200" for="description">Beschreibung</label>
       <textarea autocomplete="description" class="mb-8 mt-5 h-60 w-260" name="description" id="description" placeholder="Eingabe Beschreibung">{{Player::description}}</textarea>
       <label class="mw-200" for="themes">Theme</label>

@@ -796,6 +796,13 @@ The Gameplay Class controls the complete Gameplay with Tracking and save all Inf
 <dd>This Method set the Parameters to the Object and saved the handed over Files.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/Game.html#method_sendEmailInvitation">sendEmailInvitation()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>This static method sends a game invitation to a player with a date attached.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/BaseObject.html#method_serializeObject">serializeObject()</a>
     <span>
                                 &nbsp;: object    </span>
@@ -2976,7 +2983,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">440</span>
+    <span class="phpdocumentor-element-found-in__line">530</span>
 
     </aside>
 
@@ -3072,7 +3079,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">470</span>
+    <span class="phpdocumentor-element-found-in__line">560</span>
 
     </aside>
 
@@ -3168,7 +3175,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">410</span>
+    <span class="phpdocumentor-element-found-in__line">500</span>
 
     </aside>
 
@@ -3264,7 +3271,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">531</span>
+    <span class="phpdocumentor-element-found-in__line">621</span>
 
     </aside>
 
@@ -4713,7 +4720,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">587</span>
+    <span class="phpdocumentor-element-found-in__line">677</span>
 
     </aside>
 
@@ -6063,7 +6070,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">384</span>
+    <span class="phpdocumentor-element-found-in__line">474</span>
 
     </aside>
 
@@ -6521,6 +6528,112 @@ client timestamp is within a certain tolerance.</dd>
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_sendEmailInvitation">
+        sendEmailInvitation()
+        <a href="classes/Game.html#method_sendEmailInvitation" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">390</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This static method sends a game invitation to a player with a date attached.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">sendEmailInvitation</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objRequestObject</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Player.html"><abbr title="\Player">Player</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objPlayer</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Player.html"><abbr title="\Player">Player</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$objOwnerPlayer</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objRequestObject</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The Ajax Request Object</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objPlayer</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Player.html"><abbr title="\Player">Player</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The player object where the invitation should be sent</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$objOwnerPlayer</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Player.html"><abbr title="\Player">Player</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The player object that created the game</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Game.html#method_sendEmailInvitation#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">access</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>public</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">2026-07-27</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">version</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">0.1.0</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Game::sendEmailInvitation( $objRequestObject, $objPlayer, $objOwnerPlayer );</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+    
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_serializeObject">
@@ -6712,7 +6825,7 @@ client timestamp is within a certain tolerance.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="includes/classes/game.php"><a href="files/includes-classes-game.html"><abbr title="includes/classes/game.php">game.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">500</span>
+    <span class="phpdocumentor-element-found-in__line">590</span>
 
     </aside>
 
@@ -9230,6 +9343,7 @@ client timestamp is within a certain tolerance.</p>
                                             <li class=""><a href="classes/Game.html#method_saveNewGame">saveNewGame()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_saveObject">saveObject()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_saveRequestObject">saveRequestObject()</a></li>
+                                            <li class=""><a href="classes/Game.html#method_sendEmailInvitation">sendEmailInvitation()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_serializeObject">serializeObject()</a></li>
                                             <li class=""><a href="classes/BaseObject.html#method_set">set()</a></li>
                                             <li class=""><a href="classes/Game.html#method_setPlayerIdToTemplate">setPlayerIdToTemplate()</a></li>
