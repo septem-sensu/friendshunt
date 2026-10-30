@@ -8,6 +8,8 @@ test.php
 .fiveserverrc
 notes.txt
 .config.php
+.htaccess
+.htpasswd
 
 includes/json/data/dataGame.*
 includes/json/data/dataPlayer.*
@@ -19,4 +21,6 @@ includes/files/game/*
 includes/files/game/archive/*
 !includes/files/game/.gitkeep
 !includes/files/game/archive/.gitkeep
+.vscode/*
+.logs-virtuell/*
 
